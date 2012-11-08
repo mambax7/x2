@@ -1,0 +1,28 @@
+<div class="oledrion">
+	<!-- Created by Hervé Thouzard (http://www.herve-thouzard.com/) -->
+	<div class="breadcrumb"><{$breadcrumb}></div>
+	<{if $global_advert != ''}>
+		<div class='global_advert center'><{$global_advert}></div>
+	<{/if}>
+	
+	<h2><{$smarty.const._OLEDRION_VALIDATE_CMD}></h2>
+
+	<{if $text != '' }>
+		<div class="pad2">
+		<{if is_array($text)}>
+			<{foreach item=line from=$text}>
+				<div class="pad2"><{$line}></div>
+			<{/foreach}>
+		<{else}>
+			<{$text}>
+		<{/if}>
+		</div>
+
+	<{/if}>
+	<{$form}>
+	<{if $op == 'gateway'}>
+		<div class="center bold"><{$smarty.const._OLEDRION_DETAILS_EMAIL}></div>
+	<{else}>
+		<div class="center bold"><{$smarty.const._OLEDRION_REQUIRED}></div>
+	<{/if}>
+</div>
