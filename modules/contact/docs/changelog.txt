@@ -1,0 +1,14 @@
+Version 1.80 from 2012-1-19 
+=================================
+- Rebuild Module (Voltan)
+
+Version 1.71 from 2011-12-12 
+=================================
+- converted to XOOPS Standard Module GUI (Mamba)
+- included ModuleAdmin class from (Mage)
+
+Version 1.70 from 11-08-2010 
+=================================
+- added 2.4.x compatibilty (Trabis)
+- added php5.3 compatibilty (Trabis)
+- added error checking while sending emails (Trabis)
