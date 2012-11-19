@@ -103,15 +103,17 @@ switch ($op)
 		$sform = new XoopsThemeForm(_OLEDRION_PLEASE_ENTER, "informationfrm", OLEDRION_URL.'checkout.php', 'post');
 		$sform->addElement(new XoopsFormHidden('op', 'gateway'));
 		$sform->addElement(new XoopsFormLabel(_OLEDRION_TOTAL, $oledrion_Currency->amountForDisplay($commandAmountTTC)));
-		$sform->addElement(new XoopsFormLabel(_OLEDRION_SHIPPING_PRICE, $oledrion_Currency->amountForDisplay($shippingAmount)));
+		//$sform->addElement(new XoopsFormLabel(_OLEDRION_SHIPPING_PRICE, $oledrion_Currency->amountForDisplay($shippingAmount)));
 		$sform->addElement(new XoopsFormText(_OLEDRION_LASTNAME,'cmd_lastname',50,255, $commande->getVar('cmd_lastname', 'e')), true);
 		$sform->addElement(new XoopsFormText(_OLEDRION_FIRSTNAME,'cmd_firstname',50,255, $commande->getVar('cmd_firstname','e')), false);
 		$sform->addElement(new XoopsFormTextArea(_OLEDRION_STREET,'cmd_adress', $commande->getVar('cmd_adress','e'), 3, 50), true);
 		$sform->addElement(new XoopsFormText(_OLEDRION_CP,'cmd_zip',5,30, $commande->getVar('cmd_zip', 'e')), true);
 		$sform->addElement(new XoopsFormText(_OLEDRION_CITY,'cmd_town',40,255, $commande->getVar('cmd_town', 'e')), true);
-		$countriesList = new XoopsFormSelect(_OLEDRION_COUNTRY, 'cmd_country', $commande->getVar('cmd_country',' e'));
-		$countriesList->addOptionArray($countries);
-		$sform->addElement($countriesList, true);
+		
+		//$countriesList = new XoopsFormSelect(_OLEDRION_COUNTRY, 'cmd_country', $commande->getVar('cmd_country',' e'));
+		//$countriesList->addOptionArray($countries);
+		//$sform->addElement($countriesList, true);
+		$sform->addElement(new XoopsFormHidden('cmd_country', 'IR'));
 
 		$sform->addElement(new XoopsFormText(_OLEDRION_PHONE,'cmd_telephone',15,50, $commande->getVar('cmd_telephone', 'e')), false);
 		if($uid > 0) {
@@ -178,7 +180,20 @@ switch ($op)
 			$panier->setVar('caddy_cmd_id', $commande->getVar('cmd_id'));
 			$panier->setVar('caddy_shipping', oledrion_utils::formatFloatForDB($line['discountedShipping']));
 			$panier->setVar('caddy_pass', md5(xoops_makepass()));	// Pour le téléchargement
-			$msgCommande .= str_pad(wordwrap($line['product_title'], 60), 60, ' ').' '.str_pad($line['product_qty'],8, ' ', STR_PAD_LEFT).' '.str_pad($line['totalPriceFormated'],10,' ',STR_PAD_LEFT).' '.str_pad($line['discountedShipping'],10,' ',STR_PAD_LEFT)."\n";
+			
+			
+			// Start Edit by voltan
+			// Get cat title
+			$cat = $h_oledrion_cat->get($line['product_cid'])->toArray();
+			// Make msg
+			$msgCommande .= str_pad($line['product_id'],5,' ') . ' ';
+			$msgCommande .= str_pad($cat['cat_title'],10,' ', STR_PAD_LEFT) . ' ';
+			$msgCommande .= str_pad($line['product_title'],19,' ', STR_PAD_LEFT) . ' ';
+			$msgCommande .= str_pad($line['product_qty'],8, ' ', STR_PAD_LEFT) . ' ';
+			$msgCommande .= str_pad($oledrion_Currency->amountForDisplay($line['product_price']),15, ' ', STR_PAD_LEFT) . ' ';
+			//$msgCommande .= str_pad($line['totalPriceFormated'],10,' ', STR_PAD_LEFT) . ' ';
+			$msgCommande .= "\n";
+			
 			$res = $h_oledrion_caddy->insert($panier, true);
 			// Attributs
             if($res && is_array($line['attributes']) && count($line['attributes']) > 0) {
@@ -199,13 +214,15 @@ switch ($op)
             }
 		}
 		// Totaux généraux
-		$msgCommande .= "\n\n"._OLEDRION_SHIPPING_PRICE.' '.$oledrion_Currency->amountForDisplay($shippingAmount)."\n";
-		$msgCommande .= _OLEDRION_TOTAL." ".$oledrion_Currency->amountForDisplay($commandAmountTTC)."\n";
+		//$msgCommande .= "\n\n"._OLEDRION_SHIPPING_PRICE.' '.$oledrion_Currency->amountForDisplay($shippingAmount)."\n";
+		$msgCommande .= "\n\n" . _OLEDRION_TOTAL." ".$oledrion_Currency->amountForDisplay($commandAmountTTC)."\n";
 		if(count($discountsDescription) > 0) {
 			$msgCommande .= "\n\n"._OLEDRION_CART4."\n";
 			$msgCommande .= implode("\n",$discountsDescription);
 			$msgCommande .= "\n";
 		}
+		// End Edit by voltan
+		
 		$msg = array();
 		$msg['COMMANDE'] = $msgCommande;
 		$msg['NUM_COMMANDE'] = $commande->getVar('cmd_id');
