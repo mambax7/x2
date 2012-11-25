@@ -175,8 +175,88 @@ switch($op) {
 				 }			 
 				 //}
 			 }	
-			 $return = json_encode($results); 
+			 $return = json_encode($results);
 		 }  
+	    break;
+	// Product output as json    
+	case 'product': 
+	    $start = intval($_GET['start']);
+	    $limit = intval($_GET['limit']);
+       if(isset($start) && $start != '') {
+			$oledrion_shelf_parameters->resetDefaultValues()->setProductsType('recent')->setStart($start)->setLimit($limit)->setSort('product_submitted ASC, product_id');
+	      $products = $oledrion_shelf->getProducts($oledrion_shelf_parameters);
+			unset($products['lastTitle']);
+			$l = $start + $limit;
+			for ($s = 0; $s <= $l; $s++) {
+	         unset(
+					$products[$s]['product_sku'], 
+					$products[$s]['product_extraid'], 
+					$products[$s]['product_width'],
+					$products[$s]['product_length'],
+					$products[$s]['product_unitmeasure1'],
+					$products[$s]['product_url'],
+					$products[$s]['product_submitter'],
+					$products[$s]['product_online'],
+					$products[$s]['product_date'],
+					$products[$s]['product_hits'],
+					$products[$s]['product_rating'],
+					$products[$s]['product_votes'],
+					$products[$s]['product_comments'],
+					$products[$s]['product_price'],
+					$products[$s]['product_shipping_price'],
+					$products[$s]['product_discount_price'],
+					$products[$s]['product_stock'],
+					$products[$s]['product_alert_stock'],
+					$products[$s]['product_attachment'],
+					$products[$s]['product_weight'],
+					$products[$s]['product_unitmeasure2'],
+					$products[$s]['product_vat_id'],
+					$products[$s]['product_download_url'], 
+					$products[$s]['product_recommended'],
+					$products[$s]['product_metakeywords'],
+					$products[$s]['product_metadescription'], 
+					$products[$s]['product_metatitle'],
+					$products[$s]['product_delivery_time'],
+					$products[$s]['product_ecotaxe'],
+					$products[$s]['dohtml'],
+					$products[$s]['product_ecotaxe_formated'],
+					$products[$s]['product_price_formated'],
+					$products[$s]['product_shipping_price_formated'],
+					$products[$s]['product_discount_price_formated'],
+					$products[$s]['product_price_ttc'],
+					$products[$s]['product_price_ttc_long'],
+					$products[$s]['product_discount_price_ttc'],
+					$products[$s]['product_discount_price_ttc_long'],
+					$products[$s]['product_attributes_count'],
+					$products[$s]['product_final_price_ht_formated_long'],
+					$products[$s]['product_final_price_ttc'],
+					$products[$s]['product_final_price_ttc_javascript'], 
+					$products[$s]['product_final_price_ttc_formated'],
+					$products[$s]['product_final_price_ttc_formated_long'],
+					$products[$s]['product_vat_amount_formated_long'],
+					$products[$s]['product_tooltip'],
+					$products[$s]['product_href_title'],
+					$products[$s]['product_recommended_picture'],
+					$products[$s]['product_shorten_summary'],
+					$products[$s]['product_shorten_description'],
+					$products[$s]['product_vendor'],
+					$products[$s]['product_count'],
+					$products[$s]['product_property5'],
+					$products[$s]['product_thumb_full_path'],
+					$products[$s]['product_image_full_path'],
+					$products[$s]['product_vendor_id'],
+               $products[$s]['product_image_url'],
+               $products[$s]['product_thumb_url'],
+               $products[$s]['product_summary']
+				);
+		   }
+		   if(empty($products)) {
+		   	$products['end'] = 1;
+		   }
+		   //echo '<pre>';
+		   //print_r($products);
+       	$return = json_encode($products);
+       }	
 	    break;
 }
 echo $return;
