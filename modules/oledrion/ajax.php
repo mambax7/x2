@@ -253,10 +253,39 @@ switch($op) {
 		   if(empty($products)) {
 		   	$products['end'] = 1;
 		   }
-		   //echo '<pre>';
-		   //print_r($products);
        	$return = json_encode($products);
        }	
+	    break;
+	// Product output as json    
+	case 'category':
+	    $start = intval($_GET['start']);
+       if(isset($start) && $start != '') {
+	       $ret = array ();
+			 $criteria = new CriteriaCompo();
+			 $criteria->setStart($start);
+			 $criteria->setSort('cat_cid');
+		    $criteria->setOrder('ASC' );
+			 $obj = $h_oledrion_cat->getObjects($criteria, false);
+			 if ($obj) {
+				 foreach ($obj as $root) {
+					 $tab = array();
+					 $tab = $root->toArray();
+					 unset(
+						 $tab['cat_description'],
+						 $tab['cat_imgurl'],
+						 $tab['cat_advertisement'],
+						 $tab['cat_metakeywords'],
+						 $tab['cat_metadescription'],
+						 $tab['cat_metatitle'],
+						 $tab['cat_footer'],
+						 $tab['dohtml'],
+						 $tab['cat_href_title']
+					 );
+					 $ret[] = $tab;
+				 }	
+			 }
+	       $return = json_encode($ret); 
+       }
 	    break;
 }
 echo $return;
