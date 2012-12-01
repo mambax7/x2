@@ -144,7 +144,7 @@ switch($op) {
 			 while ($row = $xoopsDB->fetchArray($result)) {
 				 $items[$i]['title'] = $row['title'];
 				 $items[$i]['type'] = 'cat';
-				 $items[$i]['link'] = XOOPS_URL . '/mmodules/oledrion/manufacturer.php?manu_id=' . $row['id'];
+				 $items[$i]['link'] = XOOPS_URL . '/modules/oledrion/manufacturer.php?manu_id=' . $row['id'];
 				 $items[$i]['image'] = XOOPS_URL . '/uploads/' . $row['image'];
 				 $items[$i]['price'] = '';
 				 $i++;
@@ -189,6 +189,11 @@ switch($op) {
 			$l = $start + $limit;
 			for ($s = 0; $s <= $l; $s++) {
 	         unset(
+					$products[$s]['product_category'],
+					$products[$s]['product_image_full_url'],
+					$products[$s]['product_thumb_full_url'],
+					$products[$s]['product_manufacturers'],
+					$products[$s]['product_joined_manufacturers'],
 					$products[$s]['product_sku'], 
 					$products[$s]['product_extraid'], 
 					$products[$s]['product_width'],
@@ -245,9 +250,8 @@ switch($op) {
 					$products[$s]['product_thumb_full_path'],
 					$products[$s]['product_image_full_path'],
 					$products[$s]['product_vendor_id'],
-               $products[$s]['product_image_url'],
-               $products[$s]['product_thumb_url'],
-               $products[$s]['product_summary']
+               $products[$s]['product_summary'],
+               $products[$s]['product_url_rewrited']
 				);
 		   }
 		   if(empty($products)) {
@@ -272,14 +276,15 @@ switch($op) {
 					 $tab = $root->toArray();
 					 unset(
 						 $tab['cat_description'],
-						 $tab['cat_imgurl'],
+						 $tab['cat_full_imgurl'],
 						 $tab['cat_advertisement'],
 						 $tab['cat_metakeywords'],
 						 $tab['cat_metadescription'],
 						 $tab['cat_metatitle'],
 						 $tab['cat_footer'],
 						 $tab['dohtml'],
-						 $tab['cat_href_title']
+						 $tab['cat_href_title'],
+						 $tab['cat_url_rewrited']
 					 );
 					 $ret[] = $tab;
 				 }	
