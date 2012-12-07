@@ -672,6 +672,44 @@ class NewsStoryHandler extends XoopsPersistableObjectHandler {
 		}
 		return $ret;
 	}
+	
+	/*
+	 *
+	 *
+	 */
+	function News_Json($NewsModule, $story_infos) {
+		$ret = array ();
+      $access_topic = NewsPermission::News_GetItemIds ( 'news_view', $NewsModule);
+		if(in_array($story_infos['story_topic'], $access_topic)) {
+			$criteria = new CriteriaCompo ();
+	      //$criteria->add ( new Criteria ( 'story_id', $story_infos['story_id'] , '>=' ));
+	      $criteria->add ( new Criteria ( 'story_topic', $story_infos['story_topic'] ) );
+			$criteria->add ( new Criteria ( 'story_modid', $NewsModule->getVar ( 'mid' ) ) );
+			$criteria->add ( new Criteria ( 'story_status', '1' ) );
+	      $criteria->add ( new Criteria ( 'story_publish', 0 , '>' ));
+			$criteria->add ( new Criteria ( 'story_publish', time() , '<=' ));
+			$criteria->add ( new Criteria ( 'story_expire', 0 ));
+			$criteria->add ( new Criteria ( 'story_expire', time() , '>' ) ,'OR');
+	   	$criteria->setSort ( 'story_publish' );
+			$criteria->setOrder ( 'DESC' );
+			$criteria->setLimit ( $story_infos ['story_limit'] );
+			$obj = $this->getObjects ( $criteria, false );
+			if ($obj) {	
+			   foreach ( $obj as $root ) {
+					$tab = array ();
+					$tab = $root->toArray ();
+					$json['story_id'] = $tab['story_id'];
+					$json['story_title'] = $tab['story_title'];
+					$json['story_alias'] = $tab['story_alias'];
+					$json['story_publish'] = $tab['story_publish'];
+					unset($tab);
+					$ret[] = $json;
+				}
+			}
+		}	
+		return json_encode($ret);
+	} 
+	
 	/**
 	 * Get Content Count for user side
 	 * use in homepage function in NewsUtils class
