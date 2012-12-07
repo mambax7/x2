@@ -266,28 +266,21 @@ switch($op) {
        if(isset($start) && $start != '') {
 	       $ret = array ();
 			 $criteria = new CriteriaCompo();
-			 $criteria->setStart($start);
+			 $criteria->add(new Criteria('cat_cid', $start , '>=' ));
 			 $criteria->setSort('cat_cid');
-		    $criteria->setOrder('ASC' );
-			 $obj = $h_oledrion_cat->getObjects($criteria, false);
+			 $criteria->setOrder('DESC');
+			  $obj = $h_oledrion_cat->getObjects($criteria, false);
 			 if ($obj) {
 				 foreach ($obj as $root) {
 					 $tab = array();
 					 $tab = $root->toArray();
-					 unset(
-						 $tab['cat_description'],
-						 $tab['cat_full_imgurl'],
-						 $tab['cat_advertisement'],
-						 $tab['cat_metakeywords'],
-						 $tab['cat_metadescription'],
-						 $tab['cat_metatitle'],
-						 $tab['cat_footer'],
-						 $tab['dohtml'],
-						 $tab['cat_href_title'],
-						 $tab['cat_url_rewrited']
-					 );
-					 $ret[] = $tab;
-				 }	
+					 $json['cat_cid'] = $tab['cat_cid'];
+					 $json['cat_pid'] = $tab['cat_pid'];
+					 $json['cat_title'] = $tab['cat_title'];
+					 $json['cat_imgurl'] = $tab['cat_imgurl'];
+					 unset($tab);
+					 $ret[] = $json;
+				 }
 			 }
 	       $return = json_encode($ret); 
        }
