@@ -2,7 +2,7 @@
 /**
  * ****************************************************************************
  * oledrion - MODULE FOR XOOPS
- * Copyright (c) Hervé Thouzard (http://www.herve-thouzard.com/)
+ * Copyright (c) HervÃ© Thouzard (http://www.herve-thouzard.com/)
  *
  * You may not change or alter any portion of this comment or credits
  * of supporting developers from this source code or any supporting source code
@@ -11,10 +11,10 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  *
- * @copyright       Hervé Thouzard (http://www.herve-thouzard.com/)
+ * @copyright       HervÃ© Thouzard (http://www.herve-thouzard.com/)
  * @license         http://www.fsf.org/copyleft/gpl.html GNU public license
  * @package         oledrion
- * @author 			Hervé Thouzard (http://www.herve-thouzard.com/)
+ * @author 			HervÃ© Thouzard (http://www.herve-thouzard.com/)
  *
  * Version : $Id:
  * ****************************************************************************
@@ -29,7 +29,7 @@ require_once XOOPS_ROOT_PATH.'/class/template.php';
 if(oledrion_utils::getModuleOption('use_rss') == 0) {
 	exit;
 }
-// Paramètre, soit rien auquel cas on prend tous les produits récents soit cat_cid
+// ParamÃ¨tre, soit rien auquel cas on prend tous les produits rÃ©cents soit cat_cid
 $cat_cid = isset($_GET['cat_cid']) ? intval($_GET['cat_cid']) : 0;
 if (function_exists('mb_http_output')) {
 	mb_http_output('pass');

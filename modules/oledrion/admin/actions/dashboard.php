@@ -2,7 +2,7 @@
 /**
  * ****************************************************************************
  * oledrion - MODULE FOR XOOPS
- * Copyright (c) Hervé Thouzard (http://www.herve-thouzard.com/)
+ * Copyright (c) HervÃ© Thouzard (http://www.herve-thouzard.com/)
  *
  * You may not change or alter any portion of this comment or credits
  * of supporting developers from this source code or any supporting source code
@@ -11,10 +11,10 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  *
- * @copyright       Hervé Thouzard (http://www.herve-thouzard.com/)
+ * @copyright       HervÃ© Thouzard (http://www.herve-thouzard.com/)
  * @license         http://www.fsf.org/copyleft/gpl.html GNU public license
  * @package         oledrion
- * @author 			Hervé Thouzard (http://www.herve-thouzard.com/)
+ * @author 			HervÃ© Thouzard (http://www.herve-thouzard.com/)
  *
  * Version : $Id:
  * ****************************************************************************
@@ -29,13 +29,16 @@ switch($action) {
 	case 'default':	// Affichage du dashboard
 	// ****************************************************************************************************************
 		xoops_cp_header();
-        oledrion_adminMenu(0);
+      oledrion_adminMenu(0);
 		oledrion_utils::htitle(_MI_OLEDRION_ADMENU10, 4);
-		$itemsCount = 5;	// Nombre d'éléments à afficher
+		$indexAdmin = new ModuleAdmin();
+      echo $indexAdmin->addNavigation('index.php');
+      echo $indexAdmin->renderIndex();
+		$itemsCount = 5;	// Nombre d'Ã©lÃ©ments Ã  afficher
 		if($h_oledrion_products->getCount() > 0) {
 			echo "<table border='0' width='100%' cellpadding='2' cellspacing='2'>";
 			echo "<tr>\n";
-			// Dernières commandes ************************************************
+			// DerniÃ¨res commandes ************************************************
 			echo "<td valign='top' width='50%' align='center'><b>"._AM_OLEDRION_LAST_ORDERS."</b>";
 			$tblTmp = array();
 			$criteria = new CriteriaCompo();

@@ -2,7 +2,7 @@
 /**
  * ****************************************************************************
  * oledrion - MODULE FOR XOOPS
- * Copyright (c) Hervé Thouzard (http://www.herve-thouzard.com/)
+ * Copyright (c) HervÃ© Thouzard (http://www.herve-thouzard.com/)
  *
  * You may not change or alter any portion of this comment or credits
  * of supporting developers from this source code or any supporting source code
@@ -11,10 +11,10 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  *
- * @copyright       Hervé Thouzard (http://www.herve-thouzard.com/)
+ * @copyright       HervÃ© Thouzard (http://www.herve-thouzard.com/)
  * @license         http://www.fsf.org/copyleft/gpl.html GNU public license
  * @package         oledrion
- * @author 			Hervé Thouzard (http://www.herve-thouzard.com/)
+ * @author 			HervÃ© Thouzard (http://www.herve-thouzard.com/)
  *
  * Version : $Id:
  * ****************************************************************************
@@ -48,13 +48,13 @@ class oledrion_paypal extends oledrion_gateway
         $gateway['version'] = '1.1';
         $gateway['description'] = "PayPal is the safer, easier way to pay and get paid online";
         $gateway['author'] = "Instant Zero (http://www.herve-thouzard.com/)";
-        $gateway['credits'] = "Hervé Thouzard";
+        $gateway['credits'] = "HervÃ© Thouzard";
         $gateway['releaseDate'] = 20081215;
         $this->gatewayInformation = $gateway;
     }
 
     /**
-     * Retourne le formulaire utilisé pour paramétrer la passerelle de paiement
+     * Retourne le formulaire utilisÃ© pour paramÃ©trer la passerelle de paiement
      *
      * @return object de type XoopsThemeForm
      */
@@ -71,7 +71,7 @@ class oledrion_paypal extends oledrion_gateway
         $paypal_email->setDescription(_OLEDRION_PAYPAL_EMAILDSC);
         $sform->addElement($paypal_email, true);
 
-        // Libellé de la monnaie pour Paypal
+        // LibellÃ© de la monnaie pour Paypal
         $paypal_money = new XoopsFormSelect(_OLEDRION_PAYPAL_MONEY_P, 'paypal_money', $this->handlers->h_oledrion_gateways_options->getGatewayOptionValue($this->gatewayInformation['foldername'], 'paypal_money'));
         $paypal_money->addOptionArray(array('AUD' => 'Australian Dollar', 'CAD' => 'Canadian Dollar', 'CHF' => 'Swiss Franc','CZK' => 'Czech Koruna', 'DKK' => 'Danish Krone', 'EUR' => 'Euro', 'GBP' => 'Pound Sterling', 'HKD' => 'Hong Kong Dollar', 'HUF' =>'Hungarian Forint', 'JPY' => 'Japanese Yen', 'NOK' => 'Norwegian Krone', 'NZD' => 'New Zealand Dollar', 'PLN' => 'Polish Zloty', 'SEK' => 'Swedish Krona','SGD' => 'Singapore Dollar', 'USD' => 'U.S. Dollar'));
         $sform->addElement($paypal_money, true);
@@ -80,7 +80,7 @@ class oledrion_paypal extends oledrion_gateway
         $paypal_test = new XoopsFormRadioYN(_OLEDRION_PAYPAL_TEST, 'paypal_test', $this->handlers->h_oledrion_gateways_options->getGatewayOptionValue($this->gatewayInformation['foldername'], 'paypal_test'));
         $sform->addElement($paypal_test, true);
 
-        // Forcé à vrai ...
+        // ForcÃ© Ã  vrai ...
         $sform->addElement(new XoopsFormHidden('use_ipn', 1));
 
 		$button_tray = new XoopsFormElementTray('' ,'');
@@ -91,10 +91,10 @@ class oledrion_paypal extends oledrion_gateway
     }
 
     /**
-     * Sauvegarde des paramètres de la passerelle de paiement
+     * Sauvegarde des paramÃ¨tres de la passerelle de paiement
      *
-     * @param array $data Les données du formulaire
-     * @return boolean	Le résultat de l'enregistrement des données
+     * @param array $data Les donnÃ©es du formulaire
+     * @return boolean	Le rÃ©sultat de l'enregistrement des donnÃ©es
      */
     function saveParametersForm($data)
     {
@@ -121,7 +121,7 @@ class oledrion_paypal extends oledrion_gateway
      *
      * @return string
      */
-	function getRedirectURL($order = null)
+	function getRedirectURL($cmd_total, $cmd_id)
     {
         $test_mode = intval($this->handlers->h_oledrion_gateways_options->getGatewayOptionValue($this->gatewayInformation['foldername'], 'paypal_test'));
 		if($test_mode == 1) {
@@ -132,7 +132,7 @@ class oledrion_paypal extends oledrion_gateway
     }
 
 	/**
-	 * Retourne les éléments à ajouter au formulaire en tant que zones cachées
+	 * Retourne les Ã©lÃ©ments Ã  ajouter au formulaire en tant que zones cachÃ©es
 	 *
 	 * @param array $order 	La commande client
 	 * @param array
@@ -150,7 +150,7 @@ class oledrion_paypal extends oledrion_gateway
 		$ret['upload'] = '1';
 		$ret['currency_code'] = $paypal_money;
 		$ret['business'] = $paypal_email;
-		$ret['return'] = OLEDRION_URL.'thankyou.php';			// Page (générique) de remerciement après paiement
+		$ret['return'] = OLEDRION_URL.'thankyou.php';			// Page (gÃ©nÃ©rique) de remerciement aprÃ¨s paiement
 		$ret['image_url'] = XOOPS_URL.'/images/logo.gif';
 		$ret['cpp_header_image'] = XOOPS_URL.'/images/logo.gif';
 		$ret['invoice'] = $order->getVar('cmd_id');
@@ -159,9 +159,9 @@ class oledrion_paypal extends oledrion_gateway
 		$ret['tax'] = 0;	// ajout 25/03/2008
 		$ret['amount'] = $this->formatAmount(floatval($order->getVar('cmd_total', 'n')));
 		$ret['custom'] = $order->getVar('cmd_id');
-		//$ret['rm'] = 2;	// Renvoyer les données par POST (normalement)
+		//$ret['rm'] = 2;	// Renvoyer les donnÃ©es par POST (normalement)
 		$ret['email'] = $order->getVar('cmd_email');
-		if(xoops_trim($order->getVar('cmd_cancel')) != '') {	// URL à laquelle le navigateur du client est ramené si le paiement est annulé
+		if(xoops_trim($order->getVar('cmd_cancel')) != '') {	// URL Ã  laquelle le navigateur du client est ramenÃ© si le paiement est annulÃ©
 			$ret['cancel_return'] = OLEDRION_URL.'cancel-payment.php?id='.$order->getVar('cmd_cancel');
 		}
 		if($use_ipn == 1) {
@@ -170,7 +170,7 @@ class oledrion_paypal extends oledrion_gateway
 		return $ret;
     }
     /**
-     * Retourne la liste des pays à utiliser dans le formulaire de saisie des informations client (checkout.php)
+     * Retourne la liste des pays Ã  utiliser dans le formulaire de saisie des informations client (checkout.php)
      *
      * @return array
      */
@@ -181,10 +181,10 @@ class oledrion_paypal extends oledrion_gateway
     }
 
     /**
-     * Utilisée lors du dialog avec Paypal dans le cas de l'utilisation de l'IPN
-     * Note : Spécifique Paypal
+     * UtilisÃ©e lors du dialog avec Paypal dans le cas de l'utilisation de l'IPN
+     * Note : SpÃ©cifique Paypal
      *
-     * @return string	L'URL chez Paypal à appeler pour obtenir des informations
+     * @return string	L'URL chez Paypal Ã  appeler pour obtenir des informations
      */
     private function getdialogURL()
     {
@@ -197,10 +197,10 @@ class oledrion_paypal extends oledrion_gateway
     }
 
     /**
-     * Dialogue avec la passerelle de paiement pour indiquer l'état de la commande
-     * L'appellant se charge de vérifier que le fichier log existe
+     * Dialogue avec la passerelle de paiement pour indiquer l'Ã©tat de la commande
+     * L'appellant se charge de vÃ©rifier que le fichier log existe
      *
-     * @param string $gatewaysLogPath	Le chemin d'accès complet au fichier log
+     * @param string $gatewaysLogPath	Le chemin d'accÃ¨s complet au fichier log
      * @return void
      */
     function gatewayNotify($gatewaysLogPath)
@@ -245,12 +245,12 @@ class oledrion_paypal extends oledrion_gateway
 			        if (!$_POST['custom']) $paypalok = false;
 			        $montant = $_POST['mc_gross'];
 			        if ($paypalok) {
-				        $ref = intval($_POST['custom']);	// Numéro de la commande
+				        $ref = intval($_POST['custom']);	// NumÃ©ro de la commande
 				        $commande = null;
 				        $commande = $this->handlers->h_oledrion_commands->get($ref);
 				        if(is_object($commande)) {
-					        if($montant == $commande->getVar('cmd_total')) {	// Commande vérifiée
-						        $this->handlers->h_oledrion_commands->validateOrder($commande);	// Validation de la commande et mise à jour des stocks
+					        if($montant == $commande->getVar('cmd_total')) {	// Commande vÃ©rifiÃ©e
+						        $this->handlers->h_oledrion_commands->validateOrder($commande);	// Validation de la commande et mise Ã  jour des stocks
 					        } else {
 						        $this->handlers->h_oledrion_commands->setFraudulentOrder($commande);
 					        }

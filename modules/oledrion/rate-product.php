@@ -2,7 +2,7 @@
 /**
  * ****************************************************************************
  * oledrion - MODULE FOR XOOPS
- * Copyright (c) Hervé Thouzard (http://www.herve-thouzard.com/)
+ * Copyright (c) HervÃ© Thouzard (http://www.herve-thouzard.com/)
  *
  * You may not change or alter any portion of this comment or credits
  * of supporting developers from this source code or any supporting source code
@@ -11,10 +11,10 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  *
- * @copyright       Hervé Thouzard (http://www.herve-thouzard.com/)
+ * @copyright       HervÃ© Thouzard (http://www.herve-thouzard.com/)
  * @license         http://www.fsf.org/copyleft/gpl.html GNU public license
  * @package         oledrion
- * @author 			Hervé Thouzard (http://www.herve-thouzard.com/)
+ * @author 			HervÃ© Thouzard (http://www.herve-thouzard.com/)
  *
  * Version : $Id:
  * ****************************************************************************
@@ -31,7 +31,7 @@ $product_id = 0;
 if(oledrion_utils::getModuleOption('rateproducts') == 0 ) {
 	oledrion_utils::redirect(_OLEDRION_NORATE, 'index.php', 5);
 }
-// Recherche du n° du produit
+// Recherche du nÂ° du produit
 if(isset($_GET['product_id'])) {
 	$product_id = intval($_GET['product_id']);
 } elseif(isset($_POST['product_id'])) {
@@ -51,19 +51,19 @@ if($product->getVar('product_online') == 0) {
 	oledrion_utils::redirect(_OLEDRION_ERROR2, 'index.php', 5);
 }
 
-// Le produit est il publié ?
+// Le produit est il publiÃ© ?
 if(oledrion_utils::getModuleOption('show_unpublished') == 0 && $product->getVar('product_submitted') > time()) {
 	oledrion_utils::redirect(_OLEDRION_ERROR3, 'index.php', 5);
 }
 
-// Faut il afficher les produits même lorsqu'ils ne sont plus en stock ?
+// Faut il afficher les produits mÃªme lorsqu'ils ne sont plus en stock ?
 if(oledrion_utils::getModuleOption('nostock_display') == 0 && $product->getVar('product_stock') == 0) {
 	if(xoops_trim(oledrion_utils::getModuleOption('nostock_display')) != '') {
 		oledrion_utils::redirect(oledrion_utils::getModuleOption('nostock_display'), 'main.php', 5);
 	}
 }
 
-// Fin des tests, si on est encore là c'est que tout est bon **************************************
+// Fin des tests, si on est encore lÃ  c'est que tout est bon **************************************
 if(!empty($_POST['btnsubmit'])) {
 	$GLOBALS['current_category'] = -1;
 
@@ -88,7 +88,7 @@ if(!empty($_POST['btnsubmit'])) {
 		}
 		$result = $h_oledrion_votedata->createRating($product->getVar('product_id'), $ratinguser, $rating);
 
-		// Calcul du nombre de votes et du total des votes pour mettre à jour les informations du produit
+		// Calcul du nombre de votes et du total des votes pour mettre Ã  jour les informations du produit
 		$totalVotes = 0;
 		$sumRating = 0;
 		$ret = 0;
@@ -106,7 +106,7 @@ if(!empty($_POST['btnsubmit'])) {
 	$GLOBALS['current_category'] = $product->getVar('product_cid');
 	$xoopsOption['template_main'] = 'oledrion_rate_product.html';
 	require_once XOOPS_ROOT_PATH.'/header.php';
-	$xoopsTpl->assign('mod_pref', $mod_pref);	// Préférences du module
+	$xoopsTpl->assign('mod_pref', $mod_pref);	// PrÃ©fÃ©rences du module
 	$xoopsTpl->assign('product', $product->toArray());
 
 	$xoopsTpl->assign('global_advert', oledrion_utils::getModuleOption('advertisement'));

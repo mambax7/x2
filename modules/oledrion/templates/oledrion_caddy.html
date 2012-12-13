@@ -1,6 +1,17 @@
 <div class="oledrion">
-	<!-- Created by Hervé Thouzard (http://www.herve-thouzard.com/) -->
-	<div class="breadcrumb"><{$breadcrumb}></div>
+	<!-- Created by HervÃ© Thouzard (http://www.herve-thouzard.com/) -->
+	<!-- Breadcrumb -->
+	<table cellspacing="0" class="breadcrumbT">
+	<tr>
+		<td class="breadcrumb_01"></td>
+	    <td class="breadcrumb_02"><div id="productshoop_breadcrumb"><{$breadcrumb}></div></td>
+	    <td class="breadcrumb_03"></td>
+	</tr>
+	<tr>
+	    <td colspan="3" class="red-line"></td>
+	</tr>
+	</table>
+	<!-- /Breadcrumb -->
 	<{if $global_advert != ''}>
 		<div class='global_advert center'><{$global_advert}></div>
 	<{/if}>
@@ -69,21 +80,21 @@
 		<{/foreach}>
 		<tr class="oledrion_carttotal">
 			<td class="oledrion_productauthor"><{$smarty.const._OLEDRION_TOTAL}></td>
-			<td class="oledrion_productauthor" align="right" vclass="middle"><{$commandAmount}></td>
-            <td class="oledrion_productauthor" align="right" vclass="middle"><{$discountAmount}></td>
+			<td class="oledrion_productauthor right middle"><{$commandAmount}></td>
+            <td class="oledrion_productauthor right middle"><{$discountAmount}></td>
 			<td>&nbsp;</td>
-            <td class="oledrion_productauthor" align="right" vclass="middle"><{$discountAmount}></td>
-			<td colspan="2" class="oledrion_productauthor" align="right" vclass="middle"><{$vatAmount}></td>
+            <td class="oledrion_productauthor right middle"><{$discountAmount}></td>
+			<td colspan="2" class="oledrion_productauthor right middle"><{$vatAmount}></td>
             <{if $totalEcotaxe != 0 }>
-            <td class="oledrion_productauthor" align="right" vclass="middle"><{$ecotaxeAmount}></td>
+            <td class="oledrion_productauthor right middle"><{$ecotaxeAmount}></td>
             <{/if}>
-			<td class="oledrion_productauthor" align="right" vclass="middle"><{$shippingAmount}></td>
-			<td colspan="2" class="oledrion_productauthor" align="right" vclass="middle"><{$commandAmountTTC}></td>
+			<td class="oledrion_productauthor right middle"><{$shippingAmount}></td>
+			<td colspan="2" class="oledrion_productauthor right middle"><{$commandAmountTTC}></td>
 		</tr>
             <tr>
-                <td  colspan="2" class="oledrion_productauthor" align="right" vclass="middle"><span style= 'color: #FF0000'>You have saved:   </span> </td>
+                <td  colspan="2" class="oledrion_productauthor right middle"><span style= 'color: #FF0000'>You have saved:   </span> </td>
 
-                <td class="oledrion_productauthor" align="right" vclass="middle"><span style= 'color: #FF0000'>  <{$totalSavings}> </span></td>
+                <td class="oledrion_productauthor right middle"><span style= 'color: #FF0000'>  <{$totalSavings}> </span></td>
             </tr>
 		<tr>
 			<td colspan="8">

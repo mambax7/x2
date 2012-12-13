@@ -2,7 +2,7 @@
 /**
  * ****************************************************************************
  * oledrion - MODULE FOR XOOPS
- * Copyright (c) Hervé Thouzard (http://www.herve-thouzard.com/)
+ * Copyright (c) HervÃ© Thouzard (http://www.herve-thouzard.com/)
  *
  * You may not change or alter any portion of this comment or credits
  * of supporting developers from this source code or any supporting source code
@@ -11,17 +11,17 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  *
- * @copyright       Hervé Thouzard (http://www.herve-thouzard.com/)
+ * @copyright       HervÃ© Thouzard (http://www.herve-thouzard.com/)
  * @license         http://www.fsf.org/copyleft/gpl.html GNU public license
  * @package         oledrion
- * @author 			Hervé Thouzard (http://www.herve-thouzard.com/)
+ * @author 			HervÃ© Thouzard (http://www.herve-thouzard.com/)
  *
  * Version : $Id:
  * ****************************************************************************
  */
 
 /**
- * Liste de tous les produits du catalogue (en fonction des paramètres du module)
+ * Liste de tous les produits du catalogue (en fonction des paramÃ¨tres du module)
  */
 require 'header.php';
 $GLOBALS['current_category'] = -1;
@@ -33,7 +33,7 @@ $categories = $vatArray = array();
 
 // Lecture des TVA
 $vatArray = $h_oledrion_vat->getAllVats(new oledrion_parameters());
-// Préférences du module
+// PrÃ©fÃ©rences du module
 $xoopsTpl->assign('mod_pref', $mod_pref);
 
 $start = isset($_GET['start']) ? intval($_GET['start']) : 0;

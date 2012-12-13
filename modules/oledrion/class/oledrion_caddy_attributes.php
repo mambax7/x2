@@ -2,7 +2,7 @@
 /**
  * ****************************************************************************
  * oledrion - MODULE FOR XOOPS
- * Copyright (c) Hervé Thouzard (http://www.herve-thouzard.com/)
+ * Copyright (c) HervÃ© Thouzard (http://www.herve-thouzard.com/)
  *
  * You may not change or alter any portion of this comment or credits
  * of supporting developers from this source code or any supporting source code
@@ -11,10 +11,10 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  *
- * @copyright       Hervé Thouzard (http://www.herve-thouzard.com/)
+ * @copyright       HervÃ© Thouzard (http://www.herve-thouzard.com/)
  * @license         http://www.fsf.org/copyleft/gpl.html GNU public license
  * @package         oledrion
- * @author 			Hervé Thouzard (http://www.herve-thouzard.com/)
+ * @author 			HervÃ© Thouzard (http://www.herve-thouzard.com/)
  *
  * Version : $Id:
  * ****************************************************************************
@@ -57,7 +57,7 @@ class oledrion_caddy_attributes extends Oledrion_Object
 
 
 	/**
-	 * Ajout d'une option à l'attribut (soit une option vide soit une option valorisée)
+	 * Ajout d'une option Ã  l'attribut (soit une option vide soit une option valorisÃ©e)
 	 *
 	 * @param string $name
 	 * @param string $value
@@ -89,7 +89,7 @@ class oledrion_caddy_attributes extends Oledrion_Object
 
 
     /**
-     * Ajoute une nouvelle option à l'attribut
+     * Ajoute une nouvelle option Ã  l'attribut
      *
      * @param string $name
      * @param string $value
@@ -104,9 +104,9 @@ class oledrion_caddy_attributes extends Oledrion_Object
 
 
 	/**
-	 * Retourne les informations formatées de l'attribut pour affichage dans la facture
+	 * Retourne les informations formatÃ©es de l'attribut pour affichage dans la facture
 	 *
-	 * @param oledrion_products $product	Le produit concerné par l'attribut
+	 * @param oledrion_products $product	Le produit concernÃ© par l'attribut
 	 * @return array
 	 * @since 2.3.2009.03.23
 	 */
@@ -144,9 +144,9 @@ class OledrionOledrion_caddy_attributesHandler extends Oledrion_XoopsPersistable
 	}
 
     /**
-     * Retourne le nombre d'attributs liés à un caddy
+     * Retourne le nombre d'attributs liÃ©s Ã  un caddy
      *
-     * @param integer $ca_caddy_id	L'ID du caddy concerné
+     * @param integer $ca_caddy_id	L'ID du caddy concernÃ©
      * @return integer
      * @since 2.3.2009.03.23
      */
@@ -156,10 +156,10 @@ class OledrionOledrion_caddy_attributesHandler extends Oledrion_XoopsPersistable
 	}
 
 	/**
-	 * Retourne la liste formatée des attributs liés à un caddy
+	 * Retourne la liste formatÃ©e des attributs liÃ©s Ã  un caddy
 	 *
 	 * @param integer $ca_caddy_id	L'identifiant de caddy
-	 * @param object $product		Le produit concerné par le caddy
+	 * @param object $product		Le produit concernÃ© par le caddy
 	 * @return array
 	 * @since 2.3.2009.03.23
 	 */
@@ -185,9 +185,9 @@ class OledrionOledrion_caddy_attributesHandler extends Oledrion_XoopsPersistable
 	}
 
     /**
-     * Retourne le nombre de caddy attributs liés à un attribut
+     * Retourne le nombre de caddy attributs liÃ©s Ã  un attribut
      *
-     * @param integer $ca_attribute_id	L'Identifiant de l'attribut concerné
+     * @param integer $ca_attribute_id	L'Identifiant de l'attribut concernÃ©
      * @return integer
      * @since 2.3.2009.03.23
      */
@@ -197,7 +197,7 @@ class OledrionOledrion_caddy_attributesHandler extends Oledrion_XoopsPersistable
 	}
 
     /**
-     * Retourne la liste des numéros de commandes "liés" à un attribut
+     * Retourne la liste des numÃ©ros de commandes "liÃ©s" Ã  un attribut
      *
      * @param integer $ca_attribute_id
      * @return array
@@ -214,7 +214,7 @@ class OledrionOledrion_caddy_attributesHandler extends Oledrion_XoopsPersistable
 	}
 
 	/**
-	 * Supprime les caddies associés à une commande
+	 * Supprime les caddies associÃ©s Ã  une commande
 	 *
 	 * @param integer $caddy_cmd_id
 	 * @return boolean

@@ -2,7 +2,7 @@
 /**
  * ****************************************************************************
  * oledrion - MODULE FOR XOOPS
- * Copyright (c) Hervé Thouzard (http://www.herve-thouzard.com/)
+ * Copyright (c) HervÃ© Thouzard (http://www.herve-thouzard.com/)
  *
  * You may not change or alter any portion of this comment or credits
  * of supporting developers from this source code or any supporting source code
@@ -11,17 +11,17 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  *
- * @copyright       Hervé Thouzard (http://www.herve-thouzard.com/)
+ * @copyright       HervÃ© Thouzard (http://www.herve-thouzard.com/)
  * @license         http://www.fsf.org/copyleft/gpl.html GNU public license
  * @package         oledrion
- * @author 			Hervé Thouzard (http://www.herve-thouzard.com/)
+ * @author 			HervÃ© Thouzard (http://www.herve-thouzard.com/)
  *
  * Version : $Id:
  * ****************************************************************************
  */
 
 /**
- * Gestion des catégories de produits
+ * Gestion des catÃ©gories de produits
  */
 
 require 'classheader.php';
@@ -45,7 +45,7 @@ class oledrion_cat extends Oledrion_Object
 	}
 
 	/**
-	 * Retourne l'URL de l'image de la catégorie courante
+	 * Retourne l'URL de l'image de la catÃ©gorie courante
 	 * @return string	L'URL
 	 */
 	function getPictureUrl()
@@ -54,7 +54,7 @@ class oledrion_cat extends Oledrion_Object
 	}
 
 	/**
-	 * Retourne le chemin de l'image de la catégorie courante
+	 * Retourne le chemin de l'image de la catÃ©gorie courante
 	 * @return string	Le chemin
 	 */
 	function getPicturePath()
@@ -63,7 +63,7 @@ class oledrion_cat extends Oledrion_Object
 	}
 
 	/**
-	 * Indique si l'image de la catégorie existe
+	 * Indique si l'image de la catÃ©gorie existe
 	 *
 	 * @return boolean	Vrai si l'image existe sinon faux
 	 */
@@ -77,7 +77,7 @@ class oledrion_cat extends Oledrion_Object
 	}
 
 	/**
-	 * Supprime l'image associée à une catégorie
+	 * Supprime l'image associÃ©e Ã  une catÃ©gorie
 	 * @return void
 	 */
 	function deletePicture()
@@ -89,9 +89,9 @@ class oledrion_cat extends Oledrion_Object
 	}
 
 	/**
-	 * Retourne l'url à utiliser pour accéder à la catégorie en tenant compte des préférences du module
+	 * Retourne l'url Ã  utiliser pour accÃ©der Ã  la catÃ©gorie en tenant compte des prÃ©fÃ©rences du module
 	 *
-	 * @return string	L'url à utiliser
+	 * @return string	L'url Ã  utiliser
 	 */
 	function getLink()
 	{
@@ -106,7 +106,7 @@ class oledrion_cat extends Oledrion_Object
 	}
 
 	/**
-	 * Rentourne la chaine à envoyer dans une balise <a> pour l'attribut href
+	 * Rentourne la chaine Ã  envoyer dans une balise <a> pour l'attribut href
 	 *
 	 * @return string
 	 */
@@ -117,7 +117,7 @@ class oledrion_cat extends Oledrion_Object
 
 
 	/**
-	 * Retourne les éléments du produits formatés pour affichage
+	 * Retourne les Ã©lÃ©ments du produits formatÃ©s pour affichage
 	 *
 	 * @param string $format
 	 * @return array
@@ -137,19 +137,19 @@ class oledrion_cat extends Oledrion_Object
 class OledrionOledrion_catHandler extends Oledrion_XoopsPersistableObjectHandler
 {
 	function __construct($db)
-	{	//						Table				Classe		 Id		  Libellé
+	{	//						Table				Classe		 Id		  LibellÃ©
 		parent::__construct($db, 'oledrion_cat', 'oledrion_cat', 'cat_cid', 'cat_title');
 	}
 
 	/**
-	 * Renvoie (sous forme d'objets) la liste de toutes les catégories
+	 * Renvoie (sous forme d'objets) la liste de toutes les catÃ©gories
 	 *
-	 * @param integer $start Indice de début de recherche
-	 * @param integer $limit Nombre maximum d'enregsitrements à renvoyer
-	 * @param string $sort Champ à utiliser pour le tri
+	 * @param integer $start Indice de dÃ©but de recherche
+	 * @param integer $limit Nombre maximum d'enregsitrements Ã  renvoyer
+	 * @param string $sort Champ Ã  utiliser pour le tri
 	 * @param string $order Ordre du tire (asc ou desc)
-	 * @param boolean $idaskey Indique s'il faut renvoyer un tableau dont la clé est l'identifiant de l'enregistrement
-	 * @return array Taleau d'objets (catégories)
+	 * @param boolean $idaskey Indique s'il faut renvoyer un tableau dont la clÃ© est l'identifiant de l'enregistrement
+	 * @return array Taleau d'objets (catÃ©gories)
 	 */
 	function getAllCategories(oledrion_parameters $parameters)
 	{
@@ -165,7 +165,7 @@ class OledrionOledrion_catHandler extends Oledrion_XoopsPersistableObjectHandler
 	}
 
 	/**
-	 * Fonction interne pour faire une vue développée des catégories
+	 * Fonction interne pour faire une vue dÃ©veloppÃ©e des catÃ©gories
 	 *
 	 * @param string $fieldName
 	 * @param string $key
@@ -212,10 +212,10 @@ class OledrionOledrion_catHandler extends Oledrion_XoopsPersistableObjectHandler
     }
 
 	/**
-	 * Supprime une catégorie (et tout ce qui lui est relatif)
+	 * Supprime une catÃ©gorie (et tout ce qui lui est relatif)
 	 *
 	 * @param oledrion_cat $category
-	 * @return boolean	Le résultat de la suppression
+	 * @return boolean	Le rÃ©sultat de la suppression
 	 */
 	function deleteCategory(oledrion_cat $category)
 	{
@@ -226,10 +226,10 @@ class OledrionOledrion_catHandler extends Oledrion_XoopsPersistableObjectHandler
 	}
 
 	/**
-	 * Retourne le nombre de produits d'une ou de plusieurs catégories
+	 * Retourne le nombre de produits d'une ou de plusieurs catÃ©gories
 	 *
-	 * @param integer	$cat_cid	L'identifiant de la catégorie dont on veut récupérer le nombre de produits
-	 * @param boolean	$withNested	Faut il inclure les sous-catégories ?
+	 * @param integer	$cat_cid	L'identifiant de la catÃ©gorie dont on veut rÃ©cupÃ©rer le nombre de produits
+	 * @param boolean	$withNested	Faut il inclure les sous-catÃ©gories ?
 	 * @return integer	Le nombre de produits
 	 */
 	function getCategoryProductsCount($cat_cid, $withNested = true)
@@ -238,7 +238,7 @@ class OledrionOledrion_catHandler extends Oledrion_XoopsPersistableObjectHandler
 		$childsIDs = array();
 		$childsIDs[] = $cat_cid;
 
-		if($withNested) {	// Recherche des sous catégories de cette catégorie
+		if($withNested) {	// Recherche des sous catÃ©gories de cette catÃ©gorie
 			$items = $childs = array();
 			include_once XOOPS_ROOT_PATH.'/class/tree.php';
 			$items = $this->getAllCategories(new oledrion_parameters());
@@ -254,9 +254,9 @@ class OledrionOledrion_catHandler extends Oledrion_XoopsPersistableObjectHandler
 	}
 
 	/**
-	 * Retourne des catégories selon leur ID
+	 * Retourne des catÃ©gories selon leur ID
 	 *
-	 * @param array $ids	Les ID des catégories à retrouver
+	 * @param array $ids	Les ID des catÃ©gories Ã  retrouver
 	 * @return array	Objets de type oledrion_cat
 	 */
 	function getCategoriesFromIds($ids)
@@ -270,7 +270,7 @@ class OledrionOledrion_catHandler extends Oledrion_XoopsPersistableObjectHandler
 	}
 
 	/**
-	 * Retourne la liste des catégories mères (sous forme d'un tableau d'objets)
+	 * Retourne la liste des catÃ©gories mÃ¨res (sous forme d'un tableau d'objets)
 	 *
 	 * @return array	Objets de type oledrion_cat
 	 */

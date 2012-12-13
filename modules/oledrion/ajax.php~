@@ -2,7 +2,7 @@
 /**
  * ****************************************************************************
  * oledrion - MODULE FOR XOOPS
- * Copyright (c) HervÃ© Thouzard (http://www.herve-thouzard.com/)
+ * Copyright (c) Hervé Thouzard (http://www.herve-thouzard.com/)
  *
  * You may not change or alter any portion of this comment or credits
  * of supporting developers from this source code or any supporting source code
@@ -11,17 +11,17 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  *
- * @copyright       HervÃ© Thouzard (http://www.herve-thouzard.com/)
+ * @copyright       Hervé Thouzard (http://www.herve-thouzard.com/)
  * @license         http://www.fsf.org/copyleft/gpl.html GNU public license
  * @package         oledrion
- * @author 			HervÃ© Thouzard (http://www.herve-thouzard.com/)
+ * @author 			Hervé Thouzard (http://www.herve-thouzard.com/)
  *
  * Version : $Id:
  * ****************************************************************************
  */
 
 /**
- * Script pour tout ce qui est relatif Ã  Ajax et JSON
+ * Script pour tout ce qui est relatif à Ajax et JSON
  *
  * @since 2.3.2009.03.17
  */
@@ -40,7 +40,7 @@ $isAdmin = oledrion_utils::isAdmin();
 
 switch($op) {
 	// ****************************************************************************************************************
-	case 'updatePrice':	// Mise Ã  jour du prix du produit en fonction des attributs sÃ©lectionnÃ©s
+	case 'updatePrice':	// Mise à jour du prix du produit en fonction des attributs sélectionnés
 	// ****************************************************************************************************************
         $product_id = isset($_POST['product_id']) ? intval($_POST['product_id']) : 0;
 	    if(isset($_POST['formcontent']) && $product_id > 0) {
@@ -68,7 +68,7 @@ switch($op) {
             $firephp = FirePHP::getInstance(true);
             $firephp->log($data, 'Iterators');
 */
-            // On rÃ©cupÃ¨re les ID des attributs valorisÃ©s
+            // On récupère les ID des attributs valorisés
             foreach($data as $key => $value) {
                 $attributesIds[] = oledrion_utils::getId($key);
             }
@@ -186,7 +186,6 @@ switch($op) {
 	       $ret = array ();
 			 $criteria = new CriteriaCompo();
 			 $criteria->add(new Criteria('product_id', $start , '>=' ));
-          $criteria->add(new Criteria('product_online', 1));
 			 $criteria->setSort('product_id');
 			 $criteria->setOrder('DESC');
 			 $obj = $h_oledrion_products->getObjects($criteria, false);
@@ -211,6 +210,88 @@ switch($op) {
 			 }
 	       $return = json_encode($ret); 
        }
+	    
+	    
+	    /*
+	    
+       if(isset($start) && $start != '') {
+			$oledrion_shelf_parameters->resetDefaultValues()->setProductsType('recent')->setStart($start)->setLimit($limit)->setSort('product_submitted ASC, product_id');
+	      $products = $oledrion_shelf->getProducts($oledrion_shelf_parameters);
+			unset($products['lastTitle']);
+			$l = $start + $limit;
+			for ($s = 0; $s <= $l; $s++) {
+	         unset(
+					$products[$s]['product_category'],
+					$products[$s]['product_image_full_url'],
+					$products[$s]['product_thumb_full_url'],
+					$products[$s]['product_manufacturers'],
+					$products[$s]['product_joined_manufacturers'],
+					$products[$s]['product_sku'], 
+					$products[$s]['product_extraid'], 
+					$products[$s]['product_width'],
+					$products[$s]['product_length'],
+					$products[$s]['product_unitmeasure1'],
+					$products[$s]['product_url'],
+					$products[$s]['product_submitter'],
+					$products[$s]['product_online'],
+					$products[$s]['product_date'],
+					$products[$s]['product_hits'],
+					$products[$s]['product_rating'],
+					$products[$s]['product_votes'],
+					$products[$s]['product_comments'],
+					$products[$s]['product_price'],
+					$products[$s]['product_shipping_price'],
+					$products[$s]['product_discount_price'],
+					$products[$s]['product_stock'],
+					$products[$s]['product_alert_stock'],
+					$products[$s]['product_attachment'],
+					$products[$s]['product_weight'],
+					$products[$s]['product_unitmeasure2'],
+					$products[$s]['product_vat_id'],
+					$products[$s]['product_download_url'], 
+					$products[$s]['product_recommended'],
+					$products[$s]['product_metakeywords'],
+					$products[$s]['product_metadescription'], 
+					$products[$s]['product_metatitle'],
+					$products[$s]['product_delivery_time'],
+					$products[$s]['product_ecotaxe'],
+					$products[$s]['dohtml'],
+					$products[$s]['product_ecotaxe_formated'],
+					$products[$s]['product_price_formated'],
+					$products[$s]['product_shipping_price_formated'],
+					$products[$s]['product_discount_price_formated'],
+					$products[$s]['product_price_ttc'],
+					$products[$s]['product_price_ttc_long'],
+					$products[$s]['product_discount_price_ttc'],
+					$products[$s]['product_discount_price_ttc_long'],
+					$products[$s]['product_attributes_count'],
+					$products[$s]['product_final_price_ht_formated_long'],
+					$products[$s]['product_final_price_ttc'],
+					$products[$s]['product_final_price_ttc_javascript'], 
+					$products[$s]['product_final_price_ttc_formated'],
+					$products[$s]['product_final_price_ttc_formated_long'],
+					$products[$s]['product_vat_amount_formated_long'],
+					$products[$s]['product_tooltip'],
+					$products[$s]['product_href_title'],
+					$products[$s]['product_recommended_picture'],
+					$products[$s]['product_shorten_summary'],
+					$products[$s]['product_shorten_description'],
+					$products[$s]['product_vendor'],
+					$products[$s]['product_count'],
+					$products[$s]['product_property5'],
+					$products[$s]['product_thumb_full_path'],
+					$products[$s]['product_image_full_path'],
+					$products[$s]['product_vendor_id'],
+               $products[$s]['product_summary'],
+               $products[$s]['product_url_rewrited']
+				);
+		   }
+		   if(empty($products)) {
+		   	$products['end'] = 1;
+		   }
+       	$return = json_encode($products);
+       }	
+       */
 	    break;
 	// Product output as json    
 	case 'category':

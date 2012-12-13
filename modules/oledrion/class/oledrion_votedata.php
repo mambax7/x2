@@ -2,7 +2,7 @@
 /**
  * ****************************************************************************
  * oledrion - MODULE FOR XOOPS
- * Copyright (c) HervÈ Thouzard (http://www.herve-thouzard.com/)
+ * Copyright (c) Herv√© Thouzard (http://www.herve-thouzard.com/)
  *
  * You may not change or alter any portion of this comment or credits
  * of supporting developers from this source code or any supporting source code
@@ -11,10 +11,10 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  *
- * @copyright       HervÈ Thouzard (http://www.herve-thouzard.com/)
+ * @copyright       Herv√© Thouzard (http://www.herve-thouzard.com/)
  * @license         http://www.fsf.org/copyleft/gpl.html GNU public license
  * @package         oledrion
- * @author 			HervÈ Thouzard (http://www.herve-thouzard.com/)
+ * @author 			Herv√© Thouzard (http://www.herve-thouzard.com/)
  *
  * Version : $Id:
  * ****************************************************************************
@@ -51,8 +51,8 @@ class OledrionOledrion_votedataHandler extends Oledrion_XoopsPersistableObjectHa
 	 * Renvoie le nombre total de votes pour un produit ainsi que la sommes des votes
 	 *
 	 * @param integer $product_id Identifiant du produit
-	 * @param integer $totalVotes Variable passÈe par rÈfÈrence et devant contenir le nombre total de votes du produit
-	 * @param integer $sumRating Variable passÈe par rÈfÈrence et devant contenir le cumul des votes
+	 * @param integer $totalVotes Variable pass√©e par r√©f√©rence et devant contenir le nombre total de votes du produit
+	 * @param integer $sumRating Variable pass√©e par r√©f√©rence et devant contenir le cumul des votes
 	 * @return none Rien
 	 */
 	function getCountRecordSumRating($product_id, &$totalVotes, &$sumRating)
@@ -91,7 +91,7 @@ class OledrionOledrion_votedataHandler extends Oledrion_XoopsPersistableObjectHa
 	 * Suppression des votes d'un produit
 	 *
 	 * @param integer $vote_product_id	L'identifiant du produit
-	 * @return le rÈsultat de la suppression
+	 * @return le r√©sultat de la suppression
 	 */
 	function deleteProductRatings($vote_product_id)
 	{
@@ -100,11 +100,11 @@ class OledrionOledrion_votedataHandler extends Oledrion_XoopsPersistableObjectHa
 	}
 
 	/**
-	 * Indique si un utilisateur a dÈj‡ votÈ pour un produit
+	 * Indique si un utilisateur a d√©j√† vot√© pour un produit
 	 *
 	 * @param integer $vote_uid	L'identifiant de l'utilisateur
-	 * @param integer $vote_product_id	Le numÈro du produit
-	 * @return boolean	True s'il a dÈj‡ votÈ sinon False
+	 * @param integer $vote_product_id	Le num√©ro du produit
+	 * @return boolean	True s'il a d√©j√† vot√© sinon False
 	 */
 	function hasUserAlreadyVoted($vote_uid, $vote_product_id)
 	{
@@ -123,7 +123,7 @@ class OledrionOledrion_votedataHandler extends Oledrion_XoopsPersistableObjectHa
 	}
 
 	/**
-	 * Indique si un utilisateur anonyme a dÈj‡ votÈ (d'aprËs son adresse IP)
+	 * Indique si un utilisateur anonyme a d√©j√† vot√© (d'apr√®s son adresse IP)
 	 *
 	 * @param string $ip	L'adresse IP
 	 * @param integer $vote_product_id	Ld'identifiant du produit
@@ -150,12 +150,12 @@ class OledrionOledrion_votedataHandler extends Oledrion_XoopsPersistableObjectHa
 	}
 
 	/**
-	 * CrÈe un vote pour un produit
+	 * Cr√©e un vote pour un produit
 	 *
 	 * @param integer $vote_product_id	L'identifiant du produit
 	 * @param integer $vote_uid	L'identifiant de l'utilisateur
 	 * @param integer $vote_rating	Le vote
-	 * @return le rÈsultat de la crÈation du vote
+	 * @return le r√©sultat de la cr√©ation du vote
 	 */
 	function createRating($vote_product_id, $vote_uid, $vote_rating)
 	{

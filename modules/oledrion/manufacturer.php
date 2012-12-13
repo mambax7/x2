@@ -2,7 +2,7 @@
 /**
  * ****************************************************************************
  * oledrion - MODULE FOR XOOPS
- * Copyright (c) Hervé Thouzard (http://www.herve-thouzard.com/)
+ * Copyright (c) HervÃ© Thouzard (http://www.herve-thouzard.com/)
  *
  * You may not change or alter any portion of this comment or credits
  * of supporting developers from this source code or any supporting source code
@@ -11,10 +11,10 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  *
- * @copyright       Hervé Thouzard (http://www.herve-thouzard.com/)
+ * @copyright       HervÃ© Thouzard (http://www.herve-thouzard.com/)
  * @license         http://www.fsf.org/copyleft/gpl.html GNU public license
  * @package         oledrion
- * @author 			Hervé Thouzard (http://www.herve-thouzard.com/)
+ * @author 			HervÃ© Thouzard (http://www.herve-thouzard.com/)
  *
  * Version : $Id:
  * ****************************************************************************
@@ -44,7 +44,7 @@ if(!is_object($manufacturer)) {
 	oledrion_utils::redirect(_OLEDRION_ERROR7, 'index.php', 5);
 }
 
-$xoopsTpl->assign('mod_pref', $mod_pref);	// Préférences du module
+$xoopsTpl->assign('mod_pref', $mod_pref);	// PrÃ©fÃ©rences du module
 $xoopsTpl->assign('manufacturer', $manufacturer->toArray());
 $limit = oledrion_utils::getModuleOption('perpage');
 
@@ -64,7 +64,7 @@ $products = array();
 $products = $h_oledrion_manufacturer->getManufacturerProducts($manu_id, $start, $limit);
 if(count($products) > 0) {
 	$tmp = $categories = array();
-	foreach($products as $product) {	// Recherche des catégories
+	foreach($products as $product) {	// Recherche des catÃ©gories
 		$tmp[] = $product->getVar('product_cid');
 	}
 	$tmp = array_unique($tmp);

@@ -2,7 +2,7 @@
 /**
  * ****************************************************************************
  * oledrion - MODULE FOR XOOPS
- * Copyright (c) Hervé Thouzard (http://www.herve-thouzard.com/)
+ * Copyright (c) HervÃ© Thouzard (http://www.herve-thouzard.com/)
  *
  * You may not change or alter any portion of this comment or credits
  * of supporting developers from this source code or any supporting source code
@@ -11,10 +11,10 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  *
- * @copyright       Hervé Thouzard (http://www.herve-thouzard.com/)
+ * @copyright       HervÃ© Thouzard (http://www.herve-thouzard.com/)
  * @license         http://www.fsf.org/copyleft/gpl.html GNU public license
  * @package         oledrion
- * @author 			Hervé Thouzard (http://www.herve-thouzard.com/)
+ * @author 			HervÃ© Thouzard (http://www.herve-thouzard.com/)
  *
  * Version : $Id:
  * ****************************************************************************
@@ -25,7 +25,7 @@
  */
 function b_oledrion_random_show($options)
 {
-	// '10|0|0';	// Voir 10 produits, pour toutes les catégories ou une catégorie particulière, et pour ce mois-ci ou pour tout le temps ?
+	// '10|0|0';	// Voir 10 produits, pour toutes les catÃ©gories ou une catÃ©gorie particuliÃ¨re, et pour ce mois-ci ou pour tout le temps ?
 	global $xoopsConfig, $xoopsTpl;
 	include XOOPS_ROOT_PATH.'/modules/oledrion/include/common.php';
 	$products = $block = array();
@@ -52,11 +52,11 @@ function b_oledrion_random_show($options)
 }
 
 /**
- * Paramètres du bloc
+ * ParamÃ¨tres du bloc
  */
 function b_oledrion_random_edit($options)
 {
-	// '10|0|0';	// Voir 10 produits, pour toutes les catégories, pour ce mois-ci ou pour toute la période
+	// '10|0|0';	// Voir 10 produits, pour toutes les catÃ©gories, pour ce mois-ci ou pour toute la pÃ©riode
 	global $xoopsConfig;
 	include XOOPS_ROOT_PATH.'/modules/oledrion/include/common.php';
 	include_once OLEDRION_PATH.'class/tree.php';
@@ -79,7 +79,7 @@ function b_oledrion_random_edit($options)
 }
 
 /**
- * Bloc à la volée
+ * Bloc Ã  la volÃ©e
  */
 function b_oledrion_random_show_duplicatable($options)
 {

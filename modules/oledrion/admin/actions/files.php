@@ -2,7 +2,7 @@
 /**
  * ****************************************************************************
  * oledrion - MODULE FOR XOOPS
- * Copyright (c) Hervé Thouzard (http://www.herve-thouzard.com/)
+ * Copyright (c) HervÃ© Thouzard (http://www.herve-thouzard.com/)
  *
  * You may not change or alter any portion of this comment or credits
  * of supporting developers from this source code or any supporting source code
@@ -11,24 +11,24 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  *
- * @copyright       Hervé Thouzard (http://www.herve-thouzard.com/)
+ * @copyright       HervÃ© Thouzard (http://www.herve-thouzard.com/)
  * @license         http://www.fsf.org/copyleft/gpl.html GNU public license
  * @package         oledrion
- * @author 			Hervé Thouzard (http://www.herve-thouzard.com/)
+ * @author 			HervÃ© Thouzard (http://www.herve-thouzard.com/)
  *
  * Version : $Id:
  * ****************************************************************************
  */
 
 /**
- * Gestion des fichiers attachés aux produits (dans l'administration)
+ * Gestion des fichiers attachÃ©s aux produits (dans l'administration)
  */
 if(!defined("OLEDRION_ADMIN")) exit();
 $opRedirect = 'files';
 
 switch($action) {
 	// ****************************************************************************************************************
-    case 'default':	// Gestion des fichiers attachés
+    case 'default':	// Gestion des fichiers attachÃ©s
     // ****************************************************************************************************************
         xoops_cp_header();
     	oledrion_adminMenu(11);
@@ -36,7 +36,7 @@ switch($action) {
 		$form = "<form method='post' action='$baseurl' name='frmadd' id='frmadd'><input type='hidden' name='op' id='op' value='files' /><input type='hidden' name='action' id='action' value='add' /><input type='submit' name='btngo' id='btngo' value='"._AM_OLEDRION_ADD_ITEM."' /></form>";
 		echo $form;
 		oledrion_utils::htitle(_MI_OLEDRION_ADMENU11, 4);
-		$itemsCount = $h_oledrion_files->getCount();	// Recherche du nombre total d'éléments
+		$itemsCount = $h_oledrion_files->getCount();	// Recherche du nombre total d'Ã©lÃ©ments
 		if($itemsCount > $limit) {
 			$pagenav = new XoopsPageNav( $itemsCount, $limit, $start, 'start', 'op=files');
 		}
@@ -138,7 +138,7 @@ switch($action) {
 		break;
 
 	// ****************************************************************************************************************
-	case 'saveedit':	// Sauvegarde d'un fichier attaché
+	case 'saveedit':	// Sauvegarde d'un fichier attachÃ©
 	// ****************************************************************************************************************
 		xoops_cp_header();
 		$id = isset($_POST['file_id']) ? intval($_POST['file_id']) : 0;

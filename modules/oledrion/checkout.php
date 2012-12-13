@@ -2,7 +2,7 @@
 /**
  * ****************************************************************************
  * oledrion - MODULE FOR XOOPS
- * Copyright (c) Hervé Thouzard (http://www.herve-thouzard.com/)
+ * Copyright (c) HervÃ© Thouzard (http://www.herve-thouzard.com/)
  *
  * You may not change or alter any portion of this comment or credits
  * of supporting developers from this source code or any supporting source code
@@ -11,17 +11,17 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  *
- * @copyright       Hervé Thouzard (http://www.herve-thouzard.com/)
+ * @copyright       HervÃ© Thouzard (http://www.herve-thouzard.com/)
  * @license         http://www.fsf.org/copyleft/gpl.html GNU public license
  * @package         oledrion
- * @author 			Hervé Thouzard (http://www.herve-thouzard.com/)
+ * @author 			HervÃ© Thouzard (http://www.herve-thouzard.com/)
  *
  * Version : $Id:
  * ****************************************************************************
  */
 
 /**
- * Saisie des données du client + affichage des informations saisies pour validation avec redirection vers la passerelle de paiement
+ * Saisie des donnÃ©es du client + affichage des informations saisies pour validation avec redirection vers la passerelle de paiement
  */
 require 'header.php';
 $GLOBALS['current_category'] = -1;
@@ -33,7 +33,7 @@ require_once OLEDRION_PATH.'class/registryfile.php';
 
 $uid = oledrion_utils::getCurrentUserID();
 
-// Passage de commandes réservé aux utilisateurs enregistrés
+// Passage de commandes rÃ©servÃ© aux utilisateurs enregistrÃ©s
 if(oledrion_utils::getModuleOption('restrict_orders', false) == 1 && $uid == 0) {
 	$registry = new oledrion_registryfile();
 	$text = $registry->getfile(OLEDRION_TEXTFILE5);
@@ -74,7 +74,7 @@ if(is_object($gateway)) {
 switch ($op)
 {
 	// ****************************************************************************************************************
-	case 'default':	// Présentation du formulaire
+	case 'default':	// PrÃ©sentation du formulaire
 	// ****************************************************************************************************************
 		if($h_oledrion_caddy->isCartEmpty()) {
 			oledrion_utils::redirect(_OLEDRION_CART_IS_EMPTY, OLEDRION_URL, 4);
@@ -82,7 +82,7 @@ switch ($op)
 		listCart();
 		$notFound = true;
 
-		if($uid > 0) {	// Si c'est un utlisateur enregistré, on recherche dans les anciennes commandes pour pré-remplir les champs
+		if($uid > 0) {	// Si c'est un utlisateur enregistrÃ©, on recherche dans les anciennes commandes pour prÃ©-remplir les champs
 			$commande = null;
 			$commande = $h_oledrion_commands->getLastUserOrder($uid);
 			if(is_object($commande)) {
@@ -95,21 +95,23 @@ switch ($op)
 			$commande->setVar('cmd_country', OLEDRION_DEFAULT_COUNTRY);
 		}
 		
-		// texte à afficher
+		// texte Ã  afficher
 		$registry = new oledrion_registryfile();
 		$text = $registry->getfile(OLEDRION_TEXTFILE6);
 		$xoopsTpl->assign('text', xoops_trim($text));
 
 		$sform = new XoopsThemeForm(_OLEDRION_PLEASE_ENTER, "informationfrm", OLEDRION_URL.'checkout.php', 'post');
 		$sform->addElement(new XoopsFormHidden('op', 'gateway'));
+		$sform->addElement(new XoopsFormLabel(_OLEDRION_LABLE, _OLEDRION_LABLE_INFO));
 		$sform->addElement(new XoopsFormLabel(_OLEDRION_TOTAL, $oledrion_Currency->amountForDisplay($commandAmountTTC)));
+		// By voltan
 		//$sform->addElement(new XoopsFormLabel(_OLEDRION_SHIPPING_PRICE, $oledrion_Currency->amountForDisplay($shippingAmount)));
 		$sform->addElement(new XoopsFormText(_OLEDRION_LASTNAME,'cmd_lastname',50,255, $commande->getVar('cmd_lastname', 'e')), true);
 		$sform->addElement(new XoopsFormText(_OLEDRION_FIRSTNAME,'cmd_firstname',50,255, $commande->getVar('cmd_firstname','e')), false);
 		$sform->addElement(new XoopsFormTextArea(_OLEDRION_STREET,'cmd_adress', $commande->getVar('cmd_adress','e'), 3, 50), true);
 		$sform->addElement(new XoopsFormText(_OLEDRION_CP,'cmd_zip',5,30, $commande->getVar('cmd_zip', 'e')), true);
 		$sform->addElement(new XoopsFormText(_OLEDRION_CITY,'cmd_town',40,255, $commande->getVar('cmd_town', 'e')), true);
-		
+		// By voltan
 		//$countriesList = new XoopsFormSelect(_OLEDRION_COUNTRY, 'cmd_country', $commande->getVar('cmd_country',' e'));
 		//$countriesList->addOptionArray($countries);
 		//$sform->addElement($countriesList, true);
@@ -127,8 +129,11 @@ switch ($op)
 		$sform->addElement(new XoopsFormRadioYN(_OLEDRION_INVOICE,'cmd_bill', 0), true);
 		// Peut on proposer de ne pas payer en ligne ?
 		if(oledrion_utils::getModuleOption('offline_payment') == 1 ) {
-			$sform->addElement(new XoopsFormRadioYN(_OLEDRION_PAY_ONLINE, 'offline_payment', 1), true);
+			// By voltan
+			//$sform->addElement(new XoopsFormRadioYN(_OLEDRION_PAY_ONLINE, 'offline_payment', 1), true);
 		}
+		// By voltan
+		$sform->addElement(new XoopsFormHidden('offline_payment', '0'));
 
 		$button_tray = new XoopsFormElementTray('' ,'');
 		$submit_btn = new XoopsFormButton('', 'post', _OLEDRION_SAVE, 'submit');
@@ -140,7 +145,7 @@ switch ($op)
 		break;
 
 	// ****************************************************************************************************************
-	case 'gateway':	// Validation finale avant envoi sur la passerelle de paiement (ou arrêt)
+	case 'gateway':	// Validation finale avant envoi sur la passerelle de paiement (ou arrÃªt)
 	// ****************************************************************************************************************
 		if($h_oledrion_caddy->isCartEmpty()) {
 			oledrion_utils::redirect(_OLEDRION_CART_IS_EMPTY, OLEDRION_URL, 4);
@@ -179,7 +184,7 @@ switch ($op)
 			$panier->setVar('caddy_price', oledrion_utils::formatFloatForDB($line['totalPrice']));	// Attention, prix TTC avec frais de port
 			$panier->setVar('caddy_cmd_id', $commande->getVar('cmd_id'));
 			$panier->setVar('caddy_shipping', oledrion_utils::formatFloatForDB($line['discountedShipping']));
-			$panier->setVar('caddy_pass', md5(xoops_makepass()));	// Pour le téléchargement
+			$panier->setVar('caddy_pass', md5(xoops_makepass()));	// Pour le tÃ©lÃ©chargement
 			
 			
 			// Start Edit by voltan
@@ -213,7 +218,7 @@ switch ($op)
                 }
             }
 		}
-		// Totaux généraux
+		// Totaux gÃ©nÃ©raux
 		//$msgCommande .= "\n\n"._OLEDRION_SHIPPING_PRICE.' '.$oledrion_Currency->amountForDisplay($shippingAmount)."\n";
 		$msgCommande .= "\n\n" . _OLEDRION_TOTAL." ".$oledrion_Currency->amountForDisplay($commandAmountTTC)."\n";
 		if(count($discountsDescription) > 0) {
@@ -246,8 +251,8 @@ switch ($op)
 		// Envoi du mail au groupe de personne devant recevoir le mail
 		oledrion_utils::sendEmailFromTpl('command_shop.tpl', oledrion_utils::getEmailsFromGroup(oledrion_utils::getModuleOption('grp_sold')), _OLEDRION_NEW_COMMAND, $msg);
 
-		// Présentation du formulaire pour envoi à la passerelle de paiement
-		// Présentation finale avec panier en variables cachées ******************************
+		// PrÃ©sentation du formulaire pour envoi Ã  la passerelle de paiement
+		// PrÃ©sentation finale avec panier en variables cachÃ©es ******************************
 		$registry = new oledrion_registryfile();
 		$text = $registry->getfile(OLEDRION_TEXTFILE7);
 		$xoopsTpl->assign('text', xoops_trim($text));

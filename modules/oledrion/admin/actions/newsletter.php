@@ -2,7 +2,7 @@
 /**
  * ****************************************************************************
  * oledrion - MODULE FOR XOOPS
- * Copyright (c) Hervé Thouzard (http://www.herve-thouzard.com/)
+ * Copyright (c) HervÃ© Thouzard (http://www.herve-thouzard.com/)
  *
  * You may not change or alter any portion of this comment or credits
  * of supporting developers from this source code or any supporting source code
@@ -11,22 +11,22 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  *
- * @copyright       Hervé Thouzard (http://www.herve-thouzard.com/)
+ * @copyright       HervÃ© Thouzard (http://www.herve-thouzard.com/)
  * @license         http://www.fsf.org/copyleft/gpl.html GNU public license
  * @package         oledrion
- * @author 			Hervé Thouzard (http://www.herve-thouzard.com/)
+ * @author 			HervÃ© Thouzard (http://www.herve-thouzard.com/)
  *
  * Version : $Id:
  * ****************************************************************************
  */
 
 /**
- * Création du contenu d'une newsletter (dans l'administration)
+ * CrÃ©ation du contenu d'une newsletter (dans l'administration)
  */
 if(!defined("OLEDRION_ADMIN")) exit();
 switch($action) {
 	// ****************************************************************************************************************
-	case 'default':	// Création de la newsletter
+	case 'default':	// CrÃ©ation de la newsletter
 	// ****************************************************************************************************************
         xoops_cp_header();
         oledrion_adminMenu(8);
@@ -63,7 +63,7 @@ switch($action) {
 		break;
 
 	// ****************************************************************************************************************
-	case 'launch':	// Création effective de la newsletter
+	case 'launch':	// CrÃ©ation effective de la newsletter
 	// ****************************************************************************************************************
         xoops_cp_header();
         oledrion_adminMenu(8);

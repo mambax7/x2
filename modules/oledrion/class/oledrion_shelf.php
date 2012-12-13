@@ -2,7 +2,7 @@
 /**
  * ****************************************************************************
  * oledrion - MODULE FOR XOOPS
- * Copyright (c) Hervé Thouzard (http://www.herve-thouzard.com/)
+ * Copyright (c) HervÃ© Thouzard (http://www.herve-thouzard.com/)
  *
  * You may not change or alter any portion of this comment or credits
  * of supporting developers from this source code or any supporting source code
@@ -11,10 +11,10 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  *
- * @copyright       Hervé Thouzard (http://www.herve-thouzard.com/)
+ * @copyright       HervÃ© Thouzard (http://www.herve-thouzard.com/)
  * @license         http://www.fsf.org/copyleft/gpl.html GNU public license
  * @package         oledrion
- * @author 			Hervé Thouzard (http://www.herve-thouzard.com/)
+ * @author 			HervÃ© Thouzard (http://www.herve-thouzard.com/)
  *
  * Version : $Id:
  * ****************************************************************************
@@ -47,7 +47,7 @@ class oledrion_shelf
 	/**
 	 * Retourne le nombre de produits d'un certain type
 	 *
-	 * @param string $type	Le type de produits dont on veut récupérer le nombre
+	 * @param string $type	Le type de produits dont on veut rÃ©cupÃ©rer le nombre
 	 */
 	function getProductsCount($type = 'recent', $category = 0, $excluded = 0)
 	{
@@ -81,16 +81,16 @@ class oledrion_shelf
 		// Les images (la grande et la miniature)
 		$product->deletePictures();
 
-		// Le fichier attaché
+		// Le fichier attachÃ©
 		$product->deleteAttachment();
 
-		// Les fichiers attachés
+		// Les fichiers attachÃ©s
 		$this->handlers->h_oledrion_files->deleteProductFiles($id);
 
-		// Suppression dans les paniers persistants enregistrés
+		// Suppression dans les paniers persistants enregistrÃ©s
 		$this->handlers->h_oledrion_persistent_cart->deleteProductForAllCarts($id);
 
-		// Les attributs qui lui sont rattachés
+		// Les attributs qui lui sont rattachÃ©s
 		$this->handlers->h_oledrion_attributes->deleteProductAttributes($id);
 
 		// Le produit dans les listes
@@ -102,16 +102,16 @@ class oledrion_shelf
 		// Le produit dans les remises
 		$this->handlers->h_oledrion_discounts->removeProductFromDiscounts($id);
 
-		// Et le produit en lui même, à la fin
+		// Et le produit en lui mÃªme, Ã  la fin
 		return $this->handlers->h_oledrion_products->delete($product, true);
 	}
 
 
 	/**
-	 * Cherche et retourne la liste de produits relatifs à une liste de produits
+	 * Cherche et retourne la liste de produits relatifs Ã  une liste de produits
 	 *
 	 * @param array $productsIds	La liste des produits dont on cherche les produits relatifs
-	 * @return array	Clé = ID Produit, valeurs (deuxième dimension) = liste des produits relatifs
+	 * @return array	ClÃ© = ID Produit, valeurs (deuxiÃ¨me dimension) = liste des produits relatifs
 	 */
 	private function getRelatedProductsFromProductsIds($productsIds)
 	{
@@ -140,10 +140,10 @@ class oledrion_shelf
 
 
 	/**
-	 * Retourne une liste de produits selon certains critères
+	 * Retourne une liste de produits selon certains critÃ¨res
 	 *
-	 * @param oledrion_shelf_parameters $parameters	Les paramètres de filtrage
-	 * @return array	Tableau prêt à être utilisé dans les templates
+	 * @param oledrion_shelf_parameters $parameters	Les paramÃ¨tres de filtrage
+	 * @return array	Tableau prÃªt Ã  Ãªtre utilisÃ© dans les templates
 	 */
 	function getProducts(oledrion_shelf_parameters $parameters)
 	{
@@ -161,7 +161,7 @@ class oledrion_shelf
 		$withQuantity = $parametersValues['withQuantity'];
 		$thisMonthOnly = $parametersValues['thisMonthOnly'];
 		$ret = $xoopsUsersIDs = $users = $relatedProducts = $productsManufacturers = $manufacturersPerProduct = $products = $productsIds = $categoriesIds = $vendorsIds = $manufacturersIds = $manufacturers = $categories = $vendors = array();
-		// On commence par récupérer la liste des produits
+		// On commence par rÃ©cupÃ©rer la liste des produits
 		switch(strtolower($productType)) {
 			case 'recent':
 				$products = $this->handlers->h_oledrion_products->getRecentProducts(new oledrion_parameters(array('start' => $start, 'limit' => $limit, 'category' => $category, 'sort' => $sort, 'order' => $order, 'excluded' => $excluded, 'thisMonthOnly' => $thisMonthOnly)));
@@ -212,7 +212,7 @@ class oledrion_shelf
 			return $ret;
 		}
 
-		// Recherche des Id des catégories et des vendeurs
+		// Recherche des Id des catÃ©gories et des vendeurs
 		foreach($products as $product) {
 			$categoriesIds[] = $product->getVar('product_cid');
 			$vendorsIds[] = $product->getVar('product_vendor_id');
@@ -227,12 +227,12 @@ class oledrion_shelf
 			$manufacturersIds[] = $item->getVar('pm_manu_id');
 			$manufacturersPerProduct[$item->getVar('pm_product_id')][] = $item;
 		}
-		// On récupère la liste des personnes qui ont soumis les produits
+		// On rÃ©cupÃ¨re la liste des personnes qui ont soumis les produits
 		if($withXoopsUser) {
 			$users = oledrion_utils::getUsersFromIds($xoopsUsersIDs);
 		}
 
-		// Il faut récupérer la liste des produits relatifs
+		// Il faut rÃ©cupÃ©rer la liste des produits relatifs
 		if($withRelatedProducts) {
 			$relatedProducts = $this->getRelatedProductsFromProductsIds($productsIds);
 		}
@@ -246,7 +246,7 @@ class oledrion_shelf
 		$manufacturersIds = array_unique($manufacturersIds);
 		sort($manufacturersIds);
 
-		// Récupération des fabricants, des vendeurs et des catégories
+		// RÃ©cupÃ©ration des fabricants, des vendeurs et des catÃ©gories
 		if(count($manufacturersIds) > 0) {
 			$manufacturers = $this->handlers->h_oledrion_manufacturer->getManufacturersFromIds($manufacturersIds);
 		}
@@ -267,7 +267,7 @@ class oledrion_shelf
 			if(isset($vendors[$product->getVar('product_vendor_id')])) {
 				$tmp['product_vendor'] = $vendors[$product->getVar('product_vendor_id')]->toArray();
 			}
-			// La catégorie
+			// La catÃ©gorie
 			if(isset($categories[$product->getVar('product_cid')])) {
 				$tmp['product_category'] = $categories[$product->getVar('product_cid')]->toArray();
 			}
@@ -296,7 +296,7 @@ class oledrion_shelf
 				}
 			}
 
-			// L'utilisateur Xoops (éventuellement)
+			// L'utilisateur Xoops (Ã©ventuellement)
 			if($withXoopsUser && isset($users[$product->getVar('product_submitter')])) {
 				$thisUser = $users[$product->getVar('product_submitter')];
 				if(xoops_trim($thisUser->getVar('name')) != '') {
@@ -308,7 +308,7 @@ class oledrion_shelf
 				$userLink = '<a href="'.XOOPS_URL.'/userinfo.php?uid='.$thisUser->getVar('uid').'">'. $name.'</a>';
 				$tmp['product_submiter_link'] = $userLink;
 			}
-			$tmp['product_count'] = $count;	// Compteur pour les templates (pour gérer les colonnes)
+			$tmp['product_count'] = $count;	// Compteur pour les templates (pour gÃ©rer les colonnes)
 			$ret[] = $tmp;
 			$count++;
 		}

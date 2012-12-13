@@ -2,7 +2,7 @@
 /**
  * ****************************************************************************
  * oledrion - MODULE FOR XOOPS
- * Copyright (c) Hervé Thouzard (http://www.herve-thouzard.com/)
+ * Copyright (c) HervÃ© Thouzard (http://www.herve-thouzard.com/)
  *
  * You may not change or alter any portion of this comment or credits
  * of supporting developers from this source code or any supporting source code
@@ -11,10 +11,10 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  *
- * @copyright       Hervé Thouzard (http://www.herve-thouzard.com/)
+ * @copyright       HervÃ© Thouzard (http://www.herve-thouzard.com/)
  * @license         http://www.fsf.org/copyleft/gpl.html GNU public license
  * @package         oledrion
- * @author 			Hervé Thouzard (http://www.herve-thouzard.com/)
+ * @author 			HervÃ© Thouzard (http://www.herve-thouzard.com/)
  *
  * Version : $Id:
  * ****************************************************************************
@@ -44,11 +44,11 @@ if(!is_object($list)) {
 	oledrion_utils::redirect(_OLEDRION_ERROR21, 'index.php', 5);
 }
 
-// Vérification du type de liste (publique/privée)
+// VÃ©rification du type de liste (publique/privÃ©e)
 if(!$list->isSuitableForCurrentUser()) {
 	oledrion_utils::redirect(_OLEDRION_ERROR22, 'index.php', 5);
 }
-$xoopsTpl->assign('mod_pref', $mod_pref);	// Préférences du module
+$xoopsTpl->assign('mod_pref', $mod_pref);	// PrÃ©fÃ©rences du module
 $xoopsTpl->assign('list', $list->toArray());
 
 // TVA
@@ -63,7 +63,7 @@ if(count($products) > 0) {
 	}
 }
 
-// Mise à jour du compte de vues
+// Mise Ã  jour du compte de vues
 $handlers->h_oledrion_lists->incrementListViews($list);
 
 // Recherce des autres listes de cet utilisateur

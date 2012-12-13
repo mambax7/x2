@@ -2,7 +2,7 @@
 /**
  * ****************************************************************************
  * oledrion - MODULE FOR XOOPS
- * Copyright (c) Hervé Thouzard (http://www.herve-thouzard.com/)
+ * Copyright (c) HervÃ© Thouzard (http://www.herve-thouzard.com/)
  *
  * You may not change or alter any portion of this comment or credits
  * of supporting developers from this source code or any supporting source code
@@ -11,20 +11,20 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  *
- * @copyright       Hervé Thouzard (http://www.herve-thouzard.com/)
+ * @copyright       HervÃ© Thouzard (http://www.herve-thouzard.com/)
  * @license         http://www.fsf.org/copyleft/gpl.html GNU public license
  * @package         oledrion
- * @author 			Hervé Thouzard (http://www.herve-thouzard.com/)
+ * @author 			HervÃ© Thouzard (http://www.herve-thouzard.com/)
  *
  * Version : $Id:
  * ****************************************************************************
  */
 
 /**
- * Page des catégories
+ * Page des catÃ©gories
  * Principe :
- * Quand on est sur une catégorie mère (pas de parent) ou si on n'a pas spécifié de catégorie,
- * on affiche (si c'est demandé), les 4 blocs, sinon on affiche les produits de la catégorie
+ * Quand on est sur une catÃ©gorie mÃ¨re (pas de parent) ou si on n'a pas spÃ©cifiÃ© de catÃ©gorie,
+ * on affiche (si c'est demandÃ©), les 4 blocs, sinon on affiche les produits de la catÃ©gorie
  */
 require 'header.php';
 $cat_cid = isset($_GET['cat_cid']) ? intval($_GET['cat_cid']) : 0;
@@ -47,18 +47,18 @@ $limit = oledrion_utils::getModuleOption('perpage');
 // Lecture des TVA ********************************************************************************
 $vatArray = $h_oledrion_vat->getAllVats(new oledrion_parameters());
 
-// Lecture des catégories *************************************************************************
+// Lecture des catÃ©gories *************************************************************************
 $categories = $h_oledrion_cat->getAllCategories(new oledrion_parameters());
 
 // Options pour le template ***********************************************************************
-$xoopsTpl->assign('mod_pref', $mod_pref);	// Préférences du module
+$xoopsTpl->assign('mod_pref', $mod_pref);	// PrÃ©fÃ©rences du module
 $xoopsTpl->assign('columnsCount', oledrion_utils::getModuleOption('catagory_colums'));
 
 require_once OLEDRION_PATH.'class/tree.php';
 $tbl_tmp = array();
 $mytree = new Oledrion_XoopsObjectTree($categories, 'cat_cid', 'cat_pid');
 $subCategoriesSearched = false;
-// Si on est sur une catégorie mère ou si on n'a pas spécifié de catégorie
+// Si on est sur une catÃ©gorie mÃ¨re ou si on n'a pas spÃ©cifiÃ© de catÃ©gorie
 if( (is_object($category) && $category->getVar('cat_pid') == 0) || $cat_cid == 0 ) {	// On affiche les 4 blocs
 	$xoopsTpl->assign('case', 1);
 
@@ -73,7 +73,7 @@ if( (is_object($category) && $category->getVar('cat_pid') == 0) || $cat_cid == 0
 		}
 	}
 
-	if(is_object($category)) {	// On est sur une catégorie particulière
+	if(is_object($category)) {	// On est sur une catÃ©gorie particuliÃ¨re
 		$xoopsTpl->assign('category', $category->toArray());
 		$title = _OLEDRION_CATEGORYC.' '.$category->getVar('cat_title').' - '.oledrion_utils::getModuleName();
 		if(!oledrion_utils::getModuleOption('manual_meta')) {
@@ -98,7 +98,7 @@ if( (is_object($category) && $category->getVar('cat_pid') == 0) || $cat_cid == 0
 			}
 			$subCategoriesSearched = true;
 		}
-	} else {	// page d'accueil des catégories
+	} else {	// page d'accueil des catÃ©gories
 		$title = _OLEDRION_CATEGORIES.' - '.oledrion_utils::getModuleName();
 		oledrion_utils::setMetas($title, $title);
 		$xoopsTpl->assign('breadcrumb', oledrion_utils::breadcrumb(array(OLEDRION_URL.basename(__FILE__) => _OLEDRION_CATEGORIES)));
@@ -115,13 +115,13 @@ if( (is_object($category) && $category->getVar('cat_pid') == 0) || $cat_cid == 0
 		}
 	}
 
-	// Paramétrage des catégories
-	$chunk1 = oledrion_utils::getModuleOption('chunk1');		// Produits les plus récents
-	$chunk2 = oledrion_utils::getModuleOption('chunk2');		// Produits les plus achetés
+	// ParamÃ©trage des catÃ©gories
+	$chunk1 = oledrion_utils::getModuleOption('chunk1');		// Produits les plus rÃ©cents
+	$chunk2 = oledrion_utils::getModuleOption('chunk2');		// Produits les plus achetÃ©s
 	$chunk3 = oledrion_utils::getModuleOption('chunk3');		// Produits les plus vus
-	$chunk4 = oledrion_utils::getModuleOption('chunk4');		// Produits les mieux notés
+	$chunk4 = oledrion_utils::getModuleOption('chunk4');		// Produits les mieux notÃ©s
 
-	if( $chunk1 > 0 ) {		// Produits les plus récents (dans cette catégorie ou dans toutes les catégories)
+	if( $chunk1 > 0 ) {		// Produits les plus rÃ©cents (dans cette catÃ©gorie ou dans toutes les catÃ©gories)
 		$products = array();
 		$oledrion_shelf_parameters->resetDefaultValues()->setProductsType('recent')->setCategory($tblChilds)->setStart($start)->setLimit($limit)->setSort('product_submitted DESC, product_title');
 		$products = $oledrion_shelf->getProducts($oledrion_shelf_parameters);
@@ -134,7 +134,7 @@ if( (is_object($category) && $category->getVar('cat_pid') == 0) || $cat_cid == 0
 		}
 	}
 
-	if( $chunk2 > 0 ) {		// Produits les plus achetés (dans cette catégorie ou dans toutes les catégories)
+	if( $chunk2 > 0 ) {		// Produits les plus achetÃ©s (dans cette catÃ©gorie ou dans toutes les catÃ©gories)
 		$products = array();
 		$oledrion_shelf_parameters->resetDefaultValues()->setProductsType('mostsold')->setStart($start)->setLimit($limit)->setSort('product_submitted DESC, product_title')->setCategory($tblChilds);
 		$products = $oledrion_shelf->getProducts($oledrion_shelf_parameters);
@@ -160,7 +160,7 @@ if( (is_object($category) && $category->getVar('cat_pid') == 0) || $cat_cid == 0
 		}
 	}
 
-	if( $chunk4 > 0 ) {		// Produits les mieux notés
+	if( $chunk4 > 0 ) {		// Produits les mieux notÃ©s
 		$products = array();
 		$oledrion_shelf_parameters->resetDefaultValues()->setProductsType('bestrated')->setStart($start)->setLimit($limit)->setSort('product_rating')->setOrder('DESC')->setCategory($tblChilds);
 		$products = $oledrion_shelf->getProducts($oledrion_shelf_parameters);
@@ -174,7 +174,7 @@ if( (is_object($category) && $category->getVar('cat_pid') == 0) || $cat_cid == 0
 	}
 }
 
-if( is_object($category) && $cat_cid > 0 ) { // On est sur une catégorie définie donc on affiche les produits de cette catégorie
+if( is_object($category) && $cat_cid > 0 ) { // On est sur une catÃ©gorie dÃ©finie donc on affiche les produits de cette catÃ©gorie
 	$xoopsTpl->assign('case', 2);
 	$xoopsTpl->assign('category', $category->toArray());
 	if(OLEDRION_SHOW_SUB_CATEGORIES && ! $subCategoriesSearched) {
@@ -191,7 +191,7 @@ if( is_object($category) && $cat_cid > 0 ) { // On est sur une catégorie définie
 	}
 
 	// Pager ******************************************************************************************
-	// Recherche du nombre de produits dans cette catégorie
+	// Recherche du nombre de produits dans cette catÃ©gorie
 	$productsCount = $h_oledrion_products->getTotalPublishedProductsCount($cat_cid);
 	$limit = oledrion_utils::getModuleOption('perpage');
 	if ( $productsCount > $limit ) {
@@ -210,7 +210,7 @@ if( is_object($category) && $cat_cid > 0 ) { // On est sur une catégorie définie
 	foreach($ancestors as $item) {
 		$tbl_tmp[] = "<a href='".$item->getLink()."' title='".oledrion_utils::makeHrefTitle($item->getVar('cat_title'))."'>".$item->getVar('cat_title').'</a>';
 	}
-	// Ajout de la catégorie courante
+	// Ajout de la catÃ©gorie courante
 	$tbl_tmp[] = "<a href='".$category->getLink()."' title='".oledrion_utils::makeHrefTitle($category->getVar('cat_title'))."'>".$category->getVar('cat_title').'</a>';
 	$breadcrumb = implode(' &raquo; ', $tbl_tmp);
 	$xoopsTpl->assign('breadcrumb', $breadcrumb);
@@ -227,7 +227,7 @@ if( is_object($category) && $cat_cid > 0 ) { // On est sur une catégorie définie
 	}
 
 
-	// Données des Produits *************************************************************************
+	// DonnÃ©es des Produits *************************************************************************
 	$products = array();
 	$oledrion_shelf_parameters->resetDefaultValues()->setProductsType('recent')->setCategory($cat_cid)->setStart($start)->setLimit($limit)->setSort('product_submitted DESC, product_title');
 	$products = $oledrion_shelf->getProducts($oledrion_shelf_parameters);

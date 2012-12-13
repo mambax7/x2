@@ -1,11 +1,9 @@
 <div class="oledrion">
-	<!-- Created by Hervé Thouzard (http://www.herve-thouzard.com/) -->
+	<!-- Created by HervÃ© Thouzard (http://www.herve-thouzard.com/) -->
 	<!-- HEADER -->
 	<div id="oledrion-logo">
 		<{if $category.cat_imgurl != ''}>
 			<img src="<{$category.cat_full_imgurl}>" alt="<{$category.cat_title}>" />
-		<{else}>
-			<span id="oledrion-main-logo"><img src="<{$smarty.const.OLEDRION_IMAGES_URL}>oledrion.png" alt="oledrion"  /></span>
 		<{/if}>
 	</div>
 	
@@ -65,7 +63,7 @@
 	<{/if}>
 	
 	<{if count($products) > 0}>
-		<{if isset($pagenav) }><div style="text-class: right; margin: 10px;"><{$pagenav}></div><{/if}>
+		<{if isset($pagenav) }><div class="center pagenav"><{$pagenav}></div><{/if}>
 		<table class="oledrion_productindex">
 		<tr>
 		<{foreach item=product from=$products}>
@@ -96,7 +94,7 @@
 		<{/foreach}>
 		</tr>
 		</table>
-		<{if isset($pagenav) }><div style="text-class: left; margin: 10px;"><{$pagenav}></div><{/if}>
+		<{if isset($pagenav) }><div class="center pagenav"><{$pagenav}></div><{/if}>
 	<{else}>
 		<h2><{$smarty.const._OLEDRION_SORRY_NO_PRODUCT}></h2>
 	<{/if}>

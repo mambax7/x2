@@ -2,7 +2,7 @@
 /**
  * ****************************************************************************
  * oledrion - MODULE FOR XOOPS
- * Copyright (c) Hervé Thouzard (http://www.herve-thouzard.com/)
+ * Copyright (c) HervÃ© Thouzard (http://www.herve-thouzard.com/)
  *
  * You may not change or alter any portion of this comment or credits
  * of supporting developers from this source code or any supporting source code
@@ -11,29 +11,29 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  *
- * @copyright       Hervé Thouzard (http://www.herve-thouzard.com/)
+ * @copyright       HervÃ© Thouzard (http://www.herve-thouzard.com/)
  * @license         http://www.fsf.org/copyleft/gpl.html GNU public license
  * @package         oledrion
- * @author 			Hervé Thouzard (http://www.herve-thouzard.com/)
+ * @author 			HervÃ© Thouzard (http://www.herve-thouzard.com/)
  *
  * Version : $Id:
  * ****************************************************************************
  */
 
 /**
- * Classe interne dont le but est de passer des paramètres à la classe oeldrion_shelf
+ * Classe interne dont le but est de passer des paramÃ¨tres Ã  la classe oeldrion_shelf
  */
 if (!defined('XOOPS_ROOT_PATH')) {
 	die("XOOPS root path not defined");
 }
 
 /**
- * Utilisé comme paramètre dans la façcade oledrion_shelf
+ * UtilisÃ© comme paramÃ¨tre dans la faÃ§cade oledrion_shelf
  */
 class oledrion_shelf_parameters
 {
     /**
-     * Le conteneur de paramètres
+     * Le conteneur de paramÃ¨tres
      *
      * @var array
      */
@@ -45,7 +45,7 @@ class oledrion_shelf_parameters
 	}
 
 	/**
-	 * Réinitialisation des valeurs
+	 * RÃ©initialisation des valeurs
 	 *
 	 * @return object
 	 */
@@ -66,7 +66,7 @@ class oledrion_shelf_parameters
 	}
 
     /**
-     * Retourne le tableau des paramètres
+     * Retourne le tableau des paramÃ¨tres
      *
      * @return array
      */
@@ -76,7 +76,7 @@ class oledrion_shelf_parameters
 	}
 
     /**
-     * Positione la valeur de début
+     * Positione la valeur de dÃ©but
      *
      * @param integer $value
      * @return object
@@ -88,7 +88,7 @@ class oledrion_shelf_parameters
 	}
 
 	/**
-	 * Fixe le nombre maximum d'enregistrements à retourner
+	 * Fixe le nombre maximum d'enregistrements Ã  retourner
 	 *
 	 * @param integer $value
 	 * @return object
@@ -100,7 +100,7 @@ class oledrion_shelf_parameters
 	}
 
     /**
-     * Fixe la catégorie à utiliser
+     * Fixe la catÃ©gorie Ã  utiliser
      *
      * @param integer $value
      * @return object
@@ -136,7 +136,7 @@ class oledrion_shelf_parameters
 	}
 
     /**
-     * Fixe la liste des produits à exclure
+     * Fixe la liste des produits Ã  exclure
      *
      * @param mixed $value
      * @return string
@@ -172,7 +172,7 @@ class oledrion_shelf_parameters
 	}
 
 	/**
-	 * Indique s'il faut retourner les quantités
+	 * Indique s'il faut retourner les quantitÃ©s
 	 *
 	 * @param boolean $value
 	 * @return object
@@ -184,7 +184,7 @@ class oledrion_shelf_parameters
 	}
 
 	/**
-	 * Fixe le type de produits à retourner
+	 * Fixe le type de produits Ã  retourner
 	 *
 	 * @param string $value
 	 * @return object

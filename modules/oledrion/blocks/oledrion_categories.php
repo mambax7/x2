@@ -2,7 +2,7 @@
 /**
  * ****************************************************************************
  * oledrion - MODULE FOR XOOPS
- * Copyright (c) Hervé Thouzard (http://www.herve-thouzard.com/)
+ * Copyright (c) HervÃ© Thouzard (http://www.herve-thouzard.com/)
  *
  * You may not change or alter any portion of this comment or credits
  * of supporting developers from this source code or any supporting source code
@@ -11,17 +11,17 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  *
- * @copyright       Hervé Thouzard (http://www.herve-thouzard.com/)
+ * @copyright       HervÃ© Thouzard (http://www.herve-thouzard.com/)
  * @license         http://www.fsf.org/copyleft/gpl.html GNU public license
  * @package         oledrion
- * @author 			Hervé Thouzard (http://www.herve-thouzard.com/)
+ * @author 			HervÃ© Thouzard (http://www.herve-thouzard.com/)
  *
  * Version : $Id:
  * ****************************************************************************
  */
 
 /**
- * Affiche le bloc des catégories en fonction de la catégorie en cours (fonctionne de paire avec les pages du module)
+ * Affiche le bloc des catÃ©gories en fonction de la catÃ©gorie en cours (fonctionne de paire avec les pages du module)
  */
 function b_oledrion_category_show($options)
 {
@@ -32,7 +32,7 @@ function b_oledrion_category_show($options)
 	$xoopsTpl->assign("xoops_module_header", "<link rel=\"stylesheet\" type=\"text/css\" href=\"$url\" />");
 	$block['nostock_msg'] = oledrion_utils::getModuleOption('nostock_msg');
 
-	if(intval($options[0]) == 0) {	// Catégories selon la page en cours
+	if(intval($options[0]) == 0) {	// CatÃ©gories selon la page en cours
 		$block['block_option'] = 0;
 		if(!isset($GLOBALS['current_category']) || $GLOBALS['current_category'] == -1) {
 			return false;
@@ -59,7 +59,7 @@ function b_oledrion_category_show($options)
 					$block['block_current_category'] = $category->toArray();
 				}
 			}
-		} else {	// On est à la racine, on n'affiche donc que les catégories mères
+		} else {	// On est Ã  la racine, on n'affiche donc que les catÃ©gories mÃ¨res
 			$tbl_categories = array();
 			$criteria = new Criteria('cat_pid', 0, '=');
 			$criteria->setSort('cat_title');
@@ -84,7 +84,7 @@ function b_oledrion_category_show($options)
 		}
 		$htmlSelect = $mytree->makeSelBox('cat_cid', 'cat_title', '-', $cat_cid, false, 0, $additional);
 		$block['htmlSelect'] = $htmlSelect;
-	} else {	// Affichage de toute l'arborescence, dépliée
+	} else {	// Affichage de toute l'arborescence, dÃ©pliÃ©e
 		$block['block_option'] = 2;
 		$block['liMenu'] = $h_oledrion_cat->getUlMenu('category_title');
 	}
@@ -104,7 +104,7 @@ function b_oledrion_category_edit($options)
 }
 
 /**
- * Bloc à la volée
+ * Bloc Ã  la volÃ©e
  */
 function b_oledrion_category_duplicatable($options)
 {

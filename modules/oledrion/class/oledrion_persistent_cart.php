@@ -2,7 +2,7 @@
 /**
  * ****************************************************************************
  * oledrion - MODULE FOR XOOPS
- * Copyright (c) Hervé Thouzard (http://www.herve-thouzard.com/)
+ * Copyright (c) HervÃ© Thouzard (http://www.herve-thouzard.com/)
  *
  * You may not change or alter any portion of this comment or credits
  * of supporting developers from this source code or any supporting source code
@@ -11,10 +11,10 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  *
- * @copyright       Hervé Thouzard (http://www.herve-thouzard.com/)
+ * @copyright       HervÃ© Thouzard (http://www.herve-thouzard.com/)
  * @license         http://www.fsf.org/copyleft/gpl.html GNU public license
  * @package         oledrion
- * @author 			Hervé Thouzard (http://www.herve-thouzard.com/)
+ * @author 			HervÃ© Thouzard (http://www.herve-thouzard.com/)
  *
  * Version : $Id:
  * ****************************************************************************
@@ -23,8 +23,8 @@
 /**
  * Panier persistant
  *
- * Lorque l'option correspondante dans le module est activée, tout produit rajouté dans le panier est
- * enregistré en base de données (à condition que l'utilisateur soit connecté).
+ * Lorque l'option correspondante dans le module est activÃ©e, tout produit rajoutÃ© dans le panier est
+ * enregistrÃ© en base de donnÃ©es (Ã  condition que l'utilisateur soit connectÃ©).
  * Si l'utilisateur quitte le site et revient plus tard, cela permet de recharger son panier.
  */
 require 'classheader.php';
@@ -50,9 +50,9 @@ class OledrionOledrion_persistent_cartHandler extends Oledrion_XoopsPersistableO
 	}
 
 	/**
-	 * Supprime un produit des paniers enregistrés
+	 * Supprime un produit des paniers enregistrÃ©s
 	 *
-	 * @param mixed $persistent_product_id	L'ID du produit à supprimer ou un tableau d'identifiants à supprimer
+	 * @param mixed $persistent_product_id	L'ID du produit Ã  supprimer ou un tableau d'identifiants Ã  supprimer
 	 * @return boolean
 	 */
 	function deleteProductForAllCarts($persistent_product_id)
@@ -72,7 +72,7 @@ class OledrionOledrion_persistent_cartHandler extends Oledrion_XoopsPersistableO
 	 * Purge des produits d'un utilisateur
 	 *
 	 * @param integer $persistent_uid	L'identifiant de l'utilisateur
-	 * @return boolean	Le résultat de la suppression
+	 * @return boolean	Le rÃ©sultat de la suppression
 	 */
 	function deleteAllUserProducts($persistent_uid = 0)
 	{
@@ -90,7 +90,7 @@ class OledrionOledrion_persistent_cartHandler extends Oledrion_XoopsPersistableO
 	 *
 	 * @param integer $persistent_product_id	L'identifiant du produit
 	 * @param integer $persistent_uid	L'identifiant de l'utilisateur
-	 * @return boolean	Le résultat de la suppression
+	 * @return boolean	Le rÃ©sultat de la suppression
 	 */
 	function deleteUserProduct($persistent_product_id, $persistent_uid = 0)
 	{
@@ -108,9 +108,9 @@ class OledrionOledrion_persistent_cartHandler extends Oledrion_XoopsPersistableO
 	 * Ajoute un produit au panier d'un utilisateur
 	 *
 	 * @param integer $persistent_product_id	L'ID du produit
-	 * @param integer $persistent_qty	La quantité de produits
+	 * @param integer $persistent_qty	La quantitÃ© de produits
 	 * @param integer $persistent_uid	L'ID de l'utilisateur
-	 * @return boolean	Le résultat de l'ajout du produit
+	 * @return boolean	Le rÃ©sultat de l'ajout du produit
 	 */
 	function addUserProduct($persistent_product_id, $persistent_qty, $persistent_uid = 0)
 	{
@@ -127,12 +127,12 @@ class OledrionOledrion_persistent_cartHandler extends Oledrion_XoopsPersistableO
 	}
 
     /**
-     * Mise à jour de la quantité de produit d'un utilisateur
+     * Mise Ã  jour de la quantitÃ© de produit d'un utilisateur
      *
      * @param integer $persistent_product_id	L'identifiant du produit
-     * @param integer $persistent_qty	La quantité de produit
+     * @param integer $persistent_qty	La quantitÃ© de produit
      * @param integer $persistent_uid	L'ID de l'utilisateur
-     * @return boolean	Le résultat de la mise à jour
+     * @return boolean	Le rÃ©sultat de la mise Ã  jour
      */
 	function updateUserProductQuantity($persistent_product_id, $persistent_qty, $persistent_uid = 0)
 	{

@@ -8,14 +8,14 @@
 		<div align="center"><h3><{$formTitle}></h3>
 		<table width='100%' class='outer' cellspacing='1'>
 		<tr>
-			<th colspan="2" align="center"><{$smarty.const._AM_OLEDRION_DISCOUNT_INFORMATION}></th>	<{* Informations sur la réduction *}>
+			<th colspan="2" align="center"><{$smarty.const._AM_OLEDRION_DISCOUNT_INFORMATION}></th>	<{* Informations sur la rÃ©duction *}>
 		</tr>
 		<tr>
 			<td class='head'><label for="disc_title"><{$smarty.const._AM_OLEDRION_DISCOUNT_TITLE}></label></td>
 			<td class='even'><input type="text" name="disc_title" id="disc_title" value="<{$discount.disc_title}>" size="50" maxlength="255" /></td>
 		</tr>
 		<tr>
-			<td class='head' vclass="top"><label for="disc_description"><{$smarty.const._AM_OLEDRION_DISCOUNT_DESCRIPTION}></label></td>
+			<td class='head top'><label for="disc_description"><{$smarty.const._AM_OLEDRION_DISCOUNT_DESCRIPTION}></label></td>
 			<td class='even'><{$editor}></td>
 		</tr>
 		<tr>
@@ -23,7 +23,7 @@
 			<td class='even'><input type="checkbox" name="disc_pediod" id="disc_pediod" value="1" <{$discount.disc_pediod_checked}> /> <{$smarty.const._AM_OLEDRION_DISCOUNT_PERFROM}> <{$discount.disc_date_from}> <{$smarty.const._AM_OLEDRION_DISCOUNT_PERTO}> <{$discount.disc_date_to}></td>
 		</tr>
 
-		<tr>	<{* A qui ou selon quoi appliquer la réduction ? *}>
+		<tr>	<{* A qui ou selon quoi appliquer la rÃ©duction ? *}>
 			<th colspan="2" align="center"><{$smarty.const._AM_OLEDRION_DISCOUNT_WHOWHAT}></th>
 		</tr>
 		<tr>
@@ -46,11 +46,11 @@
 			<td class='head' colspan="2"><span class='xoops-form-element-help'><{$smarty.const._AM_OLEDRION_DISCOUNT_HELP2}><br /><{$smarty.const._AM_OLEDRION_DISCOUNT_HELP3}><br /><{$smarty.const._AM_OLEDRION_DISCOUNT_HELP4}><br /><{$smarty.const._AM_OLEDRION_DISCOUNT_HELP5}><br /><{$smarty.const._AM_OLEDRION_DISCOUNT_HELP6}></span></td>
 		</tr>
 
-		<tr>	<{* Réduction sur le prix du produit ou le montant de la commande *}>
+		<tr>	<{* RÃ©duction sur le prix du produit ou le montant de la commande *}>
 			<th colspan="2" align="center"><{$smarty.const._AM_OLEDRION_DISCOUNT_REDUCTION_PRICE}></th>
 		</tr>
 		<tr>
-			<td class='head' vclass="top"><{$smarty.const._AM_OLEDRION_DISCOUNT_REDUCTION_TYPE}></td>
+			<td class='head top'><{$smarty.const._AM_OLEDRION_DISCOUNT_REDUCTION_TYPE}></td>
 			<td class='even'>
 				<table border="0">
 				<tr>
@@ -102,7 +102,7 @@
 			</td>
 		</tr>
 		<tr>
-			<td class='head' vclass="top"><{$smarty.const._AM_OLEDRION_DISCOUNT_IN_WHICH_CASE}></td>
+			<td class='head top'><{$smarty.const._AM_OLEDRION_DISCOUNT_IN_WHICH_CASE}></td>
 			<td class='even'>
 				<input type="radio" name="disc_price_case" id="disc_price_case" value="1" <{$discount.disc_price_case_checked1}> /> <{$smarty.const._AM_OLEDRION_DISCOUNT_ALL_CASES}><br />
 				<input type="radio" name="disc_price_case" id="disc_price_case" value="2" <{$discount.disc_price_case_checked2}> /> <{$smarty.const._AM_OLEDRION_DISCOUNT_FIRST_PURCHASE}><br />
@@ -111,10 +111,10 @@
 			</td>
 		</tr>
 		<tr>
-			<th colspan="2" align="center"><{$smarty.const._AM_OLEDRION_DISCOUNT_SHIPPING_REDUCTIONS}></th>	<{* Réductions sur les frais de port *}>
+			<th colspan="2" align="center"><{$smarty.const._AM_OLEDRION_DISCOUNT_SHIPPING_REDUCTIONS}></th>	<{* RÃ©ductions sur les frais de port *}>
 		</tr>
 		<tr>
-			<td class='head' vclass='top'><{$smarty.const._AM_OLEDRION_DISCOUNT_SHIPPINGS_ARE}></td>
+			<td class='head top'><{$smarty.const._AM_OLEDRION_DISCOUNT_SHIPPINGS_ARE}></td>
 			<td class='even'>
 				<table border="0">
 				<tr>

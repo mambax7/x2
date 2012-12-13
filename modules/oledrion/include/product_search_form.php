@@ -2,7 +2,7 @@
 /**
  * ****************************************************************************
  * oledrion - MODULE FOR XOOPS
- * Copyright (c) Hervé Thouzard (http://www.herve-thouzard.com/)
+ * Copyright (c) HervÃ© Thouzard (http://www.herve-thouzard.com/)
  *
  * You may not change or alter any portion of this comment or credits
  * of supporting developers from this source code or any supporting source code
@@ -11,17 +11,17 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  *
- * @copyright       Hervé Thouzard (http://www.herve-thouzard.com/)
+ * @copyright       HervÃ© Thouzard (http://www.herve-thouzard.com/)
  * @license         http://www.fsf.org/copyleft/gpl.html GNU public license
  * @package         oledrion
- * @author 			Hervé Thouzard (http://www.herve-thouzard.com/)
+ * @author 			HervÃ© Thouzard (http://www.herve-thouzard.com/)
  *
  * Version : $Id:
  * ****************************************************************************
  */
 
 /**
- * Recherche avancée dans les produits, formulaire de sélection des critères
+ * Recherche avancÃ©e dans les produits, formulaire de sÃ©lection des critÃ¨res
  */
 if (!defined('XOOPS_ROOT_PATH')) {
 	die('XOOPS root path not defined');
@@ -33,15 +33,15 @@ $sform = new XoopsThemeForm(oledrion_utils::getModuleName().' - '._OLEDRION_SEAR
 $sform->addElement(new XoopsFormText(_OLEDRION_TEXT,'product_text', 50, 255, ''), false);
 $sform->addElement(new XoopsFormSelectMatchOption(_OLEDRION_TYPE, 'search_type', 3), false);
 
-// Sélecteur de catégories ****************************************************
+// SÃ©lecteur de catÃ©gories ****************************************************
 $categorySelect = new XoopsFormSelect(_OLEDRION_CATEGORY, 'product_category', 0);
 $treeObject = new Oledrion_XoopsObjectTree($categories, 'cat_cid', 'cat_pid');
 $tree = $treeObject->makeTreeAsArray('cat_title', '-', 0, _OLEDRION_ALL_CATEGORIES);
 $categorySelect->addOptionArray($tree);
 $sform->addElement($categorySelect, false);
 
-
-// Sélecteur pour les fabricants *************************************************
+// By voltan
+// SÃ©lecteur pour les fabricants *************************************************
 /*
 $authorSelect = new XoopsFormSelect(_OLEDRION_MANUFACTURER, 'product_manufacturers', 0, 5, true);
 $tblTmp = array();
@@ -53,7 +53,7 @@ $authorSelect->addOptionArray($tblTmp);
 $sform->addElement($authorSelect, false);
 */
 
-// Sélecteur pour les vendeurs *************************************************
+// SÃ©lecteur pour les vendeurs *************************************************
 /*
 $languageSelect = new XoopsFormSelect(_OLEDRION_VENDOR, 'product_vendors', 0, 1, false);
 $tblTmp = array();
@@ -103,7 +103,7 @@ if(oledrion_utils::getModuleOption('product_property4')) {
    }
    $sform->addElement($property4select, false);
 }
-
+// By voltan
 /*
 if(oledrion_utils::getModuleOption('product_property5')) {
    $property5select = new XoopsFormSelect(_OLEDRION_PRODUCT_PROPERTY4, 'product_property5', '');

@@ -2,7 +2,7 @@
 /**
  * ****************************************************************************
  * oledrion - MODULE FOR XOOPS
- * Copyright (c) Hervé Thouzard (http://www.herve-thouzard.com/)
+ * Copyright (c) HervÃ© Thouzard (http://www.herve-thouzard.com/)
  *
  * You may not change or alter any portion of this comment or credits
  * of supporting developers from this source code or any supporting source code
@@ -12,11 +12,11 @@
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  *
  * @copyright 		Jan Pedersen
- * @copyright       Hervé Thouzard (http://www.herve-thouzard.com/)
+ * @copyright       HervÃ© Thouzard (http://www.herve-thouzard.com/)
  * @license         http://www.fsf.org/copyleft/gpl.html GNU public license
  * @package         oledrion
  * @author          Jan Pedersen
- * @author 			Hervé Thouzard (http://www.herve-thouzard.com/)
+ * @author 			HervÃ© Thouzard (http://www.herve-thouzard.com/)
  *
  * Version : $Id:
  * ****************************************************************************
@@ -37,15 +37,15 @@ class Oledrion_Object extends XoopsObject
 		return $ret;
     }
 
-    // TODO: Rajouter une méthode intsert() et delete()
+    // TODO: Rajouter une mÃ©thode intsert() et delete()
 
     /**
-     * Permet de valoriser un champ de la table comme si c'était une propriété de la classe
+     * Permet de valoriser un champ de la table comme si c'Ã©tait une propriÃ©tÃ© de la classe
      *
      * @example $enregistrement->nom_du_champ = 'ma chaine'
      *
-     * @param string $key	Le nom du champ à traiter
-     * @param mixed $value	La valeur à lui attribuer
+     * @param string $key	Le nom du champ Ã  traiter
+     * @param mixed $value	La valeur Ã  lui attribuer
      * @return void
      */
     function __set($key, $value)
@@ -54,11 +54,11 @@ class Oledrion_Object extends XoopsObject
     }
 
     /**
-     * Permet d'accéder aux champs de la table comme à des propriétés de la classe
+     * Permet d'accÃ©der aux champs de la table comme Ã  des propriÃ©tÃ©s de la classe
      *
      * @example echo $enregistrement->nom_du_champ;
      *
-     * @param string $key	Le nom du champ que l'on souhaite récupérer
+     * @param string $key	Le nom du champ que l'on souhaite rÃ©cupÃ©rer
      * @return mixed
      */
     function __get($key)
@@ -373,10 +373,10 @@ class Oledrion_XoopsPersistableObjectHandler extends XoopsObjectHandler {
     }
 
     /**
-	 * Retourne des éléments selon leur ID
+	 * Retourne des Ã©lÃ©ments selon leur ID
 	 *
-	 * @param array $ids	Les ID des éléments à retrouver
-	 * @return array	Tableau d'objets (clé = id key name)
+	 * @param array $ids	Les ID des Ã©lÃ©ments Ã  retrouver
+	 * @return array	Tableau d'objets (clÃ© = id key name)
 	 */
 	function getItemsFromIds($ids)
 	{
@@ -583,7 +583,7 @@ class Oledrion_XoopsPersistableObjectHandler extends XoopsObjectHandler {
                 $cleanvars[$k] = $this->db->quoteString($v);
             }
         }
-        if(isset($cleanvars['dohtml'])) {		// Modification Hervé to be able to use dohtml
+        if(isset($cleanvars['dohtml'])) {		// Modification HervÃ© to be able to use dohtml
         	unset($cleanvars['dohtml']);
         }
         if ($obj->isNew()) {

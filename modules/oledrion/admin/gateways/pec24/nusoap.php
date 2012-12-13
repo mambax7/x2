@@ -2847,7 +2847,8 @@ class soap_server extends nusoap_base {
     */
     function webDescription(){
 		$b = '
-		<html><head><title>NuSOAP: '.$this->wsdl->serviceName.'</title>
+		<html><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8" /><title>NuSOAP: '.$this->wsdl->serviceName.'</title>
 		<style type="text/css">
 		    body    { font-family: arial; color: #000000; background-color: #ffffff; margin: 0px 0px 0px 0px; }
 		    p       { font-family: arial; color: #000000; margin-top: 0px; margin-bottom: 12px; }

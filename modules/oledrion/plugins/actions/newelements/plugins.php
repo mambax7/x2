@@ -2,7 +2,7 @@
 /**
  * ****************************************************************************
  * oledrion - MODULE FOR XOOPS
- * Copyright (c) Hervé Thouzard (http://www.herve-thouzard.com/)
+ * Copyright (c) HervÃ© Thouzard (http://www.herve-thouzard.com/)
  *
  * You may not change or alter any portion of this comment or credits
  * of supporting developers from this source code or any supporting source code
@@ -11,17 +11,17 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  *
- * @copyright       Hervé Thouzard (http://www.herve-thouzard.com/)
+ * @copyright       HervÃ© Thouzard (http://www.herve-thouzard.com/)
  * @license         http://www.fsf.org/copyleft/gpl.html GNU public license
  * @package         oledrion
- * @author 			Hervé Thouzard (http://www.herve-thouzard.com/)
+ * @author 			HervÃ© Thouzard (http://www.herve-thouzard.com/)
  *
  * Version : $Id:
  * ****************************************************************************
  */
 
 /**
- * Plugin chargé de notifier les utilisateurs de la création d'un nouveau produit et d'une nouvelle catégorie
+ * Plugin chargÃ© de notifier les utilisateurs de la crÃ©ation d'un nouveau produit et d'une nouvelle catÃ©gorie
  *
  * @since 2.31
  */
@@ -30,15 +30,15 @@ class newelementsAction extends oledrion_action
 	public static function registerEvents()
 	{
 		/**
-		 * La liste des évènements traités par le plugin se présente sous la forme d'un tableau compposé comme ceci :
+		 * La liste des Ã©vÃ¨nements traitÃ©s par le plugin se prÃ©sente sous la forme d'un tableau compposÃ© comme ceci :
 		 *
 		 * Indice	Signification
 		 * ----------------------
-		 *	0		Evènement sur lequel se raccrocher (voir class/oledrion_plugins.php::EVENT_ON_PRODUCT_CREATE
-		 *	1		Priorité du plugin (de 1 à 5)
-		 *	2		Script Php à inclure
-		 *	3		Classe à instancier
-		 *	4		Méthode à appeler
+		 *	0		EvÃ¨nement sur lequel se raccrocher (voir class/oledrion_plugins.php::EVENT_ON_PRODUCT_CREATE
+		 *	1		PrioritÃ© du plugin (de 1 Ã  5)
+		 *	2		Script Php Ã  inclure
+		 *	3		Classe Ã  instancier
+		 *	4		MÃ©thode Ã  appeler
 		 */
 		$events = array();
 		$events[] = array(oledrion_plugins::EVENT_ON_PRODUCT_CREATE,
@@ -55,9 +55,9 @@ class newelementsAction extends oledrion_action
 	}
 
 	/**
-	 * Méthode appelée pour indiquer qu'un nouveau produit a été crée
+	 * MÃ©thode appelÃ©e pour indiquer qu'un nouveau produit a Ã©tÃ© crÃ©e
 	 *
-	 * @param object $product	Le produit qui vient d'être crée
+	 * @param object $product	Le produit qui vient d'Ãªtre crÃ©e
 	 * @return void
 	 */
 	public function fireNewProduct($parameters)
@@ -74,7 +74,7 @@ class newelementsAction extends oledrion_action
 	}
 
 	/**
-	 * Méthode appelée pour indiquer qu'une nouvelle catégorie a été crée
+	 * MÃ©thode appelÃ©e pour indiquer qu'une nouvelle catÃ©gorie a Ã©tÃ© crÃ©e
 	 *
 	 * @param object $category
 	 * @return void

@@ -2,7 +2,7 @@
 /**
  * ****************************************************************************
  * oledrion - MODULE FOR XOOPS
- * Copyright (c) Hervé Thouzard (http://www.herve-thouzard.com/)
+ * Copyright (c) HervÃ© Thouzard (http://www.herve-thouzard.com/)
  *
  * You may not change or alter any portion of this comment or credits
  * of supporting developers from this source code or any supporting source code
@@ -11,10 +11,10 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  *
- * @copyright       Hervé Thouzard (http://www.herve-thouzard.com/)
+ * @copyright       HervÃ© Thouzard (http://www.herve-thouzard.com/)
  * @license         http://www.fsf.org/copyleft/gpl.html GNU public license
  * @package         oledrion
- * @author 			Hervé Thouzard (http://www.herve-thouzard.com/)
+ * @author 			HervÃ© Thouzard (http://www.herve-thouzard.com/)
  *
  * Version : $Id:
  * ****************************************************************************
@@ -29,7 +29,7 @@ $xoopsOption['template_main'] = 'oledrion_caddy.html';
 require_once XOOPS_ROOT_PATH.'/header.php';
 require_once OLEDRION_PATH.'class/registryfile.php';
 
-$xoopsTpl->assign('mod_pref', $mod_pref);	// Préférences du module
+$xoopsTpl->assign('mod_pref', $mod_pref);	// PrÃ©fÃ©rences du module
 
 if(oledrion_utils::getModuleOption('restrict_orders', false)) {
 	$registry = new oledrion_registryfile();
@@ -87,10 +87,10 @@ function listCart()
     $xoopsTpl->assign('discountAmount', $oledrion_Currency->amountForDisplay($discountAmount));		// Total Discount
     $xoopsTpl->assign('totalSavings', $oledrion_Currency->amountForDisplay($totalSavings));		// Total Savings
 	$xoopsTpl->assign('vatAmount', $oledrion_Currency->amountForDisplay($vatAmount));				// Montant de la TVA
-   	$xoopsTpl->assign('discountsCount', $discountsCount);								// Nombre de réductions appliquées
-	$xoopsTpl->assign('goOn', $goOn);													// Adresse à utiliser pour continuer ses achats
+   	$xoopsTpl->assign('discountsCount', $discountsCount);								// Nombre de rÃ©ductions appliquÃ©es
+	$xoopsTpl->assign('goOn', $goOn);													// Adresse Ã  utiliser pour continuer ses achats
 	$xoopsTpl->assign('commandAmountTTC', $oledrion_Currency->amountForDisplay($commandAmountTTC, 'l'));	// Montant TTC de la commande
-	$xoopsTpl->assign('discountsDescription', $discountsDescription);					// Liste des réductions accordées
+	$xoopsTpl->assign('discountsDescription', $discountsDescription);					// Liste des rÃ©ductions accordÃ©es
 	$showOrderButton = true;
 	$showRegistredOnly = false;
 	if(oledrion_utils::getModuleOption('restrict_orders', false) && $uid == 0) {
@@ -106,21 +106,21 @@ function listCart()
 // ********************************************************************************************************************
 switch ($op) {
 	// ****************************************************************************************************************
-	case 'update':	// Recalcul des quantités
+	case 'update':	// Recalcul des quantitÃ©s
 	// ****************************************************************************************************************
 		$h_oledrion_caddy->updateQuantites();
 		listCart();
 		break;
 
 	// ****************************************************************************************************************
-	case 'reload':    // Chargement du dernier panier enregistré
+	case 'reload':    // Chargement du dernier panier enregistrÃ©
     // ****************************************************************************************************************
         $h_oledrion_caddy->reloadPersistentCart();
         listCart();
 	    break;
 
 	// ****************************************************************************************************************
-	case 'delete':	// Suppression d'un élément
+	case 'delete':	// Suppression d'un Ã©lÃ©ment
 	// ****************************************************************************************************************
 		$productId--;
 		$h_oledrion_caddy->deleteProduct($productId);
@@ -147,7 +147,7 @@ switch ($op) {
 		    $userAttributes = array();
             if($product->productAttributesCount() > 0) {    // Si le produit a des attributs
                 $productAttributes = array();
-                // On commence par vérifier que les attributs obligatoires sont renseignés
+                // On commence par vÃ©rifier que les attributs obligatoires sont renseignÃ©s
                 // It starts by checking if mandatory attributes are filled
                 if($product->getProductMandatoryAttributesCount()) {
                     $mandatoryFieldsList = array();
@@ -163,14 +163,14 @@ switch ($op) {
                         }
                     }
                 }
-                // Toujours là c'est que le produit a des attributs et qu'ils sont renseignés
+                // Toujours lÃ  c'est que le produit a des attributs et qu'ils sont renseignÃ©s
                 //Checks if the product has more options and if they are set
                 $productAttributes = $product->getProductsAttributesList();
                 foreach($productAttributes as $attribute) {
                     $nameInForm = $attribute->getAttributeNameInForm();
                     if(isset($_POST[$nameInForm])) {
                         $userAttributes[$attribute->attribute_id] = $_POST[$nameInForm];
-                    } else {    // On va chercher sa valeur par défaut
+                    } else {    // On va chercher sa valeur par dÃ©faut
                         if($attribute->hasDefaultValue()) {
                             $userAttributes[$attribute->attribute_id] = $attribute->getAttributeDefaultValue();
                         }
@@ -198,7 +198,7 @@ switch ($op) {
 		break;
 
 	// ****************************************************************************************************************
-	case 'default':	// Action par défaut
+	case 'default':	// Action par dÃ©faut
 	// ****************************************************************************************************************
 		listCart();
 		break;

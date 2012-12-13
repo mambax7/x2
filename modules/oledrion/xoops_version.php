@@ -2,7 +2,7 @@
 /**
  * ****************************************************************************
  * oledrion - MODULE FOR XOOPS
- * Copyright (c) Hervé Thouzard (http://www.herve-thouzard.com/)
+ * Copyright (c) HervÃ© Thouzard (http://www.herve-thouzard.com/)
  *
  * You may not change or alter any portion of this comment or credits
  * of supporting developers from this source code or any supporting source code
@@ -11,10 +11,10 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  *
- * @copyright       Hervé Thouzard (http://www.herve-thouzard.com/)
+ * @copyright       HervÃ© Thouzard (http://www.herve-thouzard.com/)
  * @license         http://www.fsf.org/copyleft/gpl.html GNU public license
  * @package         oledrion
- * @author 			Hervé Thouzard (http://www.herve-thouzard.com/)
+ * @author 			HervÃ© Thouzard (http://www.herve-thouzard.com/)
  *
  * Version : $Id:
  * ****************************************************************************
@@ -25,10 +25,10 @@ if (!defined('XOOPS_ROOT_PATH')) {
 }
 
 $modversion['name'] = _MI_OLEDRION_NAME;
-$modversion['version'] = 2.33;
+$modversion['version'] = 2.34;
 $modversion['description'] = _MI_OLEDRION_DESC;
-$modversion['author'] = "Hervé Thouzard (http://www.herve-thouzard.com/)";
-$modversion['credits'] = "Don Curioso, Voltan, Bezoops, Mariane Antoun, Defkon1, Feichtl, Carlos Pérez, JardaR, Wishcraft, Mamba, and all the other";
+$modversion['author'] = "HervÃ© Thouzard (http://www.herve-thouzard.com/)";
+$modversion['credits'] = "Don Curioso, Voltan, Bezoops, Mariane Antoun, Defkon1, Feichtl, Carlos PÃ©rez, JardaR, Wishcraft, Mamba, and all the other";
 $modversion['help']        = 'page=help';
 $modversion['license']     = 'GNU GPL 2.0';
 $modversion['license_url'] = "www.gnu.org/licenses/gpl-2.0.html/";
@@ -44,7 +44,7 @@ $modversion['icons32']        = '../../Frameworks/moduleclasses/icons/32';
 $modversion['release_date']        = '2012/05/09';
 $modversion["module_website_url"]  = "http://www.xoops.org/";
 $modversion["module_website_name"] = "XOOPS";
-$modversion["module_status"]       = "Beta 1";
+$modversion["module_status"]       = "Beta 2";
 $modversion['min_php']             = '5.2';
 $modversion['min_xoops']           = "2.5.5";
 $modversion['min_admin']           = '1.1';
@@ -90,7 +90,7 @@ $modversion['blocks'][$cptb]['name'] = _MI_OLEDRION_BNAME1;
 $modversion['blocks'][$cptb]['description'] = _MI_OLEDRION_BNAME1_DESC;
 $modversion['blocks'][$cptb]['show_func'] = 'b_oledrion_new_show';
 $modversion['blocks'][$cptb]['edit_func'] = 'b_oledrion_new_edit';
-$modversion['blocks'][$cptb]['options'] = '10|0|0';	// Voir 10 produits, pour toutes les catégories, uniquement les produits du mois ?
+$modversion['blocks'][$cptb]['options'] = '10|0|0';	// Voir 10 produits, pour toutes les catÃ©gories, uniquement les produits du mois ?
 $modversion['blocks'][$cptb]['template'] = 'oledrion_block_new.html';
 
 /**
@@ -114,7 +114,7 @@ $modversion['blocks'][$cptb]['name'] = _MI_OLEDRION_BNAME3;
 $modversion['blocks'][$cptb]['description'] = _MI_OLEDRION_BNAME3_DESC;
 $modversion['blocks'][$cptb]['show_func'] = 'b_oledrion_category_show';
 $modversion['blocks'][$cptb]['edit_func'] = 'b_oledrion_category_edit';
-$modversion['blocks'][$cptb]['options'] = '0';	// 0 = en relation avec la page, 1=classique, 2=Déplié
+$modversion['blocks'][$cptb]['options'] = '0';	// 0 = en relation avec la page, 1=classique, 2=DÃ©pliÃ©
 $modversion['blocks'][$cptb]['template'] = 'oledrion_block_categories.html';
 
 /**
@@ -126,7 +126,7 @@ $modversion['blocks'][$cptb]['name'] = _MI_OLEDRION_BNAME4;
 $modversion['blocks'][$cptb]['description'] = _MI_OLEDRION_BNAME4_DESC;
 $modversion['blocks'][$cptb]['show_func'] = 'b_oledrion_bestsales_show';
 $modversion['blocks'][$cptb]['edit_func'] = 'b_oledrion_bestsales_edit';
-$modversion['blocks'][$cptb]['options'] = '10|0';	// Voir 10 produits, pour toutes les catégories
+$modversion['blocks'][$cptb]['options'] = '10|0';	// Voir 10 produits, pour toutes les catÃ©gories
 $modversion['blocks'][$cptb]['template'] = 'oledrion_block_bestsales.html';
 
 /**
@@ -150,7 +150,7 @@ $modversion['blocks'][$cptb]['name'] = _MI_OLEDRION_BNAME6;
 $modversion['blocks'][$cptb]['description'] = _MI_OLEDRION_BNAME6_DESC;
 $modversion['blocks'][$cptb]['show_func'] = 'b_oledrion_random_show';
 $modversion['blocks'][$cptb]['edit_func'] = 'b_oledrion_random_edit';
-$modversion['blocks'][$cptb]['options'] = '1|0|0';	// Nombre de produits, catégorie, produits du mois uniquement ?
+$modversion['blocks'][$cptb]['options'] = '1|0|0';	// Nombre de produits, catÃ©gorie, produits du mois uniquement ?
 $modversion['blocks'][$cptb]['template'] = 'oledrion_block_random.html';
 
 /**
@@ -198,7 +198,7 @@ $modversion['blocks'][$cptb]['name'] = _MI_OLEDRION_BNAME10;
 $modversion['blocks'][$cptb]['description'] = _MI_OLEDRION_BNAME10_DESC;
 $modversion['blocks'][$cptb]['show_func'] = 'b_oledrion_recentlysold_show';
 $modversion['blocks'][$cptb]['edit_func'] = 'b_oledrion_recentlysold_edit';
-$modversion['blocks'][$cptb]['options'] = '10';    // Nombre maximum de produits à voir
+$modversion['blocks'][$cptb]['options'] = '10';    // Nombre maximum de produits Ã  voir
 $modversion['blocks'][$cptb]['template'] = 'oledrion_block_recentlysold.html';
 
 /**
@@ -210,7 +210,7 @@ $modversion['blocks'][$cptb]['name'] = _MI_OLEDRION_BNAME11;
 $modversion['blocks'][$cptb]['description'] = _MI_OLEDRION_BNAME11_DESC;
 $modversion['blocks'][$cptb]['show_func'] = 'b_oledrion_recent_lists_show';
 $modversion['blocks'][$cptb]['edit_func'] = 'b_oledrion_recent_lists_edit';
-$modversion['blocks'][$cptb]['options'] = '10|0';    // Nombre maximum de listes à voir, Type de listes (0 = les 2, 1 = liste cadeaux, 2 = produits recommandés)
+$modversion['blocks'][$cptb]['options'] = '10|0';    // Nombre maximum de listes Ã  voir, Type de listes (0 = les 2, 1 = liste cadeaux, 2 = produits recommandÃ©s)
 $modversion['blocks'][$cptb]['template'] = 'oledrion_block_recent_lists.html';
 
 /**
@@ -222,7 +222,7 @@ $modversion['blocks'][$cptb]['name'] = _MI_OLEDRION_BNAME12;
 $modversion['blocks'][$cptb]['description'] = _MI_OLEDRION_BNAME12_DESC;
 $modversion['blocks'][$cptb]['show_func'] = 'b_oledrion_my_lists_show';
 $modversion['blocks'][$cptb]['edit_func'] = 'b_oledrion_my_lists_edit';
-$modversion['blocks'][$cptb]['options'] = '10';	// Nombre maximum de listes à afficher
+$modversion['blocks'][$cptb]['options'] = '10';	// Nombre maximum de listes Ã  afficher
 $modversion['blocks'][$cptb]['template'] = 'oledrion_block_my_lists.html';
 
 /**
@@ -234,7 +234,7 @@ $modversion['blocks'][$cptb]['name'] = _MI_OLEDRION_BNAME13;
 $modversion['blocks'][$cptb]['description'] = _MI_OLEDRION_BNAME13_DESC;
 $modversion['blocks'][$cptb]['show_func'] = 'b_oledrion_category_lists_show';
 $modversion['blocks'][$cptb]['edit_func'] = 'b_oledrion_category_lists_edit';
-$modversion['blocks'][$cptb]['options'] = '10|0';    // Nombre maximum de listes à voir, Type de listes (0 = les 2, 1 = liste cadeaux, 2 = produits recommandés)
+$modversion['blocks'][$cptb]['options'] = '10|0';    // Nombre maximum de listes Ã  voir, Type de listes (0 = les 2, 1 = liste cadeaux, 2 = produits recommandÃ©s)
 $modversion['blocks'][$cptb]['template'] = 'oledrion_block_category_lists.html';
 
 /**
@@ -246,7 +246,7 @@ $modversion['blocks'][$cptb]['name'] = _MI_OLEDRION_BNAME14;
 $modversion['blocks'][$cptb]['description'] = _MI_OLEDRION_BNAME14_DESC;
 $modversion['blocks'][$cptb]['show_func'] = 'b_oledrion_random_lists_show';
 $modversion['blocks'][$cptb]['edit_func'] = 'b_oledrion_random_lists_edit';
-$modversion['blocks'][$cptb]['options'] = '10|0';    // Nombre maximum de listes à voir, Type de listes (0 = les 2, 1 = liste cadeaux, 2 = produits recommandés)
+$modversion['blocks'][$cptb]['options'] = '10|0';    // Nombre maximum de listes Ã  voir, Type de listes (0 = les 2, 1 = liste cadeaux, 2 = produits recommandÃ©s)
 $modversion['blocks'][$cptb]['template'] = 'oledrion_block_random_lists.html';
 
 /**
@@ -258,7 +258,7 @@ $modversion['blocks'][$cptb]['name'] = _MI_OLEDRION_BNAME15;
 $modversion['blocks'][$cptb]['description'] = _MI_OLEDRION_BNAME15_DESC;
 $modversion['blocks'][$cptb]['show_func'] = 'b_oledrion_mostviewed_lists_show';
 $modversion['blocks'][$cptb]['edit_func'] = 'b_oledrion__mostviewed_lists_edit';
-$modversion['blocks'][$cptb]['options'] = '10|0';    // Nombre maximum de listes à voir, Type de listes (0 = les 2, 1 = liste cadeaux, 2 = produits recommandés)
+$modversion['blocks'][$cptb]['options'] = '10|0';    // Nombre maximum de listes Ã  voir, Type de listes (0 = les 2, 1 = liste cadeaux, 2 = produits recommandÃ©s)
 $modversion['blocks'][$cptb]['template'] = 'oledrion_block_mostviewed_lists.html';
 
 
@@ -334,7 +334,7 @@ $cptm++;
 $modversion['sub'][$cptm]['name'] = _MI_OLEDRION_SMNAME11;
 $modversion['sub'][$cptm]['url'] = 'all-lists.php';
 
-// Ajout des catégories mères en sous menu ********************************************************
+// Ajout des catÃ©gories mÃ¨res en sous menu ********************************************************
 global $xoopsModule;
 if (is_object($xoopsModule) && $xoopsModule->getVar('dirname') == $modversion['dirname'] && $xoopsModule->getVar('isactive')) {
 	if(!isset($h_oledrion_cat)) {
@@ -538,7 +538,7 @@ $modversion['config'][$cpto]['title'] = '_MI_OLEDRION_MONEY_S';
 $modversion['config'][$cpto]['description'] = '';
 $modversion['config'][$cpto]['formtype'] = 'textbox';
 $modversion['config'][$cpto]['valuetype'] = 'text';
-$modversion['config'][$cpto]['default'] = '€';
+$modversion['config'][$cpto]['default'] = 'Â€';
 
 /**
  * Decimals count

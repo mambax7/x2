@@ -2,7 +2,7 @@
 /**
  * ****************************************************************************
  * oledrion - MODULE FOR XOOPS
- * Copyright (c) Hervé Thouzard (http://www.herve-thouzard.com/)
+ * Copyright (c) HervÃ© Thouzard (http://www.herve-thouzard.com/)
  *
  * You may not change or alter any portion of this comment or credits
  * of supporting developers from this source code or any supporting source code
@@ -11,23 +11,23 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  *
- * @copyright       Hervé Thouzard (http://www.herve-thouzard.com/)
+ * @copyright       HervÃ© Thouzard (http://www.herve-thouzard.com/)
  * @license         http://www.fsf.org/copyleft/gpl.html GNU public license
  * @package         oledrion
- * @author 			Hervé Thouzard (http://www.herve-thouzard.com/)
+ * @author 			HervÃ© Thouzard (http://www.herve-thouzard.com/)
  *
  * Version : $Id:
  * ****************************************************************************
  */
 
 /**
- * Mise à jour des structures de données
+ * Mise Ã  jour des structures de donnÃ©es
  */
 
 if(!defined("OLEDRION_ADMIN")) exit();
 
 $wasUpdated = false;
-// Présence des nouvelles tables et nouvelles zones dans la base de données
+// PrÃ©sence des nouvelles tables et nouvelles zones dans la base de donnÃ©es
 // Nouvelle table oledrion_gateways_options
 $tableName = $xoopsDB->prefix('oledrion_gateways_options');
 if(!oledrion_tableExists($tableName)) {
@@ -157,7 +157,7 @@ if(!oledrion_tableExists($tableName)) {
 }
 
 /**
- * Augmentation des types numéraires pour accepter le million
+ * Augmentation des types numÃ©raires pour accepter le million
  * @since 2.3.2009.04.20
  */
 $definition = oledrion_getFieldDefinition('product_price', $xoopsDB->prefix('oledrion_products'));
@@ -210,6 +210,6 @@ if(!oledrion_fieldExists('product_property5', $tableName)) {
 }
 
 if($wasUpdated) {
-    $op = 'maintain';    // On force la mise à jour du cache de requêtes
+    $op = 'maintain';    // On force la mise Ã  jour du cache de requÃªtes
 }
 ?>

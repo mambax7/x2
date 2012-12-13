@@ -2,7 +2,7 @@
 /**
  * ****************************************************************************
  * oledrion - MODULE FOR XOOPS
- * Copyright (c) Hervé Thouzard (http://www.herve-thouzard.com/)
+ * Copyright (c) HervÃ© Thouzard (http://www.herve-thouzard.com/)
  *
  * You may not change or alter any portion of this comment or credits
  * of supporting developers from this source code or any supporting source code
@@ -11,10 +11,10 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  *
- * @copyright       Hervé Thouzard (http://www.herve-thouzard.com/)
+ * @copyright       HervÃ© Thouzard (http://www.herve-thouzard.com/)
  * @license         http://www.fsf.org/copyleft/gpl.html GNU public license
  * @package         oledrion
- * @author 			Hervé Thouzard (http://www.herve-thouzard.com/)
+ * @author 			HervÃ© Thouzard (http://www.herve-thouzard.com/)
  *
  * Version : $Id:
  * ****************************************************************************
@@ -28,7 +28,7 @@
 require 'classheader.php';
 
 /**
- * Définition des types de listes
+ * DÃ©finition des types de listes
  */
 define("OLEDRION_LISTS_ALL_PUBLIC", -2);	// Que les publiques
 define("OLEDRION_LISTS_ALL", -1);			// Toutes sans distinction
@@ -89,9 +89,9 @@ class oledrion_lists extends Oledrion_Object
 	}
 
 	/**
-	 * Retourne l'url à utiliser pour accéder à la liste en tenant compte des préférences du module
+	 * Retourne l'url Ã  utiliser pour accÃ©der Ã  la liste en tenant compte des prÃ©fÃ©rences du module
 	 *
-	 * @return string	L'url à utiliser
+	 * @return string	L'url Ã  utiliser
 	 */
 	function getLink()
 	{
@@ -105,7 +105,7 @@ class oledrion_lists extends Oledrion_Object
 	}
 
 	/**
-	 * Retourne la date de création de la liste formatée
+	 * Retourne la date de crÃ©ation de la liste formatÃ©e
 	 *
 	 * @param string $format
 	 * @return string
@@ -116,7 +116,7 @@ class oledrion_lists extends Oledrion_Object
 	}
 
 	/**
-	 * Rentourne la chaine à utiliser dans une balise <a> pour l'attribut href
+	 * Rentourne la chaine Ã  utiliser dans une balise <a> pour l'attribut href
 	 *
 	 * @return string
 	 */
@@ -136,7 +136,7 @@ class oledrion_lists extends Oledrion_Object
 	}
 
 	/**
-	 * Retourne les éléments formatés pour affichage (en général)
+	 * Retourne les Ã©lÃ©ments formatÃ©s pour affichage (en gÃ©nÃ©ral)
 	 *
 	 * @param string $format
 	 * @return array
@@ -165,7 +165,7 @@ class OledrionOledrion_listsHandler extends Oledrion_XoopsPersistableObjectHandl
 	}
 
 	/**
-	 * Incrémente le compteur de vues d'une liste
+	 * IncrÃ©mente le compteur de vues d'une liste
 	 *
 	 * @param oledrion_lists $list
 	 * @return boolean
@@ -183,7 +183,7 @@ class OledrionOledrion_listsHandler extends Oledrion_XoopsPersistableObjectHandl
 
 
 	/**
-	 * Incrémente le nombre de produits dans une liste
+	 * IncrÃ©mente le nombre de produits dans une liste
 	 *
 	 * @param oledrion_lists $list
 	 * @return boolean
@@ -198,7 +198,7 @@ class OledrionOledrion_listsHandler extends Oledrion_XoopsPersistableObjectHandl
 	}
 
 	/**
-	 * Décrémente le nombre de produits dans une liste
+	 * DÃ©crÃ©mente le nombre de produits dans une liste
 	 *
 	 * @param oledrion_lists $list
 	 * @return boolean
@@ -215,7 +215,7 @@ class OledrionOledrion_listsHandler extends Oledrion_XoopsPersistableObjectHandl
 
 
 	/**
-	 * Retourne la liste des listes récentes
+	 * Retourne la liste des listes rÃ©centes
 	 *
 	 * @param integer $start
 	 * @param integer $limit
@@ -224,7 +224,7 @@ class OledrionOledrion_listsHandler extends Oledrion_XoopsPersistableObjectHandl
 	 * @param boolean $idAsKey
 	 * @param integer $listType
 	 * @param integer $list_uid
-	 * @return array	Tableau d'objets de type oledrion_lists [clé] = id liste
+	 * @return array	Tableau d'objets de type oledrion_lists [clÃ©] = id liste
 	 */
 	function getRecentLists(oledrion_parameters $parameters)
 	{
@@ -284,7 +284,7 @@ class OledrionOledrion_listsHandler extends Oledrion_XoopsPersistableObjectHandl
 	 * Retourne une liste d'utilisateurs Xoops en fonction d'une liste de listes
 	 *
 	 * @param array $oledrion_lists
-	 * @return array [clé] = id utilisateur
+	 * @return array [clÃ©] = id utilisateur
 	 */
 	function getUsersFromLists($oledrion_lists)
 	{
@@ -300,7 +300,7 @@ class OledrionOledrion_listsHandler extends Oledrion_XoopsPersistableObjectHandl
 	}
 
 	/**
-	 * Suppression d'une liste (et des produits qui lui sont rattachés)
+	 * Suppression d'une liste (et des produits qui lui sont rattachÃ©s)
 	 *
 	 * @param oledrion_lists $list
 	 * @return boolean
@@ -336,7 +336,7 @@ class OledrionOledrion_listsHandler extends Oledrion_XoopsPersistableObjectHandl
 	}
 
 	/**
-	 * Indique si une liste appartient bien à un utilisateur
+	 * Indique si une liste appartient bien Ã  un utilisateur
 	 *
 	 * @param integer $list_id
 	 * @param integer $list_uid
@@ -399,12 +399,12 @@ class OledrionOledrion_listsHandler extends Oledrion_XoopsPersistableObjectHandl
 	}
 
 	/**
-	 * Retourne les x dernières listes qui contiennent des produits dans une certaine catégorie
+	 * Retourne les x derniÃ¨res listes qui contiennent des produits dans une certaine catÃ©gorie
 	 *
-	 * @param integer $cateGoryId	L'identifiant de la catégorie
+	 * @param integer $cateGoryId	L'identifiant de la catÃ©gorie
 	 * @param integer $list_type	Le type de liste
-	 * @param integer $limit		Le nombre maximum de listes à retourner
-	 * @return array				Objets de type oledrion_lists, [clé] = id liste
+	 * @param integer $limit		Le nombre maximum de listes Ã  retourner
+	 * @return array				Objets de type oledrion_lists, [clÃ©] = id liste
 	 */
 	function listsFromCurrentCategory($categoryId, $list_type, $limit)
 	{

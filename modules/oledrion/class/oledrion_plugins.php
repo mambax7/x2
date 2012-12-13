@@ -2,7 +2,7 @@
 /**
  * ****************************************************************************
  * oledrion - MODULE FOR XOOPS
- * Copyright (c) Hervé Thouzard (http://www.herve-thouzard.com/)
+ * Copyright (c) HervÃ© Thouzard (http://www.herve-thouzard.com/)
  *
  * You may not change or alter any portion of this comment or credits
  * of supporting developers from this source code or any supporting source code
@@ -11,10 +11,10 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  *
- * @copyright       Hervé Thouzard (http://www.herve-thouzard.com/)
+ * @copyright       HervÃ© Thouzard (http://www.herve-thouzard.com/)
  * @license         http://www.fsf.org/copyleft/gpl.html GNU public license
  * @package         oledrion
- * @author 			Hervé Thouzard (http://www.herve-thouzard.com/)
+ * @author 			HervÃ© Thouzard (http://www.herve-thouzard.com/)
  *
  * Version : $Id:
  * ****************************************************************************
@@ -23,30 +23,30 @@
 /**
  * Gestion des plugins du module
  *
- * On distingue les "filtres" (plugin qui reçoit du contenu qu'il peut modifier et dont le retour est passé au filtre suivant)
- * des "actions" (plugin qui est généralement appelé sur un évènement et qui ne doit rien modifier).
+ * On distingue les "filtres" (plugin qui reÃ§oit du contenu qu'il peut modifier et dont le retour est passÃ© au filtre suivant)
+ * des "actions" (plugin qui est gÃ©nÃ©ralement appelÃ© sur un Ã©vÃ¨nement et qui ne doit rien modifier).
  *
- * Chaque plugin dispose d'une priorité de 1 à 5, 1 étant la priorité la plus haute, 5 la plus basse
+ * Chaque plugin dispose d'une prioritÃ© de 1 Ã  5, 1 Ã©tant la prioritÃ© la plus haute, 5 la plus basse
  *
- * Dans le répertoire plugins on a 2 sous répertoires, "actions" et "filters", en fonction du type du plugin
+ * Dans le rÃ©pertoire plugins on a 2 sous rÃ©pertoires, "actions" et "filters", en fonction du type du plugin
  *
- * Chaque plugin doit se trouver dans son propre sous-répertoire, par exemple :
+ * Chaque plugin doit se trouver dans son propre sous-rÃ©pertoire, par exemple :
  * 	/xoops/modules/oledrion/plugins/pdf/
  *
- * Cela permet aux plugins d'avoir plusieurs fichiers et de ne pas les mélanger avec les autres plugins
+ * Cela permet aux plugins d'avoir plusieurs fichiers et de ne pas les mÃ©langer avec les autres plugins
  *
- * Le module scrute ces 2 répertoires ("actions" et "filters") pour charger les plugins.
- * Chaque répertoire doit contenir un script "plugins.php" qui permet la descriptions des plugins qui se trouvent dans ce répertoire.
+ * Le module scrute ces 2 rÃ©pertoires ("actions" et "filters") pour charger les plugins.
+ * Chaque rÃ©pertoire doit contenir un script "plugins.php" qui permet la descriptions des plugins qui se trouvent dans ce rÃ©pertoire.
  * A titre d'exemple, voir ceux fournits de base avec le module
  *
- * Les modèles de classe à étendre se trouvent dans /xoops/modules/oledrion/plugins/modules/oledrion_action.php et oledrion_filter.php
+ * Les modÃ¨les de classe Ã  Ã©tendre se trouvent dans /xoops/modules/oledrion/plugins/modules/oledrion_action.php et oledrion_filter.php
  *
  * @since 2.31
  */
 class oledrion_plugins
 {
 	/**
-	 * Dictionnaire des évènements
+	 * Dictionnaire des Ã©vÃ¨nements
 	 */
 	const EVENT_ON_PRODUCT_CREATE = 'onProductCreate';
 	const EVENT_ON_CATEGORY_CREATE = 'onCategoryCreate';
@@ -54,7 +54,7 @@ class oledrion_plugins
 	// **************************************************************
 
 	/**
-	 * Types d'évènements
+	 * Types d'Ã©vÃ¨nements
 	 */
 	const PLUGIN_ACTION = 0;
 	const PLUGIN_FILTER = 1;
@@ -65,32 +65,32 @@ class oledrion_plugins
 	const PLUGIN_SCRIPT_NAME = 'plugins.php';
 
 	/**
-	 * Dans le fichier Php qui contient l'inscription des plugins, méthode à appeler pour récupérer la liste des plugins
+	 * Dans le fichier Php qui contient l'inscription des plugins, mÃ©thode Ã  appeler pour rÃ©cupÃ©rer la liste des plugins
 	 */
 	const PLUGIN_DESCRIBE_METHOD = 'registerEvents';
 
 	/**
-	 * Nom de la variable de session qui contient la liste des plugins détachés
+	 * Nom de la variable de session qui contient la liste des plugins dÃ©tachÃ©s
 	 */
 	const PLUGIN_UNPLUG_SESSION_NAME = 'oledrion_plugins';
 
 	/**
-	 * Priorités des plugins
+	 * PrioritÃ©s des plugins
 	 * @var constant
 	 */
-	const EVENT_PRIORITY_1 = 1;	// Priorité la plus haute
+	const EVENT_PRIORITY_1 = 1;	// PrioritÃ© la plus haute
 	const EVENT_PRIORITY_2 = 2;
 	const EVENT_PRIORITY_3 = 3;
 	const EVENT_PRIORITY_4 = 4;
-	const EVENT_PRIORITY_5 = 5;	// Priorité la plus basse
+	const EVENT_PRIORITY_5 = 5;	// PrioritÃ© la plus basse
 
 	/**
-	 * Utilisé pour construire le nom de la classe
+	 * UtilisÃ© pour construire le nom de la classe
 	 */
 	private $pluginsTypeLabel = array(self::PLUGIN_ACTION => 'Action', self::PLUGIN_FILTER => 'Filter');
 
 	/**
-	 * Nom des classes qu'il faut étendre en tant que plugin
+	 * Nom des classes qu'il faut Ã©tendre en tant que plugin
 	 */
 	private $pluginsClassName = array(self::PLUGIN_ACTION => 'oledrion_action', self::PLUGIN_FILTER => 'oledrion_filter');
 
@@ -106,7 +106,7 @@ class oledrion_plugins
 	private static $instance = false;
 
 	/**
-	 * Liste des évènements
+	 * Liste des Ã©vÃ¨nements
 	 * @var array
 	 */
 	private static $events = array();
@@ -148,11 +148,11 @@ class oledrion_plugins
 
 
 	/**
-	 * Vérifie que le fichier Php passé en paramètre contient bien une classe de filtre ou d'action et si c'est le cas, le charge dans la liste des plugins
+	 * VÃ©rifie que le fichier Php passÃ© en paramÃ¨tre contient bien une classe de filtre ou d'action et si c'est le cas, le charge dans la liste des plugins
 
-	 * @param string $fullPathName	Chemin complet vers le fichier (répertoire + nom)
-	 * @param integer $type			Type de plugin recherché (action ou filtre)
-	 * @param string $pluginFolder	Le nom du répertoire dans lequel se trouve le fichier (le "dernier nom")
+	 * @param string $fullPathName	Chemin complet vers le fichier (rÃ©pertoire + nom)
+	 * @param integer $type			Type de plugin recherchÃ© (action ou filtre)
+	 * @param string $pluginFolder	Le nom du rÃ©pertoire dans lequel se trouve le fichier (le "dernier nom")
 	 * @return void
 	 */
 	private function loadClass($fullPathName, $type, $pluginFolder)
@@ -160,7 +160,7 @@ class oledrion_plugins
 		require_once $fullPathName;
 		$className = strtolower($pluginFolder).$this->pluginsTypeLabel[$type];
 		if(class_exists($className) && get_parent_class($className) == $this->pluginsClassName[$type]) {
-			// TODO: Vérifier que l'évènement n'est pas déjà en mémoire
+			// TODO: VÃ©rifier que l'Ã©vÃ¨nement n'est pas dÃ©jÃ  en mÃ©moire
 			$events = call_user_func(array($className, self::PLUGIN_DESCRIBE_METHOD));
 			foreach($events as $event) {
 				$eventName = $event[0];
@@ -174,10 +174,10 @@ class oledrion_plugins
 	}
 
 	/**
-	 * Part à la recherche d'un type de plugin dans les répertoires
+	 * Part Ã  la recherche d'un type de plugin dans les rÃ©pertoires
 	 *
 	 * @param string $path	La racine
-	 * @param integer $type	Le type de plugin recherché (action ou filtre)
+	 * @param integer $type	Le type de plugin recherchÃ© (action ou filtre)
 	 * @return void
 	 */
 	private function loadPluginsFiles($path, $type)
@@ -194,11 +194,11 @@ class oledrion_plugins
 	}
 
 	/**
-	 * Déclenchement d'une action et appel des plugins liés
+	 * DÃ©clenchement d'une action et appel des plugins liÃ©s
 	 *
-	 * @param string $eventToFire	L'action déclenchée
-	 * @param object $parameters	Les paramètres à passer à chaque plugin
-	 * @return object				L'objet lui même pour chaîner
+	 * @param string $eventToFire	L'action dÃ©clenchÃ©e
+	 * @param object $parameters	Les paramÃ¨tres Ã  passer Ã  chaque plugin
+	 * @return object				L'objet lui mÃªme pour chaÃ®ner
 	 */
 	function fireAction($eventToFire, oledrion_parameters $parameters = null)
 	{
@@ -206,7 +206,7 @@ class oledrion_plugins
 			trigger_error(sprintf(_OLEDRION_PLUGINS_ERROR_1, $eventToFire));
 			return $this;
 		}
-		ksort($this->events[self::PLUGIN_ACTION][$eventToFire]);	// Tri par priorité
+		ksort($this->events[self::PLUGIN_ACTION][$eventToFire]);	// Tri par prioritÃ©
 		foreach($this->events[self::PLUGIN_ACTION][$eventToFire] as $priority => $events) {
 			foreach($events as $event) {
 				if($this->isUnplug(self::PLUGIN_ACTION, $eventToFire, $event['fullPathName'], $event['className'], $event['method'])) {
@@ -227,11 +227,11 @@ class oledrion_plugins
 	}
 
 	/**
-	 * Déclenchement d'un filtre et appel des plugins liés
+	 * DÃ©clenchement d'un filtre et appel des plugins liÃ©s
 	 *
-	 * @param string $eventToFire	Le filtre appelé
-	 * @param object $parameters	Les paramètres à passer à chaque plugin
-	 * @return object				Le contenu de l'objet passé en paramètre
+	 * @param string $eventToFire	Le filtre appelÃ©
+	 * @param object $parameters	Les paramÃ¨tres Ã  passer Ã  chaque plugin
+	 * @return object				Le contenu de l'objet passÃ© en paramÃ¨tre
 	 */
 	function fireFilter($eventToFire, oledrion_parameters &$parameters)
 	{
@@ -239,7 +239,7 @@ class oledrion_plugins
 			trigger_error(sprintf(_OLEDRION_PLUGINS_ERROR_1, $eventToFire));
 			return $this;
 		}
-		ksort($this->events[self::PLUGIN_FILTER][$eventToFire]);	// Tri par priorité
+		ksort($this->events[self::PLUGIN_FILTER][$eventToFire]);	// Tri par prioritÃ©
 		foreach($this->events[self::PLUGIN_FILTER][$eventToFire] as $priority => $events) {
 			foreach($events as $event) {
 				if($this->isUnplug(self::PLUGIN_FILTER, $eventToFire, $event['fullPathName'], $event['className'], $event['method'])) {
@@ -263,7 +263,7 @@ class oledrion_plugins
 	}
 
 	/**
-	 * Indique si un plugin s'est détaché d'un évènement particulier
+	 * Indique si un plugin s'est dÃ©tachÃ© d'un Ã©vÃ¨nement particulier
 	 *
 	 * @param integer $eventType
 	 * @param string $eventToFire
@@ -284,7 +284,7 @@ class oledrion_plugins
 	}
 
 	/**
-	 * Permet à un plugin de se détacher d'un évènement
+	 * Permet Ã  un plugin de se dÃ©tacher d'un Ã©vÃ¨nement
 	 *
 	 * @param integer $eventType
 	 * @param string $eventToFire

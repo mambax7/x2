@@ -2,7 +2,7 @@
 /**
  * ****************************************************************************
  * oledrion - MODULE FOR XOOPS
- * Copyright (c) Hervé Thouzard (http://www.herve-thouzard.com/)
+ * Copyright (c) HervÃ© Thouzard (http://www.herve-thouzard.com/)
  *
  * You may not change or alter any portion of this comment or credits
  * of supporting developers from this source code or any supporting source code
@@ -11,17 +11,17 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  *
- * @copyright       Hervé Thouzard (http://www.herve-thouzard.com/)
+ * @copyright       HervÃ© Thouzard (http://www.herve-thouzard.com/)
  * @license         http://www.fsf.org/copyleft/gpl.html GNU public license
  * @package         oledrion
- * @author 			Hervé Thouzard (http://www.herve-thouzard.com/)
+ * @author 			HervÃ© Thouzard (http://www.herve-thouzard.com/)
  *
  * Version : $Id:
  * ****************************************************************************
  */
 
 /**
- * Chargement des handlers utilisés par le module
+ * Chargement des handlers utilisÃ©s par le module
  */
 
 if (!defined('XOOPS_ROOT_PATH')) {
@@ -44,17 +44,17 @@ class oledrion_handler
 	private static $instance = false;
 
 	/**
-	 * Réceptacle des handlers
+	 * RÃ©ceptacle des handlers
 	 *
 	 * @var array
 	 */
 	public static $handlers = null;
 
 	/**
-	 * Méthode chargée de renvoyer les handlers de données en les chargeant à la volée
+	 * MÃ©thode chargÃ©e de renvoyer les handlers de donnÃ©es en les chargeant Ã  la volÃ©e
 	 *
 	 * @param string $name
-	 * @return mixed	Null si on échoue, sinon l'objet demandé
+	 * @return mixed	Null si on Ã©choue, sinon l'objet demandÃ©
 	 */
 	function __get($name)
 	{

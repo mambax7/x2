@@ -2,7 +2,7 @@
 /**
  * ****************************************************************************
  * oledrion - MODULE FOR XOOPS
- * Copyright (c) Hervé Thouzard (http://www.herve-thouzard.com/)
+ * Copyright (c) HervÃ© Thouzard (http://www.herve-thouzard.com/)
  *
  * You may not change or alter any portion of this comment or credits
  * of supporting developers from this source code or any supporting source code
@@ -11,10 +11,10 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  *
- * @copyright       Hervé Thouzard (http://www.herve-thouzard.com/)
+ * @copyright       HervÃ© Thouzard (http://www.herve-thouzard.com/)
  * @license         http://www.fsf.org/copyleft/gpl.html GNU public license
  * @package         oledrion
- * @author 			Hervé Thouzard (http://www.herve-thouzard.com/)
+ * @author 			HervÃ© Thouzard (http://www.herve-thouzard.com/)
  *
  * Version : $Id:
  * ****************************************************************************
@@ -33,7 +33,7 @@ switch($action) {
 		oledrion_utils::htitle(_MI_OLEDRION_ADMENU9, 4);
 		$start = isset($_GET['start']) ? intval($_GET['start']) : 0;
 		$criteria = new CriteriaCompo();
-		// Recherche des produits dont la quantité en stock est inférieure ou égale à la quantité d'alerte et ou la quantité d'alerte est supérieure à 0
+		// Recherche des produits dont la quantitÃ© en stock est infÃ©rieure ou Ã©gale Ã  la quantitÃ© d'alerte et ou la quantitÃ© d'alerte est supÃ©rieure Ã  0
 		$itemsCount = $h_oledrion_products->getLowStocksCount();
 		if($itemsCount > $limit) {
 			$pagenav = new XoopsPageNav( $itemsCount, $limit, $start, 'start', 'op=lowstock');
@@ -66,7 +66,7 @@ switch($action) {
 		break;
 
 	// ****************************************************************************************************************
-	case 'updatequantities':	// Mise à jour des quantités des produits
+	case 'updatequantities':	// Mise Ã  jour des quantitÃ©s des produits
 	// ****************************************************************************************************************
 		$names = array();
 		if(isset($_POST['names'])) {

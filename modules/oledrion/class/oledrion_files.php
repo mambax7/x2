@@ -2,7 +2,7 @@
 /**
  * ****************************************************************************
  * oledrion - MODULE FOR XOOPS
- * Copyright (c) Hervé Thouzard (http://www.herve-thouzard.com/)
+ * Copyright (c) HervÃ© Thouzard (http://www.herve-thouzard.com/)
  *
  * You may not change or alter any portion of this comment or credits
  * of supporting developers from this source code or any supporting source code
@@ -11,17 +11,17 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  *
- * @copyright       Hervé Thouzard (http://www.herve-thouzard.com/)
+ * @copyright       HervÃ© Thouzard (http://www.herve-thouzard.com/)
  * @license         http://www.fsf.org/copyleft/gpl.html GNU public license
  * @package         oledrion
- * @author 			Hervé Thouzard (http://www.herve-thouzard.com/)
+ * @author 			HervÃ© Thouzard (http://www.herve-thouzard.com/)
  *
  * Version : $Id:
  * ****************************************************************************
  */
 
 /**
- * Gestion des fichies attachés aux produits
+ * Gestion des fichies attachÃ©s aux produits
  */
 
 require 'classheader.php';
@@ -58,7 +58,7 @@ class oledrion_files extends Oledrion_Object
 	}
 
 	/**
-	 * Indique si le fichier attaché existe physiquement sur le site
+	 * Indique si le fichier attachÃ© existe physiquement sur le site
 	 * @return boolean
 	 */
 	function fileExists()
@@ -70,7 +70,7 @@ class oledrion_files extends Oledrion_Object
 	}
 
 	/**
-	 * Retourne l'url pour accéder au fichier
+	 * Retourne l'url pour accÃ©der au fichier
 	 * @return string
 	 */
 	function getURL()
@@ -82,7 +82,7 @@ class oledrion_files extends Oledrion_Object
 	}
 
 	/**
-	 * Retourne le chemin physique pour accéder au fichier
+	 * Retourne le chemin physique pour accÃ©der au fichier
 	 * @return string
 	 */
 	function getPath()
@@ -106,15 +106,15 @@ class oledrion_files extends Oledrion_Object
 class OledrionOledrion_filesHandler extends Oledrion_XoopsPersistableObjectHandler
 {
 	function __construct($db)
-	{	//							Table			Classe		 	Id			Libellé
+	{	//							Table			Classe		 	Id			LibellÃ©
 		parent::__construct($db, 'oledrion_files', 'oledrion_files', 'file_id', 'file_filename');
 	}
 
 	/**
-	 * Supprime un fichier (son fichier joint ET l'enregistrement dans la base de données)
+	 * Supprime un fichier (son fichier joint ET l'enregistrement dans la base de donnÃ©es)
 	 *
 	 * @param oledrion_files $file
-	 * @return boolean	Le résultat de la suppression
+	 * @return boolean	Le rÃ©sultat de la suppression
 	 */
 	function deleteAttachedFile(oledrion_files $file)
 	{
@@ -125,11 +125,11 @@ class OledrionOledrion_filesHandler extends Oledrion_XoopsPersistableObjectHandl
 	}
 
 	/**
-	 * Retourne les fichiers attachés à un produit
+	 * Retourne les fichiers attachÃ©s Ã  un produit
 	 *
 	 * @param integer $file_product_id	L'Id du produit
-	 * @param integer $start	Position de départ
-	 * @param integer $limit	Nombre maxi de produits à retourner
+	 * @param integer $start	Position de dÃ©part
+	 * @param integer $limit	Nombre maxi de produits Ã  retourner
 	 * @return array	tableau d'objets de type oledrion_files
 	 */
 	function getProductFiles($file_product_id, $start = 0, $limit = 0)
@@ -141,7 +141,7 @@ class OledrionOledrion_filesHandler extends Oledrion_XoopsPersistableObjectHandl
 	}
 
 	/**
-	 * Retourne le nombre de fichiers attachés à un produit qui sont des MP3
+	 * Retourne le nombre de fichiers attachÃ©s Ã  un produit qui sont des MP3
 	 *
 	 * @param integer $file_product_id	L'Id du produit
 	 * @return integer	le nombre de fichiers MP3
@@ -155,7 +155,7 @@ class OledrionOledrion_filesHandler extends Oledrion_XoopsPersistableObjectHandl
 	}
 
 	/**
-	 * Retourne le nombre de fichiers attachés à un produit
+	 * Retourne le nombre de fichiers attachÃ©s Ã  un produit
 	 *
 	 * @param integer $file_product_id	L'Id du produit
 	 * @return integer	le nombre de fichiers
@@ -167,7 +167,7 @@ class OledrionOledrion_filesHandler extends Oledrion_XoopsPersistableObjectHandl
 	}
 
 	/**
-	 * Supprime les fichiers attachés à un produit
+	 * Supprime les fichiers attachÃ©s Ã  un produit
 	 *
 	 * @param integer $file_product_id	L'Id du produit
 	 * @return void

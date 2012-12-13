@@ -2,7 +2,7 @@
 /**
  * ****************************************************************************
  * oledrion - MODULE FOR XOOPS
- * Copyright (c) Hervé Thouzard (http://www.herve-thouzard.com/)
+ * Copyright (c) HervÃ© Thouzard (http://www.herve-thouzard.com/)
  *
  * You may not change or alter any portion of this comment or credits
  * of supporting developers from this source code or any supporting source code
@@ -11,17 +11,17 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  *
- * @copyright       Hervé Thouzard (http://www.herve-thouzard.com/)
+ * @copyright       HervÃ© Thouzard (http://www.herve-thouzard.com/)
  * @license         http://www.fsf.org/copyleft/gpl.html GNU public license
  * @package         oledrion
- * @author 			Hervé Thouzard (http://www.herve-thouzard.com/)
+ * @author 			HervÃ© Thouzard (http://www.herve-thouzard.com/)
  *
  * Version : $Id:
  * ****************************************************************************
  */
 
 /**
- * Affichage des conditions générales de vente
+ * Affichage des conditions gÃ©nÃ©rales de vente
  */
 require 'header.php';
 $GLOBALS['current_category'] = -1;
@@ -32,7 +32,7 @@ require_once OLEDRION_PATH.'class/registryfile.php';
 $registry = new oledrion_registryfile();
 
 $xoopsTpl->assign('nostock_msg', oledrion_utils::getModuleOption('nostock_msg'));
-$xoopsTpl->assign('mod_pref', $mod_pref);	// Préférences du module
+$xoopsTpl->assign('mod_pref', $mod_pref);	// PrÃ©fÃ©rences du module
 $xoopsTpl->assign('cgv_msg', $registry->getfile(OLEDRION_TEXTFILE2));
 
 $xoopsTpl->assign('global_advert', oledrion_utils::getModuleOption('advertisement'));

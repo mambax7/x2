@@ -1,8 +1,5 @@
 <div class="oledrion">
-	<!-- Created by Hervé Thouzard (http://www.herve-thouzard.com/) -->
-	<div id="oledrion-logo">
-		<span id="oledrion-main-logo"><img src="<{$smarty.const.OLEDRION_IMAGES_URL}>oledrion.png" alt="oledrion"  /></span>
-	</div>
+	<!-- Created by HervÃ© Thouzard (http://www.herve-thouzard.com/) -->
 	<h2><{$smarty.const._OLEDRION_BILL}></h2>
 	<div class="oledrion_otherinf">
 		<{$smarty.const._DATE}> : <{$order.cmd_date|date_format:"%d/%m/%Y"}>
@@ -30,9 +27,9 @@
 			<div class="oledrion_producttitle"><{$product.product_recommended_picture}><a href="<{$product.product_url_rewrited}>" title="<{$product.product_href_title}>"><{$product.product_title}></a></div>
 			<div class="oledrion_productauthor"><{if $product.product_joined_manufacturers != ''}><{$smarty.const._OLEDRION_BY}> <{$product.product_joined_manufacturers}><{/if}></div>
 		</td>
-		<td class="right" vclass="right"><div class="oledrion_productprice"><{$product.product_caddy.caddy_qte}></div></td>
-		<td class="right" vclass="right"><div class="oledrion_productprice"><{$product.product_caddy.caddy_price_fordisplay}></div></td>
-		<td class="right" vclass="right"><{$product.product_caddy.caddy_shipping_fordisplay}></td>
+		<td class="right"><div class="oledrion_productprice"><{$product.product_caddy.caddy_qte}></div></td>
+		<td class="right"><div class="oledrion_productprice"><{$product.product_caddy.caddy_price_fordisplay}></div></td>
+		<td class="right"><{$product.product_caddy.caddy_shipping_fordisplay}></td>
 	</tr>
 	<{if count($product.product_attributes) > 0}>
 	<tr>
@@ -53,8 +50,8 @@
 	<tr class="oledrion_carttotal">
 		<td><h3><{$smarty.const._OLEDRION_TOTAL}><h3></td>
 		<td>&nbsp;</td>
-		<td class="right" vclass="right"><div class="oledrion_productprice"><{$order.cmd_total_fordisplay}></td>
-		<td class="right" vclass="right"><{$order.cmd_shipping_fordisplay}></td>
+		<td class="right"><div class="oledrion_productprice"><{$order.cmd_total_fordisplay}></td>
+		<td class="right"><{$order.cmd_shipping_fordisplay}></td>
 	</tr>
 	</table>
 	

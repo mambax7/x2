@@ -2,7 +2,7 @@
 /**
  * ****************************************************************************
  * oledrion - MODULE FOR XOOPS
- * Copyright (c) Hervé Thouzard (http://www.herve-thouzard.com/)
+ * Copyright (c) HervÃ© Thouzard (http://www.herve-thouzard.com/)
  *
  * You may not change or alter any portion of this comment or credits
  * of supporting developers from this source code or any supporting source code
@@ -11,10 +11,10 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  *
- * @copyright       Hervé Thouzard (http://www.herve-thouzard.com/)
+ * @copyright       HervÃ© Thouzard (http://www.herve-thouzard.com/)
  * @license         http://www.fsf.org/copyleft/gpl.html GNU public license
  * @package         oledrion
- * @author 			Hervé Thouzard (http://www.herve-thouzard.com/)
+ * @author 			HervÃ© Thouzard (http://www.herve-thouzard.com/)
  *
  * Version : $Id:
  * ****************************************************************************
@@ -50,10 +50,10 @@ if( !defined("OLEDRION_DIRNAME") ) {
 }
 // Les classes pour les plugins
 require_once OLEDRION_CLASS_PATH.'oledrion_plugins.php';	// Classe principale
-require_once OLEDRION_PLUGINS_PATH.'models'.DIRECTORY_SEPARATOR.'oledrion_action.php';	// modèle
-require_once OLEDRION_PLUGINS_PATH.'models'.DIRECTORY_SEPARATOR.'oledrion_filter.php';	// modèle
+require_once OLEDRION_PLUGINS_PATH.'models'.DIRECTORY_SEPARATOR.'oledrion_action.php';	// modÃ¨le
+require_once OLEDRION_PLUGINS_PATH.'models'.DIRECTORY_SEPARATOR.'oledrion_filter.php';	// modÃ¨le
 
-// Les classes métier ou utilitaires (non ORM)
+// Les classes mÃ©tier ou utilitaires (non ORM)
 require_once OLEDRION_CLASS_PATH.'oledrion_utils.php';
 require_once OLEDRION_CLASS_PATH.'oledrion_handlers.php';
 require_once OLEDRION_CLASS_PATH.'oledrion_parameters.php';
@@ -88,10 +88,10 @@ $h_oledrion_files =  $oledrion_handlers->h_oledrion_files;
 $h_oledrion_persistent_cart =  $oledrion_handlers->h_oledrion_persistent_cart;
 $h_oledrion_gateways_options = $oledrion_handlers->h_oledrion_gateways_options;
 
-$oledrion_shelf = new oledrion_shelf();	// Façade
-$oledrion_shelf_parameters = new oledrion_shelf_parameters();	// Les paramètres de la façade
+$oledrion_shelf = new oledrion_shelf();	// FaÃ§ade
+$oledrion_shelf_parameters = new oledrion_shelf_parameters();	// Les paramÃ¨tres de la faÃ§ade
 
-// Définition des images
+// DÃ©finition des images
 if( !defined("_OLEDRION_EDIT")) {
 	global $xoopsConfig;
 	if (file_exists(OLEDRION_PATH.'language/'.$xoopsConfig['language'].'/main.php')) {
@@ -114,10 +114,11 @@ $icones = array(
 	'offline' => "<img src='". OLEDRION_IMAGES_URL ."offline.gif' alt='" . _OLEDRION_OFFLINE . "' align='middle' />",
 	'ok' => "<img src='". OLEDRION_IMAGES_URL ."ok.png' alt='" . _OLEDRION_VALIDATE_COMMAND . "' align='middle' />",
 	'copy' => "<img src='". $pathIcon16 ."/editcopy.png' alt='" . _OLEDRION_DUPLICATE_PRODUCT . "' align='middle' />",
-	'details' => "<img src='". OLEDRION_IMAGES_URL ."details.png' alt='"._OLEDRION_DETAILS."' align='middle' />"
+	'details' => "<img src='". OLEDRION_IMAGES_URL ."details.png' alt='"._OLEDRION_DETAILS."' align='middle' />",
+	'print' => "<img src='". OLEDRION_IMAGES_URL ."print.png' alt='"._OLEDRION_PRINT_VERSION."' align='middle' />"
 );
 
-// Chargement de quelques préférences
+// Chargement de quelques prÃ©fÃ©rences
 $mod_pref = array(
 	'money_short' => oledrion_utils::getModuleOption('money_short'),
 	'money_full' => oledrion_utils::getModuleOption('money_full'),

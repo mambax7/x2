@@ -2,7 +2,7 @@
 /**
  * ****************************************************************************
  * oledrion - MODULE FOR XOOPS
- * Copyright (c) Hervé Thouzard (http://www.herve-thouzard.com/)
+ * Copyright (c) HervÃ© Thouzard (http://www.herve-thouzard.com/)
  *
  * You may not change or alter any portion of this comment or credits
  * of supporting developers from this source code or any supporting source code
@@ -11,10 +11,10 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  *
- * @copyright       Hervé Thouzard (http://www.herve-thouzard.com/)
+ * @copyright       HervÃ© Thouzard (http://www.herve-thouzard.com/)
  * @license         http://www.fsf.org/copyleft/gpl.html GNU public license
  * @package         oledrion
- * @author 			Hervé Thouzard (http://www.herve-thouzard.com/)
+ * @author 			HervÃ© Thouzard (http://www.herve-thouzard.com/)
  *
  * Version : $Id:
  * ****************************************************************************
@@ -22,7 +22,7 @@
 
 /**
  * This block shows the products that were recently sold
- * @param array $options	[0] = Nombre maximum de produits à voir
+ * @param array $options	[0] = Nombre maximum de produits Ã  voir
  * @return array
  */
 function b_oledrion_recentlysold_show($options)
@@ -50,9 +50,9 @@ function b_oledrion_recentlysold_show($options)
 }
 
 /**
- * Edition des paramètres du blocs
+ * Edition des paramÃ¨tres du blocs
  *
- * @param array $options	[0] = Nombre maximum de produits à voir
+ * @param array $options	[0] = Nombre maximum de produits Ã  voir
  * @return string
  */
 function b_oledrion_recentlysold_edit($options)
@@ -66,7 +66,7 @@ function b_oledrion_recentlysold_edit($options)
 }
 
 /**
- * Bloc à la volée
+ * Bloc Ã  la volÃ©e
  * @param string $options
  * @return string
  */

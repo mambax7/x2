@@ -2,7 +2,7 @@
 /**
  * ****************************************************************************
  * oledrion - MODULE FOR XOOPS
- * Copyright (c) HervÈ Thouzard (http://www.herve-thouzard.com/)
+ * Copyright (c) Herv√© Thouzard (http://www.herve-thouzard.com/)
  *
  * You may not change or alter any portion of this comment or credits
  * of supporting developers from this source code or any supporting source code
@@ -11,10 +11,10 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  *
- * @copyright       HervÈ Thouzard (http://www.herve-thouzard.com/)
+ * @copyright       Herv√© Thouzard (http://www.herve-thouzard.com/)
  * @license         http://www.fsf.org/copyleft/gpl.html GNU public license
  * @package         oledrion
- * @author 			HervÈ Thouzard (http://www.herve-thouzard.com/)
+ * @author 			Herv√© Thouzard (http://www.herve-thouzard.com/)
  *
  * Version : $Id:
  * ****************************************************************************
@@ -47,7 +47,7 @@ class OledrionOledrion_products_listHandler extends Oledrion_XoopsPersistableObj
 	}
 	
 	/**
-	 * Supprime les produits liÈs ‡ une liste
+	 * Supprime les produits li√©s √† une liste
 	 *
 	 * @param oledrion_lists $list
 	 * @return boolean
@@ -69,7 +69,7 @@ class OledrionOledrion_products_listHandler extends Oledrion_XoopsPersistableObj
 	}
 	
 	/**
-	 * Retourne la liste des produits appartenants ‡ une liste
+	 * Retourne la liste des produits appartenants √† une liste
 	 *
 	 * @param oledrion_lists $list
 	 * @return array
@@ -94,7 +94,7 @@ class OledrionOledrion_products_listHandler extends Oledrion_XoopsPersistableObj
 	}
 	
 	/**
-	 * Ajoute un produit ‡ une liste utilisateur
+	 * Ajoute un produit √† une liste utilisateur
 	 *
 	 * @param integer $productlist_id	Id de la liste
 	 * @param integer $productlist_product_id	Id du produit
@@ -110,7 +110,7 @@ class OledrionOledrion_products_listHandler extends Oledrion_XoopsPersistableObj
 	}
 	
 	/**
-	 * Indique si un produit se trouve dÈj‡ dans une liste
+	 * Indique si un produit se trouve d√©j√† dans une liste
 	 *
 	 * @param integer $productlist_list_id
 	 * @param integer $productlist_product_id

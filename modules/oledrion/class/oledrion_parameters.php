@@ -2,7 +2,7 @@
 /**
  * ****************************************************************************
  * oledrion - MODULE FOR XOOPS
- * Copyright (c) Hervé Thouzard (http://www.herve-thouzard.com/)
+ * Copyright (c) HervÃ© Thouzard (http://www.herve-thouzard.com/)
  *
  * You may not change or alter any portion of this comment or credits
  * of supporting developers from this source code or any supporting source code
@@ -11,10 +11,10 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  *
- * @copyright       Hervé Thouzard (http://www.herve-thouzard.com/)
+ * @copyright       HervÃ© Thouzard (http://www.herve-thouzard.com/)
  * @license         http://www.fsf.org/copyleft/gpl.html GNU public license
  * @package         oledrion
- * @author 			Hervé Thouzard (http://www.herve-thouzard.com/)
+ * @author 			HervÃ© Thouzard (http://www.herve-thouzard.com/)
  *
  * Version : $Id:
  * ****************************************************************************
@@ -23,10 +23,10 @@
 /**
  * Class used for parameters passing to classes methods
  *
- * @copyright       Hervé Thouzard (http://www.herve-thouzard.com/)
+ * @copyright       HervÃ© Thouzard (http://www.herve-thouzard.com/)
  * @license         http://www.fsf.org/copyleft/gpl.html GNU public license
  * @package         oledrion
- * @author 			Hervé Thouzard (http://www.herve-thouzard.com/)
+ * @author 			HervÃ© Thouzard (http://www.herve-thouzard.com/)
  * @version 1.0
  *
  * Example :
@@ -56,12 +56,12 @@
 class oledrion_parameters extends ArrayObject
 {
     /**
-     * Permet de valoriser un indice de la classe comme si c'était une propriété de la classe
+     * Permet de valoriser un indice de la classe comme si c'Ã©tait une propriÃ©tÃ© de la classe
      *
      * @example $enregistrement->nom_du_champ = 'ma chaine'
      *
-     * @param string $key	Le nom du champ à traiter
-     * @param mixed $value	La valeur à lui attribuer
+     * @param string $key	Le nom du champ Ã  traiter
+     * @param mixed $value	La valeur Ã  lui attribuer
      * @return object
      */
     function __set($key, $value)
@@ -71,7 +71,7 @@ class oledrion_parameters extends ArrayObject
     }
 
 	/**
-	 * Valorisation d'un indice de la classe en utilisant un appel de fonction basé sur le principe suivant :
+	 * Valorisation d'un indice de la classe en utilisant un appel de fonction basÃ© sur le principe suivant :
 	 * 		$maClasse->setLimit(10);
 	 * Il est possible de chainer comme ceci : $maClasse->setStart(0)->setLimit(10);
 	 *
@@ -90,10 +90,10 @@ class oledrion_parameters extends ArrayObject
     }
 
 	/**
-	 * Méthode qui essaye de faire la même chose que la méthode extend() de jQuery
+	 * MÃ©thode qui essaye de faire la mÃªme chose que la mÃ©thode extend() de jQuery
 	 *
-	 * On lui passe les valeurs par défaut que l'on attend et la méthode les compare avec les valeurs actuelles
-	 * Si des valeurs manquent, elles sont ajoutées
+	 * On lui passe les valeurs par dÃ©faut que l'on attend et la mÃ©thode les compare avec les valeurs actuelles
+	 * Si des valeurs manquent, elles sont ajoutÃ©es
 	 *
 	 * @param oledrion_parameters $defaultValues
 	 * @return oledrion_parameters

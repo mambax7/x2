@@ -2,7 +2,7 @@
 /**
  * ****************************************************************************
  * oledrion - MODULE FOR XOOPS
- * Copyright (c) Hervé Thouzard (http://www.herve-thouzard.com/)
+ * Copyright (c) HervÃ© Thouzard (http://www.herve-thouzard.com/)
  *
  * You may not change or alter any portion of this comment or credits
  * of supporting developers from this source code or any supporting source code
@@ -11,24 +11,24 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  *
- * @copyright       Hervé Thouzard (http://www.herve-thouzard.com/)
+ * @copyright       HervÃ© Thouzard (http://www.herve-thouzard.com/)
  * @license         http://www.fsf.org/copyleft/gpl.html GNU public license
  * @package         oledrion
- * @author 			Hervé Thouzard (http://www.herve-thouzard.com/)
+ * @author 			HervÃ© Thouzard (http://www.herve-thouzard.com/)
  *
  * Version : $Id:
  * ****************************************************************************
  */
 
 /**
- * Page appelée par la passerelle de paiement dans le cas de l'annulation d'une commande
+ * Page appelÃ©e par la passerelle de paiement dans le cas de l'annulation d'une commande
  */
 require 'header.php';
 $GLOBALS['current_category'] = -1;
 $xoopsOption['template_main'] = 'oledrion_cancelpurchase.html';
 require_once XOOPS_ROOT_PATH.'/header.php';
 
-// On donne la possibilité à la passerelle d'annuler la commande
+// On donne la possibilitÃ© Ã  la passerelle d'annuler la commande
 $gateway = null;
 $gateway = oledrion_gateways::getGatewayObject();
 if(is_object($gateway) && method_exists($gateway, 'cancelOrder')) {

@@ -2,7 +2,7 @@
 /**
  * ****************************************************************************
  * oledrion - MODULE FOR XOOPS
- * Copyright (c) Hervé Thouzard (http://www.herve-thouzard.com/)
+ * Copyright (c) HervÃ© Thouzard (http://www.herve-thouzard.com/)
  *
  * You may not change or alter any portion of this comment or credits
  * of supporting developers from this source code or any supporting source code
@@ -11,17 +11,17 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  *
- * @copyright       Hervé Thouzard (http://www.herve-thouzard.com/)
+ * @copyright       HervÃ© Thouzard (http://www.herve-thouzard.com/)
  * @license         http://www.fsf.org/copyleft/gpl.html GNU public license
  * @package         oledrion
- * @author 			Hervé Thouzard (http://www.herve-thouzard.com/)
+ * @author 			HervÃ© Thouzard (http://www.herve-thouzard.com/)
  *
  * Version : $Id:
  * ****************************************************************************
  */
 
 /**
- * Classe chargée de faire la liaison entre les produits et les fabricants
+ * Classe chargÃ©e de faire la liaison entre les produits et les fabricants
  */
 require 'classheader.php';
 
@@ -46,7 +46,7 @@ class OledrionOledrion_productsmanuHandler extends Oledrion_XoopsPersistableObje
 	}
 
 	/**
-	 * Retourne le nombre de produits associé à un fabricant
+	 * Retourne le nombre de produits associÃ© Ã  un fabricant
 	 *
 	 * @param integer $pm_manu_id	L'identifiant du fabricant
 	 * @return integer	Le nombre de fabricants

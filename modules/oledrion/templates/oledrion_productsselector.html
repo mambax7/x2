@@ -1,10 +1,11 @@
-<!-- Created by Hervé Thouzard (http://www.herve-thouzard.com/) -->
+<!-- Created by HervÃ© Thouzard (http://www.herve-thouzard.com/) -->
 <html>
 <head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
 	<meta http-equiv="content-type" content="text/html; charset=<{$smarty.const._CHARSET}>" />
-	<meta name="author" content="Unknown" />
+	<meta name="author" content="voltan" />
 	<meta http-equiv="content-language" content="<{$xoops_langcode}>" />
-	<meta name="generator" content="Bluefish 2.0.3" />
+	<meta name="generator" content="Bluefish 2.2.3" />
 	<title><{$smarty.const._AM_OLEDRION_SEARCH}></title>
 	<link rel="stylesheet" type="text/css" href="<{$theme_set}>" />
 	<style>
@@ -22,12 +23,12 @@
 <input type="hidden" name="mutipleSelect" id="mutipleSelect" value="<{$mutipleSelect}>" />
 <input type="hidden" name="callerName" id="callerName" value="<{$callerName}>" />
 <table width='100%' cellspacing='1' cellpadding='3' border='0' class='outer'>
-<tr class="<{cycle values="even,odd"}>">
+<tr class="<{cycle values='even,odd'}>">
 	<td><select name='searchField' id='searchField' class="selectLists"><{html_options selected=$searchFieldSelected options=$searchField}></select></td>
 	<td><select name='searchCriteria' id='searchCriteria' class="selectLists"><{html_options selected=$searchCriteriaSelected options=$searchCriteria}></select></td>
 	<td><input type='text' name='searchText' id='searchText' size='45' maxlength='255' value="<{$searchTextValue}>" /></td>
 </tr>
-<tr class="<{cycle values="even,odd"}>">
+<tr class="<{cycle values='even,odd'}>">
 	<td><{$smarty.const._AM_OLEDRION_DISCOUNT_VENDOR}><br /><select name='searchVendor' id='searchVendor' class="selectLists"><{html_options selected=$searchVendorSelected options=$searchVendor}></select></td>
 	<td><{$smarty.const._OLEDRION_CATEGORY}><br /><{$searchCategory}></td>
 	<td>&nbsp;<input type='submit' name='btnSearch' id='btnSearch' value="<{$smarty.const._AM_OLEDRION_SEARCH}>" /> <input type="button" name="btnClose" id="btnClose" onClick="javascript:window.close();" value="<{$smarty.const._AM_OLEDRION_CLOSE_WINDOW}>" /><br />
@@ -52,7 +53,7 @@
 		<th class='center'><{$smarty.const._AM_OLEDRION_SELECT}></th>
 	</tr>
 	<{foreach item=product from=$products}>
-	<tr class="<{cycle values="even,odd"}>">
+	<tr class="<{cycle values='even,odd'}>">
 		<td class='center'><{$product.product_id}></td>
 		<td class='left'><a href="<{$product.product_url_rewrited}>" target="_blank"><{$product.product_title}></a></td>
 		<td class='center'>
@@ -66,7 +67,7 @@
 	<{/foreach}>
 	</table>
 	<{if isset($pagenav)}>
-		<div class='center'><{$pagenav}></div>
+		<div class="center pagenav"><{$pagenav}></div>
 	<{/if}>	
 	</form>
 <{/if}>

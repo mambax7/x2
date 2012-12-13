@@ -2,7 +2,7 @@
 /**
  * ****************************************************************************
  * oledrion - MODULE FOR XOOPS
- * Copyright (c) Hervé Thouzard (http://www.herve-thouzard.com/)
+ * Copyright (c) HervÃ© Thouzard (http://www.herve-thouzard.com/)
  *
  * You may not change or alter any portion of this comment or credits
  * of supporting developers from this source code or any supporting source code
@@ -11,10 +11,10 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  *
- * @copyright       Hervé Thouzard (http://www.herve-thouzard.com/)
+ * @copyright       HervÃ© Thouzard (http://www.herve-thouzard.com/)
  * @license         http://www.fsf.org/copyleft/gpl.html GNU public license
  * @package         oledrion
- * @author 			Hervé Thouzard (http://www.herve-thouzard.com/)
+ * @author 			HervÃ© Thouzard (http://www.herve-thouzard.com/)
  *
  * Version : $Id:
  * ****************************************************************************
@@ -63,7 +63,7 @@ function listForm($op, $product_id = 0)
 		if(!is_object($item)) {
 			oledrion_utils::redirect(_AM_OLEDRION_NOT_FOUND, $baseurl, 5);
 		}
-		// Vérification, est-ce que l'utilisateur courant est bien le propriétaire de cette liste ?
+		// VÃ©rification, est-ce que l'utilisateur courant est bien le propriÃ©taire de cette liste ?
 		if(!$handlers->h_oledrion_lists->isThisMyList($list_id)) {
 			oledrion_utils::redirect(_OLEDRION_ERROR25, $baseurl, 8);
 		}
@@ -138,7 +138,7 @@ switch($op) {
 		break;
 
 	// ************************************************************************
-	case 'addProduct':	// Ajout d'un produit à une liste *********************
+	case 'addProduct':	// Ajout d'un produit Ã  une liste *********************
 	// ************************************************************************
 		$xoopsTpl->assign('op', $op);
 		$product_id = isset($_GET['product_id']) ? intval($_GET['product_id']) : 0;
@@ -170,7 +170,7 @@ switch($op) {
 		break;
 
 	// ************************************************************************
-	case 'addProductToList': // Ajout d'un produit à une liste, sélection de la liste
+	case 'addProductToList': // Ajout d'un produit Ã  une liste, sÃ©lection de la liste
 	// ************************************************************************
 		$xoopsTpl->assign('op', $op);
 		$product_id = isset($_POST['product_id']) ? intval($_POST['product_id']) : 0;
@@ -186,13 +186,13 @@ switch($op) {
 		}
 
 		$list_id = isset($_POST['list_id']) ? intval($_POST['list_id']) : 0;
-		if($list_id == 0) {	// Ajouter à une nouvelle liste
+		if($list_id == 0) {	// Ajouter Ã  une nouvelle liste
 			$sform = listForm('addList', $product_id);
 			$title = _OLEDRION_ADD_LIST;
 			$breadcrumb = array(OLEDRION_URL.'all-lists.php' => _MI_OLEDRION_SMNAME11, OLEDRION_URL.basename(__FILE__) => _MI_OLEDRION_SMNAME10, OLEDRION_URL => $title);
 			$xoopsTpl->assign('form', $sform->render());
 			$xoopsTpl->assign('op', 'addList');
-		} else {	// Ajouter à une liste existante
+		} else {	// Ajouter Ã  une liste existante
 			if(!$handlers->h_oledrion_lists->isThisMyList($list_id)) {
 				oledrion_utils::redirect(_OLEDRION_ERROR25, $baseurl, 8);
 			}
@@ -224,7 +224,7 @@ switch($op) {
 		if($list_id == 0) {
 			oledrion_utils::redirect(_OLEDRION_ERROR21, $baseurl, 4);
 		}
-		// Vérification, est-ce que l'utilisateur courant est bien le propriétaire de cette liste ?
+		// VÃ©rification, est-ce que l'utilisateur courant est bien le propriÃ©taire de cette liste ?
 		if(!$handlers->h_oledrion_lists->isThisMyList($list_id)) {
 			oledrion_utils::redirect(_OLEDRION_ERROR25, $baseurl, 8);
 		}
@@ -242,7 +242,7 @@ switch($op) {
 		if($list_id == 0) {
 			oledrion_utils::redirect(_OLEDRION_ERROR21, $baseurl, 4);
 		}
-		// Vérification, est-ce que l'utilisateur courant est bien le propriétaire de cette liste ?
+		// VÃ©rification, est-ce que l'utilisateur courant est bien le propriÃ©taire de cette liste ?
 		if(!$handlers->h_oledrion_lists->isThisMyList($list_id)) {
 			oledrion_utils::redirect(_OLEDRION_ERROR25, $baseurl, 8);
 		}
@@ -263,7 +263,7 @@ switch($op) {
 	// ************************************************************************
 		$list_id = isset($_POST['list_id']) ? intval($_POST['list_id']) : 0;
 		if(!empty($list_id)) {
-			// Vérification, est-ce que l'utilisateur courant est bien le propriétaire de cette liste ?
+			// VÃ©rification, est-ce que l'utilisateur courant est bien le propriÃ©taire de cette liste ?
 			if(!$handlers->h_oledrion_lists->isThisMyList($list_id)) {
 				oledrion_utils::redirect(_OLEDRION_ERROR25, $baseurl, 8);
 			}
@@ -278,7 +278,7 @@ switch($op) {
 			$item = $handlers->h_oledrion_lists->create(true);
 			$edit = false;
 		}
-		// Contrôle sur le titre
+		// ContrÃ´le sur le titre
 		if(!isset($_POST['list_title']) || (isset($_POST['list_title']) && xoops_trim($_POST['list_title']) == '')) {
 			oledrion_utils::redirect(_OLEDRION_ERROR24, $baseurl, 5);
 		}
@@ -306,9 +306,9 @@ switch($op) {
 				if($product_id > 0) {
 					$product = null;
 					$product = $handlers->h_oledrion_products->get($product_id);
-					if(is_object($product) && $product->isProductVisible()) {	// On peut ajouter le produit à cette nouvelle liste
+					if(is_object($product) && $product->isProductVisible()) {	// On peut ajouter le produit Ã  cette nouvelle liste
 						$res = $handlers->h_oledrion_products_list->addProductToUserList($item->getVar('list_id'), $product_id);
-						if($res) {	// Mise à jour du nombre de produits de la liste
+						if($res) {	// Mise Ã  jour du nombre de produits de la liste
 							$handlers->h_oledrion_lists->incrementListProductsCount($item);
 							oledrion_utils::updateCache();
 							oledrion_utils::redirect(_AM_OLEDRION_SAVE_OK, $product->getLink(), 2);

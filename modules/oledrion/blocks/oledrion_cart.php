@@ -2,7 +2,7 @@
 /**
  * ****************************************************************************
  * oledrion - MODULE FOR XOOPS
- * Copyright (c) Hervé Thouzard (http://www.herve-thouzard.com/)
+ * Copyright (c) HervÃ© Thouzard (http://www.herve-thouzard.com/)
  *
  * You may not change or alter any portion of this comment or credits
  * of supporting developers from this source code or any supporting source code
@@ -11,10 +11,10 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  *
- * @copyright       Hervé Thouzard (http://www.herve-thouzard.com/)
+ * @copyright       HervÃ© Thouzard (http://www.herve-thouzard.com/)
  * @license         http://www.fsf.org/copyleft/gpl.html GNU public license
  * @package         oledrion
- * @author 			Hervé Thouzard (http://www.herve-thouzard.com/)
+ * @author 			HervÃ© Thouzard (http://www.herve-thouzard.com/)
  *
  * Version : $Id:
  * ****************************************************************************
@@ -51,7 +51,7 @@ function b_oledrion_cart_show($options)
 	$block['block_commandAmount'] = sprintf("%0.".$dec.'f', $commandAmount);		// Montant HT de la commande
 	$block['block_vatAmount'] = sprintf("%0.".$dec.'f', $vatAmount);				// Montant de la TVA
 	$block['block_commandAmountTTC'] = sprintf("%0.".$dec.'f', $commandAmountTTC);	// Montant TTC de la commande
-	$block['block_discountsDescription'] = $discountsDescription;					// Liste des réductions accordées
+	$block['block_discountsDescription'] = $discountsDescription;					// Liste des rÃ©ductions accordÃ©es
 	if( ($productsCount > 0) && (count($cartForTemplate) > $productsCount)) {
 		array_slice($cartForTemplate, 0, $productsCount-1);
 	}

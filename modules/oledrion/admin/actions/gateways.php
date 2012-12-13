@@ -2,7 +2,7 @@
 /**
  * ****************************************************************************
  * oledrion - MODULE FOR XOOPS
- * Copyright (c) Hervé Thouzard (http://www.herve-thouzard.com/)
+ * Copyright (c) HervÃ© Thouzard (http://www.herve-thouzard.com/)
  *
  * You may not change or alter any portion of this comment or credits
  * of supporting developers from this source code or any supporting source code
@@ -11,10 +11,10 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  *
- * @copyright       Hervé Thouzard (http://www.herve-thouzard.com/)
+ * @copyright       HervÃ© Thouzard (http://www.herve-thouzard.com/)
  * @license         http://www.fsf.org/copyleft/gpl.html GNU public license
  * @package         oledrion
- * @author 			Hervé Thouzard (http://www.herve-thouzard.com/)
+ * @author 			HervÃ© Thouzard (http://www.herve-thouzard.com/)
  *
  * Version : $Id:
  * ****************************************************************************
@@ -29,7 +29,7 @@ global $baseurl;    // Pour faire taire les warnings de Zend Studio
 
 switch($action) {
 	// ****************************************************************************************************************
-    case 'default':	// Liste des passerelles de paiement installés
+    case 'default':	// Liste des passerelles de paiement installÃ©s
     // ****************************************************************************************************************
         xoops_cp_header();
     	oledrion_adminMenu(12);
@@ -48,7 +48,7 @@ switch($action) {
 
         foreach($installedGateways as $installedGateway) {
             if(oledrion_gateways::gatewayClassFileExists($installedGateway)) {    // Il y a une classe donc c'est bon
-    	        if(!oledrion_gateways::loadGatewaysLanguageDefines($installedGateway)) {    // On n'a pas réussi à charger le fichier de traduction
+    	        if(!oledrion_gateways::loadGatewaysLanguageDefines($installedGateway)) {    // On n'a pas rÃ©ussi Ã  charger le fichier de traduction
     	             continue;
     	        }
     	        oledrion_gateways::includeGatewayClass($installedGateway);    // Chargement du fichier de la classe
@@ -118,7 +118,7 @@ switch($action) {
     	break;
 
     // ****************************************************************************************************************
-    case 'setDefaultGateway':    // Choix de la passerelle de paiement par défaut
+    case 'setDefaultGateway':    // Choix de la passerelle de paiement par dÃ©faut
     // ****************************************************************************************************************
         xoops_cp_header();
     	oledrion_adminMenu(12);
@@ -136,7 +136,7 @@ switch($action) {
     	break;
 
     // ****************************************************************************************************************
-    case 'parameters':    // Paramètres de la passerelle de paiement sélectionnée
+    case 'parameters':    // ParamÃ¨tres de la passerelle de paiement sÃ©lectionnÃ©e
     // ****************************************************************************************************************
         xoops_cp_header();
     	oledrion_adminMenu(12);
@@ -173,7 +173,7 @@ switch($action) {
     	break;
 
     // ****************************************************************************************************************
-    case 'saveparameters':    // Enregistrement des paramètres de la passerelle de paiement
+    case 'saveparameters':    // Enregistrement des paramÃ¨tres de la passerelle de paiement
     // ****************************************************************************************************************
         xoops_cp_header();
     	oledrion_adminMenu(12);
@@ -187,7 +187,7 @@ switch($action) {
             oledrion_utils::redirect(_AM_OLEDRION_GATEWAYS_ERROR5, $baseurl.$opRedirect, 4);
         }
         if(oledrion_gateways::gatewayClassFileExists($gateway)) {
-            if(!oledrion_gateways::loadGatewaysLanguageDefines($gateway)) {    // Le chargement des traductions a échoué
+            if(!oledrion_gateways::loadGatewaysLanguageDefines($gateway)) {    // Le chargement des traductions a Ã©chouÃ©
                 oledrion_utils::redirect(_AM_OLEDRION_GATEWAYS_ERROR2, $baseurl.$opRedirect, 4);
             }
             oledrion_gateways::includeGatewayClass($gateway);

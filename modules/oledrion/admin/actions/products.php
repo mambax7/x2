@@ -2,7 +2,7 @@
 /**
  * ****************************************************************************
  * oledrion - MODULE FOR XOOPS
- * Copyright (c) Hervé Thouzard (http://www.herve-thouzard.com/)
+ * Copyright (c) HervÃ© Thouzard (http://www.herve-thouzard.com/)
  *
  * You may not change or alter any portion of this comment or credits
  * of supporting developers from this source code or any supporting source code
@@ -11,10 +11,10 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  *
- * @copyright       Hervé Thouzard (http://www.herve-thouzard.com/)
+ * @copyright       HervÃ© Thouzard (http://www.herve-thouzard.com/)
  * @license         http://www.fsf.org/copyleft/gpl.html GNU public license
  * @package         oledrion
- * @author 			Hervé Thouzard (http://www.herve-thouzard.com/)
+ * @author 			HervÃ© Thouzard (http://www.herve-thouzard.com/)
  *
  * Version : $Id:
  * ****************************************************************************
@@ -33,7 +33,7 @@ switch($action) {
         oledrion_adminMenu(5);
 		$products = $categories = array();
 
-		// Récupération des données uniques
+		// RÃ©cupÃ©ration des donnÃ©es uniques
 		$categories = $h_oledrion_cat->getAllCategories(new oledrion_parameters(array('start' => 0, 'limit' => 0, 'sort' => 'cat_title', 'order' => 'ASC', 'idaskey' => true)));
 
 		$form = "<form method='post' action='$baseurl' name='frmadddproduct' id='frmadddproduct'><input type='hidden' name='op' id='op' value='products' /><input type='hidden' name='action' id='action' value='add' /><input type='submit' name='btngo' id='btngo' value='"._AM_OLEDRION_ADD_ITEM."' /></form>";
@@ -117,7 +117,7 @@ switch($action) {
 		$_SESSION['filter_product_online'] = $filter_product_online ;
 		$_SESSION['filter_product_price'] = $filter_product_price;
 
-		$itemsCount = $h_oledrion_products->getCount($criteria);	// Recherche du nombre total de produits répondants aux critères
+		$itemsCount = $h_oledrion_products->getCount($criteria);	// Recherche du nombre total de produits rÃ©pondants aux critÃ¨res
 		oledrion_utils::htitle(_MI_OLEDRION_ADMENU4.' ('.$itemsCount.')', 4);
 		if($itemsCount > $limit) {
 			require_once XOOPS_ROOT_PATH.'/class/pagenav.php';
@@ -159,7 +159,7 @@ switch($action) {
 			$class = ($class == 'even') ? 'odd' : 'even';
 			$id = $item->getVar('product_id');
 			$recommended = '';
-			if($item->isRecommended()) {	// Si le produit est recommandé, on affiche le lien qui permet d'arrêter de le recommander
+			if($item->isRecommended()) {	// Si le produit est recommandÃ©, on affiche le lien qui permet d'arrÃªter de le recommander
 				$recommended = "<a href='".$baseurl."?op=products&action=unrecommend&product_id=".$id."' title='"._AM_OLEDRION_DONOTRECOMMEND_IT."'><img alt='"._AM_OLEDRION_DONOTRECOMMEND_IT."' src='".OLEDRION_IMAGES_URL."heart_delete.png' alt='' /></a>";
 			} else {	// Sinon on affiche le lien qui permet de le recommander
 				$recommended = "<a href='".$baseurl."?op=products&action=recommend&product_id=".$id."' title='"._AM_OLEDRION_RECOMMEND_IT."'><img alt='"._AM_OLEDRION_RECOMMEND_IT."' src='".OLEDRION_IMAGES_URL."heart_add.png' alt='' /></a>";
@@ -205,7 +205,7 @@ switch($action) {
 
 
 	// ****************************************************************************************************************
-	case 'unrecommend':	// Arrêter de recommander un produit
+	case 'unrecommend':	// ArrÃªter de recommander un produit
 	// ****************************************************************************************************************
 		$opRedirect = '?op=products';
 		if(isset($_GET['product_id'])) {
@@ -354,7 +354,7 @@ switch($action) {
 		}
 		$sform->addElement(new XoopsFormFile(_AM_OLEDRION_IMAGE1_CHANGE , 'attachedfile1', oledrion_utils::getModuleOption('maxuploadsize')), false);
 
-		if(!oledrion_utils::getModuleOption('create_thumbs')) {	// L'utilisateur se charge de créer la vignette lui même
+		if(!oledrion_utils::getModuleOption('create_thumbs')) {	// L'utilisateur se charge de crÃ©er la vignette lui mÃªme
 			if( $action == 'edit' && $item->thumbExists() ) {
 				$pictureTray = new XoopsFormElementTray(_AM_OLEDRION_IMAGE2_HELP ,'<br />');
 				$pictureTray->addElement(new XoopsFormLabel('', "<img src='".$item->getThumbUrl()."' alt='' border='0' />"));
@@ -405,14 +405,14 @@ switch($action) {
 
 		// Produits relatifs ****************************************************
 		$relatedProducts = $productRelated = $relatedProducts_d = $productRelated_d = array();
-		// Recherche de tous les produits sauf celui-là
+		// Recherche de tous les produits sauf celui-lÃ 
 		$criteria = new Criteria('product_id', $item->getVar('product_id'), '<>');
 		$criteria->setSort('product_title');
 		$relatedProducts = $h_oledrion_products->getObjects($criteria);
 		foreach($relatedProducts as $oneitem) {
 			$relatedProducts_d[$oneitem->getVar('product_id')] = xoops_trim($oneitem->getVar('product_title'));
 		}
-		// Recherche des produits relatifs à ce produit
+		// Recherche des produits relatifs Ã  ce produit
 		if($edit) {
 			$criteria = new CriteriaCompo();
 			$criteria->add(new Criteria('related_product_id', $item->getVar('product_id'), '='));
@@ -465,7 +465,7 @@ switch($action) {
 			$sform->addElement(new XoopsFormText(_AM_OLEDRION_META_DESCRIPTION,'product_metadescription',50,255, $item->getVar('product_metadescription','e')), false);
 			$sform->addElement(new XoopsFormText(_AM_OLEDRION_META_PAGETITLE,'product_metatitle',50,255, $item->getVar('product_metatitle','e')), false);
 		}
-		// Fichier attaché
+		// Fichier attachÃ©
 		if( $action == 'edit' && trim($item->getVar('product_attachment')) != '' && file_exists(XOOPS_UPLOAD_PATH.DIRECTORY_SEPARATOR.trim($item->getVar('product_attachment'))) ) {
 			$pictureTray = new XoopsFormElementTray(_OLEDRION_ATTACHED_FILE ,'<br />');
 			$pictureTray->addElement(new XoopsFormLabel('', "<a href='".XOOPS_UPLOAD_URL.'/'.$item->getVar('product_attachment')."' target='_blank'>".XOOPS_UPLOAD_URL.'/'.$item->getVar('product_attachment')."</a>"));
@@ -588,7 +588,7 @@ switch($action) {
 
    		$indiceAttached = 2;
 		// Upload de la vignette
-		if(!oledrion_utils::getModuleOption('create_thumbs')) {	// L'utilisateur se charge de créer la vignette lui-même
+		if(!oledrion_utils::getModuleOption('create_thumbs')) {	// L'utilisateur se charge de crÃ©er la vignette lui-mÃªme
 			$destname = '';
 			$res2 = oledrion_utils::uploadFile(1, OLEDRION_PICTURES_PATH);
 			if($res2 === true) {
@@ -598,7 +598,7 @@ switch($action) {
    					echo $res2;
    				}
    			}
-		} else {		// Il faut créer la vignette pour l'utilisateur
+		} else {		// Il faut crÃ©er la vignette pour l'utilisateur
 			$indiceAttached = 1;
 			if(xoops_trim($mainPicture) != '') {
 				$thumbName = OLEDRION_THUMBS_PREFIX.$mainPicture;
@@ -608,7 +608,7 @@ switch($action) {
 		}
 
 
-		// Téléchargement du fichier attaché
+		// TÃ©lÃ©chargement du fichier attachÃ©
 		$destname = '';
 		$res3 = oledrion_utils::uploadFile($indiceAttached, OLEDRION_ATTACHED_FILES_PATH);
 		if($res3 === true) {
@@ -634,12 +634,12 @@ switch($action) {
 			}
 			// Gestion des fabricants ************************************************
 			if($edit) {
-				// Suppression préalable
+				// Suppression prÃ©alable
 				$criteria = new CriteriaCompo();
 				$criteria->add(new Criteria('pm_product_id', $id, '='));
 				$h_oledrion_productsmanu->deleteAll($criteria);
 			}
-			// Puis sauvegarde des données
+			// Puis sauvegarde des donnÃ©es
 			if(isset($_POST['manufacturers'])) {
 				foreach ($_POST['manufacturers'] as $id2) {
 					$item2 = $h_oledrion_productsmanu->create(true);
@@ -651,12 +651,12 @@ switch($action) {
 
 			// Gestion des produits relatifs ****************************************
 			if($edit) {
-				// Suppression préalable
+				// Suppression prÃ©alable
 				$criteria = new CriteriaCompo();
 				$criteria->add(new Criteria('related_product_id', $id, '='));
 				$h_oledrion_related->deleteAll($criteria);
 			}
-			// Puis sauvegarde des données
+			// Puis sauvegarde des donnÃ©es
 			if(isset($_POST['relatedproducts'])) {
 				foreach ($_POST['relatedproducts'] as $id2) {
 					$item2 = $h_oledrion_related->create(true);
@@ -710,7 +710,7 @@ switch($action) {
 		if(!is_object($item)) {
 			oledrion_utils::redirect(_AM_OLEDRION_NOT_FOUND, $baseurl, 5);
 		}
-		xoops_confirm(array( 'op' => 'products', 'action' => 'delete', 'id' => $id), 'main.php', _AM_OLEDRION_CONF_DELITEM.'<br />'.$item->getVar('product_title'));
+		xoops_confirm(array( 'op' => 'products', 'action' => 'delete', 'id' => $id), 'index.php', _AM_OLEDRION_CONF_DELITEM.'<br />'.$item->getVar('product_title'));
 		break;
 
 

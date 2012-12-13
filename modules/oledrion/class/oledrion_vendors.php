@@ -2,7 +2,7 @@
 /**
  * ****************************************************************************
  * oledrion - MODULE FOR XOOPS
- * Copyright (c) Hervé Thouzard (http://www.herve-thouzard.com/)
+ * Copyright (c) HervÃ© Thouzard (http://www.herve-thouzard.com/)
  *
  * You may not change or alter any portion of this comment or credits
  * of supporting developers from this source code or any supporting source code
@@ -11,10 +11,10 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  *
- * @copyright       Hervé Thouzard (http://www.herve-thouzard.com/)
+ * @copyright       HervÃ© Thouzard (http://www.herve-thouzard.com/)
  * @license         http://www.fsf.org/copyleft/gpl.html GNU public license
  * @package         oledrion
- * @author 			Hervé Thouzard (http://www.herve-thouzard.com/)
+ * @author 			HervÃ© Thouzard (http://www.herve-thouzard.com/)
  *
  * Version : $Id:
  * ****************************************************************************
@@ -38,18 +38,18 @@ class oledrion_vendors extends Oledrion_Object
 class OledrionOledrion_vendorsHandler extends Oledrion_XoopsPersistableObjectHandler
 {
 	function __construct($db)
-	{	//							Table				Classe		 	Id			Libellé
+	{	//							Table				Classe		 	Id			LibellÃ©
 		parent::__construct($db, 'oledrion_vendors', 'oledrion_vendors', 'vendor_id', 'vendor_name');
 	}
 
 	/**
 	 * Renvoie la liste de tous les vendeurs du module
 	 *
-	 * @param integer $start Position de départ
-	 * @param integer $limit Nombre total d'enregistrements à renvoyer
+	 * @param integer $start Position de dÃ©part
+	 * @param integer $limit Nombre total d'enregistrements Ã  renvoyer
 	 * @param string $order Champ sur lequel faire le tri
 	 * @param string $order Ordre du tri
-	 * @param boolean $idaskey Indique si le tableau renvoyé doit avoir pour clé l'identifiant unique de l'enregistrement
+	 * @param boolean $idaskey Indique si le tableau renvoyÃ© doit avoir pour clÃ© l'identifiant unique de l'enregistrement
 	 * @return array tableau d'objets de type vendors
 	 */
 	function getAllVendors(oledrion_parameters $parameters)
@@ -66,7 +66,7 @@ class OledrionOledrion_vendorsHandler extends Oledrion_XoopsPersistableObjectHan
 	}
 
 	/**
-	 * Retourne le nombre de produits associés à un vendeur
+	 * Retourne le nombre de produits associÃ©s Ã  un vendeur
 	 *
 	 * @param integer	$vendor_id	L'ID du vendeur
 	 * @return integer	Le nombre de produits du vendeur
@@ -81,7 +81,7 @@ class OledrionOledrion_vendorsHandler extends Oledrion_XoopsPersistableObjectHan
 	 * Supprime un vendeur
 	 *
 	 * @param oledrion_vendors $vendor
-	 * @return boolean	Le résultat de la suppression
+	 * @return boolean	Le rÃ©sultat de la suppression
 	 */
 	function deleteVendor(oledrion_vendors $vendor)
 	{
@@ -91,7 +91,7 @@ class OledrionOledrion_vendorsHandler extends Oledrion_XoopsPersistableObjectHan
 	/**
 	 * Retourne des vendeurs selon leur ID
 	 *
-	 * @param array $ids	Les ID des vendeurs à retrouver
+	 * @param array $ids	Les ID des vendeurs Ã  retrouver
 	 * @return array	Objets de type oledrion_vendors
 	 */
 	function getVendorsFromIds($ids)

@@ -2,7 +2,7 @@
 /**
  * ****************************************************************************
  * oledrion - MODULE FOR XOOPS
- * Copyright (c) Hervé Thouzard (http://www.herve-thouzard.com/)
+ * Copyright (c) HervÃ© Thouzard (http://www.herve-thouzard.com/)
  *
  * You may not change or alter any portion of this comment or credits
  * of supporting developers from this source code or any supporting source code
@@ -11,17 +11,17 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  *
- * @copyright       Hervé Thouzard (http://www.herve-thouzard.com/)
+ * @copyright       HervÃ© Thouzard (http://www.herve-thouzard.com/)
  * @license         http://www.fsf.org/copyleft/gpl.html GNU public license
  * @package         oledrion
- * @author 			Hervé Thouzard (http://www.herve-thouzard.com/)
+ * @author 			HervÃ© Thouzard (http://www.herve-thouzard.com/)
  *
  * Version : $Id:
  * ****************************************************************************
  */
 
 /**
- * Script chargé d'afficher un média d'un produit
+ * Script chargÃ© d'afficher un mÃ©dia d'un produit
  */
 
 require 'header.php';
@@ -39,7 +39,7 @@ if($product_id > 0) {
 		exit(_OLEDRION_ERROR2);
 	}
 
-	// Le produit est publié ?
+	// Le produit est publiÃ© ?
 	if(oledrion_utils::getModuleOption('show_unpublished') == 0 && $product->getVar('product_submitted') > time()) {
 		exit(_OLEDRION_ERROR3);
 	}
@@ -48,7 +48,7 @@ if($product_id > 0) {
 }
 
 switch($type) {
-	case 'attachment':	// Un fichier attaché à un produit
+	case 'attachment':	// Un fichier attachÃ© Ã  un produit
 		$file_id = isset($_GET['file_id']) ? intval($_GET['file_id']) : 0;
 		if($file_id == 0) {
 			exit(_OLEDRION_ERROR13);

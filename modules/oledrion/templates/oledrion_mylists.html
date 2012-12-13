@@ -1,6 +1,17 @@
 <div class="oledrion">
-	<!-- Created by Hervé Thouzard (http://www.herve-thouzard.com/) -->
-	<div class="breadcrumb"><{$breadcrumb}></div>
+	<!-- Created by HervÃ© Thouzard (http://www.herve-thouzard.com/) -->
+	<!-- Breadcrumb -->
+	<table cellspacing="0" class="breadcrumbT">
+	<tr>
+		<td class="breadcrumb_01"></td>
+	    <td class="breadcrumb_02"><div id="productshoop_breadcrumb"><{$breadcrumb}></div></td>
+	    <td class="breadcrumb_03"></td>
+	</tr>
+	<tr>
+	    <td colspan="3" class="red-line"></td>
+	</tr>
+	</table>
+	<!-- /Breadcrumb -->
 	<{if $global_advert != ''}><div id="oledrion_publicite"><{$global_advert}></div><{/if}>
    <div class="pad2">
 		<h2><{$smarty.const._MI_OLEDRION_SMNAME10}></h2>
@@ -15,7 +26,7 @@
 			<th class='center'><{$smarty.const._AM_OLEDRION_ACTION}></th>
 		</tr>
 		<{foreach item=list from=$lists}>
-			<tr class="<{cycle values="even,odd"}>">
+			<tr class="<{cycle values='even,odd'}>">
 				<td class='left'><a href="<{$list.list_url_rewrited}>" target="_blank" title="<{$list.list_href_title}>"><{$list.list_title}></a></td>
 				<td class='center'><{$list.list_type_description}></td>
 				<td class='center'><{$list.list_formated_date}></td>

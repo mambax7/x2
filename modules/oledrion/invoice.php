@@ -2,7 +2,7 @@
 /**
  * ****************************************************************************
  * oledrion - MODULE FOR XOOPS
- * Copyright (c) Hervé Thouzard (http://www.herve-thouzard.com/)
+ * Copyright (c) HervÃ© Thouzard (http://www.herve-thouzard.com/)
  *
  * You may not change or alter any portion of this comment or credits
  * of supporting developers from this source code or any supporting source code
@@ -11,17 +11,17 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  *
- * @copyright       Hervé Thouzard (http://www.herve-thouzard.com/)
+ * @copyright       HervÃ© Thouzard (http://www.herve-thouzard.com/)
  * @license         http://www.fsf.org/copyleft/gpl.html GNU public license
  * @package         oledrion
- * @author 			Hervé Thouzard (http://www.herve-thouzard.com/)
+ * @author 			HervÃ© Thouzard (http://www.herve-thouzard.com/)
  *
  * Version : $Id:
  * ****************************************************************************
  */
 
 /**
- * Visualisation d'une facture à l'écran
+ * Visualisation d'une facture Ã  l'Ã©cran
  */
 require 'header.php';
 $GLOBALS['current_category'] = -1;
@@ -48,32 +48,32 @@ if(!is_object($order)) {
 	oledrion_utils::redirect(_OLEDRION_ERROR11, 'index.php', 6);
 }
 
-// Vérification du mot de passe (si pas admin)
+// VÃ©rification du mot de passe (si pas admin)
 if(!oledrion_utils::isAdmin()) {
 	if($pass != $order->getVar('cmd_password')) {
 		oledrion_utils::redirect(_OLEDRION_ERROR11, 'index.php', 6);
 	}
 }
 
-// Vérification de la validité de la facture (si pas admin)
+// VÃ©rification de la validitÃ© de la facture (si pas admin)
 if(!oledrion_utils::isAdmin()) {
-	if($order->getVar('cmd_state') != OLEDRION_STATE_VALIDATED) {	// Commande non validée
+	if($order->getVar('cmd_state') != OLEDRION_STATE_VALIDATED) {	// Commande non validÃ©e
 		oledrion_utils::redirect(_OLEDRION_ERROR12, 'index.php', 6);
 	}
 }
 
 $caddy = $tmp = $products = $vats = $manufacturers = $tmp2 = $manufacturers = $productsManufacturers = array();
 
-// Récupération des TVA
+// RÃ©cupÃ©ration des TVA
 $vats = $h_oledrion_vat->getAllVats(new oledrion_parameters());
 
-// Récupération des caddy associés
+// RÃ©cupÃ©ration des caddy associÃ©s
 $caddy = $h_oledrion_caddy->getCaddyFromCommand($cmdId);
 if(count($caddy) == 0) {
 	oledrion_utils::redirect(_OLEDRION_ERROR11, 'index.php',6);
 }
 
-// Récupération de la liste des produits associés
+// RÃ©cupÃ©ration de la liste des produits associÃ©s
 foreach($caddy as $item) {
     $tmp[] = $item->getVar('caddy_product_id');
 }

@@ -1,12 +1,20 @@
 <div class="oledrion">
-	<!-- Created by Hervé Thouzard (http://www.herve-thouzard.com/) -->
-	<div class="breadcrumb"><{$breadcrumb}></div>
+	<!-- Created by HervÃ© Thouzard (http://www.herve-thouzard.com/) -->
+	<!-- Breadcrumb -->
+	<table cellspacing="0" class="breadcrumbT">
+	<tr>
+		<td class="breadcrumb_01"></td>
+	    <td class="breadcrumb_02"><div id="productshoop_breadcrumb"><{$breadcrumb}></div></td>
+	    <td class="breadcrumb_03"></td>
+	</tr>
+	<tr>
+	    <td colspan="3" class="red-line"></td>
+	</tr>
+	</table>
+	<!-- /Breadcrumb -->
 	<{if $global_advert != ''}>
 		<div class='global_advert center'><{$global_advert}></div>
 	<{/if}>
-	<div id="oledrion-logo">
-		<span id="oledrion-main-logo"><img src="<{$smarty.const.OLEDRION_IMAGES_URL}>oledrion.png" alt="oledrion"  /></span>
-	</div>
    <div class="pad2">
 	<{if $success }>
 		<h3><{$smarty.const._OLEDRION_THANK_YOU}></h3>

@@ -2,7 +2,7 @@
 /**
  * ****************************************************************************
  * oledrion - MODULE FOR XOOPS
- * Copyright (c) Hervé Thouzard (http://www.herve-thouzard.com/)
+ * Copyright (c) HervÃ© Thouzard (http://www.herve-thouzard.com/)
  *
  * You may not change or alter any portion of this comment or credits
  * of supporting developers from this source code or any supporting source code
@@ -11,23 +11,23 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  *
- * @copyright       Hervé Thouzard (http://www.herve-thouzard.com/)
+ * @copyright       HervÃ© Thouzard (http://www.herve-thouzard.com/)
  * @license         http://www.fsf.org/copyleft/gpl.html GNU public license
  * @package         oledrion
- * @author 			Hervé Thouzard (http://www.herve-thouzard.com/)
+ * @author 			HervÃ© Thouzard (http://www.herve-thouzard.com/)
  *
  * Version : $Id:
  * ****************************************************************************
  */
 
 /**
- * Gestion des catégories de produits
+ * Gestion des catÃ©gories de produits
  */
 if(!defined("OLEDRION_ADMIN")) exit();
 
 switch($action) {
     // ****************************************************************************************************************
-    case 'default':		// Liste des catégories
+    case 'default':		// Liste des catÃ©gories
     // ****************************************************************************************************************
         xoops_cp_header();
         oledrion_adminMenu(3);
@@ -98,8 +98,8 @@ switch($action) {
 		break;
 
 	// ****************************************************************************************************************
-	case 'add':		// Ajout d'une catégorie
-	case 'edit':	// Edition d'une catégorie
+	case 'add':		// Ajout d'une catÃ©gorie
+	case 'edit':	// Edition d'une catÃ©gorie
 	// ****************************************************************************************************************
         xoops_cp_header();
         oledrion_adminMenu(3);
@@ -180,7 +180,7 @@ switch($action) {
 
 
 	// ****************************************************************************************************************
-	case 'saveedit':	// Sauvegarde d'une catégorie
+	case 'saveedit':	// Sauvegarde d'une catÃ©gorie
 	// ****************************************************************************************************************
 		xoops_cp_header();
 		$id = isset($_POST['cat_cid']) ? intval($_POST['cat_cid']) : 0;
@@ -231,7 +231,7 @@ switch($action) {
 
 
 	// ****************************************************************************************************************
-	case 'delete':	// Suppression d'une catégorie
+	case 'delete':	// Suppression d'une catÃ©gorie
 	// ****************************************************************************************************************
         xoops_cp_header();
         oledrion_adminMenu(3);
@@ -250,7 +250,7 @@ switch($action) {
 
 
 	// ****************************************************************************************************************
-	case 'confdelete':	//Suppression effective d'une catégorie
+	case 'confdelete':	//Suppression effective d'une catÃ©gorie
 	// ****************************************************************************************************************
 		xoops_cp_header();
 		$id = isset($_POST['id']) ? intval($_POST['id']) : 0;
@@ -258,7 +258,7 @@ switch($action) {
 			oledrion_utils::redirect(_AM_OLEDRION_ERROR_1, $baseurl, 5);
 		}
 		$opRedirect = 'categories';
-		// On vérifie que cette catégorie (et ses sous-catégories) ne sont pas utilisées par des produits
+		// On vÃ©rifie que cette catÃ©gorie (et ses sous-catÃ©gories) ne sont pas utilisÃ©es par des produits
 		$cnt = $h_oledrion_cat->getCategoryProductsCount($id);
 		if($cnt == 0) {
 			$item = null;

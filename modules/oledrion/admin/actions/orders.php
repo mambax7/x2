@@ -2,7 +2,7 @@
 /**
  * ****************************************************************************
  * oledrion - MODULE FOR XOOPS
- * Copyright (c) Hervé Thouzard (http://www.herve-thouzard.com/)
+ * Copyright (c) HervÃ© Thouzard (http://www.herve-thouzard.com/)
  *
  * You may not change or alter any portion of this comment or credits
  * of supporting developers from this source code or any supporting source code
@@ -11,10 +11,10 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  *
- * @copyright       Hervé Thouzard (http://www.herve-thouzard.com/)
+ * @copyright       HervÃ© Thouzard (http://www.herve-thouzard.com/)
  * @license         http://www.fsf.org/copyleft/gpl.html GNU public license
  * @package         oledrion
- * @author 			Hervé Thouzard (http://www.herve-thouzard.com/)
+ * @author 			HervÃ© Thouzard (http://www.herve-thouzard.com/)
  *
  * Version : $Id:
  * ****************************************************************************
@@ -53,7 +53,7 @@ switch($action) {
 		if($itemsCount > $limit) {
 			$pagenav = new XoopsPageNav( $itemsCount, $limit, $start, 'start', 'op=orders');
 		}
-		$criteria->setSort('cmd_date');
+		$criteria->setSort('cmd_id');
 		$criteria->setOrder('DESC');
 		$criteria->setLimit($limit);
 		$criteria->setStart($start);
@@ -76,7 +76,6 @@ switch($action) {
 				$formats[] = '<option value="'.$exportName.'">'.$exportName.'</option>';
 			}
 		}
-
 		echo "</td><td><form method='post' action='$baseurl' name='frmexport' id='frmexport'>"._AM_OLEDRION_CSV_EXPORT."<input type='hidden' name='op' id='op' value='orders' /><input type='hidden' name='action' id='action' value='export' /><input type='hidden' name='cmdtype' id='cmdtype' value='$filter3' /><select name='exportfilter' id='exportfilter' size='1'>".implode("\n", $formats)."</select> <input type='submit' name='btngoexport' id='btngoexport' value='"._AM_OLEDRION_OK."' /></form></td><td align='right' colspan='2'>".$form."</td></tr>\n";
 		echo "<tr><th align='center'>"._AM_OLEDRION_ID."</th><th align='center'>"._AM_OLEDRION_DATE."</th><th align='center'>"._AM_OLEDRION_CLIENT."</th><th align='center'>"._AM_OLEDRION_TOTAL_SHIPP."</th><th align='center'>"._AM_OLEDRION_ACTION."</th></tr>";
 		foreach ($orders as $item) {
@@ -85,6 +84,7 @@ switch($action) {
 			$date = formatTimestamp(strtotime($item->getVar('cmd_date')), 's');
 			$actions = array();
 			$actions[] = "<a target='_blank' href='".OLEDRION_URL."invoice.php?id=".$id."' title='"._OLEDRION_DETAILS."'>".$icones['details'].'</a>';
+			$actions[] = "<a target='_blank' href='$baseurl?op=orders&action=print&id=".$id."' title='"._OLEDRION_PRINT_VERSION."'>".$icones['print'].'</a>';
 			$actions[] = "<a href='$baseurl?op=orders&action=delete&id=".$id."' title='"._OLEDRION_DELETE."'".$conf_msg.">".$icones['delete'].'</a>';
 			$actions[] = "<a href='$baseurl?op=orders&action=validate&id=".$id."' ".$confValidateOrder." title='"._OLEDRION_VALIDATE_COMMAND."'>".$icones['ok'].'</a>';
 			echo "<tr class='".$class."'>\n";
@@ -112,7 +112,7 @@ switch($action) {
 		}
 		$item = $h_oledrion_commands->get($id);
 		if(is_object($item)) {
-			xoops_confirm(array( 'op' => 'orders', 'action' => 'remove', 'id' => $id), 'main.php', _AM_OLEDRION_CONF_DELITEM);
+			xoops_confirm(array( 'op' => 'orders', 'action' => 'remove', 'id' => $id), 'index.php', _AM_OLEDRION_CONF_DELITEM);
 		} else {
 			oledrion_utils::redirect(_AM_OLEDRION_NOT_FOUND, $baseurl.'?op='.$opRedirect,5);
 		}
@@ -164,8 +164,8 @@ switch($action) {
 	// ****************************************************************************************************************
 	case 'export':	// Export des commandes au format CSV
 	// ****************************************************************************************************************
-        xoops_cp_header();
-        oledrion_adminMenu(6);
+      xoops_cp_header();
+      oledrion_adminMenu(6);
 		oledrion_utils::htitle(_MI_OLEDRION_ADMENU5, 4);
 		$orderType = intval($_POST['cmdtype']);
 		$exportFilter = $_POST['exportfilter'];
@@ -188,6 +188,44 @@ switch($action) {
 		}
         include_once 'admin_footer.php';
 		break;
-
+	// ****************************************************************************************************************
+	case 'print':	// Print invoice
+	// ****************************************************************************************************************
+      xoops_cp_header();
+		oledrion_adminMenu(6);
+		$id = isset($_GET['id']) ? intval($_GET['id']) : 0;
+		if($id == 0) {
+			oledrion_utils::redirect(_AM_OLEDRION_ERROR_1, $baseurl, 5);
+		}
+		$order = $h_oledrion_commands->get($id)->toArray();
+		$caddy = $h_oledrion_caddy->getCaddyFromCommand($id);
+		foreach($caddy as $itemCaddy) {
+			$productForTemplate = $tblJoin = $productManufacturers = $productAttributes = array();
+			$product = $products[$itemCaddy->getVar('caddy_product_id')];
+			$productForTemplate = $product->toArray();	// Produit
+			// Est-ce qu'il y a des attributs ?
+			if($handlers->h_oledrion_caddy_attributes->getAttributesCountForCaddy($itemCaddy->getVar('caddy_id')) > 0) {
+		        $productAttributes = $handlers->h_oledrion_caddy_attributes->getFormatedAttributesForCaddy($itemCaddy->getVar('caddy_id'), $product);
+			}
+			$productForTemplate['product_attributes'] = $productAttributes;
+		
+			$productManufacturers = $productsManufacturers[$product->getVar('product_id')];
+			foreach($productManufacturers as $oledrion_productsmanu) {
+				if(isset($manufacturers[$oledrion_productsmanu->getVar('pm_manu_id')])) {
+					$manufacturer = $manufacturers[$oledrion_productsmanu->getVar('pm_manu_id')];
+					$tblJoin[] = $manufacturer->getVar('manu_commercialname').' '.$manufacturer->getVar('manu_name');
+				}
+			}
+			if(count($tblJoin) > 0) {
+				$productForTemplate['product_joined_manufacturers'] = implode(', ', $tblJoin);
+			}
+			$productForTemplate['product_caddy'] = $itemCaddy->toArray();
+			$xoopsTpl->append('products', $productForTemplate);
+		}
+		$xoopsTpl->assign('order', $order);
+      // Call template file
+      $xoopsTpl->display(XOOPS_ROOT_PATH . '/modules/oledrion/templates/admin/oledrion_order_print.html');
+      exit();
+		break;
 }
 ?>

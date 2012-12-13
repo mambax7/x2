@@ -2,7 +2,7 @@
 /**
  * ****************************************************************************
  * oledrion - MODULE FOR XOOPS
- * Copyright (c) Hervé Thouzard (http://www.herve-thouzard.com/)
+ * Copyright (c) HervÃ© Thouzard (http://www.herve-thouzard.com/)
  *
  * You may not change or alter any portion of this comment or credits
  * of supporting developers from this source code or any supporting source code
@@ -11,10 +11,10 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  *
- * @copyright       Hervé Thouzard (http://www.herve-thouzard.com/)
+ * @copyright       HervÃ© Thouzard (http://www.herve-thouzard.com/)
  * @license         http://www.fsf.org/copyleft/gpl.html GNU public license
  * @package         oledrion
- * @author 			Hervé Thouzard (http://www.herve-thouzard.com/)
+ * @author 			HervÃ© Thouzard (http://www.herve-thouzard.com/)
  *
  * Version : $Id:
  * ****************************************************************************
@@ -25,15 +25,15 @@
  */
 require 'header.php';
 require_once OLEDRION_PATH.'class/tree.php';
-$GLOBALS['current_category'] = -1;		// Pour le bloc des catégories
+$GLOBALS['current_category'] = -1;		// Pour le bloc des catÃ©gories
 $xoopsOption['template_main'] = 'oledrion_search.html';
 require_once XOOPS_ROOT_PATH.'/header.php';
 
-$limit = oledrion_utils::getModuleOption('newproducts');	// Nombre maximum d'éléments à afficher
+$limit = oledrion_utils::getModuleOption('newproducts');	// Nombre maximum d'Ã©lÃ©ments Ã  afficher
 $categories = $manufacturers = $vendors = array();
 $baseurl = OLEDRION_URL.basename(__FILE__);				// URL de ce script (sans son nom)
 
-$xoopsTpl->assign('mod_pref', $mod_pref);				// Préférences du module
+$xoopsTpl->assign('mod_pref', $mod_pref);				// PrÃ©fÃ©rences du module
 
 
 $categories = $h_oledrion_cat->getAllCategories(new oledrion_parameters());
@@ -41,7 +41,7 @@ $vendors = $h_oledrion_vendors->getAllVendors(new oledrion_parameters());
 $manufacturers = $h_oledrion_manufacturer->getItems(0, 0, 'manu_name', 'ASC', false);
 
 
-if((isset($_POST['op']) && $_POST['op'] == 'go') || isset($_GET['start'])) {	// Recherche des résultats
+if((isset($_POST['op']) && $_POST['op'] == 'go') || isset($_GET['start'])) {	// Recherche des rÃ©sultats
 	$xoopsTpl->assign('search_results', true);
 	$xoopsTpl->assign('global_advert', oledrion_utils::getModuleOption('advertisement'));
 	$xoopsTpl->assign('breadcrumb', oledrion_utils::breadcrumb(array(OLEDRION_URL.basename(__FILE__) => _OLEDRION_SEARCHRESULTS)));
@@ -49,7 +49,7 @@ if((isset($_POST['op']) && $_POST['op'] == 'go') || isset($_GET['start'])) {	// 
 
 	if(!isset($_GET['start'])) {
 	    $sql = 'SELECT b.product_id, b.product_title, b.product_submitted, b.product_submitter, b.product_thumb_url, b.product_price, b.product_property1, b.product_property2, b.product_property3, b.product_property4, b.product_property5, b.product_stock FROM '.$xoopsDB->prefix('oledrion_products').' b, '.$xoopsDB->prefix('oledrion_productsmanu').' a WHERE (b.product_id = a.pm_product_id AND b.product_online = 1 ';
-    	if(oledrion_utils::getModuleOption('show_unpublished') == 0) {	// Ne pas afficher les produits qui ne sont pas publiés
+    	if(oledrion_utils::getModuleOption('show_unpublished') == 0) {	// Ne pas afficher les produits qui ne sont pas publiÃ©s
 		    $sql .= ' AND b.product_submitted <= '.time();
 	    }
 	    if(oledrion_utils::getModuleOption('nostock_display') == 0) {	// Se limiter aux seuls produits encore en stock
@@ -57,7 +57,7 @@ if((isset($_POST['op']) && $_POST['op'] == 'go') || isset($_GET['start'])) {	// 
     	}
 	    $sql .= ') ';
 
-    	// Recherche sur une catégorie
+    	// Recherche sur une catÃ©gorie
     	if(isset($_POST['product_category'])) {
 		    $cat_cid = intval($_POST['product_category']);
 		    if($cat_cid > 0 ) {
@@ -175,7 +175,7 @@ if((isset($_POST['op']) && $_POST['op'] == 'go') || isset($_GET['start'])) {	// 
 					    case 1:		// Finit par
     						$cond = " LIKE '%".$oneQuery."' ";
 	    					break;
-					    case 2:		// Correspond à
+					    case 2:		// Correspond Ã 
     						$cond = " = '".$oneQuery."' ";
 						    break;
 					    case 3:		// Contient
@@ -191,7 +191,7 @@ if((isset($_POST['op']) && $_POST['op'] == 'go') || isset($_GET['start'])) {	// 
             }
     	}
     	$_SESSION['criteria_oledrion'] = serialize($sql);
-	} else { // $_GET['start'] est en place, on a cliqué sur un chevron pour aller voir les autres pages, il faut travailler à partir des informations de la session
+	} else { // $_GET['start'] est en place, on a cliquÃ© sur un chevron pour aller voir les autres pages, il faut travailler Ã  partir des informations de la session
 		if(isset($_SESSION['criteria_oledrion'])) {
 			$sql = unserialize($_SESSION['criteria_oledrion']);
 		}

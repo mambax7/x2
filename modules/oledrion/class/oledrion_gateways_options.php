@@ -2,7 +2,7 @@
 /**
  * ****************************************************************************
  * oledrion - MODULE FOR XOOPS
- * Copyright (c) Hervé Thouzard (http://www.herve-thouzard.com/)
+ * Copyright (c) HervÃ© Thouzard (http://www.herve-thouzard.com/)
  *
  * You may not change or alter any portion of this comment or credits
  * of supporting developers from this source code or any supporting source code
@@ -11,10 +11,10 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  *
- * @copyright       Hervé Thouzard (http://www.herve-thouzard.com/)
+ * @copyright       HervÃ© Thouzard (http://www.herve-thouzard.com/)
  * @license         http://www.fsf.org/copyleft/gpl.html GNU public license
  * @package         oledrion
- * @author 			Hervé Thouzard (http://www.herve-thouzard.com/)
+ * @author 			HervÃ© Thouzard (http://www.herve-thouzard.com/)
  *
  * Version : $Id:
  * ****************************************************************************
@@ -60,7 +60,7 @@ class OledrionOledrion_gateways_optionsHandler extends Oledrion_XoopsPersistable
      * Supprime toutes les options d'une passerelle de paiement
      *
      * @param string $option_gateway
-     * @return boolean	Le résultat de la suppression des options
+     * @return boolean	Le rÃ©sultat de la suppression des options
      */
 	function deleteGatewayOptions($option_gateway)
 	{
@@ -72,7 +72,7 @@ class OledrionOledrion_gateways_optionsHandler extends Oledrion_XoopsPersistable
      * Retourne une option d'une passerelle de paiement
      *
      * @param string $option_gateway	Le nom de la passerelle de paiement
-     * @param string $option_name		L'option que l'on souhaite récupérer
+     * @param string $option_name		L'option que l'on souhaite rÃ©cupÃ©rer
      * @return object	Objet de type oledrion_gateways_options
      */
 	function getGatewayOption($option_gateway, $option_name)
@@ -87,10 +87,10 @@ class OledrionOledrion_gateways_optionsHandler extends Oledrion_XoopsPersistable
      * Retourne la VALEUR d'une option d'une passerelle de paiement
      *
      * @param string $option_gateway	Le nom d'une passerelle de paiement
-     * @param string $option_name		L'option que l'on souhaite récupérer
-     * @param string $format			Le format dans lequel on souhaite récupérer la valeur (par rapport au getVar())
-     * @param boolean $unserialize		Indique s'il faut désérialiser la valeur de retour
-     * @return mixed	La valeur de l'option ou null si l'option ne peut pas être trouvée
+     * @param string $option_name		L'option que l'on souhaite rÃ©cupÃ©rer
+     * @param string $format			Le format dans lequel on souhaite rÃ©cupÃ©rer la valeur (par rapport au getVar())
+     * @param boolean $unserialize		Indique s'il faut dÃ©sÃ©rialiser la valeur de retour
+     * @return mixed	La valeur de l'option ou null si l'option ne peut pas Ãªtre trouvÃ©e
      */
 	function getGatewayOptionValue($option_gateway, $option_name, $format = 'N', $unserialize = false)
 	{
@@ -116,8 +116,8 @@ class OledrionOledrion_gateways_optionsHandler extends Oledrion_XoopsPersistable
      * @param string $option_gateway	 Le nom de la passerelle de paiement
      * @param string $option_name		 Le nom de l'option
      * @param mixed $option_value		 La valeur de l'option
-     * @param boolean $serialize		Indique s'il faut sérialiser la valeur avant de l'enregistrer
-     * @return boolean					Le résultat de la mise à jour (vrai si la mise à jour s'est faite sinon faux)
+     * @param boolean $serialize		Indique s'il faut sÃ©rialiser la valeur avant de l'enregistrer
+     * @return boolean					Le rÃ©sultat de la mise Ã  jour (vrai si la mise Ã  jour s'est faite sinon faux)
      */
 	function setGatewayOptionValue($option_gateway, $option_name, $option_value, $serialize = false)
 	{
@@ -134,7 +134,7 @@ class OledrionOledrion_gateways_optionsHandler extends Oledrion_XoopsPersistable
                 $option->setVar('option_value', $option_value);
 		    }
 		    return $this->insert($option, true);
-		} else {    // Option introuvable, on va la créer
+		} else {    // Option introuvable, on va la crÃ©er
 		    $option = $this->create(true);
 		    $option->setVar('option_gateway', $option_gateway);
 		    $option->setVar('option_name', $option_name);

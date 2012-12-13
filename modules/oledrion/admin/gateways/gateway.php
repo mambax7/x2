@@ -2,7 +2,7 @@
 /**
  * ****************************************************************************
  * oledrion - MODULE FOR XOOPS
- * Copyright (c) Hervé Thouzard (http://www.herve-thouzard.com/)
+ * Copyright (c) HervÃ© Thouzard (http://www.herve-thouzard.com/)
  *
  * You may not change or alter any portion of this comment or credits
  * of supporting developers from this source code or any supporting source code
@@ -11,10 +11,10 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  *
- * @copyright       Hervé Thouzard (http://www.herve-thouzard.com/)
+ * @copyright       HervÃ© Thouzard (http://www.herve-thouzard.com/)
  * @license         http://www.fsf.org/copyleft/gpl.html GNU public license
  * @package         oledrion
- * @author 			Hervé Thouzard (http://www.herve-thouzard.com/)
+ * @author 			HervÃ© Thouzard (http://www.herve-thouzard.com/)
  *
  * Version : $Id:
  * ****************************************************************************
@@ -46,7 +46,7 @@ abstract class oledrion_gateway
      * $gateway['version'] = 1.0;
      * $gateway['description'] = "PayPal is the safer, easier way to pay and get paid online";
      * $gateway['author'] = "Instant Zero (http://www.herve-thouzard.com/)";
-     * $gateway['credits'] = "Hervé Thouzard";
+     * $gateway['credits'] = "HervÃ© Thouzard";
      * $gateway['releaseDate'] = 20081215;	// YYYYMMDD
 	 */
     abstract function setGatewayInformation();
@@ -86,8 +86,8 @@ abstract class oledrion_gateway
     /**
      * Ecriture d'un texte dans le fichier log des passerelles
      *
-     * @param string $gatewaysLogPath	Le chemin d'accès complet (et le nom) au fichier log
-     * @param string $text	Le texte à écrire
+     * @param string $gatewaysLogPath	Le chemin d'accÃ¨s complet (et le nom) au fichier log
+     * @param string $text	Le texte Ã  Ã©crire
      * @return void
      */
     function appendToLog($gatewaysLogPath, $text)

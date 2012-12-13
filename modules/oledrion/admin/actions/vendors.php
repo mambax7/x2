@@ -2,7 +2,7 @@
 /**
  * ****************************************************************************
  * oledrion - MODULE FOR XOOPS
- * Copyright (c) Hervé Thouzard (http://www.herve-thouzard.com/)
+ * Copyright (c) HervÃ© Thouzard (http://www.herve-thouzard.com/)
  *
  * You may not change or alter any portion of this comment or credits
  * of supporting developers from this source code or any supporting source code
@@ -11,17 +11,17 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  *
- * @copyright       Hervé Thouzard (http://www.herve-thouzard.com/)
+ * @copyright       HervÃ© Thouzard (http://www.herve-thouzard.com/)
  * @license         http://www.fsf.org/copyleft/gpl.html GNU public license
  * @package         oledrion
- * @author 			Hervé Thouzard (http://www.herve-thouzard.com/)
+ * @author 			HervÃ© Thouzard (http://www.herve-thouzard.com/)
  *
  * Version : $Id:
  * ****************************************************************************
  */
 
 /**
- * Actions relatives aux vendeurs (affichage, édition, suppression)
+ * Actions relatives aux vendeurs (affichage, Ã©dition, suppression)
  */
 if(!defined("OLEDRION_ADMIN")) exit();
 switch($action) {
@@ -100,7 +100,7 @@ switch($action) {
 
 
 	// ****************************************************************************************************************
-	case 'saveedit':	// Sauvegarde d'un vendeur (édition et ajout)
+	case 'saveedit':	// Sauvegarde d'un vendeur (Ã©dition et ajout)
 	// ****************************************************************************************************************
 		xoops_cp_header();
 		$id = isset($_POST['vendor_id']) ? intval($_POST['vendor_id']) : 0;
@@ -134,7 +134,7 @@ switch($action) {
 			oledrion_utils::redirect(_AM_OLEDRION_ERROR_1, $baseurl, 5);
 		}
 		$opRedirect = 'vendors';
-		// On vérifie que ce vendeur n'est pas rattaché à des produits
+		// On vÃ©rifie que ce vendeur n'est pas rattachÃ© Ã  des produits
 		$cnt = $h_oledrion_vendors->getVendorProductsCount($id);
 		if($cnt == 0) {
 			$item = null;

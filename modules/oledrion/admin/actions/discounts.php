@@ -2,7 +2,7 @@
 /**
  * ****************************************************************************
  * oledrion - MODULE FOR XOOPS
- * Copyright (c) Hervé Thouzard (http://www.herve-thouzard.com/)
+ * Copyright (c) HervÃ© Thouzard (http://www.herve-thouzard.com/)
  *
  * You may not change or alter any portion of this comment or credits
  * of supporting developers from this source code or any supporting source code
@@ -11,24 +11,24 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  *
- * @copyright       Hervé Thouzard (http://www.herve-thouzard.com/)
+ * @copyright       HervÃ© Thouzard (http://www.herve-thouzard.com/)
  * @license         http://www.fsf.org/copyleft/gpl.html GNU public license
  * @package         oledrion
- * @author 			Hervé Thouzard (http://www.herve-thouzard.com/)
+ * @author 			HervÃ© Thouzard (http://www.herve-thouzard.com/)
  *
  * Version : $Id:
  * ****************************************************************************
  */
 
 /**
- * Gestion des réductions (dans l'administration)
+ * Gestion des rÃ©ductions (dans l'administration)
  */
 if(!defined("OLEDRION_ADMIN")) exit();
 
 
 switch($action) {
 	// ****************************************************************************************************************
-	case 'default':	// Gestion des réductions
+	case 'default':	// Gestion des rÃ©ductions
 	// ****************************************************************************************************************
         xoops_cp_header();
         //oledrion_adminMenu(7);
@@ -41,7 +41,7 @@ switch($action) {
 		$class = '';
 		$start = isset($_GET['start']) ? intval($_GET['start']) : 0;
 
-		$itemsCount = $h_oledrion_discounts->getCount();	// Recherche du nombre total de réductions
+		$itemsCount = $h_oledrion_discounts->getCount();	// Recherche du nombre total de rÃ©ductions
 		if($itemsCount > $limit) {
 			$pagenav = new XoopsPageNav( $itemsCount, $limit, $start, 'start', 'op=discounts');
 		}
@@ -186,7 +186,7 @@ switch($action) {
 		$xoopsTpl->assign('disc_price_case_qty_cond_options', $quantityConditions);
 		$xoopsTpl->assign('disc_price_case_qty_cond_selected', $item->getVar('disc_price_case_qty_cond'));
 
-		// **** Réductions sur les frais de port ****
+		// **** RÃ©ductions sur les frais de port ****
 		$disc_shipping_type_checked1 = $disc_shipping_type_checked2 = $disc_shipping_type_checked3 = $disc_shipping_type_checked4 = '';
 		switch($item->getVar('disc_shipping_type')) {
 			case OLEDRION_DISCOUNT_SHIPPING_TYPE1:
@@ -216,7 +216,7 @@ switch($action) {
 		ksort($groups);
 		$xoopsTpl->assign('disc_groups_options', $groups);
 
-		// Catégories
+		// CatÃ©gories
 		$categories = $h_oledrion_cat->getAllCategories(new oledrion_parameters());
 		$mytree = new Oledrion_XoopsObjectTree($categories, 'cat_cid', 'cat_pid');
 		$categoriesSelect = $mytree->makeSelBox('disc_cat_cid', 'cat_title', '-', $item->getVar('disc_cat_cid'), _ALL);
@@ -230,7 +230,7 @@ switch($action) {
 		$xoopsTpl->assign('disc_vendor_id_options', $vendors);
 		$xoopsTpl->assign('disc_vendor_id_selected', $item->getVar('disc_vendor_id'));
 
-		// Catégorie
+		// CatÃ©gorie
 		$xoopsTpl->assign('disc_cat_cid_options', $categoriesSelect);
 
 		// Produits
@@ -255,7 +255,7 @@ switch($action) {
 		break;
 
 	// ****************************************************************************************************************
-	case 'copy':	// Duplication d'une réduction
+	case 'copy':	// Duplication d'une rÃ©duction
 	// ****************************************************************************************************************
 		xoops_cp_header();
 		$id = isset($_GET['id']) ? intval($_GET['id']) : 0;
@@ -287,7 +287,7 @@ switch($action) {
 
 
 	// ****************************************************************************************************************
-	case 'saveedit':	// Enregistrement d'une réduction après modification ou ajout
+	case 'saveedit':	// Enregistrement d'une rÃ©duction aprÃ¨s modification ou ajout
 	// ****************************************************************************************************************
 		xoops_cp_header();
 		$id = isset($_POST['disc_id']) ? intval($_POST['disc_id']) : 0;
@@ -320,7 +320,7 @@ switch($action) {
 		break;
 
 	// ****************************************************************************************************************
-	case 'delete':	// Suppression d'une réduction
+	case 'delete':	// Suppression d'une rÃ©duction
 	// ****************************************************************************************************************
         xoops_cp_header();
 		$id = isset($_GET['id']) ? intval($_GET['id']) : 0;

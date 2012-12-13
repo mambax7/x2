@@ -2,7 +2,7 @@
 /**
  * ****************************************************************************
  * oledrion - MODULE FOR XOOPS
- * Copyright (c) Hervé Thouzard (http://www.herve-thouzard.com/)
+ * Copyright (c) HervÃ© Thouzard (http://www.herve-thouzard.com/)
  *
  * You may not change or alter any portion of this comment or credits
  * of supporting developers from this source code or any supporting source code
@@ -11,10 +11,10 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  *
- * @copyright       Hervé Thouzard (http://www.herve-thouzard.com/)
+ * @copyright       HervÃ© Thouzard (http://www.herve-thouzard.com/)
  * @license         http://www.fsf.org/copyleft/gpl.html GNU public license
  * @package         oledrion
- * @author 			Hervé Thouzard (http://www.herve-thouzard.com/)
+ * @author 			HervÃ© Thouzard (http://www.herve-thouzard.com/)
  *
  * Version : $Id:
  * ****************************************************************************
@@ -47,8 +47,8 @@ class oledrion_manufacturer extends Oledrion_Object
 	/**
 	 * Retourne l'URL d'une des 5 images du fabricant courant
 	 *
-	 * @param integer	$pictureNumber	Le numéro (de 1 à 5) de l'image que l'on souhaite récupérer
-	 * @return mixed	L'URL	Soit l'url de l'image soit False si l'indice passé en paramètre n'est pas correct
+	 * @param integer	$pictureNumber	Le numÃ©ro (de 1 Ã  5) de l'image que l'on souhaite rÃ©cupÃ©rer
+	 * @return mixed	L'URL	Soit l'url de l'image soit False si l'indice passÃ© en paramÃ¨tre n'est pas correct
 	 */
 	function getPictureUrl($pictureNumber)
 	{
@@ -63,7 +63,7 @@ class oledrion_manufacturer extends Oledrion_Object
 	/**
 	 * Retourne le chemin de l'une des 5 images du fabricant courant
 	 *
-	 * @param integer	$pictureNumber	Le numéro (de 1 à 5) de l'image que l'on souhaite récupérer
+	 * @param integer	$pictureNumber	Le numÃ©ro (de 1 Ã  5) de l'image que l'on souhaite rÃ©cupÃ©rer
 	 * @return string	Le chemin
 	 */
 	function getPicturePath($pictureNumber)
@@ -79,7 +79,7 @@ class oledrion_manufacturer extends Oledrion_Object
 	/**
 	 * Indique si une des 5 images du fabricant existe
 	 *
-	 * @param integer	$pictureNumber	Le numéro (de 1 à 5) de l'image que l'on souhaite récupérer
+	 * @param integer	$pictureNumber	Le numÃ©ro (de 1 Ã  5) de l'image que l'on souhaite rÃ©cupÃ©rer
 	 * @return boolean	Vrai si l'image existe sinon faux
 	 */
 	function pictureExists($pictureNumber)
@@ -97,7 +97,7 @@ class oledrion_manufacturer extends Oledrion_Object
 	/**
 	 * Supprime une des 5 images du fabricant
 	 *
-	 * @param integer	$pictureNumber	Le numéro (de 1 à 5) de l'image que l'on souhaite récupérer
+	 * @param integer	$pictureNumber	Le numÃ©ro (de 1 Ã  5) de l'image que l'on souhaite rÃ©cupÃ©rer
 	 * @return void
 	 */
 	function deletePicture($pictureNumber)
@@ -123,7 +123,7 @@ class oledrion_manufacturer extends Oledrion_Object
 	}
 
 	/**
-	 * Retourne l'url à utiliser pour accéder à la page d'un fabricant
+	 * Retourne l'url Ã  utiliser pour accÃ©der Ã  la page d'un fabricant
 	 *
 	 * @return string
 	 */
@@ -139,7 +139,7 @@ class oledrion_manufacturer extends Oledrion_Object
 	}
 
 	/**
-	 * Rentourne la chaine à envoyer dans une balise <a> pour l'attribut href
+	 * Rentourne la chaine Ã  envoyer dans une balise <a> pour l'attribut href
 	 *
 	 * @return string
 	 */
@@ -149,7 +149,7 @@ class oledrion_manufacturer extends Oledrion_Object
 	}
 
 	/**
-	 * Retourne l'initiale du fabricant (à modifier selon le sens de l'écriture !)
+	 * Retourne l'initiale du fabricant (Ã  modifier selon le sens de l'Ã©criture !)
 	 * @return string	L'initiale
 	 */
 	function getInitial()
@@ -158,10 +158,10 @@ class oledrion_manufacturer extends Oledrion_Object
 	}
 
 	/**
-	 * Retourne les éléments du fabricant formatés pour affichage
+	 * Retourne les Ã©lÃ©ments du fabricant formatÃ©s pour affichage
 	 *
-	 * @param string $format	Le format à utiliser
-	 * @return array	Les informations formatées
+	 * @param string $format	Le format Ã  utiliser
+	 * @return array	Les informations formatÃ©es
 	 */
 	function toArray($format = 's')
     {
@@ -187,9 +187,9 @@ class OledrionOledrion_manufacturerHandler extends Oledrion_XoopsPersistableObje
 	}
 
 	/**
-	 * Renvoie l'alphabet à partir de la première lettre du nom des fabricants
+	 * Renvoie l'alphabet Ã  partir de la premiÃ¨re lettre du nom des fabricants
 	 *
-	 * @return array l'alphabet des lettres utilisées !
+	 * @return array l'alphabet des lettres utilisÃ©es !
 	 */
 	 function getAlphabet()
 	 {
@@ -210,7 +210,7 @@ class OledrionOledrion_manufacturerHandler extends Oledrion_XoopsPersistableObje
 	 * Supprime un fabricant et tout ce qui est relatif
 	 *
 	 * @param oledrion_manufacturer $manufacturer
-	 * @return boolean	Le résultat de la suppression
+	 * @return boolean	Le rÃ©sultat de la suppression
 	 */
 	 function deleteManufacturer(oledrion_manufacturer $manufacturer)
 	 {
@@ -219,10 +219,10 @@ class OledrionOledrion_manufacturerHandler extends Oledrion_XoopsPersistableObje
 	 }
 
 	/**
-	 * Retourne le nombre de produits associés à un fabricant
+	 * Retourne le nombre de produits associÃ©s Ã  un fabricant
 	 *
 	 * @param integer $manu_id	L'identifiant du fabricant
-	 * @return integer	Le nombre de produis associés à un fabricant
+	 * @return integer	Le nombre de produis associÃ©s Ã  un fabricant
 	 */
 	 function getManufacturerProductsCount($manu_id)
 	 {
@@ -249,18 +249,18 @@ class OledrionOledrion_manufacturerHandler extends Oledrion_XoopsPersistableObje
 	/**
 	 * Retourne les produits d'un fabricant (note, ce code serait mieux dans une facade)
 	 *
-	 * @param integer	$manu_id	Le fabricant dont on veut récupérer les produits
-	 * @param integer	$start		Position de départ
-	 * @param integer	$limit		Nombre maximum d'enregistrements à renvoyer
+	 * @param integer	$manu_id	Le fabricant dont on veut rÃ©cupÃ©rer les produits
+	 * @param integer	$start		Position de dÃ©part
+	 * @param integer	$limit		Nombre maximum d'enregistrements Ã  renvoyer
 	 * @return array	Objects de type oledrion_products
 	 */
 	 function getManufacturerProducts($manu_id, $start = 0, $limit = 0)
 	 {
 	 	$ret = $productsIds = array();
 		global $h_oledrion_productsmanu, $h_oledrion_products;
-		// On commence par récupérer les ID des produits
+		// On commence par rÃ©cupÃ©rer les ID des produits
 		$productsIds = $h_oledrion_productsmanu->getProductsIdsFromManufacturer($manu_id, $start, $limit);
-		// Puis les produits eux même
+		// Puis les produits eux mÃªme
 		$ret = $h_oledrion_products->getProductsFromIDs($productsIds);
 		return $ret;
 	 }

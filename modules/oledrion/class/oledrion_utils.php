@@ -2,7 +2,7 @@
 /**
  * ****************************************************************************
  * oledrion - MODULE FOR XOOPS
- * Copyright (c) Hervé Thouzard (http://www.herve-thouzard.com/)
+ * Copyright (c) HervÃ© Thouzard (http://www.herve-thouzard.com/)
  *
  * You may not change or alter any portion of this comment or credits
  * of supporting developers from this source code or any supporting source code
@@ -11,10 +11,10 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  *
- * @copyright       Hervé Thouzard (http://www.herve-thouzard.com/)
+ * @copyright       HervÃ© Thouzard (http://www.herve-thouzard.com/)
  * @license         http://www.fsf.org/copyleft/gpl.html GNU public license
  * @package         oledrion
- * @author 			Hervé Thouzard (http://www.herve-thouzard.com/)
+ * @author 			HervÃ© Thouzard (http://www.herve-thouzard.com/)
  *
  * Version : $Id:
  * ****************************************************************************
@@ -24,7 +24,7 @@
  * A set of useful and common functions
  *
  * @package oledrion
- * @author Hervé Thouzard - Instant Zero (http://xoops.instant-zero.com)
+ * @author HervÃ© Thouzard - Instant Zero (http://xoops.instant-zero.com)
  * @copyright (c) Instant Zero
  *
  * Note: You should be able to use it without the need to instanciate it.
@@ -442,7 +442,7 @@ class oledrion_utils
 
 
 	/**
-	 * Retourne la liste des utilisateurs appartenants à un groupe
+	 * Retourne la liste des utilisateurs appartenants Ã  un groupe
  	 *
 	 * @param int $groupId	Searched group
 	 * @return array Array of XoopsUsers
@@ -474,7 +474,7 @@ class oledrion_utils
 
 
 	/**
-	 * Vérifie que l'utilisateur courant fait partie du groupe des administrateurs
+	 * VÃ©rifie que l'utilisateur courant fait partie du groupe des administrateurs
  	 *
 	 * @return booleean Admin or not
  	*/
@@ -534,7 +534,7 @@ class oledrion_utils
 	}
 
 	/**
-	 * Conversion d'un dateTime Mysql en date lisible en français
+	 * Conversion d'un dateTime Mysql en date lisible en franÃ§ais
 	 */
 	function sqlDateTimeToFrench($dateTime)
 	{
@@ -664,153 +664,153 @@ class oledrion_utils
 			$search[] = '&#'.$i.';';
 			$replace[] = chr($i);
 		}
-		$replace[]='...'; $search[]='…';
-		$replace[]="'";	$search[]='‘';
-		$replace[]="'";	$search[]= "’";
-		$replace[]='-';	$search[] ="&bull;";	// $replace[] = '•';
-		$replace[]='—'; $search[]='&mdash;';
+		$replace[]='...'; $search[]='Â…';
+		$replace[]="'";	$search[]='Â‘';
+		$replace[]="'";	$search[]= "Â’";
+		$replace[]='-';	$search[] ="&bull;";	// $replace[] = 'Â•';
+		$replace[]='Â—'; $search[]='&mdash;';
 		$replace[]='-'; $search[]='&ndash;';
 		$replace[]='-'; $search[]='&shy;';
 		$replace[]='"'; $search[]='&quot;';
 		$replace[]='&'; $search[]='&amp;';
-		$replace[]='ˆ'; $search[]='&circ;';
-		$replace[]='¡'; $search[]='&iexcl;';
-		$replace[]='¦'; $search[]='&brvbar;';
-		$replace[]='¨'; $search[]='&uml;';
-		$replace[]='¯'; $search[]='&macr;';
-		$replace[]='´'; $search[]='&acute;';
-		$replace[]='¸'; $search[]='&cedil;';
-		$replace[]='¿'; $search[]='&iquest;';
-		$replace[]='˜'; $search[]='&tilde;';
-		$replace[]="'"; $search[]='&lsquo;';	// $replace[]='‘';
-		$replace[]="'"; $search[]='&rsquo;';	// $replace[]='’';
-		$replace[]='‚'; $search[]='&sbquo;';
-		$replace[]="'"; $search[]='&ldquo;';	// $replace[]='“';
-		$replace[]="'"; $search[]='&rdquo;';	// $replace[]='”';
-		$replace[]='„'; $search[]='&bdquo;';
-		$replace[]='‹'; $search[]='&lsaquo;';
-		$replace[]='›'; $search[]='&rsaquo;';
+		$replace[]='Âˆ'; $search[]='&circ;';
+		$replace[]='Â¡'; $search[]='&iexcl;';
+		$replace[]='Â¦'; $search[]='&brvbar;';
+		$replace[]='Â¨'; $search[]='&uml;';
+		$replace[]='Â¯'; $search[]='&macr;';
+		$replace[]='Â´'; $search[]='&acute;';
+		$replace[]='Â¸'; $search[]='&cedil;';
+		$replace[]='Â¿'; $search[]='&iquest;';
+		$replace[]='Â˜'; $search[]='&tilde;';
+		$replace[]="'"; $search[]='&lsquo;';	// $replace[]='Â‘';
+		$replace[]="'"; $search[]='&rsquo;';	// $replace[]='Â’';
+		$replace[]='Â‚'; $search[]='&sbquo;';
+		$replace[]="'"; $search[]='&ldquo;';	// $replace[]='Â“';
+		$replace[]="'"; $search[]='&rdquo;';	// $replace[]='Â”';
+		$replace[]='Â„'; $search[]='&bdquo;';
+		$replace[]='Â‹'; $search[]='&lsaquo;';
+		$replace[]='Â›'; $search[]='&rsaquo;';
 		$replace[]='<'; $search[]='&lt;';
 		$replace[]='>'; $search[]='&gt;';
-		$replace[]='±'; $search[]='&plusmn;';
-		$replace[]='«'; $search[]='&laquo;';
-		$replace[]='»'; $search[]='&raquo;';
-		$replace[]='×'; $search[]='&times;';
-		$replace[]='÷'; $search[]='&divide;';
-		$replace[]='¢'; $search[]='&cent;';
-		$replace[]='£'; $search[]='&pound;';
-		$replace[]='¤'; $search[]='&curren;';
-		$replace[]='¥'; $search[]='&yen;';
-		$replace[]='§'; $search[]='&sect;';
-		$replace[]='©'; $search[]='&copy;';
-		$replace[]='¬'; $search[]='&not;';
-		$replace[]='®'; $search[]='&reg;';
-		$replace[]='°'; $search[]='&deg;';
-		$replace[]='µ'; $search[]='&micro;';
-		$replace[]='¶'; $search[]='&para;';
-		$replace[]='·'; $search[]='&middot;';
-		$replace[]='†'; $search[]='&dagger;';
-		$replace[]='‡'; $search[]='&Dagger;';
-		$replace[]='‰'; $search[]='&permil;';
-		$replace[]='Euro'; $search[]='&euro;';		// $replace[]='€'
-		$replace[]='¼'; $search[]='&frac14;';
-		$replace[]='½'; $search[]='&frac12;';
-		$replace[]='¾'; $search[]='&frac34;';
-		$replace[]='¹'; $search[]='&sup1;';
-		$replace[]='²'; $search[]='&sup2;';
-		$replace[]='³'; $search[]='&sup3;';
-		$replace[]='á'; $search[]='&aacute;';
-		$replace[]='Á'; $search[]='&Aacute;';
-		$replace[]='â'; $search[]='&acirc;';
-		$replace[]='Â'; $search[]='&Acirc;';
-		$replace[]='à'; $search[]='&agrave;';
-		$replace[]='À'; $search[]='&Agrave;';
-		$replace[]='å'; $search[]='&aring;';
-		$replace[]='Å'; $search[]='&Aring;';
-		$replace[]='ã'; $search[]='&atilde;';
-		$replace[]='Ã'; $search[]='&Atilde;';
-		$replace[]='ä'; $search[]='&auml;';
-		$replace[]='Ä'; $search[]='&Auml;';
-		$replace[]='ª'; $search[]='&ordf;';
-		$replace[]='æ'; $search[]='&aelig;';
-		$replace[]='Æ'; $search[]='&AElig;';
-		$replace[]='ç'; $search[]='&ccedil;';
-		$replace[]='Ç'; $search[]='&Ccedil;';
-		$replace[]='ğ'; $search[]='&eth;';
-		$replace[]='Ğ'; $search[]='&ETH;';
-		$replace[]='é'; $search[]='&eacute;';
-		$replace[]='É'; $search[]='&Eacute;';
-		$replace[]='ê'; $search[]='&ecirc;';
-		$replace[]='Ê'; $search[]='&Ecirc;';
-		$replace[]='è'; $search[]='&egrave;';
-		$replace[]='È'; $search[]='&Egrave;';
-		$replace[]='ë'; $search[]='&euml;';
-		$replace[]='Ë'; $search[]='&Euml;';
-		$replace[]='ƒ'; $search[]='&fnof;';
-		$replace[]='í'; $search[]='&iacute;';
-		$replace[]='Í'; $search[]='&Iacute;';
-		$replace[]='î'; $search[]='&icirc;';
-		$replace[]='Î'; $search[]='&Icirc;';
-		$replace[]='ì'; $search[]='&igrave;';
-		$replace[]='Ì'; $search[]='&Igrave;';
-		$replace[]='ï'; $search[]='&iuml;';
-		$replace[]='Ï'; $search[]='&Iuml;';
-		$replace[]='ñ'; $search[]='&ntilde;';
-		$replace[]='Ñ'; $search[]='&Ntilde;';
-		$replace[]='ó'; $search[]='&oacute;';
-		$replace[]='Ó'; $search[]='&Oacute;';
-		$replace[]='ô'; $search[]='&ocirc;';
-		$replace[]='Ô'; $search[]='&Ocirc;';
-		$replace[]='ò'; $search[]='&ograve;';
-		$replace[]='Ò'; $search[]='&Ograve;';
-		$replace[]='º'; $search[]='&ordm;';
-		$replace[]='ø'; $search[]='&oslash;';
-		$replace[]='Ø'; $search[]='&Oslash;';
-		$replace[]='õ'; $search[]='&otilde;';
-		$replace[]='Õ'; $search[]='&Otilde;';
-		$replace[]='ö'; $search[]='&ouml;';
-		$replace[]='Ö'; $search[]='&Ouml;';
-		$replace[]='œ'; $search[]='&oelig;';
-		$replace[]='Œ'; $search[]='&OElig;';
-		$replace[]='š'; $search[]='&scaron;';
-		$replace[]='Š'; $search[]='&Scaron;';
-		$replace[]='ß'; $search[]='&szlig;';
-		$replace[]='ş'; $search[]='&thorn;';
-		$replace[]='Ş'; $search[]='&THORN;';
-		$replace[]='ú'; $search[]='&uacute;';
-		$replace[]='Ú'; $search[]='&Uacute;';
-		$replace[]='û'; $search[]='&ucirc;';
-		$replace[]='Û'; $search[]='&Ucirc;';
-		$replace[]='ù'; $search[]='&ugrave;';
-		$replace[]='Ù'; $search[]='&Ugrave;';
-		$replace[]='ü'; $search[]='&uuml;';
-		$replace[]='Ü'; $search[]='&Uuml;';
-		$replace[]='ı'; $search[]='&yacute;';
-		$replace[]='İ'; $search[]='&Yacute;';
-		$replace[]='ÿ'; $search[]='&yuml;';
-		$replace[]='Ÿ'; $search[]='&Yuml;';
+		$replace[]='Â±'; $search[]='&plusmn;';
+		$replace[]='Â«'; $search[]='&laquo;';
+		$replace[]='Â»'; $search[]='&raquo;';
+		$replace[]='Ã—'; $search[]='&times;';
+		$replace[]='Ã·'; $search[]='&divide;';
+		$replace[]='Â¢'; $search[]='&cent;';
+		$replace[]='Â£'; $search[]='&pound;';
+		$replace[]='Â¤'; $search[]='&curren;';
+		$replace[]='Â¥'; $search[]='&yen;';
+		$replace[]='Â§'; $search[]='&sect;';
+		$replace[]='Â©'; $search[]='&copy;';
+		$replace[]='Â¬'; $search[]='&not;';
+		$replace[]='Â®'; $search[]='&reg;';
+		$replace[]='Â°'; $search[]='&deg;';
+		$replace[]='Âµ'; $search[]='&micro;';
+		$replace[]='Â¶'; $search[]='&para;';
+		$replace[]='Â·'; $search[]='&middot;';
+		$replace[]='Â†'; $search[]='&dagger;';
+		$replace[]='Â‡'; $search[]='&Dagger;';
+		$replace[]='Â‰'; $search[]='&permil;';
+		$replace[]='Euro'; $search[]='&euro;';		// $replace[]='Â€'
+		$replace[]='Â¼'; $search[]='&frac14;';
+		$replace[]='Â½'; $search[]='&frac12;';
+		$replace[]='Â¾'; $search[]='&frac34;';
+		$replace[]='Â¹'; $search[]='&sup1;';
+		$replace[]='Â²'; $search[]='&sup2;';
+		$replace[]='Â³'; $search[]='&sup3;';
+		$replace[]='Ã¡'; $search[]='&aacute;';
+		$replace[]='Ã'; $search[]='&Aacute;';
+		$replace[]='Ã¢'; $search[]='&acirc;';
+		$replace[]='Ã‚'; $search[]='&Acirc;';
+		$replace[]='Ã '; $search[]='&agrave;';
+		$replace[]='Ã€'; $search[]='&Agrave;';
+		$replace[]='Ã¥'; $search[]='&aring;';
+		$replace[]='Ã…'; $search[]='&Aring;';
+		$replace[]='Ã£'; $search[]='&atilde;';
+		$replace[]='Ãƒ'; $search[]='&Atilde;';
+		$replace[]='Ã¤'; $search[]='&auml;';
+		$replace[]='Ã„'; $search[]='&Auml;';
+		$replace[]='Âª'; $search[]='&ordf;';
+		$replace[]='Ã¦'; $search[]='&aelig;';
+		$replace[]='Ã†'; $search[]='&AElig;';
+		$replace[]='Ã§'; $search[]='&ccedil;';
+		$replace[]='Ã‡'; $search[]='&Ccedil;';
+		$replace[]='Ã°'; $search[]='&eth;';
+		$replace[]='Ã'; $search[]='&ETH;';
+		$replace[]='Ã©'; $search[]='&eacute;';
+		$replace[]='Ã‰'; $search[]='&Eacute;';
+		$replace[]='Ãª'; $search[]='&ecirc;';
+		$replace[]='ÃŠ'; $search[]='&Ecirc;';
+		$replace[]='Ã¨'; $search[]='&egrave;';
+		$replace[]='Ãˆ'; $search[]='&Egrave;';
+		$replace[]='Ã«'; $search[]='&euml;';
+		$replace[]='Ã‹'; $search[]='&Euml;';
+		$replace[]='Âƒ'; $search[]='&fnof;';
+		$replace[]='Ã­'; $search[]='&iacute;';
+		$replace[]='Ã'; $search[]='&Iacute;';
+		$replace[]='Ã®'; $search[]='&icirc;';
+		$replace[]='Ã'; $search[]='&Icirc;';
+		$replace[]='Ã¬'; $search[]='&igrave;';
+		$replace[]='ÃŒ'; $search[]='&Igrave;';
+		$replace[]='Ã¯'; $search[]='&iuml;';
+		$replace[]='Ã'; $search[]='&Iuml;';
+		$replace[]='Ã±'; $search[]='&ntilde;';
+		$replace[]='Ã‘'; $search[]='&Ntilde;';
+		$replace[]='Ã³'; $search[]='&oacute;';
+		$replace[]='Ã“'; $search[]='&Oacute;';
+		$replace[]='Ã´'; $search[]='&ocirc;';
+		$replace[]='Ã”'; $search[]='&Ocirc;';
+		$replace[]='Ã²'; $search[]='&ograve;';
+		$replace[]='Ã’'; $search[]='&Ograve;';
+		$replace[]='Âº'; $search[]='&ordm;';
+		$replace[]='Ã¸'; $search[]='&oslash;';
+		$replace[]='Ã˜'; $search[]='&Oslash;';
+		$replace[]='Ãµ'; $search[]='&otilde;';
+		$replace[]='Ã•'; $search[]='&Otilde;';
+		$replace[]='Ã¶'; $search[]='&ouml;';
+		$replace[]='Ã–'; $search[]='&Ouml;';
+		$replace[]='Âœ'; $search[]='&oelig;';
+		$replace[]='ÂŒ'; $search[]='&OElig;';
+		$replace[]='Âš'; $search[]='&scaron;';
+		$replace[]='ÂŠ'; $search[]='&Scaron;';
+		$replace[]='ÃŸ'; $search[]='&szlig;';
+		$replace[]='Ã¾'; $search[]='&thorn;';
+		$replace[]='Ã'; $search[]='&THORN;';
+		$replace[]='Ãº'; $search[]='&uacute;';
+		$replace[]='Ãš'; $search[]='&Uacute;';
+		$replace[]='Ã»'; $search[]='&ucirc;';
+		$replace[]='Ã›'; $search[]='&Ucirc;';
+		$replace[]='Ã¹'; $search[]='&ugrave;';
+		$replace[]='Ã™'; $search[]='&Ugrave;';
+		$replace[]='Ã¼'; $search[]='&uuml;';
+		$replace[]='Ãœ'; $search[]='&Uuml;';
+		$replace[]='Ã½'; $search[]='&yacute;';
+		$replace[]='Ã'; $search[]='&Yacute;';
+		$replace[]='Ã¿'; $search[]='&yuml;';
+		$replace[]='ÂŸ'; $search[]='&Yuml;';
 		$chaine = str_replace($search, $replace, $chaine);
 		return $chaine;
 	}
 
 
 	/**
-	 * Création d'une titre pour être utilisé par l'url rewriting
+	 * CrÃ©ation d'une titre pour Ãªtre utilisÃ© par l'url rewriting
 	 *
-	 * @param string $content Le texte à utiliser pour créer l'url
-	 * @param integer $urw La limite basse pour créer les mots
-	 * @return string Le texte à utiliser pour l'url
+	 * @param string $content Le texte Ã  utiliser pour crÃ©er l'url
+	 * @param integer $urw La limite basse pour crÃ©er les mots
+	 * @return string Le texte Ã  utiliser pour l'url
 	 * Note, some parts are from Solo's code
 	 */
 	function makeSeoUrl($content, $urw=1)
 	{
-		$s = "ÀÁÂÃÄÅÒÓÔÕÖØÈÉÊËÇÌÍÎÏÙÚÛÜŸÑàáâãäåòóôõöøèéêëçìíîïùúûüÿñ '()";
+		$s = "Ã€ÃÃ‚ÃƒÃ„Ã…Ã’Ã“Ã”Ã•Ã–Ã˜ÃˆÃ‰ÃŠÃ‹Ã‡ÃŒÃÃÃÃ™ÃšÃ›ÃœÂŸÃ‘Ã Ã¡Ã¢Ã£Ã¤Ã¥Ã²Ã³Ã´ÃµÃ¶Ã¸Ã¨Ã©ÃªÃ«Ã§Ã¬Ã­Ã®Ã¯Ã¹ÃºÃ»Ã¼Ã¿Ã± '()";
 		$r = "AAAAAAOOOOOOEEEECIIIIUUUUYNaaaaaaooooooeeeeciiiiuuuuyn----";
 		$content = self::unhtml($content);	// First, remove html entities
 		$content = strtr($content, $s, $r);
 		$content = strip_tags($content);
 		$content = strtolower($content);
-		$content = htmlentities($content);	// TODO: Vérifier
+		$content = htmlentities($content);	// TODO: VÃ©rifier
 		$content = preg_replace('/&([a-zA-Z])(uml|acute|grave|circ|tilde);/','$1',$content);
 		$content = html_entity_decode($content);
 		$content = eregi_replace('quot',' ', $content);
@@ -834,7 +834,7 @@ class oledrion_utils
 		// Supprime les tirets en double
 		$keywords = str_replace('---','-',$keywords);
 		$keywords = str_replace('--','-',$keywords);
-		// Supprime un éventuel tiret à la fin de la chaine
+		// Supprime un Ã©ventuel tiret Ã  la fin de la chaine
 		if(substr($keywords, strlen($keywords)-1, 1) == '-') {
 			$keywords = substr($keywords, 0, strlen($keywords)-1);
 		}
@@ -876,12 +876,12 @@ class oledrion_utils
 			case 0:	// Ordre d'apparition dans le texte
 				$keywords = array_unique($keywords);
 				break;
-			case 1:	// Ordre de fréquence des mots
+			case 1:	// Ordre de frÃ©quence des mots
 				$keywords = array_count_values($keywords);
 				asort($keywords);
 				$keywords = array_keys($keywords);
 				break;
-			case 2:	// Ordre inverse de la fréquence des mots
+			case 2:	// Ordre inverse de la frÃ©quence des mots
 				$keywords = array_count_values($keywords);
 				arsort($keywords);
 				$keywords = array_keys($keywords);
@@ -917,10 +917,10 @@ class oledrion_utils
 	}
 
 	/**
-	 * Fonction chargée de gérer l'upload
+	 * Fonction chargÃ©e de gÃ©rer l'upload
 	 *
-	 * @param integer $indice L'indice du fichier à télécharger
-	 * @return mixed True si l'upload s'est bien déroulé sinon le message d'erreur correspondant
+	 * @param integer $indice L'indice du fichier Ã  tÃ©lÃ©charger
+	 * @return mixed True si l'upload s'est bien dÃ©roulÃ© sinon le message d'erreur correspondant
 	 */
 	function uploadFile($indice, $dstpath = XOOPS_UPLOAD_PATH, $mimeTypes = null, $uploadMaxSize = null, $maxWidth = null, $maxHeight = null)
 	{
@@ -1006,12 +1006,12 @@ class oledrion_utils
 
 
 	/**
-	 * Déclenchement d'une alerte Xoops suite à un évènement
+	 * DÃ©clenchement d'une alerte Xoops suite Ã  un Ã©vÃ¨nement
 	 *
-	 * @param string $category	La catégorie de l'évènement
-	 * @param integer $itemId	L'ID de l'élément (trop général pour être décris précisément)
-	 * @param unknown_type $event	L'évènement qui est déclencé
-	 * @param unknown_type $tags	Les variables à passer au template
+	 * @param string $category	La catÃ©gorie de l'Ã©vÃ¨nement
+	 * @param integer $itemId	L'ID de l'Ã©lÃ©ment (trop gÃ©nÃ©ral pour Ãªtre dÃ©cris prÃ©cisÃ©ment)
+	 * @param unknown_type $event	L'Ã©vÃ¨nement qui est dÃ©clencÃ©
+	 * @param unknown_type $tags	Les variables Ã  passer au template
 	 */
 	function notify($category, $itemId, $event, $tags)
 	{
@@ -1021,10 +1021,10 @@ class oledrion_utils
 	}
 
 	/**
-	 * Ajoute des jours à une date et retourne la nouvelle date au format Date de Mysql
+	 * Ajoute des jours Ã  une date et retourne la nouvelle date au format Date de Mysql
 	 *
-	 * @param integer $durations	Durée en jours
-	 * @param integer $startingDate	Date de départ (timestamp)
+	 * @param integer $durations	DurÃ©e en jours
+	 * @param integer $startingDate	Date de dÃ©part (timestamp)
 	 */
 	function addDaysToDate($duration = 1, $startingDate = 0)
 	{
@@ -1036,10 +1036,10 @@ class oledrion_utils
 	}
 
 	/**
-	 * Retourne un breadcrumb en fonction des paramètres passés et en partant (d'office) de la racine du module
+	 * Retourne un breadcrumb en fonction des paramÃ¨tres passÃ©s et en partant (d'office) de la racine du module
 	 *
-	 * @param array $path	Le chemin complet (excepté la racine) du breadcrumb sous la forme clé=url valeur=titre
-	 * @param string $raquo	Le séparateur par défaut à utiliser
+	 * @param array $path	Le chemin complet (exceptÃ© la racine) du breadcrumb sous la forme clÃ©=url valeur=titre
+	 * @param string $raquo	Le sÃ©parateur par dÃ©faut Ã  utiliser
 	 * @return string le breadcrumb
 	 */
 	function breadcrumb($path, $raquo = ' &raquo; ')
@@ -1128,7 +1128,7 @@ class oledrion_utils
 
 
 	/**
-	 * Mise en place de l'appel à la feuille de style du module dans le template
+	 * Mise en place de l'appel Ã  la feuille de style du module dans le template
  	*/
 	function setCSS($url = '')
 	{
@@ -1145,7 +1145,7 @@ class oledrion_utils
 	}
 
 	/**
-	 * Mise en place de l'appel à la feuille de style du module dans le template
+	 * Mise en place de l'appel Ã  la feuille de style du module dans le template
  	*/
 	function setLocalCSS($language = 'english')
 	{
@@ -1161,12 +1161,12 @@ class oledrion_utils
 	}
 	
 	/**
-	 * Calcul du TTC à partir du HT et de la TVA
+	 * Calcul du TTC Ã  partir du HT et de la TVA
 	 *
 	 * @param float $ht		Montant HT
 	 * @param float $vat	Taux de TVA
-	 * @param boolean $edit	Si faux alors le montant est formaté pour affichage sinon il reste tel quel
-	 * @param string $format	Format d'affichage du résultat (long ou court)
+	 * @param boolean $edit	Si faux alors le montant est formatÃ© pour affichage sinon il reste tel quel
+	 * @param string $format	Format d'affichage du rÃ©sultat (long ou court)
 	 * @return mixed	Soit une chaine soit un flottant
  	 */
 	function getTTC($ht, $vat, $edit = false, $format='s')
@@ -1181,7 +1181,7 @@ class oledrion_utils
 	}
 
 	/**
-	 * Renvoie le montant de la tva à partir du montant HT
+	 * Renvoie le montant de la tva Ã  partir du montant HT
  	 */
 	function getVAT($ht, $vat)
 	{
@@ -1192,8 +1192,8 @@ class oledrion_utils
 	 * Retourne le montant TTC
 	 *
 	 * @param floatval $product_price	Le montant du produit
-	 * @param integer $vat_id			Le numéro de TVA
-	 * @return floatval					Le montant TTC si on a trouvé sa TVA sinon
+	 * @param integer $vat_id			Le numÃ©ro de TVA
+	 * @return floatval					Le montant TTC si on a trouvÃ© sa TVA sinon
 	 */
     function getAmountWithVat($product_price, $vat_id)
     {
@@ -1240,7 +1240,7 @@ class oledrion_utils
 	/**
 	 * Retourne le type Mime d'un fichier en utilisant d'abord finfo puis mime_content
 	 *
-	 * @param string $filename	Le fichier (avec son chemin d'accès complet) dont on veut connaître le type mime
+	 * @param string $filename	Le fichier (avec son chemin d'accÃ¨s complet) dont on veut connaÃ®tre le type mime
 	 * @return string
 	 */
 	function getMimeType($filename)
@@ -1277,7 +1277,7 @@ class oledrion_utils
 	}
 
 	/**
-	 * Retourne une liste d'objets XoopsUsers à partir d'une liste d'identifiants
+	 * Retourne une liste d'objets XoopsUsers Ã  partir d'une liste d'identifiants
 	 *
 	 * @param array $xoopsUsersIDs	La liste des ID
 	 * @return array	Les objets XoopsUsers
@@ -1300,7 +1300,7 @@ class oledrion_utils
 
 
 	/**
-	 * Retourne l'ID de l'utilisateur courant (s'il est connecté)
+	 * Retourne l'ID de l'utilisateur courant (s'il est connectÃ©)
 	 * @return integer	L'uid ou 0
 	 */
 	function getCurrentUserID()
@@ -1336,9 +1336,9 @@ class oledrion_utils
 	}
 
 	/**
-	 * Indique si l'utilisateur courant fait partie d'une groupe donné (avec gestion de cache)
+	 * Indique si l'utilisateur courant fait partie d'une groupe donnÃ© (avec gestion de cache)
  	 *
-	 * @param integer $group Groupe recherché
+	 * @param integer $group Groupe recherchÃ©
 	 * @return boolean vrai si l'utilisateur fait partie du groupe, faux sinon
 	 */
 	function isMemberOfGroup($group = 0, $uid = 0)
@@ -1360,9 +1360,9 @@ class oledrion_utils
 	}
 
 	/**
- 	 * Fonction chargée de vérifier qu'un répertoire existe, qu'on peut écrire dedans et création d'un fichier index.html
+ 	 * Fonction chargÃ©e de vÃ©rifier qu'un rÃ©pertoire existe, qu'on peut Ã©crire dedans et crÃ©ation d'un fichier index.html
  	 *
- 	 * @param string $folder	Le chemin complet du répertoire à vérifier
+ 	 * @param string $folder	Le chemin complet du rÃ©pertoire Ã  vÃ©rifier
  	 * @return void
  	 */
      function prepareFolder($folder)
@@ -1413,10 +1413,10 @@ class oledrion_utils
     }
 
     /**
-     * Formatage d'un floattant pour la base de données
+     * Formatage d'un floattant pour la base de donnÃ©es
      *
-     * @param float	Le montant à formater
-     * @return string le montant formaté
+     * @param float	Le montant Ã  formater
+     * @return string le montant formatÃ©
      * @since 2.2.2009.02.25
      */
     function formatFloatForDB($amount)
@@ -1426,12 +1426,12 @@ class oledrion_utils
 
 
     /**
-     * Appelle un fichier Javascript à la manière de Xoops
+     * Appelle un fichier Javascript Ã  la maniÃ¨re de Xoops
      *
-     * @note, l'url complète ne doit pas être fournie, la méthode se charge d'ajouter
-     * le chemin vers le répertoire js en fonction de la requête, c'est à dire que si
-     * on appelle un fichier de langue, la méthode ajoute l'url vers le répertoire de
-     * langue, dans le cas contraire on ajoute l'url vers le répertoire JS du module.
+     * @note, l'url complÃ¨te ne doit pas Ãªtre fournie, la mÃ©thode se charge d'ajouter
+     * le chemin vers le rÃ©pertoire js en fonction de la requÃªte, c'est Ã  dire que si
+     * on appelle un fichier de langue, la mÃ©thode ajoute l'url vers le rÃ©pertoire de
+     * langue, dans le cas contraire on ajoute l'url vers le rÃ©pertoire JS du module.
      *
      * @param string $javascriptFile
      * @return void
@@ -1508,11 +1508,11 @@ class oledrion_utils
     }
 
     /**
-     * Extrait l'id d'une chaine formatée sous la forme xxxx-99 (duquel on récupère 99)
+     * Extrait l'id d'une chaine formatÃ©e sous la forme xxxx-99 (duquel on rÃ©cupÃ¨re 99)
      *
-     * @note: utilisé par les attributs produits
+     * @note: utilisÃ© par les attributs produits
      * @param string $string	La chaine de travail
-     * @param string $separator	Le séparateur
+     * @param string $separator	Le sÃ©parateur
      * @return string
      */
     function getId($string, $separator = '_')
@@ -1525,11 +1525,11 @@ class oledrion_utils
         }
     }
     /**
-     * Fonction "inverse" de getId (depuis xxxx-99 on récupère xxxx)
+     * Fonction "inverse" de getId (depuis xxxx-99 on rÃ©cupÃ¨re xxxx)
      *
-     * @note: utilisé par les attributs produits
+     * @note: utilisÃ© par les attributs produits
      * @param string $string	La chaine de travail
-     * @param string $separator	Le séparateur
+     * @param string $separator	Le sÃ©parateur
      * @return string
      */
     function getName($string, $separator = '_')
@@ -1543,7 +1543,7 @@ class oledrion_utils
     }
 
     /**
-     * Renvoie un montant nul si le montant est négatif
+     * Renvoie un montant nul si le montant est nÃ©gatif
      *
      * @param float $amount
      * @return float

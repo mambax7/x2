@@ -6,7 +6,7 @@
 
  * oledrion - MODULE FOR XOOPS
 
- * Copyright (c) Hervé Thouzard (http://www.herve-thouzard.com/)
+ * Copyright (c) HervÃ© Thouzard (http://www.herve-thouzard.com/)
 
  *
 
@@ -24,13 +24,13 @@
 
  *
 
- * @copyright       Hervé Thouzard (http://www.herve-thouzard.com/)
+ * @copyright       HervÃ© Thouzard (http://www.herve-thouzard.com/)
 
  * @license         http://www.fsf.org/copyleft/gpl.html GNU public license
 
  * @package         oledrion
 
- * @author 			Hervé Thouzard (http://www.herve-thouzard.com/)
+ * @author 			HervÃ© Thouzard (http://www.herve-thouzard.com/)
 
  *
 

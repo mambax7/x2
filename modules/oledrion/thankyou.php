@@ -2,7 +2,7 @@
 /**
  * ****************************************************************************
  * oledrion - MODULE FOR XOOPS
- * Copyright (c) Hervé Thouzard (http://www.herve-thouzard.com/)
+ * Copyright (c) HervÃ© Thouzard (http://www.herve-thouzard.com/)
  *
  * You may not change or alter any portion of this comment or credits
  * of supporting developers from this source code or any supporting source code
@@ -11,17 +11,17 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  *
- * @copyright       Hervé Thouzard (http://www.herve-thouzard.com/)
+ * @copyright       HervÃ© Thouzard (http://www.herve-thouzard.com/)
  * @license         http://www.fsf.org/copyleft/gpl.html GNU public license
  * @package         oledrion
- * @author 			Hervé Thouzard (http://www.herve-thouzard.com/)
+ * @author 			HervÃ© Thouzard (http://www.herve-thouzard.com/)
  *
  * Version : $Id:
  * ****************************************************************************
  */
 
 /**
- * Page appelée par la passerelle après le paiement en ligne
+ * Page appelÃ©e par la passerelle aprÃ¨s le paiement en ligne
  */
 require 'header.php';
 $GLOBALS['current_category'] = -1;
@@ -31,7 +31,7 @@ $xoopsOption['template_main'] = 'oledrion_thankyou.html';
 require_once XOOPS_ROOT_PATH.'/header.php';
 $h_oledrion_caddy->emptyCart();
 
-// On donne la possibilité à la passerelle de traiter la commande
+// On donne la possibilitÃ© Ã  la passerelle de traiter la commande
 $gateway = null;
 $gateway = oledrion_gateways::getGatewayObject();
 if(is_object($gateway) && method_exists($gateway, 'thankYou')) {

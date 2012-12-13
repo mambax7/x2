@@ -2,7 +2,7 @@
 /**
  * ****************************************************************************
  * oledrion - MODULE FOR XOOPS
- * Copyright (c) Hervé Thouzard (http://www.herve-thouzard.com/)
+ * Copyright (c) HervÃ© Thouzard (http://www.herve-thouzard.com/)
  *
  * You may not change or alter any portion of this comment or credits
  * of supporting developers from this source code or any supporting source code
@@ -11,17 +11,17 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  *
- * @copyright       Hervé Thouzard (http://www.herve-thouzard.com/)
+ * @copyright       HervÃ© Thouzard (http://www.herve-thouzard.com/)
  * @license         http://www.fsf.org/copyleft/gpl.html GNU public license
  * @package         oledrion
- * @author 			Hervé Thouzard (http://www.herve-thouzard.com/)
+ * @author 			HervÃ© Thouzard (http://www.herve-thouzard.com/)
  *
  * Version : $Id:
  * ****************************************************************************
  */
 
 /**
- * Sélecteur de produits
+ * SÃ©lecteur de produits
  */
 require_once '../../../include/cp_header.php';
 require_once '../include/common.php';
@@ -36,7 +36,7 @@ if(!oledrion_utils::isAdmin()) {
 }
 $xoopsTpl = new XoopsTpl();
 $ts =& MyTextSanitizer::getInstance();
-$limit = oledrion_utils::getModuleOption('items_count');	// Nombre maximum d'éléments à afficher dans l'admin
+$limit = oledrion_utils::getModuleOption('items_count');	// Nombre maximum d'Ã©lÃ©ments Ã  afficher dans l'admin
 
 $oledrion_handlers = oledrion_handler::getInstance();
 $searchFields = array(	'product_title' => _OLEDRION_TITLE,

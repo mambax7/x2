@@ -2,7 +2,7 @@
 /**
  * ****************************************************************************
  * oledrion - MODULE FOR XOOPS
- * Copyright (c) Hervé Thouzard (http://www.herve-thouzard.com/)
+ * Copyright (c) HervÃ© Thouzard (http://www.herve-thouzard.com/)
  *
  * You may not change or alter any portion of this comment or credits
  * of supporting developers from this source code or any supporting source code
@@ -11,10 +11,10 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  *
- * @copyright       Hervé Thouzard (http://www.herve-thouzard.com/)
+ * @copyright       HervÃ© Thouzard (http://www.herve-thouzard.com/)
  * @license         http://www.fsf.org/copyleft/gpl.html GNU public license
  * @package         oledrion
- * @author 			Hervé Thouzard (http://www.herve-thouzard.com/)
+ * @author 			HervÃ© Thouzard (http://www.herve-thouzard.com/)
  *
  * Version : $Id:
  * ****************************************************************************
@@ -39,10 +39,10 @@ class oledrion_caddy extends Oledrion_Object
 	}
 
 	/**
-	 * Retourne les éléments du produits formatés pour affichage
+	 * Retourne les Ã©lÃ©ments du produits formatÃ©s pour affichage
 	 *
-	 * @param string $format	Le format à utiliser
-	 * @return array	Les informations formatées
+	 * @param string $format	Le format Ã  utiliser
+	 * @return array	Les informations formatÃ©es
 	 */
 	function toArray($format = 's')
 	{
@@ -69,7 +69,7 @@ class OledrionOledrion_caddyHandler extends Oledrion_XoopsPersistableObjectHandl
 	 * Renvoie, si on en trouve un, un produit qui s'est bien vendu avec un produit particulier
 	 *
 	 * @param integer $caddy_product_id Identifiant du produit dont on recherche le jumeau
-	 * @return integer Le n° du produit le plus vendu avec le produit en question
+	 * @return integer Le nÂ° du produit le plus vendu avec le produit en question
 	 */
 	function getBestWith($caddy_product_id)
 	{
@@ -89,11 +89,11 @@ class OledrionOledrion_caddyHandler extends Oledrion_XoopsPersistableObjectHandl
 
 
 	/**
-	 * Renvoie la liste des produits les plus vendus toutes catégories confondues
+	 * Renvoie la liste des produits les plus vendus toutes catÃ©gories confondues
 	 *
-	 * @param integer $start Début de la recherche
-	 * @param integer $limit Nombre maximum d'enregistrements à retourner
-	 * @return array Les identifiants des X produits les plus vendus dans cette catégorie
+	 * @param integer $start DÃ©but de la recherche
+	 * @param integer $limit Nombre maximum d'enregistrements Ã  retourner
+	 * @return array Les identifiants des X produits les plus vendus dans cette catÃ©gorie
 	 */
 	function getMostSoldProducts($start = 0, $limit = 0, $product_cid = 0, $withQuantity=false)
 	{
@@ -128,7 +128,7 @@ class OledrionOledrion_caddyHandler extends Oledrion_XoopsPersistableObjectHandl
 	}
 
     /**
-     * Retourne la liste des ID de produits vendus récemment
+     * Retourne la liste des ID de produits vendus rÃ©cemment
      *
      * @param integer $start
      * @param integer $limit
@@ -213,17 +213,17 @@ class OledrionOledrion_caddyHandler extends Oledrion_XoopsPersistableObjectHandl
 	 * Ajout d'un produit au caddy
 	 *
 	 * @param integer $product_id Identifiant du produit
-	 * @param integer $quantity Quantité à ajouter
+	 * @param integer $quantity QuantitÃ© Ã  ajouter
 	 * @param array $attributes	Les attributs du produit
 	 * @return void
 	 * @note : Structure du panier (tableau en session) :
-	 * 		[clé] = numéro de 1 à N
+	 * 		[clÃ©] = numÃ©ro de 1 Ã  N
 	 * 		[valeur] = array (
-	 * 					'number' => numéro de 1 à N
+	 * 					'number' => numÃ©ro de 1 Ã  N
 	 * 					'id' => ID du produit
-	 * 					'qty' => Quantité de produit
+	 * 					'qty' => QuantitÃ© de produit
 	 * 					'attributes' => array(
-	 * 										'attr_id' => id attribut (son numéro dans la base)
+	 * 										'attr_id' => id attribut (son numÃ©ro dans la base)
 	 * 										'values' => array(valueId1, valueId2 ...)
 	 * 									)
 	 * 						)
@@ -258,7 +258,7 @@ class OledrionOledrion_caddyHandler extends Oledrion_XoopsPersistableObjectHandl
 			$_SESSION[self::CADDY_NAME] = $tbl_caddie;
 		} else {
 			$_SESSION[self::CADDY_NAME] = $tbl_caddie2;
-			if(is_object($xoopsUser)) {    // Le produit était déjà dans le panier, on va mettre à jour la quantité
+			if(is_object($xoopsUser)) {    // Le produit Ã©tait dÃ©jÃ  dans le panier, on va mettre Ã  jour la quantitÃ©
 			    $h_oledrion_persistent_cart->updateUserProductQuantity($product_id, $newQuantity);
 			}
 		}
@@ -267,7 +267,7 @@ class OledrionOledrion_caddyHandler extends Oledrion_XoopsPersistableObjectHandl
     /**
      * Inidique si un produit est dans le caddy
      *
-     * @param integer $caddy_product_id	Le numéro interne du produit dans la table Produits
+     * @param integer $caddy_product_id	Le numÃ©ro interne du produit dans la table Produits
      * @return mixed	False si le produit n'est pas dans le caddy sinon son indice dans le caddy
      * @since 2.3.2009.03.15
      */
@@ -292,7 +292,7 @@ class OledrionOledrion_caddyHandler extends Oledrion_XoopsPersistableObjectHandl
     /**
      * Retourne les attributs d'un produit depuis le panier
      *
-     * @param integer $caddy_product_id	Le numéro interne du produit dans la table Produits
+     * @param integer $caddy_product_id	Le numÃ©ro interne du produit dans la table Produits
      * @return mixed	False si le produit n'est pas dans le caddy sinon ses attributs sous la forme d'un tableau
      * @since 2.3.2009.03.15
 	 */
@@ -314,10 +314,10 @@ class OledrionOledrion_caddyHandler extends Oledrion_XoopsPersistableObjectHandl
 
 
     /**
-     * Renumérotage des produits dans le caddy après une suppression
+     * RenumÃ©rotage des produits dans le caddy aprÃ¨s une suppression
      *
      * @param array	$caddy	Le caddy actuel
-     * @return array	Le caddy avec 'number' renuméroté
+     * @return array	Le caddy avec 'number' renumÃ©rotÃ©
      */
 	private function renumberCart($caddy)
 	{
@@ -338,7 +338,7 @@ class OledrionOledrion_caddyHandler extends Oledrion_XoopsPersistableObjectHandl
 	/**
 	 * Suppression d'un produit du caddy
 	 *
-	 * @param integer $indice Indice de l'élément à supprimer
+	 * @param integer $indice Indice de l'Ã©lÃ©ment Ã  supprimer
 	 */
 	function deleteProduct($indice)
 	{
@@ -364,7 +364,7 @@ class OledrionOledrion_caddyHandler extends Oledrion_XoopsPersistableObjectHandl
 	}
 
 	/**
-	 * Mise à jour des quantités du caddy suite à la validation du formulaire du caddy
+	 * Mise Ã  jour des quantitÃ©s du caddy suite Ã  la validation du formulaire du caddy
 	 */
 	function updateQuantites()
 	{
@@ -407,7 +407,7 @@ class OledrionOledrion_caddyHandler extends Oledrion_XoopsPersistableObjectHandl
 	}
 
 	/**
-	 * Renvoie les éléments constituants une commande
+	 * Renvoie les Ã©lÃ©ments constituants une commande
 	 *
 	 * @param integer $caddy_cmd_id Identifiant de la commande
 	 * @return array Tableau d'objets caddy
@@ -424,7 +424,7 @@ class OledrionOledrion_caddyHandler extends Oledrion_XoopsPersistableObjectHandl
 	 * Retourne tous les produits d'un caddy
 	 *
 	 * @param array $carts	Objets de type oledrion_caddy
-	 * @return array	Tableau d'objets de type oledrion_products, Clé = Id produit
+	 * @return array	Tableau d'objets de type oledrion_products, ClÃ© = Id produit
 	 * @since 2.31.2009.07.25
 	 */
 	function getProductsFromCaddy($carts)
@@ -441,10 +441,10 @@ class OledrionOledrion_caddyHandler extends Oledrion_XoopsPersistableObjectHandl
 	}
 
 	/**
-	 * Renvoie les ID de commandes pour un produit acheté
+	 * Renvoie les ID de commandes pour un produit achetÃ©
 	 *
 	 * @param integer $product_id Identifiant du produit
-	 * @return array Les ID des commandes dans lesquelles ce produit a été commandé
+	 * @return array Les ID des commandes dans lesquelles ce produit a Ã©tÃ© commandÃ©
 	 */
 	function getCommandIdFromProduct($product_id)
 	{
@@ -461,9 +461,9 @@ class OledrionOledrion_caddyHandler extends Oledrion_XoopsPersistableObjectHandl
 	}
 
 	/**
-	 * Retourne un caddy à partir de son mot de passe
+	 * Retourne un caddy Ã  partir de son mot de passe
 	 *
-	 * @param string $caddy_pass	Le mot de passe à utiliser
+	 * @param string $caddy_pass	Le mot de passe Ã  utiliser
 	 * @return mixed Soit un object de type oledrion_caddy ou null
 	 */
 	function getCaddyFromPassword($caddy_pass)
@@ -479,10 +479,10 @@ class OledrionOledrion_caddyHandler extends Oledrion_XoopsPersistableObjectHandl
 	}
 
 	/**
-	 * Marque un caddy comme ayant été téléchargé
+	 * Marque un caddy comme ayant Ã©tÃ© tÃ©lÃ©chargÃ©
 	 *
 	 * @param oledrion_caddy $caddy
-	 * @return boolean	Le résultat de la mise à jour
+	 * @return boolean	Le rÃ©sultat de la mise Ã  jour
 	 */
 	function markCaddyAsNotDownloadableAnyMore(oledrion_caddy $caddy)
 	{
@@ -491,7 +491,7 @@ class OledrionOledrion_caddyHandler extends Oledrion_XoopsPersistableObjectHandl
 	}
 
 	/**
-	 * Supprime les caddies associés à une commande
+	 * Supprime les caddies associÃ©s Ã  une commande
 	 *
 	 * @param integer $caddy_cmd_id
 	 * @return boolean

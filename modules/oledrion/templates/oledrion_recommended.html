@@ -1,8 +1,16 @@
-<!-- Created by Hervé Thouzard (http://www.herve-thouzard.com/), Design XoopsDesign (http://www.xoopsdesign.com) -->
-<div class="breadcrumb"><{$breadcrumb}></div>
-<div id="oledrion-logo">
-  <span id="oledrion-main-logo"><img src="<{$smarty.const.OLEDRION_IMAGES_URL}>oledrion.png" alt="oledrion"  /></span>
-</div>
+<!-- Created by HervÃ© Thouzard (http://www.herve-thouzard.com/), Design XoopsDesign (http://www.xoopsdesign.com) -->
+<!-- Breadcrumb -->
+<table cellspacing="0" class="breadcrumbT">
+<tr>
+	<td class="breadcrumb_01"></td>
+    <td class="breadcrumb_02"><div id="productshoop_breadcrumb"><{$breadcrumb}></div></td>
+    <td class="breadcrumb_03"></td>
+</tr>
+<tr>
+    <td colspan="3" class="red-line"></td>
+</tr>
+</table>
+<!-- /Breadcrumb -->
 
 <{if $welcome_msg != ''}>
 	<table width="100%" cellspacing="0">
@@ -62,5 +70,5 @@
 <{/if}>
 
 <{if $pagenav}>
-	<div class='center'><{$pagenav}></div>
+	<div class="center pagenav"><{$pagenav}></div>
 <{/if}>

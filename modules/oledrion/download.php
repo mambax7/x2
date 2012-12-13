@@ -2,7 +2,7 @@
 /**
  * ****************************************************************************
  * oledrion - MODULE FOR XOOPS
- * Copyright (c) Hervé Thouzard (http://www.herve-thouzard.com/)
+ * Copyright (c) HervÃ© Thouzard (http://www.herve-thouzard.com/)
  *
  * You may not change or alter any portion of this comment or credits
  * of supporting developers from this source code or any supporting source code
@@ -11,17 +11,17 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  *
- * @copyright       Hervé Thouzard (http://www.herve-thouzard.com/)
+ * @copyright       HervÃ© Thouzard (http://www.herve-thouzard.com/)
  * @license         http://www.fsf.org/copyleft/gpl.html GNU public license
  * @package         oledrion
- * @author 			Hervé Thouzard (http://www.herve-thouzard.com/)
+ * @author 			HervÃ© Thouzard (http://www.herve-thouzard.com/)
  *
  * Version : $Id:
  * ****************************************************************************
  */
 
 /**
- * Téléchargement de fichier après passage d'une commande (et validation de celle-ci)
+ * TÃ©lÃ©chargement de fichier aprÃ¨s passage d'une commande (et validation de celle-ci)
  */
 require_once 'header.php';
 error_reporting(0);
@@ -29,34 +29,34 @@ error_reporting(0);
 
 $download_id = isset($_GET['download_id']) ? $_GET['download_id'] : '';
 
-// TODO: Permettre au webmaster de réactiver un téléchargement
+// TODO: Permettre au webmaster de rÃ©activer un tÃ©lÃ©chargement
 
 if(xoops_trim($download_id) == '') {
 	oledrion_utils::redirect(_OLEDRION_ERROR13, OLEDRION_URL, 5);
 }
 
-// Recherche dans les caddy du produit associé
+// Recherche dans les caddy du produit associÃ©
 $caddy = null;
 $caddy = $h_oledrion_caddy->getCaddyFromPassword($download_id);
 if( !is_object($caddy)) {
 	oledrion_utils::redirect(_OLEDRION_ERROR14, OLEDRION_URL, 5);
 }
 
-// Recherche du produit associé
+// Recherche du produit associÃ©
 $product = null;
 $product = $h_oledrion_products->get($caddy->getVar('caddy_product_id'));
 if($product == null) {
 	oledrion_utils::redirect(_OLEDRION_ERROR15, OLEDRION_URL, 5);
 }
 
-// On vérifie que la commande associée est payée
+// On vÃ©rifie que la commande associÃ©e est payÃ©e
 $order = null;
 $order = $h_oledrion_commands->get($caddy->getVar('caddy_cmd_id'));
 if($order == null) {
 	oledrion_utils::redirect(_OLEDRION_ERROR16, OLEDRION_URL, 5);
 }
 
-// Tout est bon, on peut envoyer le fichier au navigateur, s'il y a un fichier à télécharger, et s'il existe
+// Tout est bon, on peut envoyer le fichier au navigateur, s'il y a un fichier Ã  tÃ©lÃ©charger, et s'il existe
 $file = '';
 $file = $product->getVar('product_download_url');
 if(xoops_trim($file) == '') {
@@ -66,7 +66,7 @@ if(!file_exists($file)) {
 	oledrion_utils::redirect(_OLEDRION_ERROR18, OLEDRION_URL, 5);
 }
 
-// Mise à jour, le fichier n'est plus disponible au téléchargement
+// Mise Ã  jour, le fichier n'est plus disponible au tÃ©lÃ©chargement
 $h_oledrion_caddy->markCaddyAsNotDownloadableAnyMore($caddy);
 
 $fileContent = file_get_contents($file);

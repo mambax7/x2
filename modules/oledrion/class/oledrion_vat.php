@@ -2,7 +2,7 @@
 /**
  * ****************************************************************************
  * oledrion - MODULE FOR XOOPS
- * Copyright (c) Hervé Thouzard (http://www.herve-thouzard.com/)
+ * Copyright (c) HervÃ© Thouzard (http://www.herve-thouzard.com/)
  *
  * You may not change or alter any portion of this comment or credits
  * of supporting developers from this source code or any supporting source code
@@ -11,10 +11,10 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  *
- * @copyright       Hervé Thouzard (http://www.herve-thouzard.com/)
+ * @copyright       HervÃ© Thouzard (http://www.herve-thouzard.com/)
  * @license         http://www.fsf.org/copyleft/gpl.html GNU public license
  * @package         oledrion
- * @author 			Hervé Thouzard (http://www.herve-thouzard.com/)
+ * @author 			HervÃ© Thouzard (http://www.herve-thouzard.com/)
  *
  * Version : $Id:
  * ****************************************************************************
@@ -55,11 +55,11 @@ class OledrionOledrion_vatHandler extends Oledrion_XoopsPersistableObjectHandler
 	/**
 	 * Renvoie la liste de toutes les TVA du module
 	 *
-	 * @param integer $start Position de départ
-	 * @param integer $limit Nombre total d'enregistrements à renvoyer
+	 * @param integer $start Position de dÃ©part
+	 * @param integer $limit Nombre total d'enregistrements Ã  renvoyer
 	 * @param string $order Champ sur lequel faire le tri
 	 * @param string $order Ordre du tri
-	 * @param boolean $idaskey Indique si le tableau renvoyé doit avoir pour clé l'identifiant unique de l'enregistrement
+	 * @param boolean $idaskey Indique si le tableau renvoyÃ© doit avoir pour clÃ© l'identifiant unique de l'enregistrement
 	 * @return array tableau d'objets de type TVA
 	 */
 	function getAllVats(oledrion_parameters $parameters)
@@ -79,11 +79,11 @@ class OledrionOledrion_vatHandler extends Oledrion_XoopsPersistableObjectHandler
 	/**
 	 * Renvoie la liste de toutes les TVA du module
 	 *
-	 * @param integer $start Position de départ
-	 * @param integer $limit Nombre total d'enregistrements à renvoyer
+	 * @param integer $start Position de dÃ©part
+	 * @param integer $limit Nombre total d'enregistrements Ã  renvoyer
 	 * @param string $order Champ sur lequel faire le tri
 	 * @param string $order Ordre du tri
-	 * @param boolean $idaskey Indique si le tableau renvoyé doit avoir pour clé l'identifiant unique de l'enregistrement
+	 * @param boolean $idaskey Indique si le tableau renvoyÃ© doit avoir pour clÃ© l'identifiant unique de l'enregistrement
 	 * @return array tableau d'objets de type TVA
 	 */
 	function getCountryVats($country)
@@ -103,7 +103,7 @@ class OledrionOledrion_vatHandler extends Oledrion_XoopsPersistableObjectHandler
 	 * Suppression d'une TVA
 	 *
 	 * @param oledrion_vat $vat
-	 * @return boolean	Le résultat de la suppressin
+	 * @return boolean	Le rÃ©sultat de la suppressin
 	 */
 	function deleteVat(oledrion_vat $vat)
 	{
@@ -111,7 +111,7 @@ class OledrionOledrion_vatHandler extends Oledrion_XoopsPersistableObjectHandler
 	}
 
 	/**
-	 * Retourne le nombre de produits associés à une TVA
+	 * Retourne le nombre de produits associÃ©s Ã  une TVA
 	 *
 	 * @param integer $vat_id	L'ID de la TVA
 	 * @return integer	Le nombre de produits

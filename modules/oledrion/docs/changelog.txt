@@ -1,9 +1,9 @@
 ---------------------------------------
 2.34
 ---------------------------------------
-- Add Ajax search ( ajax.php css/autocomplete.css js/autocomplete.js )
-- improve search ( search.php include/product_search_form.php) 
-- improve gateway ( checkout.php admin/gateways/gateway.php )
+- Add Ajax search ( ajax.php css/autocomplete.css js/autocomplete.js ) (voltan)
+- improve search ( search.php include/product_search_form.php) (voltan) 
+- improve gateway ( checkout.php admin/gateways/gateway.php ) (voltan)
 
 ---------------------------------------
 2.33 Beta 1 2012-07-23

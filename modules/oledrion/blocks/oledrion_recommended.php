@@ -2,7 +2,7 @@
 /**
  * ****************************************************************************
  * oledrion - MODULE FOR XOOPS
- * Copyright (c) Hervé Thouzard (http://www.herve-thouzard.com/)
+ * Copyright (c) HervÃ© Thouzard (http://www.herve-thouzard.com/)
  *
  * You may not change or alter any portion of this comment or credits
  * of supporting developers from this source code or any supporting source code
@@ -11,21 +11,21 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  *
- * @copyright       Hervé Thouzard (http://www.herve-thouzard.com/)
+ * @copyright       HervÃ© Thouzard (http://www.herve-thouzard.com/)
  * @license         http://www.fsf.org/copyleft/gpl.html GNU public license
  * @package         oledrion
- * @author 			Hervé Thouzard (http://www.herve-thouzard.com/)
+ * @author 			HervÃ© Thouzard (http://www.herve-thouzard.com/)
  *
  * Version : $Id:
  * ****************************************************************************
  */
 
 /**
- * Renvoie la liste des produits recommandés
+ * Renvoie la liste des produits recommandÃ©s
  */
 function b_oledrion_recomm_show($options)
 {
-	// '10|0';	// Voir 10 produits, pour toutes les catégories ou une catégorie particulière
+	// '10|0';	// Voir 10 produits, pour toutes les catÃ©gories ou une catÃ©gorie particuliÃ¨re
 	global $xoopsConfig, $xoopsTpl;
 	include XOOPS_ROOT_PATH.'/modules/oledrion/include/common.php';
 	$products = $block = array();
@@ -36,7 +36,7 @@ function b_oledrion_recomm_show($options)
 	$oledrion_shelf_parameters->resetDefaultValues()->setProductsType('recommended')->setStart($start)->setLimit($limit)->setSort('product_recommended')->setOrder('DESC')->setCategory($categoyrId);
 	$products = $oledrion_shelf->getProducts($oledrion_shelf_parameters);
 
-	if($h_oledrion_products->getRecommendedCount() > $limit) {	// Il y a plus de produits recommandés dans la BDD que dans le bloc, on affiche donc un lien vers la page des produits recommandés
+	if($h_oledrion_products->getRecommendedCount() > $limit) {	// Il y a plus de produits recommandÃ©s dans la BDD que dans le bloc, on affiche donc un lien vers la page des produits recommandÃ©s
 		$block['showMore'] = true;
 	}
 	if(isset($products['lastTitle'])) {
@@ -48,17 +48,17 @@ function b_oledrion_recomm_show($options)
 		$block['block_products']= $products;
 		$xoopsTpl->assign("xoops_module_header", "<link rel=\"stylesheet\" type=\"text/css\" href=\"$url\" />");
 		return $block;
-	} else {	// Pas de produits recommandés
+	} else {	// Pas de produits recommandÃ©s
 		return false;
 	}
 }
 
 /**
- * Paramètres du bloc
+ * ParamÃ¨tres du bloc
  */
 function b_oledrion_recomm_edit($options)
 {
-	// '10|0';	// Voir 10 produits, pour toutes les catégories
+	// '10|0';	// Voir 10 produits, pour toutes les catÃ©gories
 	global $xoopsConfig;
 	include XOOPS_ROOT_PATH.'/modules/oledrion/include/common.php';
 	include_once OLEDRION_PATH.'class/tree.php';
@@ -77,7 +77,7 @@ function b_oledrion_recomm_edit($options)
 }
 
 /**
- * Bloc à la volée
+ * Bloc Ã  la volÃ©e
  */
 function b_oledrion_recomm_show_duplicatable($options)
 {

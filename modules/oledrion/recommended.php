@@ -2,7 +2,7 @@
 /**
  * ****************************************************************************
  * oledrion - MODULE FOR XOOPS
- * Copyright (c) Hervé Thouzard (http://www.herve-thouzard.com/)
+ * Copyright (c) HervÃ© Thouzard (http://www.herve-thouzard.com/)
  *
  * You may not change or alter any portion of this comment or credits
  * of supporting developers from this source code or any supporting source code
@@ -11,17 +11,17 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  *
- * @copyright       Hervé Thouzard (http://www.herve-thouzard.com/)
+ * @copyright       HervÃ© Thouzard (http://www.herve-thouzard.com/)
  * @license         http://www.fsf.org/copyleft/gpl.html GNU public license
  * @package         oledrion
- * @author 			Hervé Thouzard (http://www.herve-thouzard.com/)
+ * @author 			HervÃ© Thouzard (http://www.herve-thouzard.com/)
  *
  * Version : $Id:
  * ****************************************************************************
  */
 
 /**
- * Affiche la liste des produits recommandés
+ * Affiche la liste des produits recommandÃ©s
  */
 require 'header.php';
 $GLOBALS['current_category'] = -1;
@@ -48,10 +48,10 @@ $vatArray = $h_oledrion_vat->getAllVats(new oledrion_parameters());
 
 // Quelques options pour le template
 $xoopsTpl->assign('nostock_msg', oledrion_utils::getModuleOption('nostock_msg'));
-$xoopsTpl->assign('mod_pref', $mod_pref);	// Préférences du module
+$xoopsTpl->assign('mod_pref', $mod_pref);	// PrÃ©fÃ©rences du module
 $xoopsTpl->assign('welcome_msg', nl2br($registry->getfile(OLEDRION_TEXTFILE3)));
 
-// Récupération du nombre total de produits publiés dans la base
+// RÃ©cupÃ©ration du nombre total de produits publiÃ©s dans la base
 $itemsCount = $h_oledrion_products->getRecommendedCount();
 if($itemsCount > $limit) {
 	$pagenav = new XoopsPageNav( $itemsCount, $limit, $start);
@@ -59,7 +59,7 @@ if($itemsCount > $limit) {
 }
 
 if($limit > 0) {
-	// Récupération de la liste des produits récents
+	// RÃ©cupÃ©ration de la liste des produits rÃ©cents
 	$oledrion_shelf_parameters->resetDefaultValues()->setProductsType('recommended')->setStart($start)->setLimit($limit)->setSort('product_recommended')->setOrder('DESC')->setCategory(0)->setWithXoopsUser(true)->setWithRelatedProducts(true);
 	$products = $oledrion_shelf->getProducts($oledrion_shelf_parameters);
 	if(isset($products['lastTitle'])) {

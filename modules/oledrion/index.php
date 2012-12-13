@@ -2,7 +2,7 @@
 /**
  * ****************************************************************************
  * oledrion - MODULE FOR XOOPS
- * Copyright (c) Hervé Thouzard (http://www.herve-thouzard.com/)
+ * Copyright (c) HervÃ© Thouzard (http://www.herve-thouzard.com/)
  *
  * You may not change or alter any portion of this comment or credits
  * of supporting developers from this source code or any supporting source code
@@ -11,10 +11,10 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  *
- * @copyright       Hervé Thouzard (http://www.herve-thouzard.com/)
+ * @copyright       HervÃ© Thouzard (http://www.herve-thouzard.com/)
  * @license         http://www.fsf.org/copyleft/gpl.html GNU public license
  * @package         oledrion
- * @author 			Hervé Thouzard (http://www.herve-thouzard.com/)
+ * @author 			HervÃ© Thouzard (http://www.herve-thouzard.com/)
  *
  * Version : $Id:
  * ****************************************************************************
@@ -31,20 +31,20 @@ require_once OLEDRION_PATH.'class/registryfile.php';
 
 // Initialisations
 $start = isset($_GET['start']) ? intval($_GET['start']) : 0;
-$limit = oledrion_utils::getModuleOption('newproducts');	// Nombre maximum d'éléments à afficher
+$limit = oledrion_utils::getModuleOption('newproducts');	// Nombre maximum d'Ã©lÃ©ments Ã  afficher
 $baseurl = OLEDRION_URL.basename(__FILE__);					// URL de ce script (sans son nom)
 $registry = new oledrion_registryfile();
 
 // Quelques options pour le template
 $xoopsTpl->assign('nostock_msg', oledrion_utils::getModuleOption('nostock_msg'));
-$xoopsTpl->assign('mod_pref', $mod_pref);	// Préférences du module
+$xoopsTpl->assign('mod_pref', $mod_pref);	// PrÃ©fÃ©rences du module
 $xoopsTpl->assign('welcome_msg', nl2br($registry->getfile(OLEDRION_TEXTFILE1)));
 $xoopsTpl->assign('columnsCount', oledrion_utils::getModuleOption('index_colums'));
 
 // Lecture des TVA ********************************************************************************
 $vatArray = $h_oledrion_vat->getAllVats(new oledrion_parameters());
 
-// Récupération du nombre total de produits de la base
+// RÃ©cupÃ©ration du nombre total de produits de la base
 $xoopsTpl->assign('total_products_count', sprintf(_OLEDRION_THEREARE, $h_oledrion_products->getTotalPublishedProductsCount()));
 
 if($limit > 0) {
@@ -65,7 +65,7 @@ if($limit > 0) {
 	$xoopsTpl->assign('products', $products);
 }
 
-// Mise en place des catégories de niveau 1
+// Mise en place des catÃ©gories de niveau 1
 $count = 1;
 $categories = $h_oledrion_cat->getMotherCategories();
 foreach($categories as $category) {

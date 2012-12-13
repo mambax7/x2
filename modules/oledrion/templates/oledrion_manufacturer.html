@@ -1,9 +1,19 @@
 <div class="oledrion">
-	<!-- Created by Hervé Thouzard (http://www.herve-thouzard.com/) -->
-	<div class="breadcrumb"><{$breadcrumb}></div>
+	<!-- Created by HervÃ© Thouzard (http://www.herve-thouzard.com/) -->
+	<!-- Breadcrumb -->
+	<table cellspacing="0" class="breadcrumbT">
+	<tr>
+		<td class="breadcrumb_01"></td>
+	    <td class="breadcrumb_02"><div id="productshoop_breadcrumb"><{$breadcrumb}></div></td>
+	    <td class="breadcrumb_03"></td>
+	</tr>
+	<tr>
+	    <td colspan="3" class="red-line"></td>
+	</tr>
+	</table>
+	<!-- /Breadcrumb -->
 	
 	<div class='center'>
-		<span id="oledrion-main-logo"><img src="<{$smarty.const.OLEDRION_IMAGES_URL}>oledrion.png" alt="oledrion"  /></span>
 		<{if $mod_pref.advertisement != ''}><div id="oledrion_publicite"><{$mod_pref.advertisement}></div><{/if}>
 	
 	<{if $manufacturer.manu_email != '' }>
@@ -40,10 +50,10 @@
 	<{if count($products) > 0}>
 		<div id="oledrion_related">
 			<h3><img src="<{$smarty.const.OLEDRION_IMAGES_URL}>icon-product-person.png" alt="<{$smarty.const._MI_PRODUCTSBYTHISMANUFACTURER}>" /><{$smarty.const._MI_PRODUCTSBYTHISMANUFACTURER}></h3>
-			<table border='0' cellspacing='5' cellpadding='0' class='center' class="oledrion_categorylist">
+			<table border='0' cellspacing='5' cellpadding='0' class='center oledrion_categorylist'>
 			<tr>
 			<{foreach item=oneitem from=$products}>
-				<td vclass="top" class="center">
+				<td class="center top">
 					<{if $oneitem.product_thumb_url}>
 					<div class="oledrion_productthumb"><a href="<{$oneitem.product_url_rewrited}>" title="<{$oneitem.product_href_title}>"><img src="<{$oneitem.product_thumb_full_url}>" alt="<{$oneitem.product_href_title}>" /></a></div><{/if}>
 					<div><{$oneitem.product_recommended_picture}><b><{$oneitem.product_title}></b> <{if $mod_pref.use_price}><div class="oledrion_productprice"><{if $oneitem.product_stock > 0 }><{$smarty.const._OLEDRION_PRICE}> : <a href="<{$smarty.const.OLEDRION_URL}>caddy.php?op=addproduct&product_id=<{$oneitem.product_id}>" title="<{$smarty.const._OLEDRION_ADD_TO_CART}>"><{if $oneitem.product_discount_price_ttc != ''}><{$oneitem.product_discount_price_ttc}><{else}><{$oneitem.product_price_ttc}><{/if}> <img src="<{$smarty.const.OLEDRION_IMAGES_URL}>cartadd.gif" alt="" /></a><{else}><{$mod_pref.nostock_msg}><{/if}></div><{/if}></div>
@@ -55,7 +65,7 @@
 			</tr>
 			</table>
 			<{if $pagenav != ''}>
-				<div class="left"><{$pagenav}></div>
+				<div class="center pagenav"><{$pagenav}></div>
 			<{/if}>	
 		</div>
 	<{/if}>

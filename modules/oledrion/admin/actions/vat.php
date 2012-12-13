@@ -2,7 +2,7 @@
 /**
  * ****************************************************************************
  * oledrion - MODULE FOR XOOPS
- * Copyright (c) Hervé Thouzard (http://www.herve-thouzard.com/)
+ * Copyright (c) HervÃ© Thouzard (http://www.herve-thouzard.com/)
  *
  * You may not change or alter any portion of this comment or credits
  * of supporting developers from this source code or any supporting source code
@@ -11,17 +11,17 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  *
- * @copyright       Hervé Thouzard (http://www.herve-thouzard.com/)
+ * @copyright       HervÃ© Thouzard (http://www.herve-thouzard.com/)
  * @license         http://www.fsf.org/copyleft/gpl.html GNU public license
  * @package         oledrion
- * @author 			Hervé Thouzard (http://www.herve-thouzard.com/)
+ * @author 			HervÃ© Thouzard (http://www.herve-thouzard.com/)
  *
  * Version : $Id:
  * ****************************************************************************
  */
 
 /**
- * Actions relatives aux TVA (affichage, édition, suppression)
+ * Actions relatives aux TVA (affichage, Ã©dition, suppression)
  */
 if(!defined("OLEDRION_ADMIN")) exit();
 switch($action) {
@@ -135,7 +135,7 @@ switch($action) {
 			oledrion_utils::redirect(_AM_OLEDRION_ERROR_1, $baseurl, 5);
 		}
 		$opRedirect = 'vat';
-		// On vérifie que cette TVA n'est pas utilisée par des produits
+		// On vÃ©rifie que cette TVA n'est pas utilisÃ©e par des produits
 		$cnt = $h_oledrion_vat->getVatProductsCount($id);
 		if($cnt == 0) {
 			$item = null;
