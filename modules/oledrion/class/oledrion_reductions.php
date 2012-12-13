@@ -2,7 +2,7 @@
 /**
  * ****************************************************************************
  * oledrion - MODULE FOR XOOPS
- * Copyright (c) Hervé Thouzard (http://www.herve-thouzard.com/)
+ * Copyright (c) Hervé Thouzard of Instant Zero (http://www.instant-zero.com)
  *
  * You may not change or alter any portion of this comment or credits
  * of supporting developers from this source code or any supporting source code
@@ -11,10 +11,10 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  *
- * @copyright       Hervé Thouzard (http://www.herve-thouzard.com/)
+ * @copyright       Hervé Thouzard of Instant Zero (http://www.instant-zero.com)
  * @license         http://www.fsf.org/copyleft/gpl.html GNU public license
  * @package         oledrion
- * @author 			Hervé Thouzard (http://www.herve-thouzard.com/)
+ * @author 			Hervé Thouzard of Instant Zero (http://www.instant-zero.com)
  *
  * Version : $Id:
  * ****************************************************************************
@@ -384,7 +384,7 @@ class oledrion_reductions
 	 *
 	 * TODO: Passer les paramètres sous forme d'objet
 	 */
-	function computeCart(&$cartForTemplate, &$emptyCart, &$shippingAmount, &$commandAmount, &$vatAmount, &$goOn, &$commandAmountTTC, &$discountsDescription, &$discountsCount, &$ecotaxeAmount, &$discountAmount, &$totalSavings )
+	function computeCart(&$cartForTemplate, &$emptyCart, &$shippingAmount, &$commandAmount, &$vatAmount, &$goOn, &$commandAmountTTC, &$discountsDescription, &$discountsCount)
 	{
 		$emptyCart = false;
 		$goOn = '';
@@ -403,31 +403,27 @@ class oledrion_reductions
 		// Chargement des objets produits associés aux produits du panier et calcul des quantités par catégorie
 		$this->loadProductsAssociatedToCart();
 		// Chargement des TVA
-
-       // if (isset($_POST['cmd_country'])) {
 		$vats = $this->handlers->h_oledrion_vat->getCountryVats($_POST['cmd_country']);
-//        }
 		$oledrion_Currency = & oledrion_Currency::getInstance();
 		$caddyCount = count($this->cart);
 
 		// Initialisation des totaux généraux (ht, tva et frais de port)
-		$totalHT = $totalVAT = $totalShipping = $totalEcotaxe = $totalDiscountPrice = 0.0;
+		$totalHT = $totalVAT = $totalShipping = 0.0;
 
 		// Boucle sur tous les produits et sur chacune des règles pour calculer le prix du produit (et ses frais de port) et voir si on doit y appliquer une réduction
 		foreach($this->cart as $cartProduct) {
 			if(floatval($cartProduct['product']->getVar('product_discount_price', 'n')) > 0) {
-                $discountedPrice = floatval($cartProduct['product']->getVar('product_discount_price', 'n'));
-            }
+				$ht = floatval($cartProduct['product']->getVar('product_discount_price', 'n'));
+			} else {
 				$ht = floatval($cartProduct['product']->getVar('product_price', 'n'));
-
-
+			}
 			// S'il y a des options, on rajoute leur montant
 			$productAttributes = array();
 			if(is_array($cartProduct['attributes']) && count($cartProduct['attributes']) > 0) {
                 $ht += $this->handlers->h_oledrion_attributes->getProductOptionsPrice($cartProduct['attributes'], $cartProduct['product']->getVar('product_vat_id'), $productAttributes);
-                $discountedPrice += $this->handlers->h_oledrion_attributes->getProductOptionsPrice($cartProduct['attributes'], $cartProduct['product']->getVar('product_vat_id'), $productAttributes);
+
 			}
-            //$discountedPrice = $ht;
+            $discountedPrice = $ht;
 			$quantity = intval($cartProduct['qty']);
 
 			if(oledrion_utils::getModuleOption('shipping_quantity')) {
@@ -592,21 +588,13 @@ class oledrion_reductions
 				$vatAmount = 0.0;
 			}
 
-            if(floatval($cartProduct['product']->getVar('product_ecotaxe', 'n')) > 0) {
-            				$ecotaxe = floatval($cartProduct['product']->getVar('product_ecotaxe', 'n'));
-            } else {
-                $ecotaxe = 0.0;
-            			}
-
 			// Calcul du TTC du produit ((ht * qte) + tva + frais de port)
-			$totalPrice = floatval(($discountedPrice * $quantity) + $vatAmount + $ecotaxe + $discountedShipping);
+			$totalPrice = floatval(($discountedPrice * $quantity) + $vatAmount + $discountedShipping);
 
 			// Les totaux généraux
-			$totalHT += ($ht * $quantity);
-            $totalDiscountPrice += ($discountedPrice * $quantity);
+			$totalHT += ($discountedPrice * $quantity);
 			$totalVAT += $vatAmount;
 			$totalShipping += $discountedShipping;
-            $totalEcotaxe += $ecotaxe;
 
 			// Recherche des éléments associés au produit
 			$associatedVendor = $associatedCategory = $associatedManufacturers = array();
@@ -649,20 +637,22 @@ class oledrion_reductions
 			$productTemplate['discountedPriceFormated'] = $oledrion_Currency->amountForDisplay($discountedPrice);	// Prix unitaire HT AVEC réduction
 			$productTemplate['discountedPriceWithQuantityFormated'] = $oledrion_Currency->amountForDisplay($discountedPrice * $quantity);	// Prix HT AVEC réduction et la quantité
 
+         // Add by voltan
+         $productTemplate['discountedPriceFormatedOrg'] = $oledrion_Currency->amountForDisplay($ht - $discountedPrice);
+         $productTemplate['discountedPriceOrg'] = $ht - $discountedPrice;
+
 			$productTemplate['vatRate'] = $oledrion_Currency->amountInCurrency($vatRate);
 			$productTemplate['vatAmount'] = $vatAmount;
-            $productTemplate['ecotaxe'] = $ecotaxe;
 			$productTemplate['normalShipping'] = $cartProduct['product']->getVar('product_shipping_price', 'n');
 			$productTemplate['discountedShipping'] = $discountedShipping;
 			$productTemplate['totalPrice'] = $totalPrice;
 			$productTemplate['reduction'] = $reduction;
 			$productTemplate['templateProduct'] = $cartProduct['product']->toArray();
 
-			$productTemplate['vatAmountFormated'] = $oledrion_Currency->amountForDisplay($vatAmount);
-            $productTemplate['ecotaxeFormatted'] = $oledrion_Currency->amountForDisplay($ecotaxe);
+			$productTemplate['vatAmountFormated'] = $oledrion_Currency->amountInCurrency($vatAmount);
 			$productTemplate['normalShippingFormated'] = $oledrion_Currency->amountForDisplay($cartProduct['product']->getVar('product_shipping_price', 'n'));
 			$productTemplate['discountedShippingFormated'] = $oledrion_Currency->amountForDisplay($discountedShipping);
-			$productTemplate['totalPriceFormated'] = $oledrion_Currency->amountForDisplay($totalPrice);
+			$productTemplate['totalPriceFormated'] = $oledrion_Currency->amountInCurrency($totalPrice);
 			$productTemplate['templateCategory'] = $associatedCategory;
 			$productTemplate['templateVendor'] = $associatedVendor;
 			$productTemplate['templateManufacturers'] = $associatedManufacturers;
@@ -679,11 +669,9 @@ class oledrion_reductions
 						if($rule->disc_price_amount_on == OLEDRION_DISCOUNT_PRICE_AMOUNT_ON_CART) {	// Règle à appliquer sur le panier
 							if($rule->disc_price_amount_type == OLEDRION_DISCOUNT_PRICE_REDUCE_PERCENT) {	// Réduction en pourcentage
 								$totalHT = $this->getDiscountedPrice($totalHT, $rule->getVar('disc_price_amount_amount'));
-                                $totalDiscountPrice = $this->getDiscountedPrice($totalDiscountPrice, $rule->getVar('disc_price_amount_amount'));
 								$totalVAT = $this->getDiscountedPrice($totalVAT, $rule->getVar('disc_price_amount_amount'));
 							} elseif($rule->disc_price_amount_type == OLEDRION_DISCOUNT_PRICE_REDUCE_MONEY) {	// Réduction d'un montant en euros
 								$totalHT -= floatval($rule->getVar('disc_price_amount_amount'));
-                                $totalDiscountPrice -= floatval($rule->getVar('disc_price_amount_amount'));
 								$totalVAT -= floatval($rule->getVar('disc_price_amount_amount'));
 							}
 
@@ -700,16 +688,12 @@ class oledrion_reductions
 		// Les totaux "renvoyés" à l'appelant
 		$shippingAmount = $totalShipping;
 		$commandAmount = $totalHT;
-        $discountAmount = $totalDiscountPrice;
-        $totalSavings = $totalHT - $totalDiscountPrice;
-        $ecotaxeAmount = $totalEcotaxe;
-        global $xoopsTpl;
-        $xoopsTpl->assign('totalEcotaxe', $totalEcotaxe);
-
+				
 		$vatAmount = $totalVAT;
-		$commandAmountTTC = $discountAmount + $totalVAT + $totalShipping + $totalEcotaxe;
+		$commandAmountTTC = $totalHT + $totalVAT + $totalShipping;
 		
 		$cartForTemplate = $this->cartForTemplate;
 		return true;
 	}
 }
+?>
