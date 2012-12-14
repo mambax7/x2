@@ -1134,7 +1134,7 @@ class oledrion_utils
 	{
 		global $xoopsTpl, $xoTheme;
 		if($url == '') {
-            $url = OLEDRION_URL.'include/oledrion.css';
+            $url = OLEDRION_URL.'css/oledrion.css';
 		}
 
 		if(!is_object($xoTheme)) {

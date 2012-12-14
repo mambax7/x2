@@ -278,8 +278,7 @@ if($handlers->h_oledrion_attributes->getProductAttributesCount($product_id) > 0)
     $attributes = $handlers->h_oledrion_attributes->constructHtmlProductAttributes($product, $mandatoryFieldsCount);
     if(count($attributes) > 0) {
         oledrion_utils::callJavascriptFile('validate/jquery.validate.min.js');
-        //$xoTheme->addStylesheet(OLEDRION_URL.'include/validate.css');
-        oledrion_utils::setCSS(OLEDRION_URL.'include/validate.css');
+        oledrion_utils::setCSS(OLEDRION_URL.'css/validate.css');
         $tbl_tmp['product_attributes'] = $attributes;
         $xoopsTpl->assign('mandatoryFieldsCount', $mandatoryFieldsCount);
     }
