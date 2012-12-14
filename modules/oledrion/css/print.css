@@ -111,6 +111,17 @@ pre {
 	padding: 8px 2px;
 }
 
+.attribute_options {
+	width: 100%;
+	direction: ltr  !important;
+	padding-right: 20px;
+}
+
+.attribute_options span {
+	float: left !important;
+	text-align: left !important;
+}
+
 .box {
 	width: 16px !important;
 	height: 16px !important;

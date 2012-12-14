@@ -230,9 +230,6 @@ switch($action) {
 		$handlers = oledrion_handler::getInstance();
 		$oledrion_Currency = oledrion_Currency::getInstance();
 		// Informations sur la commande ***************************************************************************************
-		$totalGross = '';
-		$totalDiscount = '';
-		
 		foreach($caddy as $itemCaddy) {
 			$productForTemplate = $tblJoin = $productManufacturers = $productAttributes = array();
 			$product = $products[$itemCaddy->getVar('caddy_product_id')];
@@ -254,17 +251,16 @@ switch($action) {
 				$productForTemplate['product_joined_manufacturers'] = implode(', ', $tblJoin);
 			}
 			$productForTemplate['product_caddy'] = $itemCaddy->toArray();
-			$discount = ($productForTemplate['product_caddy']['caddy_qte'] * $productForTemplate['product_final_price_ttc']) - (intval($productForTemplate['product_caddy']['caddy_price']));
-			$productForTemplate['product_caddy']['caddy_price_t'] = $oledrion_Currency->amountForDisplay($discount);
-			
-			$totalDiscount = $totalDiscount + $discount;
-			$totalGross = $totalGross + ($productForTemplate['product_caddy']['caddy_qte'] * $productForTemplate['product_final_price_ttc']);
-
+			if($productForTemplate['product_final_price_ttc']) {
+				$discount = ($productForTemplate['product_caddy']['caddy_qte'] * $productForTemplate['product_final_price_ttc']) - (intval($productForTemplate['product_caddy']['caddy_price']));
+				$discount = $discount / $productForTemplate['product_caddy']['caddy_qte'];
+			} else {
+				$discount = 0;	
+			}
+			$productForTemplate['product_caddy']['caddy_price_t'] = $oledrion_Currency->amountForDisplay($discount);	
 			$xoopsTpl->append('products', $productForTemplate);
 		}
 		$order = $order->toArray();
-		$order['total_gross'] = $oledrion_Currency->amountForDisplay($totalGross);
-		$order['total_discount'] = $oledrion_Currency->amountForDisplay($totalDiscount);
 		$xoopsTpl->assign('order', $order);
       // Call template file
       $xoopsTpl->display(XOOPS_ROOT_PATH . '/modules/oledrion/templates/admin/oledrion_order_print.html');

@@ -59,29 +59,17 @@
 		<{if count($product.product_attributes) > 0}>
 		<tr>
 			<td colspan='7'>
-				<ul>
 				<{foreach item=attribute from=$product.product_attributes}>
-					<li><{$attribute.attribute_title}>
 					<{foreach item=option from=$attribute.attribute_options}>
-						<div class="attribute_options"><{$option.ca_attribute_name}> : <{$option.ca_attribute_price_formated}></div>
+						<div class="attribute_options">
+							<span><{$option.ca_attribute_name}></span> : <span><{$option.ca_attribute_price_formated}></span>
+						</div>
 					<{/foreach}>
-					</li>			
 				<{/foreach}>
-				</ul>
 			</td>
 		</tr>
 		<{/if}>
 		<{/foreach}>
-		<tr>
-			<td class="bold">جمع نا خالص</td>
-			<td colspan="5">&nbsp;</td>
-			<td class="center bold"><{$order.total_gross}></td>
-		</tr>
-		<tr>
-			<td class="bold">مبلغ تخفیف</td>
-			<td colspan="5">&nbsp;</td>
-			<td class="center bold"><{$order.total_discount}></td>
-		</tr>
 		<tr>
 			<td class="bold">قابل پرداخت</td>
 			<td colspan="5">&nbsp;</td>
