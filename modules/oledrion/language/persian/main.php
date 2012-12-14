@@ -2,7 +2,7 @@
 /**
  * ****************************************************************************
  * oledrion - MODULE FOR XOOPS
- * Copyright (c) Herv Thouzard (http://www.herve-thouzard.com/)
+ * Copyright (c) Herv Thouzard of Instant Zero (http://www.instant-zero.com)
  *
  * You may not change or alter any portion of this comment or credits
  * of supporting developers from this source code or any supporting source code
@@ -11,10 +11,10 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  *
- * @copyright       Herv Thouzard (http://www.herve-thouzard.com/)
+ * @copyright       Herv Thouzard of Instant Zero (http://www.instant-zero.com)
  * @license         http://www.fsf.org/copyleft/gpl.html GNU public license
  * @package         oledrion
- * @author 			Herv Thouzard (http://www.herve-thouzard.com/)
+ * @author 			Herv Thouzard of Instant Zero (http://www.instant-zero.com)
  *
  * Version : $Id:
  * ****************************************************************************
@@ -48,7 +48,7 @@ define("_OLEDRION_NORATING","هیچ عددی انتخاب نشده است.");
 define("_OLEDRION_EDIT","ویرایش");
 define("_OLEDRION_DELETE","حذف");
 define("_OLEDRION_ADD","اضافه");
-define("_OLEDRION_SAVE","ذخیره");
+define("_OLEDRION_SAVE","کنترل نهایی");
 define("_OLEDRION_ONLINE","آنلاین");
 define("_OLEDRION_OFFLINE","آف‌لاین");
 
@@ -59,11 +59,11 @@ define("_OLEDRION_TYPE","نوع");
 define("_OLEDRION_MANUFACTURER","تولید کننده");
 define("_OLEDRION_MANUFACTURER_INF","اطلاعات در مورد تولید کننده");
 define("_OLEDRION_NUMBER","SKU");
-define("_OLEDRION_EXTRA_ID","شناسهٔ اضافی");
+define("_OLEDRION_EXTRA_ID","بارکد");
 define("_OLEDRION_WIDTH","عرض");
 define("_OLEDRION_LENGTH","طول");
 define("_OLEDRION_PRICE","قیمت");
-define("_OLEDRION_SHIPPING_PRICE","هزینه ارسال");
+define("_OLEDRION_SHIPPING_PRICE","هزینه ارسال (ریال)");
 define("_OLEDRION_DISCOUNT_PRICE","تخفیف");
 define("_OLEDRION_COVER_PICTURE","تصویر کاور");
 define("_OLEDRION_COVER_THUMB","تصور بند انگشتی کاور");
@@ -77,7 +77,7 @@ define("_OLEDRION_DOWNLOAD_URL","اضافه کردم یک فایل برای دا
 define("_OLEDRION_VAT","ماليات");
 define("_OLEDRION_ATTACHED_FILE","فایل پیوست شد");
 define("_OLEDRION_MANUFACTURERS","تولید کننده");
-define("_OLEDRION_RELATED_PRODUCTS","محصولات وابسته");
+define("_OLEDRION_RELATED_PRODUCTS","محصولات مرتبط");
 
 define("_OLEDRION_GROUP","گروه زوپس");
 define("_OLEDRION_DISCOUNT1","به کار بردن تخفیف از ");
@@ -104,7 +104,7 @@ define("_OLEDRION_FORMAT","شکل");
 define("_OLEDRION_SUMMARY","خلاصه");
 define("_OLEDRION_CART","سبد خرید");
 define("_OLEDRION_RSS_FEED","خوراک RSS");
-define("_OLEDRION_BY"," به وسیله ");
+define("_OLEDRION_BY"," تولید کننده ");
 define("_OLEDRION_ADD_TO_CART","اضافه کردن به سبد خرید");
 define("_OLEDRION_ERROR1","خطا، این محصول موجود نیست");
 define("_OLEDRION_ERROR2","خطا، این محصول آنلاین نیست");
@@ -131,8 +131,8 @@ define("_OLEDRION_ERROR22","خطا, شما نمیتوانید این فهرست 
 define("_OLEDRION_ERROR23","متاسفانه این صفحه برای کاربران عضو سایت دردسترس است");
 define("_OLEDRION_ERROR24","خطا, شما باید یک عنوان برای فهرست خود انتخاب کنید");
 define("_OLEDRION_ERROR25","خطا, شما سازنده این فهرست نیستید");
-define("_OLEDRION_ERROR26","خطا, این محصول هم اکنون در فهرست وجود دارد");
-define("_OLEDRION_ERROR27","یک خطا در اضافه کردن این محصول به فهرست روی داده است, لطفا با ما تماس بگیرید");
+define("_OLEDRION_ERROR26", "خطا, این محصول هم اکنون در فهرست وجود دارد");
+define("_OLEDRION_ERROR27", "یک خطا در اضافه کردن این محصول به فهرست روی داده است, لطفا با ما تماس بگیرید");
 
 define("_OLEDRION_OTHER_INFORMATIONS","اطلاعات دیگر");
 define("_OLEDRION_ONEVOTE","1 رای");
@@ -141,8 +141,8 @@ define("_OLEDRION_RATINGC","رتبه: ");
 define("_OLEDRION_NORATE","متاسفانه شما نمی‌توانید رای دهید");
 define("_OLEDRION_THANKYOU","از شما به خاطر وقتی که برای رای دادن در%s گذاشتید، متشکریم");
 define("_OLEDRION_ONLINE_HLP","نمایش در سایت ؟");
-define("_OLEDRION_URL","صفحه خارجی");
-define("_OLEDRION_OTHER_PRODUCTS","محصولات دیگر");
+define("_OLEDRION_URL", "صفحه خارجی");
+define("_OLEDRION_OTHER_PRODUCTS", "محصولات دیگر");
 define("_OLEDRION_PREVIOUS_PRODUCT","محصولات قبلی");
 define("_OLEDRION_NEXT_PRODUCT","محصولات بعدی");
 define("_OLEDRION_RECENT_CATEGS","محصولات جدید در همه شاخه‌ها");
@@ -156,7 +156,7 @@ define("_OLEDRION_MOST_SOLD","بیشترین محصولات فروخته شده"
 define("_OLEDRION_MOST_VIEWED","بیشترین محصولات دیده شده");
 define("_OLEDRION_MOST_RATED","محصولات دارای بیشترین رای");
 define("_OLEDRION_READ_MORE","ادامه ...");
-define("_OLEDRION_SORRY_NO_PRODUCT","متاسفانه هیچ محصولی در این شاخه نیست");
+define("_OLEDRION_SORRY_NO_PRODUCT","");
 define("_OLEDRION_CATEGORIES","شاخه‌ها");
 define("_OLEDRION_CATALOG","کاتالوگ‌های محصولات ما");
 define("_OLEDRION_CATALOG_HLP","برای عوض کردن نوع سفارش بر روی بالای ستون کلیک کنید");
@@ -164,38 +164,38 @@ define("_OLEDRION_PDF_CATALOG","کاتالوگ PDF محصولات ما");
 define("_OLEDRION_PDF_CATALOG1","فقط خلاصه");
 define("_OLEDRION_PDF_CATALOG2","خلاصه و توضیحات کامل");
 define("_OLEDRION_PDF_GETIT","این را بگیر");
-define("_OLEDRION_QUANTITY","مقدار");
-define("_OLEDRION_TOTAL","مجموع");
+define("_OLEDRION_QUANTITY","تعداد");
+define("_OLEDRION_TOTAL","جمع فاکتور : ");
 define("_OLEDRION_TEXT","متن");
 define("_OLEDRION_ALL_MANUFACTURERS","همهٔ تولیدکنندگان");
 define("_OLEDRION_ALL_CATEGORIES","همهٔ شاخه‌ها");
 define("_OLEDRION_ALL_VENDORS","همهٔ فروشندگان");
 define("_OLEDRION_CART_IS_EMPTY","سبد سفارش شما خالی است");
-define("_OLEDRION_EMPTY_CART_SURE","آیا واقعا می‌خواهید سبد خرید خود را خالی کنید؟");
-define("_OLEDRION_EMPTY_ITEM_SURE","آیا واقعا می‌خواهید این مورد را حذف کنید؟");
-define("_OLEDRION_ITEMS","موارد");
-define("_OLEDRION_REMOVE_ITEM","حذف این مورد");
-define("_OLEDRION_SUBTOTAL","جمع جزئی");
-define("_OLEDRION_QTE_MODIFIED","آیا شما تعداد را تغییر داده‌اید؟");
-define("_OLEDRION_UPDATE","به روز کردن");
-define("_OLEDRION_EMPTY_CART","سبد خرید خالی است");
-define("_OLEDRION_GO_ON","خرید خود را ادامه دهید");
-define("_OLEDRION_CHECKOUT","ادامه برای بررسی نهایی");
-define("_OLEDRION_UNIT_PRICE","واحد پول بدون مالیات");
-define("_OLEDRION_UNIT_PRICE2","واحد پول با تخفیف");
-define("_OLEDRION_CART1","مقدار بدون مالیات");
-define("_OLEDRION_CART2","ماليات Rate");
-define("_OLEDRION_CART3","تعداد رای");
-define("_OLEDRION_CART4","شما این تخفیف‌ها را دارید:");
-define("_OLEDRION_VALIDATE_CMD","معتبرسازی خرید");
+define("_OLEDRION_EMPTY_CART_SURE", "آیا واقعا می‌خواهید سبد خرید خود را خالی کنید؟");
+define("_OLEDRION_EMPTY_ITEM_SURE", "آیا واقعا می‌خواهید این مورد را حذف کنید؟");
+define("_OLEDRION_ITEMS", "نام محصول");
+define("_OLEDRION_REMOVE_ITEM", "حذف این مورد");
+define("_OLEDRION_SUBTOTAL", "جمع جزئی");
+define("_OLEDRION_QTE_MODIFIED", "آیا شما تعداد سفارش را تغییر داده‌اید؟");
+define("_OLEDRION_UPDATE", "به روز کردن سبد خرید");
+define("_OLEDRION_EMPTY_CART", "خالی کردن سبد خرید");
+define("_OLEDRION_GO_ON", "ادامه خرید");
+define("_OLEDRION_CHECKOUT", "پرداخت");
+define("_OLEDRION_UNIT_PRICE", "فی واحد (ریال)");
+define("_OLEDRION_UNIT_PRICE2", "قیمت واحد با تخفیف (ریال)");
+define("_OLEDRION_CART1", "مقدار بدون مالیات");
+define("_OLEDRION_CART2", "ماليات Rate");
+define("_OLEDRION_CART3", "تعداد رای");
+define("_OLEDRION_CART4", "سبد خرید شما مشمول تخفیف می شود. ");
+define("_OLEDRION_VALIDATE_CMD", "معتبرسازی خرید");
 define("_OLEDRION_DETAILS_EMAIL","شما اطلاعات سفارش خود را به وسیلهٔ پست الکترونیکی دریافت خواهید کرد");
 define("_OLEDRION_PLEASE_ENTER","لطفا اطلاعات زیر را برای معتبرسازی بررسی نهایی وارد نمایید.");
 define("_OLEDRION_STREET","آدرس");
 define("_OLEDRION_CP","کد پستی");
 define("_OLEDRION_CITY","شهر");
 define("_OLEDRION_COUNTRY","کشور");
-define("_OLEDRION_PHONE","شماره تلفن");
-define("_OLEDRION_INVOICE","آیا شما صورت حساب نیاز دارید؟");
+define("_OLEDRION_PHONE","شماره تلفن ( ترجیحا موبایل )");
+define("_OLEDRION_INVOICE","درخواست فاکتور ؟");
 define("_OLEDRION_COPY_COUNT","کپی");
 define("_OLEDRION_THANKYOU_CMD","به خاطر سفارش در وب سایت %s از شما متشکریم");
 define("_OLEDRION_NEW_COMMAND","خرید جدید در سایت");
@@ -223,62 +223,72 @@ define("_OLEDRION_REQUIRED","* فیلد های لازم");
 define("_OLEDRION_QUANTITY_STOCK","موجودی این کالا : %d");
 define("_OLEDRION_SUBTRACT","کم کردن");
 define("_OLEDRION_PROBLEM_QTY","مشکلی با تعداد سفارش شما وجود دارد، ما نمی‌توانیم این تعداد برای شما ارسال کنیم");
-define('_OLEDRION_VALIDATE_COMMAND',"تایید سفارش");
-define('_OLEDRION_CGV',"وضعیت کلی فروش");
+define('_OLEDRION_VALIDATE_COMMAND', "تایید سفارش");
+define('_OLEDRION_CGV', "وضعیت کلی فروش");
 define("_OLEDRION_DUPLICATE_PRODUCT","نسخه دوم از محصول");
 define("_OLEDRION_DUPLICATE_DISCOUNT","نسخه دوم از تخفیف");
 define("_OLEDRION_HITS","بازدید");
 define("_OLEDRION_PRODUCT_ID","شناسهٔ محصول");
 define("_OLEDRION_COMM_NAME","نام تجاری");
 define("_OLEDRION_YOU_CAN_DOWNLOAD","شما می‌توانید محصولات خود را از لینک مقابل دانلود کنید:");
+define("_OLEDRION_LABLE","توجه");
+define("_OLEDRION_LABLE_INFO","مشتری گرامی جهت سهولت در تایید سفارش و ارسال کالا لطفا شماره ی تلفن همراه خود را وارد نمایید ، همچنین اگر از تلفن ثابت استفاده می نمایید لطفا اعضای خانواده و یا همکاران خود را از این سفارش مطلع سازید در غیر این صورت تاخیر در تایید و ارسال سفارش به عهده ی شما خواهد بود .<br /> همچنین لازم به ذکر است  مسئولین فروش در روزهای اداری از ساعت ۹ الی ۱۷ پاسخگوی شما خواهند بود");
 
-define("_OLEDRION_IS_RECOMMENDED","این محصول سفارش شده است");
-define("_OLEDRION_RECOMMENDED","محصولات سفارش شده");
-define("_OLEDRION_SEEMORE_RECOMM","مشاهدهٔ دیگر محصولات سفارش شده");
+define("_OLEDRION_IS_RECOMMENDED", "این محصول سفارش شده است");
+define("_OLEDRION_RECOMMENDED", "محصولات سفارش شده");
+define("_OLEDRION_SEEMORE_RECOMM", "مشاهدهٔ دیگر محصولات سفارش شده");
 define("_OLEDRION_PRODUCT","محصول");
 
-define("_OLEDRION_PAY_ONLINE","آیا شما می‌خواهید به صورت آنلاین پرداخت کنید؟");
-define("_OLEDRION_FINISH","ثبت سفارش شما به پایان رسید");
+define("_OLEDRION_PAY_ONLINE","پرداخت بصورت آنلاین ؟");
+define("_OLEDRION_FINISH","تایید نهایی");
 
 define("_OLEDRION_ECOTAXE","Ecotaxe");
 define("_OLEDRION_DELIVERY_TIME","زمان تحویل");
 define("_OLEDRION_IN_DAYS","در روز");
 define("_OLEDRION_DAYS","روز");
 define("_OLEDRION_RELOAD_PERSISTENT","با کلیک بر روی لینک زیر، می‌توانید آخرین سبد خرید خود را مشاهده کنید");
-define("_OLEDRION_SORRY_NOPICTURE","ما واقعا متاسفیم. هیچ تصویری برای این محصول وجود ندارد");
+define("_OLEDRION_SORRY_NOPICTURE", "ما واقعا متاسفیم. هیچ تصویری برای این محصول وجود ندارد");
 
 define("_OLEDRION_ATTACHED_FILES","فایل پیوست شده");
 define("_OLEDRION_MUSIC","موسیقی");
 define("_OLEDRION_VAT_NUMBER","عدد مالیات بر ارزش افزوده");
 define("_OLEDRION_DUPLICATE_ATTRIBUTE","تکثیر ویژگی ها");
 define("_OLEDRION_NA","NA");    // Like in Excel
-define("_OLEDRION_VAT_AMOUNT","مقدار مالیات بر ارزش افزوده");
-define("_OLEDRION_AMOUNT_WITHOUT_VAT","مقدار معاف از مالیات");
-define("_OLEDRION_PLEASE_FILL_FIELD","تکمیل این فیلد ضروری است");    // Text used in Javascript
-define("_OLEDRION_VALIDATE_ERROR1","شما برخی از فایل های اجباری را<br />تکمیل نکرده اید");
-define("_OLEDRION_MANDATORY_MISSED","You have not filled out the field '%s'");
+define("_OLEDRION_VAT_AMOUNT", "مقدار مالیات بر ارزش افزوده");
+define("_OLEDRION_AMOUNT_WITHOUT_VAT", "مقدار معاف از مالیات");
+define("_OLEDRION_PLEASE_FILL_FIELD", "تکمیل این فیلد ضروری است");    // Text used in Javascript
+define("_OLEDRION_VALIDATE_ERROR1", "شما برخی از فایل های اجباری را<br />تکمیل نکرده اید");
+define("_OLEDRION_MANDATORY_MISSED", "You have not filled out the field '%s'");
 
-define("_OLEDRION_VIEW","مشاهده");
-define("_OLEDRION_LIST_PRIVATE","خصوصی");
-define("_OLEDRION_LIST_PUBLIC_WISH_LIST","فهرست درخواست ها");
-define("_OLEDRION_LIST_PUBLIC_RECOMMENDED_LIST","فهرست توصیه شده");
-define("_OLEDRION_LIST","List");
-define("_OLEDRION_PROD_IN_THIS_LIST","محصولات این فهرست");
-define("_OLEDRION_OTHER_LIST_FTUSER","فهرست های دیگر این کاربر");
-define("_OLEDRION_CREATE_NEW_LIST","ساخت فهرست جدید");
-define("_OLEDRION_EDIT_LIST","ویرایش فهرست");
-define("_OLEDRION_ADD_LIST","اضافه کردن فهرست");
-define("_OLEDRION_LIST_PASSWORD","واژه رمز");
-define("_OLEDRION_LIST_TYPE","نوع فهرست");
-define("_OLEDRION_CHECK_PRODUCTS","برسی محصولاتی که میخواهید حذف کنید");
-define("_OLEDRION_DELETE_LIST","آیا واقعا میخواهید این فهرست رو حذف کنید؟");
-define("_OLEDRION_ADD_TO_LIST","اضافه کردن به فهرست درخواست ها");
-define("_OLEDRION_PRODUCT_DO_ADD","محصولی که میخواهید به فهرست اضافه کنید");
-define("_OLEDRION_WHAT_TO_DO","میخواهید چه کار کنید؟");
-define("_OLEDRION_ADD_TO","اضافه کردن به");
-define("_OLEDRION_ADD_PRODUCT_LIST","اضافه کردن محصول به فهرست");
-define("_OLEDRION_PRODUCT_LIST_ADD_OK","این محصول قبلا به فهرست شما اضافه شده است");
-define("_OLEDRION_PRODUCTS_COUNT","%u محصول");
+define("_OLEDRION_VIEW", "مشاهده");
+define("_OLEDRION_LIST_PRIVATE", "خصوصی");
+define("_OLEDRION_LIST_PUBLIC_WISH_LIST", "فهرست درخواست ها");
+define("_OLEDRION_LIST_PUBLIC_RECOMMENDED_LIST", "فهرست توصیه شده");
+define("_OLEDRION_LIST", "List");
+define("_OLEDRION_PROD_IN_THIS_LIST", "محصولات این فهرست");
+define("_OLEDRION_OTHER_LIST_FTUSER", "فهرست های دیگر این کاربر");
+define("_OLEDRION_CREATE_NEW_LIST", "ساخت فهرست جدید");
+define("_OLEDRION_EDIT_LIST", "ویرایش فهرست");
+define("_OLEDRION_ADD_LIST", "اضافه کردن فهرست");
+define("_OLEDRION_LIST_PASSWORD", "واژه رمز");
+define("_OLEDRION_LIST_TYPE", "نوع فهرست");
+define("_OLEDRION_CHECK_PRODUCTS", "برسی محصولاتی که میخواهید حذف کنید");
+define("_OLEDRION_DELETE_LIST", "آیا واقعا میخواهید این فهرست رو حذف کنید؟");
+define("_OLEDRION_ADD_TO_LIST", "اضافه کردن به فهرست درخواست ها");
+define("_OLEDRION_PRODUCT_DO_ADD", "محصولی که میخواهید به فهرست اضافه کنید");
+define("_OLEDRION_WHAT_TO_DO", "میخواهید چه کار کنید؟");
+define("_OLEDRION_ADD_TO", "اضافه کردن به");
+define("_OLEDRION_ADD_PRODUCT_LIST", "اضافه کردن محصول به فهرست");
+define("_OLEDRION_PRODUCT_LIST_ADD_OK", "این محصول قبلا به فهرست شما اضافه شده است");
+define("_OLEDRION_PRODUCTS_COUNT", "%u محصول");
 
-define("_OLEDRION_PLUGINS_ERROR_1","خطا, رویداد ناشناس: %s");
+define("_OLEDRION_PLUGINS_ERROR_1", "خطا, رویداد ناشناس: %s");
+
+define('_OLEDRION_PRODUCT_PROPERTY1', "جنسیت");
+define('_OLEDRION_PRODUCT_PROPERTY2', "نوع عطر");
+define('_OLEDRION_PRODUCT_PROPERTY3', "رایحه");
+define('_OLEDRION_PRODUCT_PROPERTY4', "فصل");
+define('_OLEDRION_PRODUCT_PROPERTY5', "قیمت");
+define('_OLEDRION_FROM', "قیمت از ( ریال )");
+define('_OLEDRION_TO', "قیمت تا ( ریال )");
 ?>

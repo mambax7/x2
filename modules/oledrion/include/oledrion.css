@@ -464,12 +464,16 @@ html>body div.widget_tableDiv {
 }
 
 #oledrion_caddy th {
-	background-color: #dd8a07;
+	/*
+        background-color: #dd8a07;
 	background-image: url(../images/bg-degrad-soft-orange.gif);
 	background-repeat: repeat-x;
 	background-position: left bottom;
+        */
+        background-color: #232832;
 	color: #FFF;
 	text-align: center;
+        /*
 	border-top-width: 1px;
 	border-right-width: 1px;
 	border-bottom-width: 1px;
@@ -482,6 +486,7 @@ html>body div.widget_tableDiv {
 	border-right-color: #E4BD74;
 	border-bottom-color: #b87c27;
 	border-left-color: #b87c27;
+        */
 }
 
 .oledrion_caddy-titles {
@@ -514,14 +519,19 @@ html>body div.widget_tableDiv {
 	font-size: 90%;
 	font-weight: normal;
 	text-transform: uppercase;
-	color: #FFFFFF;
+	/* 
+        color: #FFFFFF;
 	background-color: #f6b958;
 	border: 1px solid #B06C11;
 	background-image: url(../images/bg-degrad-input-orange.gif);
 	background-repeat: repeat-x;
 	background-position: left top;
+        */
+        color: #000;
+	background-color: #ccc;
+	border: 1px solid #666;
 }
-
+#btnCheckout, #btnGoOn, #btnEmpty, #btnUpdate {border: 0 !important;}
 .red-line {
 	background-color: #bd420e;
 	height: 2px;

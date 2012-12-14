@@ -191,14 +191,48 @@ switch($action) {
 	// ****************************************************************************************************************
 	case 'print':	// Print invoice
 	// ****************************************************************************************************************
-      xoops_cp_header();
-		oledrion_adminMenu(6);
-		$id = isset($_GET['id']) ? intval($_GET['id']) : 0;
-		if($id == 0) {
+	   xoops_cp_header();
+      error_reporting(0);
+      @$xoopsLogger->activated = false;
+		$cmdId = isset($_GET['id']) ? intval($_GET['id']) : 0;
+		if($cmdId == 0) {
 			oledrion_utils::redirect(_AM_OLEDRION_ERROR_1, $baseurl, 5);
 		}
-		$order = $h_oledrion_commands->get($id)->toArray();
-		$caddy = $h_oledrion_caddy->getCaddyFromCommand($id);
+		$order = null;
+      $order = $h_oledrion_commands->get($cmdId);
+		$caddy = $tmp = $products = $vats = $manufacturers = $tmp2 = $manufacturers = $productsManufacturers = array();
+
+		// Récupération des TVA
+		$vats = $h_oledrion_vat->getAllVats(new oledrion_parameters());
+		
+		// Récupération des caddy associés
+		$caddy = $h_oledrion_caddy->getCaddyFromCommand($cmdId);
+		if(count($caddy) == 0) {
+			oledrion_utils::redirect(_OLEDRION_ERROR11, 'index.php',6);
+		}
+		
+		// Récupération de la liste des produits associés
+		foreach($caddy as $item) {
+		    $tmp[] = $item->getVar('caddy_product_id');
+		}
+		
+		// Recherche des produits ***********************************************************************************************
+		$products = $h_oledrion_products->getProductsFromIDs($tmp, true);
+		
+		// Recherche des fabricants **********************************************************************************************
+		$tmp2 = $h_oledrion_productsmanu->getFromProductsIds($tmp);
+		$tmp = array();
+		foreach($tmp2 as $item) {
+			$tmp[] = $item->getVar('pm_manu_id');
+			$productsManufacturers[$item->getVar('pm_product_id')][] = $item;
+		}
+		$manufacturers = $h_oledrion_manufacturer->getManufacturersFromIds($tmp);
+		$handlers = oledrion_handler::getInstance();
+		$oledrion_Currency = oledrion_Currency::getInstance();
+		// Informations sur la commande ***************************************************************************************
+		$totalGross = '';
+		$totalDiscount = '';
+		
 		foreach($caddy as $itemCaddy) {
 			$productForTemplate = $tblJoin = $productManufacturers = $productAttributes = array();
 			$product = $products[$itemCaddy->getVar('caddy_product_id')];
@@ -220,12 +254,22 @@ switch($action) {
 				$productForTemplate['product_joined_manufacturers'] = implode(', ', $tblJoin);
 			}
 			$productForTemplate['product_caddy'] = $itemCaddy->toArray();
+			$discount = ($productForTemplate['product_caddy']['caddy_qte'] * $productForTemplate['product_final_price_ttc']) - (intval($productForTemplate['product_caddy']['caddy_price']));
+			$productForTemplate['product_caddy']['caddy_price_t'] = $oledrion_Currency->amountForDisplay($discount);
+			
+			$totalDiscount = $totalDiscount + $discount;
+			$totalGross = $totalGross + ($productForTemplate['product_caddy']['caddy_qte'] * $productForTemplate['product_final_price_ttc']);
+
 			$xoopsTpl->append('products', $productForTemplate);
 		}
+		$order = $order->toArray();
+		$order['total_gross'] = $oledrion_Currency->amountForDisplay($totalGross);
+		$order['total_discount'] = $oledrion_Currency->amountForDisplay($totalDiscount);
 		$xoopsTpl->assign('order', $order);
       // Call template file
       $xoopsTpl->display(XOOPS_ROOT_PATH . '/modules/oledrion/templates/admin/oledrion_order_print.html');
       exit();
+      xoops_cp_footer();
 		break;
 }
 ?>

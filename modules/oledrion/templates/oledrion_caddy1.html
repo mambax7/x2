@@ -1,6 +1,17 @@
 <div class="oledrion">
-	<!-- Created by Instant Zero (http://www.instant-zero.com) -->
-	<div class="breadcrumb"><{$breadcrumb}></div>
+	<!-- Created by Hervé Thouzard (http://www.herve-thouzard.com/) -->
+	<!-- Breadcrumb -->
+	<table cellspacing="0" class="breadcrumbT">
+	<tr>
+		<td class="breadcrumb_01"></td>
+	    <td class="breadcrumb_02"><div id="productshoop_breadcrumb"><{$breadcrumb}></div></td>
+	    <td class="breadcrumb_03"></td>
+	</tr>
+	<tr>
+	    <td colspan="3" class="red-line"></td>
+	</tr>
+	</table>
+	<!-- /Breadcrumb -->
 	<{if $global_advert != ''}>
 		<div class='global_advert center'><{$global_advert}></div>
 	<{/if}>
@@ -22,7 +33,11 @@
 			<th><span class="oledrion_caddy-titles"><{$smarty.const._OLEDRION_QUANTITY}></span></th>
 			<th><span class="oledrion_caddy-titles"><{$smarty.const._OLEDRION_CART1}></span></th>
 			<th><span class="oledrion_caddy-titles"><{$smarty.const._OLEDRION_CART2}></span></th>
-			<th><span class="oledrion_caddy-titles"><{$smarty.const._OLEDRION_CART3}></th>
+			<th><span class="oledrion_caddy-titles"><{$smarty.const._OLEDRION_CART3}></span></th>
+            <{if $totalEcotaxe != 0 }>
+            <th><span class="oledrion_caddy-titles"><{$smarty.const._OLEDRION_ECOTAXE}></span></th>
+            <{/if}>
+
 			<th><span class="oledrion_caddy-titles"><{$smarty.const._OLEDRION_SHIPPING_PRICE}></span></th>
 			<th colspan="2"><span class="oledrion_caddy-titles"><{$smarty.const._OLEDRION_PRICE}></span></th>
 		</tr>
@@ -34,14 +49,17 @@
 				</div>
 				<div class="oledrion_productauthor"><{if $product.manufacturersJoinList != ''}><{$smarty.const._OLEDRION_BY}> <{$product.manufacturersJoinList}><{/if}></div>
 			</td>
-			<td><div class="oledrion_productprice" class="right"><{$product.unitBasePriceFormated}></div></td>
-			<td><div class="oledrion_productprice" class="right"><{$product.discountedPriceFormated}></div></td>
+			<td><div class="oledrion_productprice" align="right"><{$product.unitBasePriceFormated}></div></td>
+			<td><div class="oledrion_productprice" align="right"><{$product.discountedPriceFormated}></div></td>
 			<td class="center"><input type="text" name="qty_<{$product.number}>" id="qty_<{$product.number}>" value="<{$product.product_qty}>" size="3" /></td>
-			<td><div class="oledrion_productprice" class="right"><{$product.discountedPriceWithQuantityFormated}></div></td>
-			<td class='right'><{$product.vatRate}></td>
-			<td><div class="oledrion_productprice" class="right"><{$product.vatAmountFormated}></div></td>
-			<td><div class="oledrion_productprice" class="right"><{$product.discountedShippingFormated}></div></td>
-			<td ><div class="oledrion_productprice" class="right"><{$product.totalPriceFormated}></div></td>
+			<td><div class="oledrion_productprice" align="right"><{$product.discountedPriceWithQuantityFormated}></div></td>
+			<td align='right'><{$product.vatRate}></td>
+			<td><div class="oledrion_productprice" align="right"><{$product.vatAmountFormated}></div></td>
+
+            <{if $totalEcotaxe != 0 }><td><div class="oledrion_productprice" align="right"><{$product.ecotaxeFormatted}></div></td><{/if}>
+
+			<td><div class="oledrion_productprice" align="right"><{$product.discountedShippingFormated}></div></td>
+			<td ><div class="oledrion_productprice" align="right"><{$product.totalPriceFormated}></div></td>
 			<td><a href="<{$smarty.const.OLEDRION_URL}>caddy.php?op=delete&product_id=<{$product.number}>" <{$confirm_delete_item}> title="<{$smarty.const._OLEDRION_REMOVE_ITEM}>"><img src="<{$smarty.const.OLEDRION_IMAGES_URL}>cartdelete.png" alt="<{$smarty.const._OLEDRION_REMOVE_ITEM}>" /></td>
 		</tr>
 		<{if count($product.attributes) > 0}>
@@ -61,13 +79,23 @@
 		<{/if}>	
 		<{/foreach}>
 		<tr class="oledrion_carttotal">
-			<td colspan="4"><h3><{$smarty.const._OLEDRION_TOTAL}></h3></td>
-			<td class="right" vclass="middle"><{$commandAmount}></td>
+			<td class="oledrion_productauthor"><{$smarty.const._OLEDRION_TOTAL}></td>
+			<td class="oledrion_productauthor right middle"><{$commandAmount}></td>
+            <td class="oledrion_productauthor right middle"><{$discountAmount}></td>
 			<td>&nbsp;</td>
-			<td class="right" vclass="middle"><{$vatAmount}></td>
-			<td class="right" vclass="middle"><{$shippingAmount}></td>
-			<td colspan="2" class="right" vclass="middle"><{$commandAmountTTC}></td>
+            <td class="oledrion_productauthor right middle"><{$discountAmount}></td>
+			<td colspan="2" class="oledrion_productauthor right middle"><{$vatAmount}></td>
+            <{if $totalEcotaxe != 0 }>
+            <td class="oledrion_productauthor right middle"><{$ecotaxeAmount}></td>
+            <{/if}>
+			<td class="oledrion_productauthor right middle"><{$shippingAmount}></td>
+			<td colspan="2" class="oledrion_productauthor right middle"><{$commandAmountTTC}></td>
 		</tr>
+            <tr>
+                <td  colspan="2" class="oledrion_productauthor right middle"><span style= 'color: #FF0000'>You have saved:   </span> </td>
+
+                <td class="oledrion_productauthor right middle"><span style= 'color: #FF0000'>  <{$totalSavings}> </span></td>
+            </tr>
 		<tr>
 			<td colspan="8">
 				<{$smarty.const._OLEDRION_QTE_MODIFIED}>
