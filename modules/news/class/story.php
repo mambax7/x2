@@ -682,7 +682,7 @@ class NewsStoryHandler extends XoopsPersistableObjectHandler {
       $access_topic = NewsPermission::News_GetItemIds ( 'news_view', $NewsModule);
 		if(in_array($story_infos['story_topic'], $access_topic)) {
 			$criteria = new CriteriaCompo ();
-	      //$criteria->add ( new Criteria ( 'story_id', $story_infos['story_id'] , '>=' ));
+	      $criteria->add ( new Criteria ( 'story_id', $story_infos['story_id'] , '>=' ));
 	      $criteria->add ( new Criteria ( 'story_topic', $story_infos['story_topic'] ) );
 			$criteria->add ( new Criteria ( 'story_modid', $NewsModule->getVar ( 'mid' ) ) );
 			$criteria->add ( new Criteria ( 'story_status', '1' ) );

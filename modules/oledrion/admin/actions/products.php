@@ -130,7 +130,7 @@ switch($action) {
 
 		$criteria->setLimit($limit);
 		$criteria->setStart($start);
-		$criteria->setSort('product_title');
+		$criteria->setSort('product_id');
 
 		$products = $h_oledrion_products->getObjects($criteria);
 		$class = '';

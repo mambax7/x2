@@ -144,7 +144,7 @@ switch($op) {
 			 while ($row = $xoopsDB->fetchArray($result)) {
 				 $items[$i]['title'] = $row['title'];
 				 $items[$i]['type'] = 'cat';
-				 $items[$i]['link'] = XOOPS_URL . '/modules/oledrion/manufacturer.php?manu_id=' . $row['id'];
+				 $items[$i]['link'] = XOOPS_URL . '/modules/oledrion/category.php?cat_cid=' . $row['id'];
 				 $items[$i]['image'] = XOOPS_URL . '/uploads/' . $row['image'];
 				 $items[$i]['price'] = '';
 				 $i++;
