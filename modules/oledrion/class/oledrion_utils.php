@@ -237,7 +237,8 @@ class oledrion_utils
         	$proxy_ip = $_SERVER['HTTP_COMING_FROM'];
    		}
 		$regs = array();
-   		if (!empty($proxy_ip) && $is_ip = ereg('^([0-9]{1,3}\.){3,3}[0-9]{1,3}', $proxy_ip, $regs) && count($regs) > 0) {
+   	//if (!empty($proxy_ip) && $is_ip = ereg('^([0-9]{1,3}\.){3,3}[0-9]{1,3}', $proxy_ip, $regs) && count($regs) > 0) {
+		if (!empty($proxy_ip) && filter_var($proxy_ip, FILTER_VALIDATE_IP) && count($regs) > 0) {
 			$the_IP = $regs[0];
 		} else {
    			$the_IP = $_SERVER['REMOTE_ADDR'];
@@ -813,10 +814,11 @@ class oledrion_utils
 		$content = htmlentities($content);	// TODO: Vérifier
 		$content = preg_replace('/&([a-zA-Z])(uml|acute|grave|circ|tilde);/','$1',$content);
 		$content = html_entity_decode($content);
-		$content = eregi_replace('quot',' ', $content);
-		$content = eregi_replace("'",' ', $content);
-		$content = eregi_replace('-',' ', $content);
-		$content = eregi_replace('[[:punct:]]','', $content);
+		$content = preg_replace('/quot/i',' ', $content);
+ 		$content = preg_replace("/'/i",' ', $content);
+ 		$content = preg_replace('/-/i',' ', $content);
+ 		$content = preg_replace('/[[:punct:]]/i','', $content);
+
 		// Selon option mais attention au fichier .htaccess !
 		// $content = eregi_replace('[[:digit:]]','', $content);
 		$content = preg_replace("/[^a-z|A-Z|0-9]/",'-', $content);

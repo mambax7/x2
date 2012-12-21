@@ -31,48 +31,61 @@
 			<div class="pad2"><{$smarty.const._OLEDRION_VAT_NUMBER}> : <{$order.cmd_vat_number}></div>
 		<{/if}>
 		<div class="pad2"><span class="bold">شهر</span> : <{$order.cmd_town}></div>
+      <div class="pad2"><span class="bold">کد پستی</span> : <{$order.cmd_zip}></div>
 		<div class="pad2"><span class="bold">تلفن</span> : <{$order.cmd_telephone}></div>
 		<div class="pad2"><span class="bold">ایمیل</span> : <{$order.cmd_email}></div>
+      <div class="pad2"><span class="bold">درخواست فاکتور</span> : <{if $order.cmd_bill == 1}>دارد<{else}>ندارد<{/if}></div>
 	</div>
    
    <div id="print-factor">
-		<table>
+		<table class="center">
 		<tr>
+		   <th class="center">بارکد</th>
 			<th class="center">نام محصول</th>
-			<th class="center">تولید کننده</th>
-			<th class="center">ID محصول</th>
+			<th class="center">شماره</th>
+			<th class="center">حجم</th>
 			<th class="center">فی واحد</th>
 			<th class="center">فی تخفیف</th>
 			<th class="center">تعداد</th>
 			<th class="center">مبلغ</th>
 		</tr>
 		<{foreach item=product from=$products}>
+		<{if count($product.product_attributes) > 0}>
 		<tr>
-			<td class="right"><{$product.product_title}></td>
-			<td class="center"><{$product.product_joined_manufacturers}></td>
+			<td rowspan="<{math equation='x + y' x=$product.product_attributes_count y=1}>" class="center"><{$product.product_extraid}></td>
+			<td rowspan="<{math equation='x + y' x=$product.product_attributes_count y=1}>" class="center"><{$product.product_joined_manufacturers}> <{$product.product_title}></td>
+			<td rowspan="<{math equation='x + y' x=$product.product_attributes_count y=1}>" class="center"><{$product.product_id}></td>
+			<td class="center" style="border-bottom-color: #fff;"></td>
+			<td class="center" style="border-bottom-color: #fff;"></td>
+			<td class="center" style="border-bottom-color: #fff;"></td>
+			<td rowspan="<{math equation='x + y' x=$product.product_attributes_count y=1}>" class="center"><{$product.product_caddy.caddy_qte}></td>
+			<td rowspan="<{math equation='x + y' x=$product.product_attributes_count y=1}>" class="center"><{$product.product_caddy.caddy_price_fordisplay}></td>
+		</tr>
+		<{foreach item=attribute from=$product.product_attributes}>
+		<{foreach item=option from=$attribute.attribute_options}>
+		<tr>
+			<td class="center"><{$option.ca_attribute_name}></td>
+			<td class="center"><{$option.ca_attribute_price_formated}></td>
+         <td> - </td>
+      </tr>
+		<{/foreach}>
+		<{/foreach}>
+		<{else}>
+		<tr>
+			<td class="center"><{$product.product_extraid}></td>
+			<td class="center"><{$product.product_joined_manufacturers}> <{$product.product_title}></td>
 			<td class="center"><{$product.product_id}></td>
+			<td class="center"><{$product.product_weight}> <{$product.product_unitmeasure1}></td>
 			<td class="center"><{$product.product_price_ttc}></td>
 			<td class="center"><{$product.product_caddy.caddy_price_t}></td>
 			<td class="center"><{$product.product_caddy.caddy_qte}></td>
 			<td class="center"><{$product.product_caddy.caddy_price_fordisplay}></td>
 		</tr>
-		<{if count($product.product_attributes) > 0}>
-		<tr>
-			<td colspan='7'>
-				<{foreach item=attribute from=$product.product_attributes}>
-					<{foreach item=option from=$attribute.attribute_options}>
-						<div class="attribute_options">
-							<span><{$option.ca_attribute_name}></span> : <span><{$option.ca_attribute_price_formated}></span>
-						</div>
-					<{/foreach}>
-				<{/foreach}>
-			</td>
-		</tr>
 		<{/if}>
 		<{/foreach}>
 		<tr>
-			<td class="bold">قابل پرداخت</td>
-			<td colspan="5">&nbsp;</td>
+		   <td class="center bold">قابل پرداخت</td>
+			<td colspan="6" >&nbsp;</td>
 			<td class="center bold"><{$order.cmd_total_fordisplay}></td>
 		</tr>
 		</table>

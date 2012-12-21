@@ -41,10 +41,10 @@ $modversion['dirmoduleadmin'] = '/Frameworks/moduleclasses/moduleadmin';
 $modversion['icons16']        = '../../Frameworks/moduleclasses/icons/16';
 $modversion['icons32']        = '../../Frameworks/moduleclasses/icons/32';
 //about
-$modversion['release_date']        = '2012/05/09';
-$modversion["module_website_url"]  = "http://www.xoops.org/";
+$modversion['release_date']        = '2012/12/21';
+$modversion["module_website_url"]  = "www.xoops.org";
 $modversion["module_website_name"] = "XOOPS";
-$modversion["module_status"]       = "Beta 2";
+$modversion["module_status"]       = "Beta 3";
 $modversion['min_php']             = '5.2';
 $modversion['min_xoops']           = "2.5.5";
 $modversion['min_admin']           = '1.1';

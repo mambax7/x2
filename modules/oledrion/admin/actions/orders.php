@@ -239,6 +239,7 @@ switch($action) {
 		        $productAttributes = $handlers->h_oledrion_caddy_attributes->getFormatedAttributesForCaddy($itemCaddy->getVar('caddy_id'), $product);
 			}
 			$productForTemplate['product_attributes'] = $productAttributes;
+			$productForTemplate['product_attributes_count'] = count($productAttributes[0]['attribute_options']);
 		
 			$productManufacturers = $productsManufacturers[$product->getVar('product_id')];
 			foreach($productManufacturers as $oledrion_productsmanu) {
@@ -259,6 +260,11 @@ switch($action) {
 			}
 			$productForTemplate['product_caddy']['caddy_price_t'] = $oledrion_Currency->amountForDisplay($discount);	
 			$xoopsTpl->append('products', $productForTemplate);
+			/* 
+			echo '<pre>';
+			print_r($productForTemplate);
+			echo '</pre>';
+			*/
 		}
 		$order = $order->toArray();
 		$xoopsTpl->assign('order', $order);

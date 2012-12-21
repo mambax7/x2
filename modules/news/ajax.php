@@ -39,7 +39,7 @@ if(!empty($op)) {
 		   $story_infos =  array();
 		   $story_infos['story_id'] = NewsUtils::News_CleanVars ( $_REQUEST, 'storyid', 0, 'int' );
 		   $story_infos['story_topic'] = NewsUtils::News_CleanVars ( $_REQUEST, 'storytopic', 0, 'int' );
-		   $story_infos['story_limit'] = NewsUtils::News_CleanVars ( $_REQUEST, 'limit', 20, 'int' );
+		   $story_infos['story_limit'] = NewsUtils::News_CleanVars ( $_REQUEST, 'limit', 50, 'int' );
 		   $return = $story_handler->News_Json($NewsModule, $story_infos);
 			break;
 	}

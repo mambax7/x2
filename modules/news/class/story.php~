@@ -679,11 +679,11 @@ class NewsStoryHandler extends XoopsPersistableObjectHandler {
 	 */
 	function News_Json($NewsModule, $story_infos) {
 		$ret = array ();
-      //$access_topic = NewsPermission::News_GetItemIds ( 'news_view', $NewsModule);
-		//if(in_array($story_infos['story_topic'], $access_topic)) {
+      $access_topic = NewsPermission::News_GetItemIds ( 'news_view', $NewsModule);
+		if(in_array($story_infos['story_topic'], $access_topic)) {
 			$criteria = new CriteriaCompo ();
 	      $criteria->add ( new Criteria ( 'story_id', $story_infos['story_id'] , '>=' ));
-	      //$criteria->add ( new Criteria ( 'story_topic', $story_infos['story_topic'] ) );
+	      $criteria->add ( new Criteria ( 'story_topic', $story_infos['story_topic'] ) );
 			$criteria->add ( new Criteria ( 'story_modid', $NewsModule->getVar ( 'mid' ) ) );
 			$criteria->add ( new Criteria ( 'story_status', '1' ) );
 	      $criteria->add ( new Criteria ( 'story_publish', 0 , '>' ));
@@ -706,7 +706,7 @@ class NewsStoryHandler extends XoopsPersistableObjectHandler {
 					$ret[] = $json;
 				}
 			}
-		//}	
+		}	
 		return json_encode($ret);
 	} 
 	

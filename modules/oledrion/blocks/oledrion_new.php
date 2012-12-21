@@ -33,7 +33,7 @@ function b_oledrion_new_show($options)
 	$categoryId = $options[1];
 	$thisMonthOnly = intval($options[2]);
 
-	$oledrion_shelf_parameters->resetDefaultValues()->setProductsType('recent')->setStart($start)->setLimit($limit)->setSort('product_submitted DESC, product_title')->setCategory($categoryId)->setThisMonthOnly($thisMonthOnly);
+	$oledrion_shelf_parameters->resetDefaultValues()->setProductsType('recent')->setStart($start)->setLimit($limit)->setSort('product_id DESC, product_title')->setCategory($categoryId)->setThisMonthOnly($thisMonthOnly);
 	$products = $oledrion_shelf->getProducts($oledrion_shelf_parameters);
 	if(isset($products['lastTitle'])) {
 		unset($products['lastTitle']);
