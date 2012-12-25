@@ -188,7 +188,8 @@ switch($op) {
 			 $criteria->add(new Criteria('product_id', $start , '>=' ));
           $criteria->add(new Criteria('product_online', 1));
 			 $criteria->setSort('product_id');
-			 $criteria->setOrder('DESC');
+			 $criteria->setOrder('ASC');
+			 $criteria->setLimit($limit);
 			 $obj = $h_oledrion_products->getObjects($criteria, false);
 			 if ($obj) {
 				 foreach ($obj as $root) {

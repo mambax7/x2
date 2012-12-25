@@ -291,4 +291,9 @@ define('_OLEDRION_PRODUCT_PROPERTY4', "فصل");
 define('_OLEDRION_PRODUCT_PROPERTY5', "قیمت");
 define('_OLEDRION_FROM', "قیمت از ( ریال )");
 define('_OLEDRION_TO', "قیمت تا ( ریال )");
+
+define("_OLEDRION_QUANTITYS","موجودی");
+define("_OLEDRION_QUANTITYALL","همه موارد");
+define("_OLEDRION_QUANTITY1","موجود");
+define("_OLEDRION_QUANTITY2","نا موجود");
 ?>

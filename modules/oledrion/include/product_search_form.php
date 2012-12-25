@@ -67,6 +67,16 @@ $sform->addElement($languageSelect, false);
 //
 $sform->addElement(new XoopsFormText(_OLEDRION_FROM,'product_from', 10, 10, ''), false);
 $sform->addElement(new XoopsFormText(_OLEDRION_TO,'product_to', 10, 10, ''), false);
+
+
+$stockselect = new XoopsFormSelect(_OLEDRION_QUANTITYS, 'product_stock', 1);
+$stockselect->addOption(1,_OLEDRION_QUANTITYALL);
+$stockselect->addOption(2,_OLEDRION_QUANTITY1);
+$stockselect->addOption(0,_OLEDRION_QUANTITY2);
+$sform->addElement($stockselect, false);
+
+
+
 //
 if(oledrion_utils::getModuleOption('product_property1')) {
    $property1select = new XoopsFormSelect(_OLEDRION_PRODUCT_PROPERTY1, 'product_property1', '');

@@ -106,7 +106,13 @@ if((isset($_POST['op']) && $_POST['op'] == 'go') || isset($_GET['start'])) {	// 
       		$sql .= ' AND (product_price < '.$product_to.')';
       	}
       }	
-
+      
+      if($_POST['product_stock'] == 2) {
+	      $sql .= ' AND (product_stock > 0)';	
+      } elseif($_POST['product_stock'] == 0) {
+	      $sql .= ' AND (product_stock = 0)';	
+      }		
+      	
 		if(isset($_POST['product_property1'])) {
 		    if( $_POST['product_property1'] ) {
     			$sql .= ' AND (b.product_property1 = "'.$_POST['product_property1'].'")';

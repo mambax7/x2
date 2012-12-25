@@ -281,4 +281,9 @@ define("_OLEDRION_PRODUCT_LIST_ADD_OK","این محصول قبلا به فهرس
 define("_OLEDRION_PRODUCTS_COUNT","%u محصول");
 
 define("_OLEDRION_PLUGINS_ERROR_1","خطا, رویداد ناشناس: %s");
+
+define("_OLEDRION_QUANTITYS","موجودی");
+define("_OLEDRION_QUANTITYALL","همه موارد");
+define("_OLEDRION_QUANTITY1","موجود");
+define("_OLEDRION_QUANTITY2","نا موجود");
 ?>
