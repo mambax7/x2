@@ -27,7 +27,7 @@ if (!defined('XOOPS_ROOT_PATH')) {
 $moduleDirName = basename( dirname( __FILE__ ) ) ;
 
 $modversion['name'] = _MI_CONTACT_NAME;
-$modversion['version'] = 1.8;
+$modversion['version'] = 1.81;
 $modversion['description'] = _MI_CONTACT_DESC;
 $modversion['credits'] = 'The XOOPS Project, Mohtava Project';
 $modversion['author'] = 'Kazumi Ono (Onokazu), modified by Trabis, rewritten by Voltan';

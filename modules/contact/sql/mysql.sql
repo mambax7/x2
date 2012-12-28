@@ -16,5 +16,6 @@ CREATE TABLE contact (
 	contact_message text NOT NULL,
 	contact_address text NOT NULL,
 	contact_reply tinyint(1) NOT NULL,
+	contact_platform enum('Android','Ios','Web') NOT NULL DEFAULT 'Web',
    PRIMARY KEY  (contact_id)
 ) ENGINE=MyISAM;

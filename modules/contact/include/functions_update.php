@@ -24,7 +24,7 @@
 function xoops_module_update_contact($module, $version) {
 
 	 if($version < 180) {
-		 $db =& Database::getInstance();
+		 $xoopsDB = Database::getInstance();
 		 $sql = "CREATE TABLE " . $xoopsDB->prefix('contact') . " (
 				contact_id int(10) unsigned NOT NULL auto_increment,
 				contact_uid int(10) NOT NULL,
@@ -45,9 +45,14 @@ function xoops_module_update_contact($module, $version) {
 				contact_reply tinyint(1) NOT NULL,
 			   PRIMARY KEY  (contact_id)
 			) ENGINE=MyISAM;";	
-	 	 $db->query($sql); 
+	 	 $xoopsDB->query($sql); 
 	 }
+	 
+	 if($version < 181) {
+	 	$xoopsDB = Database::getInstance();
+	 	$sql = "ALTER TABLE `" . $xoopsDB->prefix('contact') . "` ADD `contact_platform` ENUM('Android','Ios','Web') NOT NULL DEFAULT 'Web'";
+	 	$xoopsDB->query($sql); 
+	 }	
 
 }
-
 ?>

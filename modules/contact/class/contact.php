@@ -47,6 +47,7 @@ class contact extends XoopsObject
 		$this->initVar("contact_message",XOBJ_DTYPE_TXTAREA, null, false);  
 		$this->initVar("contact_address",XOBJ_DTYPE_TXTAREA, null, false); 
 		$this->initVar("contact_reply",XOBJ_DTYPE_INT,null,false,1); 
+		$this->initVar("contact_platform",XOBJ_DTYPE_ENUM,null,false,'','',array('Android','Ios','Web')); 
 	   
 	   $this->db = $GLOBALS ['xoopsDB'];
 		$this->table = $this->db->prefix ( 'contact' );
@@ -200,10 +201,14 @@ class ContactContactHandler extends XoopsPersistableObjectHandler
 	            break;
 	        case 'text':    
 		         $ret = (isset($global[$key])) ? htmlentities($global[$key], ENT_QUOTES, 'UTF-8') : $default;
-	            break;                          
+	            break; 
+	        case 'platform':
+	            $ret = (isset($global[$key])) ? $this->Contact_Platform($global[$key]) : $this->Contact_Platform($default);
+	            break;                           
 	        case 'int': default:
 	            $ret = (isset($global[$key])) ? filter_var($global[$key], FILTER_SANITIZE_NUMBER_INT) : $default;
 	            break;
+	            
 	    }
 	    if ($ret === false) {
 	        return $default;
@@ -230,6 +235,7 @@ class ContactContactHandler extends XoopsPersistableObjectHandler
 		$contact['contact_ip'] = getenv ( "REMOTE_ADDR" );
 		$contact['contact_message'] = $this->Contact_CleanVars($_POST, 'contact_message', '', 'text');
       $contact['contact_address'] = $this->Contact_CleanVars($_POST, 'contact_address', '', 'text');
+      $contact['contact_platform'] = $this->Contact_CleanVars($_POST, 'contact_platform', 'Web', 'platform');
       return $contact;
 	}
 	
@@ -366,6 +372,28 @@ class ContactContactHandler extends XoopsPersistableObjectHandler
 			 $criteria->add ( new Criteria ( 'contact_reply', 1 ));
 		 }
 		$this->deleteAll($criteria);
+	}
+	
+	/**
+	* Contact Platform
+	*/
+	function Contact_Platform($platform) {
+	   $platform = strtolower($platform);
+	   switch($platform) {
+	   	case 'Android':
+		   	$ret = 'Android';
+		   	break;
+		   	
+	   	case 'Ios':
+		   	$ret = 'Ios';
+		   	break;
+		   	
+	   	case 'Web': 
+	   	default:
+		   	$ret = 'Web';
+		   	break;
+	   }	
+	   return $ret;
 	}
 
 }
