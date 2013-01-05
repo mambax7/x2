@@ -13,6 +13,8 @@ define('_MI_CONTACT_MENU_CONTACT',"Messages");
 define("_MI_CONTACT_MENU_CONTACT_DESC","List of Messages");
 define('_MI_CONTACT_MENU_TOOLS',"Purge");
 define("_MI_CONTACT_MENU_TOOLS_DESC","Purge Tools");
+define('_MI_CONTACT_MENU_LOGS',"Logs");
+define("_MI_CONTACT_MENU_LOGS_DESC","Get Logs");
 define("_MI_CONTACT_MENU_ABOUT",  "About");
 define("_MI_CONTACT_MENU_ABOUT_DESC" , "About this module");
 define("_MI_CONTACT_MENU_HELP","Help");

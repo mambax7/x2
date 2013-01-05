@@ -395,7 +395,33 @@ class ContactContactHandler extends XoopsPersistableObjectHandler
 	   }	
 	   return $ret;
 	}
-
+	
+	/**
+	* Contact logs
+	*/
+	function Contact_Logs($column, $timestamp = null) {
+		 $ret = array();
+		 if(!in_array($column, array('contact_mail', 'contact_url', 'contact_phone'))) {
+			 return $ret;
+       }
+		 $criteria = new CriteriaCompo();
+		 $criteria->add( new Criteria('contact_cid', '0'));
+		 if(!empty($timestamp)) {
+			 $criteria->add( new Criteria('contact_create', $timestamp, '<='));
+		 }
+		 $criteria->setSort('contact_create');
+		 $criteria->setOrder('DESC');
+		 $contacts = $this->getObjects($criteria, false);
+		 if ($contacts) {
+			 foreach ( $contacts as $root ) {
+			 	 $rootColumn = $root->getVar($column);
+			 	 if(!empty($rootColumn)) {
+					 $ret[] = $root->getVar($column);
+					 unset($root);
+			    }
+			 }	
+		 }
+		 return array_unique($ret);
+	}
 }
-
 ?>

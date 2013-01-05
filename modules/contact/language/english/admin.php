@@ -45,4 +45,10 @@ define("_AM_CONTACT_MSG_PRUNE_DELETED","%s messages deleted");
 define("_AM_CONTACT_TOOLS_PRUNE","Delete Messages");
 define("_AM_CONTACT_TOOLS_PRUNE_BEFORE","Delete messages that were published before");
 define("_AM_CONTACT_TOOLS_PRUNE_REPLYONLY","Delete only messages with replies");
+
+define("_AM_CONTACT_LOGS_FORM","Log form");
+define("_AM_CONTACT_LOGS_COLUME","Select Colume");
+define("_AM_CONTACT_LOGS_COLUME_PHONE","Phone");
+define("_AM_CONTACT_LOGS_COLUME_URL","URL");
+define("_AM_CONTACT_LOGS_COLUME_MAIL","Email");
 ?>
