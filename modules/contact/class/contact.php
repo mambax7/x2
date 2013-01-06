@@ -27,7 +27,7 @@ if (!defined("XOOPS_ROOT_PATH")) {
 class contact extends XoopsObject
 {
 	
-	function __construct()
+	public function __construct()
 	{
 		$this->XoopsObject();
 		$this->initVar("contact_id",XOBJ_DTYPE_INT,null,false,11); 
@@ -47,16 +47,16 @@ class contact extends XoopsObject
 		$this->initVar("contact_message",XOBJ_DTYPE_TXTAREA, null, false);  
 		$this->initVar("contact_address",XOBJ_DTYPE_TXTAREA, null, false); 
 		$this->initVar("contact_reply",XOBJ_DTYPE_INT,null,false,1); 
-		$this->initVar("contact_platform",XOBJ_DTYPE_ENUM,null,false,'','',array('Android','Ios','Web')); 
+		$this->initVar("contact_platform",XOBJ_DTYPE_ENUM,null,false,'','',array('Android','Ios','Web'));
+		$this->initVar("contact_type",XOBJ_DTYPE_ENUM,null,false,'','',array('Contact','Phone','Mail'));
 	   
 	   $this->db = $GLOBALS ['xoopsDB'];
 		$this->table = $this->db->prefix ( 'contact' );
 	}
 	
-	function Contact_ContactForm($department) {
-		
+	public function Contact_ContactForm($department) 
+	{
 		global $xoopsConfig, $xoopsOption, $xoopsUser;
-		 
 		if($this->isNew()) {
 			if(!empty($xoopsUser)) { 
 				$contact_uid =  $xoopsUser->getVar('uid');
@@ -130,7 +130,8 @@ class contact extends XoopsObject
 		return $form;
 	}	
 	
-	function Contact_ReplyForm() {
+	public function Contact_ReplyForm() 
+	{
 		global $xoopsConfig;
 		$form = new XoopsThemeForm(_AM_CONTACT_REPLY, 'doreply', 'contact.php', 'post', true);
 		$form->setExtra ( 'enctype="multipart/form-data"' );
@@ -154,7 +155,8 @@ class contact extends XoopsObject
 	 *
 	 * @return array
 	 **/
-	function toArray() {
+	public function toArray() 
+	{
 		$ret = array ();
 		$vars = $this->getVars ();
 		foreach ( array_keys ( $vars ) as $i ) {
@@ -166,7 +168,7 @@ class contact extends XoopsObject
 
 class ContactContactHandler extends XoopsPersistableObjectHandler
 {
-	function __construct(&$db)
+	public function __construct(&$db)
 	{
 		parent::__construct($db, "contact", 'contact', 'contact_id', 'contact_mail');
 	}
@@ -175,7 +177,8 @@ class ContactContactHandler extends XoopsPersistableObjectHandler
 	 * Get variables passed by GET or POST method
 	 *
 	 */
-	function Contact_CleanVars(&$global, $key, $default = '', $type = 'int') {
+	public function Contact_CleanVars(&$global, $key, $default = '', $type = 'int') 
+	{
 	
 	    switch ($type) {
 	        case 'array':
@@ -204,6 +207,9 @@ class ContactContactHandler extends XoopsPersistableObjectHandler
 	            break; 
 	        case 'platform':
 	            $ret = (isset($global[$key])) ? $this->Contact_Platform($global[$key]) : $this->Contact_Platform($default);
+	            break; 
+	        case 'type':
+	            $ret = (isset($global[$key])) ? $this->Contact_Type($global[$key]) : $this->Contact_Type($default);
 	            break;                           
 	        case 'int': default:
 	            $ret = (isset($global[$key])) ? filter_var($global[$key], FILTER_SANITIZE_NUMBER_INT) : $default;
@@ -216,7 +222,8 @@ class ContactContactHandler extends XoopsPersistableObjectHandler
 	    return $ret;
 	}
 	
-	function Contact_InfoProcessing($global) {
+	public function Contact_InfoProcessing($global) 
+	{
 		$contact = array();
       $contact['contact_cid'] = $this->Contact_CleanVars($_POST, 'contact_id', '', 'int');
       $contact['contact_uid'] = $this->Contact_CleanVars($_POST, 'contact_uid', '', 'int');
@@ -236,10 +243,12 @@ class ContactContactHandler extends XoopsPersistableObjectHandler
 		$contact['contact_message'] = $this->Contact_CleanVars($_POST, 'contact_message', '', 'text');
       $contact['contact_address'] = $this->Contact_CleanVars($_POST, 'contact_address', '', 'text');
       $contact['contact_platform'] = $this->Contact_CleanVars($_POST, 'contact_platform', 'Web', 'platform');
+      $contact['contact_type'] = $this->Contact_CleanVars($_POST, 'contact_type', 'Contact', 'type');
       return $contact;
 	}
 	
-	function Contact_SendMail($contact) {
+	public function Contact_SendMail($contact) 
+	{
 		$xoopsMailer = xoops_getMailer();
       $xoopsMailer->useMail();
       $xoopsMailer->setToEmails($this->Contact_ToEmails($contact['contact_department']));
@@ -255,7 +264,8 @@ class ContactContactHandler extends XoopsPersistableObjectHandler
       return $message;	
 	}
 	
-	function Contact_ReplyMail($contact) {
+	public function Contact_ReplyMail($contact) 
+	{
 		$xoopsMailer = xoops_getMailer();
       $xoopsMailer->useMail();
       $xoopsMailer->setToEmails($contact['contact_mailto']);
@@ -271,7 +281,8 @@ class ContactContactHandler extends XoopsPersistableObjectHandler
       return $message;	
 	}
 
-	function Contact_ToEmails($department = null) {
+	public function Contact_ToEmails($department = null) 
+	{
       global $xoopsConfig;
       $department_mail[] = $xoopsConfig['adminmail'];
 		if(!empty($department)) {
@@ -284,7 +295,8 @@ class ContactContactHandler extends XoopsPersistableObjectHandler
       return $department_mail;
    }
 	
-	function Contact_AddReply($contact_id) {
+	public function Contact_AddReply($contact_id) 
+	{
 		$obj = $this->get ( $contact_id );
 		$obj->setVar ( 'contact_reply', 1 );
 		if(!$this->insert ( $obj )) {
@@ -293,10 +305,12 @@ class ContactContactHandler extends XoopsPersistableObjectHandler
 		return true;
 	}	
 	
-	function Contact_GetReply($contact_id) {
+	public function Contact_GetReply($contact_id) 
+	{
 		
 		$criteria = new CriteriaCompo ();
 		$criteria->add ( new Criteria ( 'contact_cid', $contact_id ) );
+		$criteria->add ( new Criteria ( 'contact_type', 'Contact' ) );
 		$contacts = $this->getObjects ( $criteria, false );
 		if ($contacts) {
 			$ret = array ();
@@ -313,10 +327,12 @@ class ContactContactHandler extends XoopsPersistableObjectHandler
 		}	
 	}	
 	
-	function Contact_GetAdminList($contact , $id) {
+	public function Contact_GetAdminList($contact , $id) 
+	{
 		$ret = array ();
 		$criteria = new CriteriaCompo ();
 		$criteria->add ( new Criteria ( $id, '0' ) );
+		$criteria->add ( new Criteria ( 'contact_type', 'Contact' ) );
 		$criteria->setSort ( $contact['sort'] );
 		$criteria->setOrder ( $contact['order'] );
 		$criteria->setStart ( $contact['start'] );
@@ -337,23 +353,27 @@ class ContactContactHandler extends XoopsPersistableObjectHandler
 	/**
 	 * Get file Count
 	 */	
-	function Contact_GetCount($id) {
+	public function Contact_GetCount($id) 
+	{
 		$criteria = new CriteriaCompo ();
 		$criteria->add ( new Criteria ( $id, '0' ) );
+		$criteria->add ( new Criteria ( 'contact_type', 'Contact' ) );
 		return $this->getCount ( $criteria );
 	}
 	
 	/**
 	 * Get Insert ID
 	 */
-	function getInsertId() {
+	public function getInsertId() 
+	{
 		return $this->db->getInsertId ();
 	}	
 	
   /**
 	* Contact Prune Count
 	*/
-	function Contact_PruneCount($timestamp, $onlyreply) {
+	public function Contact_PruneCount($timestamp, $onlyreply) 
+	{
 		 $criteria = new CriteriaCompo ();
 		 $criteria->add ( new Criteria ( 'contact_create', $timestamp , '<=' ));
 		 if($onlyreply) {
@@ -365,7 +385,8 @@ class ContactContactHandler extends XoopsPersistableObjectHandler
   /**
 	* Contact Delete Before Date
 	*/
-	function Contact_DeleteBeforeDate($timestamp,$onlyreply) {
+	public function Contact_DeleteBeforeDate($timestamp, $onlyreply) 
+	{
 		 $criteria = new CriteriaCompo ();
 		 $criteria->add ( new Criteria ( 'contact_create', $timestamp , '<=' ));
 		 if($onlyreply) {
@@ -377,7 +398,8 @@ class ContactContactHandler extends XoopsPersistableObjectHandler
 	/**
 	* Contact Platform
 	*/
-	function Contact_Platform($platform) {
+	public function Contact_Platform($platform) 
+	{
 	   $platform = strtolower($platform);
 	   switch($platform) {
 	   	case 'Android':
@@ -397,9 +419,33 @@ class ContactContactHandler extends XoopsPersistableObjectHandler
 	}
 	
 	/**
+	* Contact type
+	*/
+	public function Contact_Type($type) 
+	{
+	   $type = strtolower($type);
+	   switch($type) {
+	   	case 'Mail':
+		   	$ret = 'Mail';
+		   	break;
+		   	
+	   	case 'Phone':
+		   	$ret = 'Phone';
+		   	break;
+		   	
+	   	case 'Contact': 
+	   	default:
+		   	$ret = 'Contact';
+		   	break;
+	   }	
+	   return $ret;
+	}
+	
+	/**
 	* Contact logs
 	*/
-	function Contact_Logs($column, $timestamp = null) {
+	public function Contact_Logs($column, $timestamp = null) 
+	{
 		 $ret = array();
 		 if(!in_array($column, array('contact_mail', 'contact_url', 'contact_phone'))) {
 			 return $ret;
