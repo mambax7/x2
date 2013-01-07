@@ -199,6 +199,101 @@ if (XOOPS_COMMENT_APPROVENONE != $xoopsModuleConfig['com_rule']) {
   </tr>
 </table>
 </form>';
+        
+         
+         
+         
+         
+         
+         // Start add by voltan
+	     	xoops_load('XoopsLists');
+			xoops_load('XoopsFormLoader');
+			xoops_loadLanguage('comment');
+			
+			if(file_exists($GLOBALS['xoops']->path('modules/' . $xoopsModule->getVar('dirname') . '/comment_fast.php'))) {
+				include_once $GLOBALS['xoops']->path('modules/' . $xoopsModule->getVar('dirname') . '/comment_fast.php');
+			}
+			if (isset($com_replytitle)) {
+				$myts =& MyTextSanitizer::getInstance();
+				$com_title = $myts->htmlSpecialChars($com_replytitle);
+				if (!preg_match("/^" . _RE . "/i", $com_title)) {
+					$com_title = _RE . " " . xoops_substr($com_title, 0, 56);
+				}
+			} else {
+				$com_title = '';
+			}
+			 
+			// set form
+			$cform = new XoopsThemeForm(_CM_POSTCOMMENT, "commentfastform", 'comment_post.php', 'post', true);
+			$cform->addElement(new XoopsFormElementTray(''));
+			if (isset($xoopsModuleConfig['com_rule'])) {
+			    include_once $GLOBALS['xoops']->path('include/comment_constants.php');
+			    switch ($xoopsModuleConfig['com_rule']) {
+			        case XOOPS_COMMENT_APPROVEALL:
+			            $rule_text = _CM_COMAPPROVEALL;
+			            break;
+			        case XOOPS_COMMENT_APPROVEUSER:
+			            $rule_text = _CM_COMAPPROVEUSER;
+			            break;
+			        case XOOPS_COMMENT_APPROVEADMIN:
+			        default:
+			            $rule_text = _CM_COMAPPROVEADMIN;
+			            break;
+			    }
+			    $cform->addElement(new XoopsFormLabel(_CM_COMRULES, $rule_text));
+			}
+			$cform->addElement(new XoopsFormText(_CM_TITLE, 'com_title', 50, 255, $com_title), true);
+			if (!$xoopsUser) {
+				$cform->addElement(new XoopsFormText(_CM_USER, 'com_user', 50, 60, ''), true);
+				$cform->addElement(new XoopsFormText(_CM_EMAIL, 'com_email', 50, 60, ''), true);	
+			}
+			$cform->addElement(new XoopsFormTextArea(_CM_MESSAGE, 'com_text', '', 10, 65), true);
+			if (!$xoopsUser) {
+			    $cform->addElement(new XoopsFormCaptcha());
+			}
+			
+			$cform->addElement(new XoopsFormHidden('com_id', 0));
+			$cform->addElement(new XoopsFormHidden('com_pid', 0));
+			$cform->addElement(new XoopsFormHidden('com_rootid', 0));
+			$cform->addElement(new XoopsFormHidden('com_order', 0));
+			$cform->addElement(new XoopsFormHidden('com_itemid', $com_itemid));
+			$cform->addElement(new XoopsFormHidden('com_mode', $com_mode));
+			$cform->addElement(new xoopsFormHidden('dohtml', 0));
+			$cform->addElement(new xoopsFormHidden('dobr', 0));
+			$cform->addElement(new xoopsFormHidden('dosmiley', 0));
+			$cform->addElement(new xoopsFormHidden('doxcode', 0));
+			
+			// add module specific extra params
+			if ('system' != $xoopsModule->getVar('dirname')) {
+			    $comment_config = $xoopsModule->getInfo('comments');
+			    if (isset($comment_config['extraParams']) && is_array($comment_config['extraParams'])) {
+			        $myts =& MyTextSanitizer::getInstance();
+			        foreach ($comment_config['extraParams'] as $extra_param) {
+			            // This routine is included from forms accessed via both GET and POST
+			            if (isset($_POST[$extra_param])) {
+			                $hidden_value = $myts->stripSlashesGPC($_POST[$extra_param]);
+			            } else if (isset($_GET[$extra_param])) {
+			                $hidden_value = $myts->stripSlashesGPC($_GET[$extra_param]);
+			            } else {
+			                $hidden_value = '';
+			            }
+			            $cform->addElement(new XoopsFormHidden($extra_param, $hidden_value));
+			        }
+			    }
+			}
+			
+			$button_tray = new XoopsFormElementTray('', '&nbsp;');
+			$button_tray->addElement(new XoopsFormButton('', 'com_dopreview', _PREVIEW, 'submit'));
+			$button_tray->addElement(new XoopsFormButton('', 'com_dopost', _CM_POSTCOMMENT, 'submit'));
+			$cform->addElement($button_tray);
+	      $xoopsTpl->assign('commentform', $cform->render());
+	      // End add by voltan
+	      
+	      
+	      
+	      
+
+        
         $xoopsTpl->assign(array(
             'commentsnav' => $navbar ,
             'editcomment_link' => 'comment_edit.php?com_itemid=' . $com_itemid . '&amp;com_order=' . $com_order . '&amp;com_mode=' . $com_mode . '' . $link_extra ,
@@ -220,9 +315,5 @@ if (XOOPS_COMMENT_APPROVENONE != $xoopsModuleConfig['com_rule']) {
             'lang_updated' => _CM_UPDATED ,
             'lang_notice' => _CM_NOTICE));
     }
-    
-    // Start add by voltan
-    include_once $GLOBALS['xoops']->path('include/comment_fast.php');
-    // End add by voltan
 }
 ?>

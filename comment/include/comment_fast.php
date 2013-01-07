@@ -25,6 +25,19 @@ xoops_load('XoopsLists');
 xoops_load('XoopsFormLoader');
 xoops_loadLanguage('comment');
 
+if(file_exists($GLOBALS['xoops']->path('modules/' . $xoopsModule->getVar('dirname') . '/comment_fast.php'))) {
+	include_once $GLOBALS['xoops']->path('modules/' . $xoopsModule->getVar('dirname') . '/comment_fast.php');
+}
+if (isset($com_replytitle)) {
+	$myts =& MyTextSanitizer::getInstance();
+	$com_title = $myts->htmlSpecialChars($com_replytitle);
+	if (!preg_match("/^" . _RE . "/i", $com_title)) {
+		$com_title = _RE . " " . xoops_substr($com_title, 0, 56);
+	}
+} else {
+	$com_title = '';
+}
+ 
 // set form
 $cform = new XoopsThemeForm(_CM_POSTCOMMENT, "commentfastform", 'comment_post.php', 'post', true);
 $cform->addElement(new XoopsFormElementTray(''));
@@ -44,7 +57,7 @@ if (isset($xoopsModuleConfig['com_rule'])) {
     }
     $cform->addElement(new XoopsFormLabel(_CM_COMRULES, $rule_text));
 }
-$cform->addElement(new XoopsFormText(_CM_TITLE, 'com_title', 50, 255, ''), true);
+$cform->addElement(new XoopsFormText(_CM_TITLE, 'com_title', 50, 255, $com_title), true);
 if (!$xoopsUser) {
 	$cform->addElement(new XoopsFormText(_CM_USER, 'com_user', 50, 60, ''), true);
 	$cform->addElement(new XoopsFormText(_CM_EMAIL, 'com_email', 50, 60, ''), true);	
