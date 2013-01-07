@@ -93,6 +93,10 @@ if (!empty($_POST)) {
     $dohtml = (isset($_POST['dohtml']) && intval($_POST['dohtml']) > 0) ? 1 : 0;
     $doimage = (isset($_POST['doimage']) && intval($_POST['doimage']) > 0) ? 1 : 0;
     $com_icon = isset($_POST['com_icon']) ? trim($_POST['com_icon']) : '';
+    // Start add by voltan
+    $com_user = isset($_POST['com_user']) ? htmlspecialchars(trim($_POST['com_user']), ENT_QUOTES) : '';
+    $com_email = isset($_POST['com_email']) ? htmlspecialchars(trim($_POST['com_email']), ENT_QUOTES) : '';
+    // End add by voltan
 } else {
     exit();
 }
