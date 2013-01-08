@@ -84,12 +84,7 @@ class news_story extends XoopsObject {
 		// Content type
 		$form->addElement ( new XoopsFormHidden ( 'story_type', $story_type ) );
 		// Content title
-		$title = new XoopsFormElementTray ( _NEWS_AM_CONTENT_FORMTITLE );
-		$title->addElement ( new XoopsFormText ( '', 'story_title', 50, 255, $this->getVar ( 'story_title', 'e' ) ), true );
-		$display_title = new XoopsFormCheckBox ( '', 'story_titleview', $this->getVar ( 'story_titleview', 'e' ) );
-		$display_title->addOption ( 1, _NEWS_AM_CONTENT_FORMTITLE_DISP );
-		$title->addElement ( $display_title );
-		$form->addElement ( $title );
+		$form->addElement ( new XoopsFormText ( _NEWS_AM_CONTENT_FORMTITLE, 'story_title', 50, 255, $this->getVar ( 'story_title', 'e' ) ), true );
 		// Content alias text
 		$form->addElement ( new XoopsFormText ( _NEWS_AM_CONTENT_FORMALIAS, 'story_alias', 50, 255, $this->getVar ( 'story_alias', 'e' ) ), true );
 		// subtitle
@@ -110,16 +105,32 @@ class news_story extends XoopsObject {
 			$form->addElement ( new XoopsFormHidden ( 'story_topic', 0 ) );
 		}	
 		// Short
-		$form->addElement ( new XoopsFormTextArea ( _NEWS_AM_CONTENT_SHORT, 'story_short', $this->getVar ( 'story_short', 'e' ), 10, 90 ) );
-		// Editor
-		$editor_tray = new XoopsFormElementTray ( _NEWS_AM_CONTENT_FORMTEXT, '<br />' );
+		$Short_editor_tray = new XoopsFormElementTray ( _NEWS_AM_CONTENT_SHORT, '<br />' );
+		if (class_exists ( 'XoopsFormEditor' )) {
+			$configs = array ('name' => 'story_desc', 'value' => $this->getVar ( 'story_short', 'e' ), 'rows' => 25, 'cols' => 90, 'width' => '100%', 'height' => '400px', 'editor' => xoops_getModuleOption ( 'form_editor', 'news' ) );
+			$Short_editor_tray->addElement ( new XoopsFormEditor ( '', 'story_short', $configs, false, $onfailure = 'textarea' ) );
+		} else {
+			$Short_editor_tray->addElement ( new XoopsFormDhtmlTextArea ( '', 'story_short', $this->getVar ( 'story_short', 'e' ), '100%', '100%' ) );
+		}
+		$form->addElement ($Short_editor_tray);
+		// Text
+		$text_editor_tray = new XoopsFormElementTray ( _NEWS_AM_CONTENT_FORMTEXT, '<br />' );
 		if (class_exists ( 'XoopsFormEditor' )) {
 			$configs = array ('name' => 'story_desc', 'value' => $this->getVar ( 'story_text', 'e' ), 'rows' => 25, 'cols' => 90, 'width' => '100%', 'height' => '400px', 'editor' => xoops_getModuleOption ( 'form_editor', 'news' ) );
-			$editor_tray->addElement ( new XoopsFormEditor ( '', 'story_text', $configs, false, $onfailure = 'textarea' ) );
+			$text_editor_tray->addElement ( new XoopsFormEditor ( '', 'story_text', $configs, false, $onfailure = 'textarea' ) );
 		} else {
-			$editor_tray->addElement ( new XoopsFormDhtmlTextArea ( '', 'story_text', $this->getVar ( 'story_text', 'e' ), '100%', '100%' ) );
+			$text_editor_tray->addElement ( new XoopsFormDhtmlTextArea ( '', 'story_text', $this->getVar ( 'story_text', 'e' ), '100%', '100%' ) );
 		}
-		$editor_tray->setDescription ( _NEWS_AM_CONTENT_FORMTEXT_DESC );
+		$text_editor_tray->setDescription ( _NEWS_AM_CONTENT_FORMTEXT_DESC );
+		$form->addElement ($text_editor_tray);
+		//tag
+		if ((xoops_getModuleOption ( 'usetag', 'news' )) and (is_dir ( XOOPS_ROOT_PATH . '/modules/tag' ))) {
+			$items_id = $this->isNew () ? 0 : $this->getVar ( "story_id" );
+			include_once XOOPS_ROOT_PATH . "/modules/tag/include/formtag.php";
+			$form->addElement ( new XoopsFormTag ( "item_tag", 60, 255, $items_id, $catid = 0 ) );
+		}
+		// options
+		$options = new XoopsFormElementTray ( _NEWS_AM_CONTENT_OPTIONS, '<br />' );
 		if (! NewsUtils::News_isEditorHTML (  )) {
 			if ($this->isNew ()) {
 				$this->setVar ( 'dohtml', 0 );
@@ -128,11 +139,11 @@ class news_story extends XoopsObject {
 			// HTML
 			$html_checkbox = new XoopsFormCheckBox ( '', 'dohtml', $this->getVar ( 'dohtml', 'e' ) );
 			$html_checkbox->addOption ( 1, _NEWS_AM_CONTENT_DOHTML );
-			$editor_tray->addElement ( $html_checkbox );
+			$options->addElement ( $html_checkbox );
 			// Break line
 			$breaks_checkbox = new XoopsFormCheckBox ( '', 'dobr', $this->getVar ( 'dobr', 'e' ) );
 			$breaks_checkbox->addOption ( 1, _NEWS_AM_CONTENT_BREAKS );
-			$editor_tray->addElement ( $breaks_checkbox );
+			$options->addElement ( $breaks_checkbox );
 		} else {
 			$form->addElement ( new xoopsFormHidden ( 'dohtml', 1 ) );
 			$form->addElement ( new xoopsFormHidden ( 'dobr', 0 ) );
@@ -140,23 +151,17 @@ class news_story extends XoopsObject {
 		// Xoops Image
 		$doimage_checkbox = new XoopsFormCheckBox ( '', 'doimage', $this->getVar ( 'doimage', 'e' ) );
 		$doimage_checkbox->addOption ( 1, _NEWS_AM_CONTENT_DOIMAGE );
-		$editor_tray->addElement ( $doimage_checkbox );
+		$options->addElement ( $doimage_checkbox );
 		// Xoops Code
 		$xcodes_checkbox = new XoopsFormCheckBox ( '', 'doxcode', $this->getVar ( 'doxcode', 'e' ) );
 		$xcodes_checkbox->addOption ( 1, _NEWS_AM_CONTENT_DOXCODE );
-		$editor_tray->addElement ( $xcodes_checkbox );
+		$options->addElement ( $xcodes_checkbox );
 		// Xoops Smiley
 		$smiley_checkbox = new XoopsFormCheckBox ( '', 'dosmiley', $this->getVar ( 'dosmiley', 'e' ) );
 		$smiley_checkbox->addOption ( 1, _NEWS_AM_CONTENT_DOSMILEY );
-		$editor_tray->addElement ( $smiley_checkbox );
+		$options->addElement ( $smiley_checkbox );
 		// Editor and options
-		$form->addElement ( $editor_tray );
-		//tag
-		if ((xoops_getModuleOption ( 'usetag', 'news' )) and (is_dir ( XOOPS_ROOT_PATH . '/modules/tag' ))) {
-			$items_id = $this->isNew () ? 0 : $this->getVar ( "story_id" );
-			include_once XOOPS_ROOT_PATH . "/modules/tag/include/formtag.php";
-			$form->addElement ( new XoopsFormTag ( "item_tag", 60, 255, $items_id, $catid = 0 ) );
-		}
+		$form->addElement ($options);
 		// Image
 		$story_img = $this->getVar ( 'story_img' ) ? $this->getVar ( 'story_img' ) : 'blank.gif';
 		$uploadirectory_story_img = xoops_getModuleOption ( 'img_dir', 'news' ) . '/original';
@@ -269,34 +274,63 @@ class news_story extends XoopsObject {
 			$form->addElement ( new XoopsFormHidden ( 'story_topic', 0 ) );
 		}	
 		// Short
-		$form->addElement ( new XoopsFormTextArea ( _NEWS_AM_CONTENT_SHORT, 'story_short', $this->getVar ( 'story_short', 'e' ), 10, 80 ) );
-		// Editor
-		$editor_tray = new XoopsFormElementTray ( _NEWS_AM_CONTENT_FORMTEXT, '<br />' );
+		$Short_editor_tray = new XoopsFormElementTray ( _NEWS_AM_CONTENT_SHORT, '<br />' );
 		if (class_exists ( 'XoopsFormEditor' )) {
-			$configs = array ('name' => 'story_desc', 'value' => $this->getVar ( 'story_text', 'e' ), 'rows' => 15, 'cols' => 80, 'width' => '95%', 'height' => '250px', 'editor' => xoops_getModuleOption ( 'form_editor', 'news' ) );
-			$editor_tray->addElement ( new XoopsFormEditor ( '', 'story_text', $configs, false, $onfailure = 'textarea' ) );
+			$configs = array ('name' => 'story_desc', 'value' => $this->getVar ( 'story_short', 'e' ), 'rows' => 25, 'cols' => 90, 'width' => '100%', 'height' => '400px', 'editor' => xoops_getModuleOption ( 'form_editor', 'news' ) );
+			$Short_editor_tray->addElement ( new XoopsFormEditor ( '', 'story_short', $configs, false, $onfailure = 'textarea' ) );
 		} else {
-			$editor_tray->addElement ( new XoopsFormDhtmlTextArea ( '', 'story_text', $this->getVar ( 'story_text', 'e' ), '100%', '100%' ) );
+			$Short_editor_tray->addElement ( new XoopsFormDhtmlTextArea ( '', 'story_short', $this->getVar ( 'story_short', 'e' ), '100%', '100%' ) );
 		}
-		$editor_tray->setDescription ( _NEWS_AM_CONTENT_FORMTEXT_DESC );
-		// Editor and options
-		$form->addElement ( $editor_tray );
-		if (! NewsUtils::News_isEditorHTML (  )) {
-			$form->addElement ( new xoopsFormHidden ( 'dohtml', 0 ) );
-			$form->addElement ( new xoopsFormHidden ( 'dobr', 1 ) );
+		$form->addElement ($Short_editor_tray);
+		// Text
+		$text_editor_tray = new XoopsFormElementTray ( _NEWS_AM_CONTENT_FORMTEXT, '<br />' );
+		if (class_exists ( 'XoopsFormEditor' )) {
+			$configs = array ('name' => 'story_desc', 'value' => $this->getVar ( 'story_text', 'e' ), 'rows' => 25, 'cols' => 90, 'width' => '100%', 'height' => '400px', 'editor' => xoops_getModuleOption ( 'form_editor', 'news' ) );
+			$text_editor_tray->addElement ( new XoopsFormEditor ( '', 'story_text', $configs, false, $onfailure = 'textarea' ) );
 		} else {
-			$form->addElement ( new xoopsFormHidden ( 'dohtml', 1 ) );
-			$form->addElement ( new xoopsFormHidden ( 'dobr', 0 ) );
+			$text_editor_tray->addElement ( new XoopsFormDhtmlTextArea ( '', 'story_text', $this->getVar ( 'story_text', 'e' ), '100%', '100%' ) );
 		}
-		$form->addElement ( new xoopsFormHidden ( 'doimage', 1 ) );
-		$form->addElement ( new xoopsFormHidden ( 'doxcode', 1 ) );
-		$form->addElement ( new xoopsFormHidden ( 'dosmiley', 1 ) );
+		$text_editor_tray->setDescription ( _NEWS_AM_CONTENT_FORMTEXT_DESC );
+		$form->addElement ($text_editor_tray);
 		//tag
 		if ((xoops_getModuleOption ( 'usetag', 'news' )) and (is_dir ( XOOPS_ROOT_PATH . '/modules/tag' ))) {
 			$items_id = $this->isNew () ? 0 : $this->getVar ( "story_id" );
 			include_once XOOPS_ROOT_PATH . "/modules/tag/include/formtag.php";
 			$form->addElement ( new XoopsFormTag ( "item_tag", 60, 255, $items_id, $catid = 0 ) );
 		}
+		// options
+		$options = new XoopsFormElementTray ( _NEWS_AM_CONTENT_OPTIONS, '<br />' );
+		if (! NewsUtils::News_isEditorHTML (  )) {
+			if ($this->isNew ()) {
+				$this->setVar ( 'dohtml', 0 );
+				$this->setVar ( 'dobr', 1 );
+			}
+			// HTML
+			$html_checkbox = new XoopsFormCheckBox ( '', 'dohtml', $this->getVar ( 'dohtml', 'e' ) );
+			$html_checkbox->addOption ( 1, _NEWS_AM_CONTENT_DOHTML );
+			$options->addElement ( $html_checkbox );
+			// Break line
+			$breaks_checkbox = new XoopsFormCheckBox ( '', 'dobr', $this->getVar ( 'dobr', 'e' ) );
+			$breaks_checkbox->addOption ( 1, _NEWS_AM_CONTENT_BREAKS );
+			$options->addElement ( $breaks_checkbox );
+		} else {
+			$form->addElement ( new xoopsFormHidden ( 'dohtml', 1 ) );
+			$form->addElement ( new xoopsFormHidden ( 'dobr', 0 ) );
+		}
+		// Xoops Image
+		$doimage_checkbox = new XoopsFormCheckBox ( '', 'doimage', $this->getVar ( 'doimage', 'e' ) );
+		$doimage_checkbox->addOption ( 1, _NEWS_AM_CONTENT_DOIMAGE );
+		$options->addElement ( $doimage_checkbox );
+		// Xoops Code
+		$xcodes_checkbox = new XoopsFormCheckBox ( '', 'doxcode', $this->getVar ( 'doxcode', 'e' ) );
+		$xcodes_checkbox->addOption ( 1, _NEWS_AM_CONTENT_DOXCODE );
+		$options->addElement ( $xcodes_checkbox );
+		// Xoops Smiley
+		$smiley_checkbox = new XoopsFormCheckBox ( '', 'dosmiley', $this->getVar ( 'dosmiley', 'e' ) );
+		$smiley_checkbox->addOption ( 1, _NEWS_AM_CONTENT_DOSMILEY );
+		$options->addElement ( $smiley_checkbox );
+		// Editor and options
+		$form->addElement ($options);
 		// Image
 		$story_img = $this->getVar ( 'story_img' ) ? $this->getVar ( 'story_img' ) : 'blank.gif';
 		$uploadirectory_story_img = xoops_getModuleOption ( 'img_dir', 'news' ) . '/original';

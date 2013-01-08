@@ -25,7 +25,6 @@ class news_rate extends XoopsObject {
 	 */
 	function news_rate() {
 		$this->initVar ( "rate_id", XOBJ_DTYPE_INT, '' );
-		$this->initVar ( "rate_modid", XOBJ_DTYPE_INT, '' );
 		$this->initVar ( "rate_story", XOBJ_DTYPE_INT, '' );
 		$this->initVar ( "rate_user", XOBJ_DTYPE_INT, '' );
 		$this->initVar ( "rate_rating", XOBJ_DTYPE_INT, '' );

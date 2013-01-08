@@ -323,7 +323,7 @@ class NewsUtils {
 		global $xoopsDB;
 		$result=$xoopsDB->queryF('ALTER TABLE ' . $table . ' DROP ' . $field);
 		return $result;
-	}	
+	}
 		
 	/**
     * Verify that a mysql table exists

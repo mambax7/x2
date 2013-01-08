@@ -65,6 +65,11 @@ function xoops_module_update_news($module, $version) {
 	    {
 		    NewsUtils::News_DropField('story_titleview', $db->prefix('news_story'));
 	    }
+	    // story_modid
+	    if(NewsUtils::News_FieldExists('story_modid', $db->prefix('news_story')))
+	    {
+		    NewsUtils::News_DropField('story_modid', $db->prefix('news_story'));
+	    }
     }
     // end update to version 1.80	
     	
@@ -126,131 +131,216 @@ function xoops_module_update_news($module, $version) {
 		    copy($indexFile, XOOPS_ROOT_PATH . "/uploads/news/file/index.html");
 		    copy($blankFile, XOOPS_ROOT_PATH . "/uploads/news/file/blank.gif");
 	    }
-	
-		if(!NewsUtils::News_TableExists($db->prefix('news_story')))
-		{
-			$sql = "CREATE TABLE " . $db->prefix('news_story') . " (
-				`story_id` int(10) NOT NULL auto_increment,
-				`story_title` varchar(255) NOT NULL,
-				`story_subtitle` varchar(255) NOT NULL,
-				`story_topic` int(11) NOT NULL,
-				`story_type` varchar(25) NOT NULL,
-				`story_short` text NOT NULL,
-				`story_text` text NOT NULL,
-				`story_words` varchar(255) NOT NULL,
-				`story_desc` varchar(255) NOT NULL,
-				`story_alias` varchar(255) NOT NULL,
-				`story_important` tinyint(1) NOT NULL,
-				`story_default` tinyint(1) NOT NULL,
-				`story_status` tinyint(1) NOT NULL,
-				`story_slide` tinyint(1) NOT NULL,
-				`story_marquee` tinyint(1) NOT NULL,
-				`story_create` int (10) NOT NULL default '0',
-				`story_update` int (10) NOT NULL default '0',
-				`story_publish` int (10) NOT NULL default '0',
-				`story_expire` int (10) NOT NULL default '0',
-				`story_uid` int(11) NOT NULL,
-				`story_author` varchar(255) NOT NULL,
-				`story_source` varchar(255) NOT NULL,
-				`story_modid` int(11) NOT NULL,
-				`story_hits` int(11) NOT NULL,
-				`story_img` varchar(255) NOT NULL,
-				`story_comments` int(11) unsigned NOT NULL default '0',
-				`story_file` tinyint(3) NOT NULL,
-				`dohtml` tinyint(1) NOT NULL,
-				`dobr` tinyint(1) NOT NULL,
-				`doimage` tinyint(1) NOT NULL,
-				`dosmiley` tinyint(1) NOT NULL,
-				`doxcode` tinyint(1) NOT NULL,
-				PRIMARY KEY (`story_id`),
-				KEY `idxstoriestopic` (`story_topic`),
-				KEY `story_title` (`story_title`),
-				KEY `story_create` (`story_create`),
-				FULLTEXT KEY `search` (`story_title`,`story_short`,`story_text`,`story_subtitle`)
-				) ENGINE=MyISAM;";
-			if (!$db->queryF($sql)) {
-				return false;
-			}
-		}
-		
-		if(!NewsUtils::News_TableExists($db->prefix('news_topic')))
-		{
-			$sql = "CREATE TABLE " . $db->prefix('news_topic') . " (
-				`topic_id` int (11) unsigned NOT NULL  auto_increment,
-				`topic_pid` int (5) unsigned NOT NULL ,
-				`topic_title` varchar (255)   NOT NULL ,
-				`topic_desc` text   NOT NULL ,
-				`topic_img` varchar (255)   NOT NULL ,
-				`topic_weight` int (5)   NOT NULL ,
-				`topic_showtype` tinyint (4)   NOT NULL ,
-				`topic_perpage` tinyint (4)   NOT NULL ,
-				`topic_columns` tinyint (4)   NOT NULL ,
-				`topic_submitter` int (10)   NOT NULL default '0',
-				`topic_date_created` int (10)   NOT NULL default '0',
-				`topic_date_update` int (10)   NOT NULL default '0',
-				`topic_asmenu` tinyint (1)   NOT NULL default '1',
-				`topic_online` tinyint (1)   NOT NULL default '1',
-				`topic_modid` int(11) NOT NULL,
-				`topic_showtopic` tinyint (1)   NOT NULL default '0',
-				`topic_showauthor` tinyint (1)   NOT NULL default '1',
-				`topic_showdate` tinyint (1)   NOT NULL default '1',
-				`topic_showpdf` tinyint (1)   NOT NULL default '1',
-				`topic_showprint` tinyint (1)   NOT NULL default '1',
-				`topic_showmail` tinyint (1)   NOT NULL default '1',
-				`topic_shownav` tinyint (1)   NOT NULL default '1',
-				`topic_showhits` tinyint (1)   NOT NULL default '1',
-				`topic_showcoms` tinyint (1)   NOT NULL default '1',
-				`topic_alias` varchar(255) NOT NULL,
-				`topic_homepage` tinyint (4)   NOT NULL ,
-				`topic_show` tinyint (1)   NOT NULL default '1',
-				`topic_style` varchar(64)   NOT NULL,
-				PRIMARY KEY (`topic_id`,`topic_modid`),
-				UNIQUE KEY `file_id` (`topic_id`,`topic_modid`)
-				) ENGINE=MyISAM;";
-			if (!$db->queryF($sql)) {
-				return false;
-			}
-		}
-		
-		if(!NewsUtils::News_TableExists($db->prefix('news_file')))
-		{
-			$sql = "CREATE TABLE " . $db->prefix('news_file') . " (
-				`file_id` int (11) unsigned NOT NULL  auto_increment,
-				`file_modid` int(11) NOT NULL,
-				`file_title` varchar (255)   NOT NULL ,
-				`file_name` varchar (255)   NOT NULL ,
-				`file_content` int(11) NOT NULL,
-				`file_date` int(10) NOT NULL default '0',
-				`file_type` varchar(64) NOT NULL default '',
-				`file_status` tinyint(1) NOT NULL,
-				`file_hits` int(11) NOT NULL,
-				PRIMARY KEY (`file_id`,`file_modid`),
-				UNIQUE KEY `file_id` (`file_id`,`file_modid`)
-				) ENGINE=MyISAM;";
-			if (!$db->queryF($sql)) {
-				return false;
-			}
-		}
-		
-		if(!NewsUtils::News_TableExists($db->prefix('news_rate')))
-		{
-			$sql = "CREATE TABLE " . $db->prefix('news_rate') . " (
-				`rate_id` int(11) unsigned NOT NULL auto_increment,
-				`rate_modid` int(11) NOT NULL,
-				`rate_story` int(8) unsigned NOT NULL default '0',
-				`rate_user` int(11) NOT NULL default '0',
-				`rate_rating` tinyint(3) unsigned NOT NULL default '0',
-				`rate_hostname` varchar(60) NOT NULL default '',
-				`rate_created` int(10) NOT NULL default '0',
-				PRIMARY KEY  (rate_id),
-				KEY rate_user (rate_user),
-				KEY rate_hostname (rate_hostname),
-				KEY rate_story (rate_story)
-				) ENGINE=MyISAM;";
-			if (!$db->queryF($sql)) {
-				return false;
-			}
-		}	
+	    
+	    // Add news_story table
+	    if(!NewsUtils::News_TableExists($db->prefix('news_story'))) {
+		    $sql = "RENAME TABLE `" . $db->prefix('stories') . "` TO `" . $db->prefix('news_story') . "`";
+		    if ($db->query($sql)) {
+				 /* 
+				  * Rename fields
+				  */
+				 // story_id
+				 $sql = 'ALTER TABLE `' . $db->prefix('news_story') . '` CHANGE `storyid` `story_id` INT( 8 ) UNSIGNED NOT NULL AUTO_INCREMENT';
+				 $db->query($sql);
+				 // story_uid
+				 $sql = 'ALTER TABLE `' . $db->prefix('news_story') . '` CHANGE `uid` `story_uid` INT( 10 ) UNSIGNED NOT NULL';
+				 $db->query($sql);
+				 // story_title
+				 $sql = 'ALTER TABLE `' . $db->prefix('news_story') . '` CHANGE `title` `story_title` VARCHAR( 255 ) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL';
+				 $db->query($sql);
+				 // story_create
+				 $sql = 'ALTER TABLE `' . $db->prefix('news_story') . '` CHANGE `created` `story_create` INT( 10 ) UNSIGNED NOT NULL';
+				 $db->query($sql);
+				 // story_publish
+				 $sql = 'ALTER TABLE `' . $db->prefix('news_story') . '` CHANGE `published` `story_publish` INT( 10 ) UNSIGNED NOT NULL';
+				 $db->query($sql);
+				 // story_expire
+				 $sql = 'ALTER TABLE `' . $db->prefix('news_story') . '` CHANGE `expired` `story_expire` INT( 10 ) UNSIGNED NOT NULL';
+				 $db->query($sql);
+				 // story_short
+				 $sql = 'ALTER TABLE `' . $db->prefix('news_story') . '` CHANGE `hometext` `story_short` TEXT CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL';
+				 $db->query($sql);
+				 // story_text
+				 $sql = 'ALTER TABLE `' . $db->prefix('news_story') . '` CHANGE `bodytext` `story_text` TEXT CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL';
+				 $db->query($sql);
+				 // story_words
+				 $sql = 'ALTER TABLE `' . $db->prefix('news_story') . '` CHANGE `keywords` `story_words` VARCHAR( 255 ) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL';
+				 $db->query($sql);
+				 // story_desc
+				 $sql = 'ALTER TABLE `' . $db->prefix('news_story') . '` CHANGE `description` `story_desc` VARCHAR( 255 ) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL';
+				 $db->query($sql);
+				 // story_hits
+				 $sql = 'ALTER TABLE `' . $db->prefix('news_story') . '` CHANGE `counter` `story_hits` INT( 10 ) UNSIGNED NOT NULL';
+				 $db->query($sql);
+				 // story_topic
+				 $sql = 'ALTER TABLE `' . $db->prefix('news_story') . '` CHANGE `topicid` `story_topic` INT( 10 ) UNSIGNED NOT NULL';
+				 $db->query($sql);
+				 // story_img
+				 $sql = 'ALTER TABLE `' . $db->prefix('news_story') . '` CHANGE `picture` `story_img` VARCHAR( 255 ) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL';
+				 $db->query($sql);
+				 // story_comments
+				 $sql = 'ALTER TABLE `' . $db->prefix('news_story') . '` CHANGE `comments` `story_comments` INT( 10 ) UNSIGNED NOT NULL';
+				 $db->query($sql);
+				 // story_rating
+				 $sql = 'ALTER TABLE `' . $db->prefix('news_story') . '` CHANGE `rating` `story_rating` DOUBLE(6,4) NOT NULL';
+				 $db->query($sql);
+				 // story_votes
+				 $sql = 'ALTER TABLE `' . $db->prefix('news_story') . '` CHANGE `votes` `story_votes` INT( 10 ) UNSIGNED NOT NULL';
+				 $db->query($sql);
+				 /* 
+				  * Add new fields 
+				  */
+				 // story_subtitle
+				 $sql = 'ALTER TABLE `' . $db->prefix('news_story') . '` ADD `story_subtitle` varchar(255) NOT NULL';
+				 $db->query($sql);
+				 // story_type
+				 $sql = 'ALTER TABLE `' . $db->prefix('news_story') . '` ADD  `story_type` varchar(25) NOT NULL';
+				 $db->query($sql);
+				 // story_alias
+				 $sql = 'ALTER TABLE `' . $db->prefix('news_story') . '` ADD  `story_alias` varchar(255) NOT NULL';
+				 $db->query($sql);
+				 // story_important
+				 $sql = 'ALTER TABLE `' . $db->prefix('news_story') . '` ADD  `story_important` tinyint(1) NOT NULL';
+				 $db->query($sql);
+				 // story_default
+				 $sql = 'ALTER TABLE `' . $db->prefix('news_story') . '` ADD  `story_default` tinyint(1) NOT NULL';
+				 $db->query($sql);
+				 // story_status
+				 $sql = 'ALTER TABLE `' . $db->prefix('news_story') . '` ADD  `story_status` tinyint(1) NOT NULL';
+				 $db->query($sql);
+				 // story_slide
+				 $sql = 'ALTER TABLE `' . $db->prefix('news_story') . '` ADD  `story_slide` tinyint(1) NOT NULL';
+				 $db->query($sql);
+				 // story_marquee
+				 $sql = 'ALTER TABLE `' . $db->prefix('news_story') . '` ADD  `story_marquee` tinyint(1) NOT NULL';
+				 $db->query($sql);
+				 // story_update
+				 $sql = 'ALTER TABLE `' . $db->prefix('news_story') . '` ADD  `story_update` int (10) NOT NULL';
+				 $db->query($sql);
+				 // story_author
+				 $sql = 'ALTER TABLE `' . $db->prefix('news_story') . '` ADD  `story_author` varchar(255) NOT NULL';
+				 $db->query($sql);
+				 // story_source
+				 $sql = 'ALTER TABLE `' . $db->prefix('news_story') . '` ADD  `story_source` varchar(255) NOT NULL';
+				 $db->query($sql);
+				 // story_file
+				 $sql = 'ALTER TABLE `' . $db->prefix('news_story') . '` ADD  `story_file` tinyint(3) NOT NULL';
+				 $db->query($sql);
+				 // dohtml
+				 $sql = 'ALTER TABLE `' . $db->prefix('news_story') . '` ADD  `dohtml` tinyint(1) NOT NULL';
+				 $db->query($sql);
+				 // dobr
+				 $sql = 'ALTER TABLE `' . $db->prefix('news_story') . '` ADD  `dobr` tinyint(1) NOT NULL';
+				 $db->query($sql);
+				 // doimage
+				 $sql = 'ALTER TABLE `' . $db->prefix('news_story') . '` ADD  `doimage` tinyint(1) NOT NULL';
+				 $db->query($sql);
+				 // dosmiley
+				 $sql = 'ALTER TABLE `' . $db->prefix('news_story') . '` ADD  `dosmiley` tinyint(1) NOT NULL';
+				 $db->query($sql);
+				 // doxcode
+				 $sql = 'ALTER TABLE `' . $db->prefix('news_story') . '` ADD  `doxcode` tinyint(1) NOT NULL'; 
+				 $db->query($sql);
+				 /* 
+				  * Remove old fields
+				  */
+				 // hostname
+			    $sql = 'ALTER TABLE `' . $db->prefix('news_story') . '` DROP `hostname`';
+				 $db->query($sql);
+			    // ihome
+			    $sql = 'ALTER TABLE `' . $db->prefix('news_story') . '` DROP `ihome`';
+				 $db->query($sql);
+			    // notifypub
+			    $sql = 'ALTER TABLE `' . $db->prefix('news_story') . '` DROP `notifypub`';
+				 $db->query($sql);
+			    // topicdisplay
+			    $sql = 'ALTER TABLE `' . $db->prefix('news_story') . '` DROP `topicdisplay`';
+				 $db->query($sql);
+			    // topicalign
+			    $sql = 'ALTER TABLE `' . $db->prefix('news_story') . '` DROP `topicalign`';
+				 $db->query($sql);
+				 /* 
+				  * Remove index
+				  */
+				 // idxstoriestopic 
+				 $sql = 'ALTER TABLE `' . $db->prefix('news_story') . '` DROP INDEX `idxstoriestopic`'; 
+				 $db->query($sql);
+				 // ihome
+				 $sql = 'ALTER TABLE `' . $db->prefix('news_story') . '` DROP INDEX `ihome`'; 
+				 $db->query($sql);
+				 // uid
+				 $sql = 'ALTER TABLE `' . $db->prefix('news_story') . '` DROP INDEX `uid`'; 
+				 $db->query($sql);
+				 // published
+				 $sql = 'ALTER TABLE `' . $db->prefix('news_story') . '` DROP INDEX `published`'; 
+				 $db->query($sql);
+				 // title
+				 $sql = 'ALTER TABLE `' . $db->prefix('news_story') . '` DROP INDEX `title`'; 
+				 $db->query($sql);
+				 // created
+				 $sql = 'ALTER TABLE `' . $db->prefix('news_story') . '` DROP INDEX `created`'; 
+				 $db->query($sql);
+				 // search
+				 $sql = 'ALTER TABLE `' . $db->prefix('news_story') . '` DROP INDEX `search`'; 
+				 $db->query($sql);
+				 /* 
+				  * Add index
+				  */
+             // story_alias				  
+				 $sql = 'ALTER TABLE `' . $db->prefix('news_story') . '` ADD UNIQUE `story_alias` ( `story_alias` )';
+				 $db->query($sql);
+				 // story_topic
+				 $sql = 'ALTER TABLE `' . $db->prefix('news_story') . '` ADD INDEX ( `story_topic` )';
+				 $db->query($sql);
+				 // story_title
+				 $sql = 'ALTER TABLE `' . $db->prefix('news_story') . '` ADD INDEX ( `story_title` )';
+				 $db->query($sql);
+				 // story_create
+				 $sql = 'ALTER TABLE `' . $db->prefix('news_story') . '` ADD INDEX ( `story_create` )';
+				 $db->query($sql);
+				 // story_publish
+				 $sql = 'ALTER TABLE `' . $db->prefix('news_story') . '` ADD INDEX ( `story_publish` )';
+				 $db->query($sql);
+				 // story_expire
+				 $sql = 'ALTER TABLE `' . $db->prefix('news_story') . '` ADD INDEX ( `story_expire` )';
+				 $db->query($sql);
+				 // story_uid
+				 $sql = 'ALTER TABLE `' . $db->prefix('news_story') . '` ADD INDEX ( `story_uid` )';
+				 $db->query($sql);
+				 // story_type
+				 $sql = 'ALTER TABLE `' . $db->prefix('news_story') . '` ADD INDEX ( `story_type` )';
+				 $db->query($sql);
+				 // search
+				 $sql = 'ALTER TABLE `' . $db->prefix('news_story') . '` ADD FULLTEXT `search` (`story_title` ,`story_short` ,`story_text` ,`story_subtitle`)';
+			    $db->query($sql);
+			 } else {
+				 return false;
+			 }	
+	    }
+       
+       // Add news_topic table
+       if(!NewsUtils::News_TableExists($db->prefix('news_topic'))) {
+		    $sql = "RENAME TABLE `" . $db->prefix('topics') . "` TO `" . $db->prefix('news_topic') . "`";
+		    if ($db->query($sql)) {
+		    // TODO	
+		    }
+		 }
+		 
+		 // Add news_file table
+       if(!NewsUtils::News_TableExists($db->prefix('news_file'))) {
+		    $sql = "RENAME TABLE `" . $db->prefix('stories_files') . "` TO `" . $db->prefix('news_file') . "`";
+		    if ($db->query($sql)) {
+		    // TODO	
+		    }
+		 }
+		 
+		 // Add news_rate table
+       if(!NewsUtils::News_TableExists($db->prefix('news_topic'))) {
+		    $sql = "RENAME TABLE `" . $db->prefix('stories_votedata') . "` TO `" . $db->prefix('news_rate') . "`";
+		    if ($db->query($sql)) {
+		    // TODO	
+		    }
+		 }   	
 	}
 	// end update to version 1.80	
 }

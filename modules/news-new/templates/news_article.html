@@ -1,20 +1,15 @@
 <{include file="db:news_header.html"}>
-
 <div class="news">
-<!-- Display error message -->
 <{if $story_error}>
+<!-- Display error message -->
 	<div class="errorMsg"><{$story_error}></div>
 <{else}>
-
 	<div class="item">
-		<{if $content.story_titleview}>
-		<!-- Display content header -->
 		<div class="itemHead">
 			<div class="itemTitle">
 				<h2><{if $content.story_important}><span class="red bold"><{$smarty.const._NEWS_MD_IMPORTANT}></span><{/if}><{$content.story_title}></h2>
 			</div>
 		</div>
-		<{/if}>
 		<div class="itemInfo">
 			<{if $content.author}>
 			<span class="itemPoster"><{$smarty.const._NEWS_MD_AUTHOR}>: <a href="<{$xoops_url}>/user.php?id=<{$content.story_uid}>" title="<{$content.author}>"><{$content.author}></a><{if $alluserpost}> (<a href="<{$xoops_url}>/modules/<{$xoops_dirname}>/index.php?user=<{$content.story_uid}>" title="<{$smarty.const._NEWS_MD_AUTHOR_ALL_DESC}><{$content.author}>"><{$smarty.const._NEWS_MD_AUTHOR_ALL}></a>)<{/if}></span>
@@ -171,7 +166,6 @@
 	</div>
 	<{/if}> 
 	
-	<{if $content.story_comments}>
 	<div class="comments" id="comm">
 		<!-- start comments loop -->
 		<{if $comment_mode == "flat"}>
@@ -183,7 +177,6 @@
 		<{/if}>
 		<!-- end comments loop -->
 	</div>
-	<{/if}> 
    
 <{/if}>
 </div>

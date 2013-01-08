@@ -35,7 +35,6 @@ class news_topic extends XoopsObject {
 		$this->initVar ( "topic_img", XOBJ_DTYPE_TXTBOX, '' );
 		$this->initVar ( "topic_weight", XOBJ_DTYPE_INT, '' );
 		$this->initVar ( "topic_showtype", XOBJ_DTYPE_INT, '' );
-		$this->initVar ( "topic_modid", XOBJ_DTYPE_INT, '' );
 		$this->initVar ( "topic_submitter", XOBJ_DTYPE_INT, '' );
 		$this->initVar ( "topic_date_created", XOBJ_DTYPE_INT, '' );
 		$this->initVar ( "topic_date_update", XOBJ_DTYPE_INT, '' );

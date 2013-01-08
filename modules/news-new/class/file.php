@@ -25,7 +25,6 @@ class news_file extends XoopsObject {
 	 */
 	function news_file() {
 		$this->initVar ( "file_id", XOBJ_DTYPE_INT, '' );
-		$this->initVar ( "file_modid", XOBJ_DTYPE_INT, '' );
 		$this->initVar ( "file_title", XOBJ_DTYPE_TXTBOX, '' );
 		$this->initVar ( "file_name", XOBJ_DTYPE_TXTBOX, '' );
 		$this->initVar ( "file_content", XOBJ_DTYPE_INT, '' );
