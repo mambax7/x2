@@ -7,5 +7,4 @@
     <{include file="db:system_comment.html" comment=$comment}>
   <{/foreach}>
 </table>
-
-<div class="commentform"><{$commentform}></div>
+<{if $commentform}><div class="commentform"><{$commentform}></div><{/if}>

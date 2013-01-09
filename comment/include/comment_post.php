@@ -58,6 +58,10 @@ if ('system' == $xoopsModule->getVar('dirname')) {
 }
 
 $op = '';
+$error_message = '';
+$com_user = '';
+$com_email = '';
+        
 if (!empty($_POST)) {
     if (isset($_POST['com_dopost'])) {
         $op = 'post';
@@ -76,11 +80,54 @@ if (!empty($_POST)) {
         xoops_load('XoopsCaptcha');
         $xoopsCaptcha = XoopsCaptcha::getInstance();
         if (! $xoopsCaptcha->verify()) {
-            $captcha_message = $xoopsCaptcha->getMessage();
-            $op = 'preview';
+            $error_message .= $xoopsCaptcha->getMessage() . '<br />';
         }
+        
+        // Start add by voltan
+	     xoops_load('XoopsUserUtility');
+        xoops_loadLanguage('user');
+        $myts =& MyTextSanitizer::getInstance();
+        
+        // Check user name
+        $search_arr = array("&nbsp;","\t","\r\n","\r","\n",",",".","'",";",":",")", "(",'"','?','!','{','}','[',']','<','>','/','+','-','_', '\\','*','=','@','#','$','%','^','&');
+	     $replace_arr = array(' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ', ' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ', ' ',' ',' ',' ',' ','');
+        $com_user = trim($_POST['com_user']); 
+        $com_user = $myts->stripSlashesGPC($com_user);
+        $com_user = $myts->xoopsCodeDecode($com_user);
+        $com_user = $myts->filterXss($com_user);                      
+        $com_user = strip_tags($com_user);
+		  $com_user = strtolower($com_user);
+		  $com_user = htmlentities($com_user, ENT_COMPAT, 'utf-8');
+		  $com_user = preg_replace('`\[.*\]`U', ' ', $com_user);
+		  $com_user = preg_replace('`&(amp;)?#?[a-z0-9]+;`i', ' ', $com_user);
+		  $com_user = preg_replace('`&([a-z])(acute|uml|circ|grave|ring|cedil|slash|tilde|caron|lig);`i', '\\1', $com_user);
+		  $com_user = str_replace($search_arr, $replace_arr, $com_user);
+        
+        // Check Email
+        $com_email = $myts->stripSlashesGPC(trim($_POST['com_email']));
+        $com_email = htmlspecialchars(trim($com_email), ENT_QUOTES);
+        // Invalid email address
+        if (!checkEmail($com_email)) {
+            $error_message .= _US_INVALIDMAIL . '<br />';
+        }
+        if (strrpos($com_email, ' ') > 0) {
+            $error_message .= _US_EMAILNOSPACES . '<br />';
+        }
+        // Check forbidden email address if current operator is not an administrator
+        if (!$xoopsUser_isAdmin) {
+            foreach ($xoopsConfigUser['bad_emails'] as $be) {
+                if (!empty($be) && preg_match('/' . $be . '/i', $com_email)) {
+                    $error_message .= _US_INVALIDMAIL . '<br />';
+                    break;
+                }
+            }
+        }
+        if(!empty($error_message)) {
+	        $op = 'preview';	
+        }
+        // End add by voltan  	
     }
-
+    
     $com_mode = isset($_POST['com_mode']) ? htmlspecialchars(trim($_POST['com_mode']), ENT_QUOTES) : 'flat';
     $com_order = isset($_POST['com_order']) ? intval($_POST['com_order']) : XOOPS_COMMENT_OLD1ST;
     $com_itemid = isset($_POST['com_itemid']) ? intval($_POST['com_itemid']) : 0;
@@ -93,10 +140,6 @@ if (!empty($_POST)) {
     $dohtml = (isset($_POST['dohtml']) && intval($_POST['dohtml']) > 0) ? 1 : 0;
     $doimage = (isset($_POST['doimage']) && intval($_POST['doimage']) > 0) ? 1 : 0;
     $com_icon = isset($_POST['com_icon']) ? trim($_POST['com_icon']) : '';
-    // Start add by voltan
-    $com_user = isset($_POST['com_user']) ? htmlspecialchars(trim($_POST['com_user']), ENT_QUOTES) : '';
-    $com_email = isset($_POST['com_email']) ? htmlspecialchars(trim($_POST['com_email']), ENT_QUOTES) : '';
-    // End add by voltan
 } else {
     exit();
 }
@@ -128,8 +171,8 @@ switch ($op) {
         $com_text = $myts->htmlSpecialChars($myts->stripSlashesGPC($_POST['com_text']));
         if ($xoopsModule->getVar('dirname') != 'system') {
             include_once $GLOBALS['xoops']->path('header.php');
-            if (!empty($captcha_message)) {
-                xoops_error($captcha_message);
+            if (!empty($error_message)) {
+                xoops_error($error_message);
             }
             echo '<table cellpadding="4" cellspacing="1" width="98%" class="outer">
                   <tr><td class="head">' . $com_title . '</td></tr>
@@ -242,58 +285,9 @@ switch ($op) {
                 } else {
                     $uid = $xoopsUser->getVar('uid');
                 }
-                // Start add by voltan
-                $com_user = '';
-                $com_email = '';
-                // End add by voltan
             } else {
                 $dohtml = 0;
                 $uid = 0;
-
-                // Start add by voltan
-                xoops_load('XoopsUserUtility');
-                xoops_loadLanguage('user');
-
-                $search_arr = array("&nbsp;","\t","\r\n","\r","\n",",",".","'",";",":",")", "(",'"','?','!','{','}','[',']','<','>','/','+','-','_', '\\','*','=','@','#','$','%','^','&');
-	             $replace_arr = array(' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ', ' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ', ' ',' ',' ',' ',' ','');
-                     
-                $com_user = trim($_POST['com_user']); 
-                $com_user = $myts->stripSlashesGPC($com_user);
-                $com_user = $myts->xoopsCodeDecode($com_user);
-                $com_user = $myts->filterXss($com_user);                      
-                $com_user = strip_tags($com_user);
-		          $com_user = strtolower($com_user);
-		          $com_user = htmlentities($com_user, ENT_COMPAT, 'utf-8');
-					 $com_user = preg_replace('`\[.*\]`U', ' ', $com_user);
-					 $com_user = preg_replace('`&(amp;)?#?[a-z0-9]+;`i', ' ', $com_user);
-					 $com_user = preg_replace('`&([a-z])(acute|uml|circ|grave|ring|cedil|slash|tilde|caron|lig);`i', '\\1', $com_user);
-					 $com_user = str_replace($search_arr, $replace_arr, $com_user);
-                
-                $com_email = $myts->stripSlashesGPC(trim($_POST['com_email']));
-                $stop = '';
-                // Invalid email address
-			       if (!checkEmail($com_email)) {
-			           $stop .= _US_INVALIDMAIL . '<br />';
-			       }
-			       if (strrpos($com_email, ' ') > 0) {
-			           $stop .= _US_EMAILNOSPACES . '<br />';
-			       }
-			       // Check forbidden email address if current operator is not an administrator
-			       if (!$xoopsUser_isAdmin) {
-			           foreach ($xoopsConfigUser['bad_emails'] as $be) {
-			               if (!empty($be) && preg_match('/' . $be . '/i', $com_email)) {
-			                   $stop .= _US_INVALIDMAIL . '<br />';
-			                   break;
-			               }
-			           }
-			       }
-                if($stop) {
-	                redirect_header($redirect_page . '=' . $com_itemid . '&amp;com_id=' . $com_id . '&amp;com_mode=' . $com_mode . '&amp;com_order=' . $com_order, 1, $stop);
-	                exit();
-                }
-                // End add by voltan
-                
-  
                 if ($xoopsModuleConfig['com_anonpost'] != 1) {
                     redirect_header($redirect_page . '=' . $com_itemid . '&amp;com_id=' . $com_id . '&amp;com_mode=' . $com_mode . '&amp;com_order=' . $com_order, 1, _NOPERM);
                     exit();
@@ -469,5 +463,4 @@ switch ($op) {
         redirect_header(XOOPS_URL . '/', 1, implode('<br />', $GLOBALS['xoopsSecurity']->getErrors()));
         break;
 }
-
 ?>
