@@ -280,7 +280,6 @@ if (XOOPS_COMMENT_APPROVENONE != $xoopsModuleConfig['com_rule']) {
 				}
 				
 				$button_tray = new XoopsFormElementTray('', '&nbsp;');
-				$button_tray->addElement(new XoopsFormButton('', 'com_dopreview', _PREVIEW, 'submit'));
 				$button_tray->addElement(new XoopsFormButton('', 'com_dopost', _CM_POSTCOMMENT, 'submit'));
 				$cform->addElement($button_tray);
 				$xoopsTpl->assign('commentform', $cform->render());
