@@ -68,6 +68,7 @@ $com_rootid = $comment->getVar('com_rootid');
 // Start Add by voltan
 $com_user = $comment->getVar('com_user');
 $com_email = $comment->getVar('com_email');
+$com_url = $comment->getVar('com_url');
 // End Add by voltan
 
 if ($xoopsModule->getVar('dirname') != 'system') {

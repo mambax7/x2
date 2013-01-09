@@ -287,7 +287,7 @@ switch ($op) {
                         $comments_poster_uname = '<a href="'.XOOPS_URL.'/userinfo.php?uid='.$comments_arr[$i]->getVar('com_uid').'">'.$poster->getVar('uname').'</a>';
                     }
                 } elseif($comments_arr[$i]->getVar('com_uid') == 0 && $comments_arr[$i]->getVar('com_user') != '') {
-	                $comments_poster_uname = 	$comments_arr[$i]->getVar('com_user') . ' ( ' . $comments_poster_uname . ' )';
+	                $comments_poster_uname = 	'<div class="pad2 marg2">' . $comments_arr[$i]->getVar('com_user') . ' ( ' . $comments_poster_uname . ' ) ' . '</div><div class="pad2 marg2">' . $comments_arr[$i]->getVar('com_email') . ' - ' . $comments_arr[$i]->getVar('com_email') . '</div>';
                 }	
                 // End edit by voltan
                 $comments_icon = ($comments_arr[$i]->getVar('com_icon') == '') ? '/images/icons/no_posticon.gif' : '/images/subject/' . htmlspecialchars( $comments_arr[$i]->getVar('com_icon'), ENT_QUOTES );

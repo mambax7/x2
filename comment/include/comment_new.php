@@ -75,6 +75,7 @@ if ($com_itemid > 0) {
     // Start Add by voltan
     $com_user = '';
     $com_email = '';
+    $com_url = '';
     // End Add by voltan
     include_once $GLOBALS['xoops']->path('include/comment_form.php');
     include_once $GLOBALS['xoops']->path('footer.php');

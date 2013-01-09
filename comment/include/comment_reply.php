@@ -75,6 +75,7 @@ $com_itemid = $comment->getVar('com_itemid');
 // Start Add by voltan
 $com_user = '';
 $com_email = '';
+$com_url = '';
 // End Add by voltan
     
 include_once $GLOBALS['xoops']->path('header.php');

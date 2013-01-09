@@ -104,10 +104,10 @@ class XoopsCommentRenderer
                 $title = $this->_comments[$i]->getVar('com_title');
             }
             // Start edit by voltan
-            $poster = $this->_getPosterArray($this->_comments[$i]->getVar('com_uid'), $this->_comments[$i]->getVar('com_user'));
+            $poster = $this->_getPosterArray($this->_comments[$i]->getVar('com_uid'), $this->_comments[$i]->getVar('com_user'), $this->_comments[$i]->getVar('com_url'));
             // End edit by voltan
             if (false != $admin_view) {
-                $text = $this->_comments[$i]->getVar('com_text') . '<div style="text-align:right; margin-top: 2px; margin-bottom: 0px; margin-right: 2px;">' . _CM_STATUS . ': ' . $this->_statusText[$this->_comments[$i]->getVar('com_status')] . '<br />IP: <span style="font-weight: bold;">' . $this->_comments[$i]->getVar('com_ip') . '</span></div>';
+                $text = $this->_comments[$i]->getVar('com_text') . '<div style="text-align:right; margin-top: 2px; margin-bottom: 0px; margin-right: 2px;">' . _CM_STATUS . ': ' . $this->_statusText[$this->_comments[$i]->getVar('com_status')] . '<br />IP: <span style="font-weight: bold;">' . $this->_comments[$i]->getVar('com_ip') . '</span><br />' . _CM_EMAIL . ' :<span style="font-weight: bold;">' . $this->_comments[$i]->getVar('com_email') . '</span></div>';
             } else {
                 // hide comments that are not active
                 if (XOOPS_COMMENT_ACTIVE != $this->_comments[$i]->getVar('com_status')) {
@@ -150,7 +150,7 @@ class XoopsCommentRenderer
         }
         if (false != $admin_view) {
             // admins can see all
-            $text = $tree[$comment_id]['obj']->getVar('com_text') . '<div style="text-align:right; margin-top: 2px; margin-bottom: 0px; margin-right: 2px;">' . _CM_STATUS . ': ' . $this->_statusText[$tree[$comment_id]['obj']->getVar('com_status')] . '<br />IP: <span style="font-weight: bold;">' . $tree[$comment_id]['obj']->getVar('com_ip') . '</span></div>';
+            $text = $tree[$comment_id]['obj']->getVar('com_text') . '<div style="text-align:right; margin-top: 2px; margin-bottom: 0px; margin-right: 2px;">' . _CM_STATUS . ': ' . $this->_statusText[$tree[$comment_id]['obj']->getVar('com_status')] . '<br />IP: <span style="font-weight: bold;">' . $tree[$comment_id]['obj']->getVar('com_ip') . '</span><br />' . _CM_EMAIL . ' :<span style="font-weight: bold;">' . $tree[$comment_id]['obj']->getVar('com_email') . '</span></div>';
         } else {
             // hide comments that are not active
             if (XOOPS_COMMENT_ACTIVE != $tree[$comment_id]['obj']->getVar('com_status')) {
@@ -169,7 +169,7 @@ class XoopsCommentRenderer
         $this->_renderThreadReplies($tree, $comment_id, $replies, '&nbsp;&nbsp;', $admin_view);
         $show_replies = (count($replies) > 0) ? true : false;
         // Start edit by voltan
-        $this->_tpl->append('comments', array('pid' => $tree[$comment_id]['obj']->getVar('com_pid') , 'id' => $tree[$comment_id]['obj']->getVar('com_id') , 'itemid' => $tree[$comment_id]['obj']->getVar('com_itemid') , 'rootid' => $tree[$comment_id]['obj']->getVar('com_rootid') , 'title' => $title , 'text' => $text , 'date_posted' => formatTimestamp($tree[$comment_id]['obj']->getVar('com_created'), 'm') , 'date_modified' => formatTimestamp($tree[$comment_id]['obj']->getVar('com_modified'), 'm') , 'poster' => $this->_getPosterArray($tree[$comment_id]['obj']->getVar('com_uid'), $tree[$comment_id]['obj']->getVar('com_user')) , 'replies' => $replies , 'show_replies' => $show_replies));
+        $this->_tpl->append('comments', array('pid' => $tree[$comment_id]['obj']->getVar('com_pid') , 'id' => $tree[$comment_id]['obj']->getVar('com_id') , 'itemid' => $tree[$comment_id]['obj']->getVar('com_itemid') , 'rootid' => $tree[$comment_id]['obj']->getVar('com_rootid') , 'title' => $title , 'text' => $text , 'date_posted' => formatTimestamp($tree[$comment_id]['obj']->getVar('com_created'), 'm') , 'date_modified' => formatTimestamp($tree[$comment_id]['obj']->getVar('com_modified'), 'm') , 'poster' => $this->_getPosterArray($tree[$comment_id]['obj']->getVar('com_uid'), $tree[$comment_id]['obj']->getVar('com_user'), $tree[$comment_id]['obj']->getVar('com_url')) , 'replies' => $replies , 'show_replies' => $show_replies));
         // End edit by voltan
     }
 
@@ -195,7 +195,7 @@ class XoopsCommentRenderer
             }
             $title = (false != $admin_view) ? $title . ' ' . $this->_statusText[$thread[$key]['obj']->getVar('com_status')] : $title;
             // Start edit by voltan
-            $replies[] = array('id' => $key , 'prefix' => $current_prefix , 'date_posted' => formatTimestamp($thread[$key]['obj']->getVar('com_created'), 'm') , 'title' => $title , 'root_id' => $thread[$key]['obj']->getVar('com_rootid') , 'status' => $this->_statusText[$thread[$key]['obj']->getVar('com_status')] , 'poster' => $this->_getPosterName($thread[$key]['obj']->getVar('com_uid'), $thread[$key]['obj']->getVar('com_user')));
+            $replies[] = array('id' => $key , 'prefix' => $current_prefix , 'date_posted' => formatTimestamp($thread[$key]['obj']->getVar('com_created'), 'm') , 'title' => $title , 'root_id' => $thread[$key]['obj']->getVar('com_rootid') , 'status' => $this->_statusText[$thread[$key]['obj']->getVar('com_status')] , 'poster' => $this->_getPosterName($thread[$key]['obj']->getVar('com_uid'), $thread[$key]['obj']->getVar('com_user'), $thread[$key]['obj']->getVar('com_url')));
             // End edit by voltan
             $current_prefix .= $prefix;
         }
@@ -235,7 +235,7 @@ class XoopsCommentRenderer
             $title = $tree[$comment_id]['obj']->getVar('com_title');
         }
         if (false != $admin_view) {
-            $text = $tree[$comment_id]['obj']->getVar('com_text') . '<div style="text-align:right; margin-top: 2px; margin-bottom: 0px; margin-right: 2px;">' . _CM_STATUS . ': ' . $this->_statusText[$tree[$comment_id]['obj']->getVar('com_status')] . '<br />IP: <span style="font-weight: bold;">' . $tree[$comment_id]['obj']->getVar('com_ip') . '</span></div>';
+            $text = $tree[$comment_id]['obj']->getVar('com_text') . '<div style="text-align:right; margin-top: 2px; margin-bottom: 0px; margin-right: 2px;">' . _CM_STATUS . ': ' . $this->_statusText[$tree[$comment_id]['obj']->getVar('com_status')] . '<br />IP: <span style="font-weight: bold;">' . $tree[$comment_id]['obj']->getVar('com_ip') . '</span><br />' . _CM_EMAIL . ' :<span style="font-weight: bold;">' . $tree[$comment_id]['obj']->getVar('com_email') . '</span></div>';
         } else {
             // skip this comment if it is not active and continue on processing its child comments instead
             if (XOOPS_COMMENT_ACTIVE != $tree[$comment_id]['obj']->getVar('com_status')) {
@@ -253,7 +253,7 @@ class XoopsCommentRenderer
         $replies = array();
         $this->_renderNestReplies($tree, $comment_id, $replies, 25, $admin_view);
         // Start edit by voltan
-        $this->_tpl->append('comments', array('pid' => $tree[$comment_id]['obj']->getVar('com_pid') , 'id' => $tree[$comment_id]['obj']->getVar('com_id') , 'itemid' => $tree[$comment_id]['obj']->getVar('com_itemid') , 'rootid' => $tree[$comment_id]['obj']->getVar('com_rootid') , 'title' => $title , 'text' => $text , 'date_posted' => formatTimestamp($tree[$comment_id]['obj']->getVar('com_created'), 'm') , 'date_modified' => formatTimestamp($tree[$comment_id]['obj']->getVar('com_modified'), 'm') , 'poster' => $this->_getPosterArray($tree[$comment_id]['obj']->getVar('com_uid')) , 'replies' => $replies));
+        $this->_tpl->append('comments', array('pid' => $tree[$comment_id]['obj']->getVar('com_pid') , 'id' => $tree[$comment_id]['obj']->getVar('com_id') , 'itemid' => $tree[$comment_id]['obj']->getVar('com_itemid') , 'rootid' => $tree[$comment_id]['obj']->getVar('com_rootid') , 'title' => $title , 'text' => $text , 'date_posted' => formatTimestamp($tree[$comment_id]['obj']->getVar('com_created'), 'm') , 'date_modified' => formatTimestamp($tree[$comment_id]['obj']->getVar('com_modified'), 'm') , 'poster' => $this->_getPosterArray($tree[$comment_id]['obj']->getVar('com_uid'), $tree[$comment_id]['obj']->getVar('com_user'), $tree[$comment_id]['obj']->getVar('com_url')) , 'replies' => $replies));
         // End edit by voltan
     }
 
@@ -276,9 +276,9 @@ class XoopsCommentRenderer
             } else {
                 $title = $thread[$key]['obj']->getVar('com_title');
             }
-            $text = (false != $admin_view) ? $thread[$key]['obj']->getVar('com_text') . '<div style="text-align:right; margin-top: 2px; margin-right: 2px;">' . _CM_STATUS . ': ' . $this->_statusText[$thread[$key]['obj']->getVar('com_status')] . '<br />IP: <span style="font-weight: bold;">' . $thread[$key]['obj']->getVar('com_ip') . '</span></div>' : $thread[$key]['obj']->getVar('com_text');
+            $text = (false != $admin_view) ? $thread[$key]['obj']->getVar('com_text') . '<div style="text-align:right; margin-top: 2px; margin-right: 2px;">' . _CM_STATUS . ': ' . $this->_statusText[$thread[$key]['obj']->getVar('com_status')] . '<br />IP: <span style="font-weight: bold;">' . $thread[$key]['obj']->getVar('com_ip') . '</span><br />' . _CM_EMAIL . ' :<span style="font-weight: bold;">' . $this->_comments[$i]->getVar('com_email') . '</span></div>' : $thread[$key]['obj']->getVar('com_text');
             // Start edit by voltan
-            $replies[] = array('id' => $key , 'prefix' => $prefix , 'pid' => $thread[$key]['obj']->getVar('com_pid') , 'itemid' => $thread[$key]['obj']->getVar('com_itemid') , 'rootid' => $thread[$key]['obj']->getVar('com_rootid') , 'title' => $title , 'text' => $text , 'date_posted' => formatTimestamp($thread[$key]['obj']->getVar('com_created'), 'm') , 'date_modified' => formatTimestamp($thread[$key]['obj']->getVar('com_modified'), 'm') , 'poster' => $this->_getPosterArray($thread[$key]['obj']->getVar('com_uid'), $thread[$key]['obj']->getVar('com_user')));
+            $replies[] = array('id' => $key , 'prefix' => $prefix , 'pid' => $thread[$key]['obj']->getVar('com_pid') , 'itemid' => $thread[$key]['obj']->getVar('com_itemid') , 'rootid' => $thread[$key]['obj']->getVar('com_rootid') , 'title' => $title , 'text' => $text , 'date_posted' => formatTimestamp($thread[$key]['obj']->getVar('com_created'), 'm') , 'date_modified' => formatTimestamp($thread[$key]['obj']->getVar('com_modified'), 'm') , 'poster' => $this->_getPosterArray($thread[$key]['obj']->getVar('com_uid'), $thread[$key]['obj']->getVar('com_user'), $thread[$key]['obj']->getVar('com_url')));
             // End edit by voltan
             $prefix = $prefix + 25;
         }
@@ -307,7 +307,7 @@ class XoopsCommentRenderer
      * @access private
      */
     // Start edit by voltan 
-    function _getPosterName($poster_id, $poster_user)
+    function _getPosterName($poster_id, $poster_user, $poster_website)
     {
         $poster['id'] = intval($poster_id);
         if ($poster['id'] > 0) {
@@ -318,7 +318,11 @@ class XoopsCommentRenderer
             }
         } elseif ($poster['id'] == 0 && $poster_user != '') {
 	        $poster['id'] = 0; // to cope with deleted user accounts
-	        $poster['uname'] = $poster_user;
+	        if(!empty($poster_website)) {
+	        	  $poster['uname'] = '<a href="' . $poster_website . '">' . $poster_user . '</a>';
+        	  } else {
+	        	  $poster['uname'] = $poster_user;	
+        	  }	
         } else {
 	        $poster['id'] = 0; // to cope with deleted user accounts
 	        $poster['uname'] = $GLOBALS['xoopsConfig']['anonymous'];
@@ -336,7 +340,7 @@ class XoopsCommentRenderer
      * @access private
      */
     // Start edit by voltan
-    function _getPosterArray($poster_id, $poster_user)
+    function _getPosterArray($poster_id, $poster_user, $poster_website)
     {
         $poster['id'] = intval($poster_id);
         if ($poster['id'] > 0) {
@@ -353,7 +357,11 @@ class XoopsCommentRenderer
                 $poster['status'] = $com_poster->isOnline() ? _CM_ONLINE : '';
             }
         } elseif ($poster['id'] == 0 && $poster_user != '') {
-	        $poster['uname'] = $poster_user;	
+        	  if(!empty($poster_website)) {
+	        	  $poster['uname'] = '<a href="' . $poster_website . '">' . $poster_user . '</a>';
+        	  } else {
+	        	  $poster['uname'] = $poster_user;	
+        	  }		
 	        $poster['id'] = 0; // to cope with deleted user accounts
 	        $poster['rank_title'] = '';
 	        $poster['avatar'] = 'blank.gif';

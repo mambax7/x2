@@ -61,6 +61,7 @@ $op = '';
 $error_message = '';
 $com_user = '';
 $com_email = '';
+$com_url = '';
         
 if (!empty($_POST)) {
     if (isset($_POST['com_dopost'])) {
@@ -103,9 +104,16 @@ if (!empty($_POST)) {
 		  $com_user = preg_replace('`&([a-z])(acute|uml|circ|grave|ring|cedil|slash|tilde|caron|lig);`i', '\\1', $com_user);
 		  $com_user = str_replace($search_arr, $replace_arr, $com_user);
         
+        // Check Url
+        if(!empty($_POST['com_url'])) {
+	        $com_url = trim($_POST['com_url']);
+	        $com_url = filter_var($com_url, FILTER_VALIDATE_URL, FILTER_FLAG_SCHEME_REQUIRED);
+        }	
+
         // Check Email
         $com_email = $myts->stripSlashesGPC(trim($_POST['com_email']));
         $com_email = htmlspecialchars(trim($com_email), ENT_QUOTES);
+        $com_email = filter_var($com_email, FILTER_VALIDATE_EMAIL);
         // Invalid email address
         if (!checkEmail($com_email)) {
             $error_message .= _US_INVALIDMAIL . '<br />';
@@ -329,6 +337,7 @@ switch ($op) {
         // Start add by voltan
         $comment->setVar('com_user', $com_user);
         $comment->setVar('com_email', $com_email);
+        $comment->setVar('com_url', $com_url);
         // End add by voltan
         if (isset($extra_params)) {
             $comment->setVar('com_exparams', $extra_params);

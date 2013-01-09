@@ -242,6 +242,7 @@ if (XOOPS_COMMENT_APPROVENONE != $xoopsModuleConfig['com_rule']) {
 				if (!$xoopsUser) {
 					$cform->addElement(new XoopsFormText(_CM_USER, 'com_user', 50, 60, ''), true);
 					$cform->addElement(new XoopsFormText(_CM_EMAIL, 'com_email', 50, 60, ''), true);
+					$cform->addElement(new XoopsFormText(_CM_URL, 'com_url', 50, 60, ''), false);
 				}
 				$cform->addElement(new XoopsFormTextArea(_CM_MESSAGE, 'com_text', '', 10, 65), true);
 				if (!$xoopsUser) {

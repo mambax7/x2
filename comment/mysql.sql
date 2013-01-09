@@ -11,6 +11,7 @@ CREATE `xoopscomments` (
   `com_uid` mediumint(8) unsigned NOT NULL DEFAULT '0',
   `com_user` varchar(60) NOT NULL,
   `com_email` varchar(60) NOT NULL,
+  `com_url` varchar(60) NOT NULL,
   `com_ip` varchar(15) NOT NULL DEFAULT '',
   `com_title` varchar(255) NOT NULL DEFAULT '',
   `com_text` text,
@@ -35,3 +36,4 @@ CREATE `xoopscomments` (
 /* Update */
 ALTER TABLE `xoopscomments` ADD `com_user` VARCHAR( 60 ) NOT NULL AFTER `com_uid`, ADD INDEX ( `com_user` );
 ALTER TABLE `xoopscomments` ADD `com_email` VARCHAR( 60 ) NOT NULL AFTER `com_user`, ADD INDEX ( `com_email` );
+ALTER TABLE `xoopscomments` ADD `com_url` VARCHAR( 60 ) NOT NULL AFTER `com_email`;
