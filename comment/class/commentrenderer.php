@@ -105,9 +105,16 @@ class XoopsCommentRenderer
             }
             // Start edit by voltan
             $poster = $this->_getPosterArray($this->_comments[$i]->getVar('com_uid'), $this->_comments[$i]->getVar('com_user'), $this->_comments[$i]->getVar('com_url'));
-            // End edit by voltan
             if (false != $admin_view) {
-                $text = $this->_comments[$i]->getVar('com_text') . '<div style="text-align:right; margin-top: 2px; margin-bottom: 0px; margin-right: 2px;">' . _CM_STATUS . ': ' . $this->_statusText[$this->_comments[$i]->getVar('com_status')] . '<br />IP: <span style="font-weight: bold;">' . $this->_comments[$i]->getVar('com_ip') . '</span><br />' . _CM_EMAIL . ' :<span style="font-weight: bold;">' . $this->_comments[$i]->getVar('com_email') . '</span></div>';
+            	 $com_email = $this->_comments[$i]->getVar('com_email');
+                $text = $this->_comments[$i]->getVar('com_text');
+                $text .= '<div style="text-align:right; margin-top: 2px; margin-bottom: 0px; margin-right: 2px;">';
+                $text .= _CM_STATUS . ': ' . $this->_statusText[$this->_comments[$i]->getVar('com_status')] . '<br />';
+                $text .= 'IP: <span style="font-weight: bold;">' . $this->_comments[$i]->getVar('com_ip') . '</span>';
+                if(!empty($com_email)) {
+	                $text .= '<br />' . _CM_EMAIL . ' :<span style="font-weight: bold;"><a href="mailto:' . $com_email . '" title="' . $com_email . '">' . $com_email . '</a></span>';
+                }
+                $text .= '</div>';
             } else {
                 // hide comments that are not active
                 if (XOOPS_COMMENT_ACTIVE != $this->_comments[$i]->getVar('com_status')) {
@@ -116,6 +123,7 @@ class XoopsCommentRenderer
                     $text = $this->_comments[$i]->getVar('com_text');
                 }
             }
+            // End edit by voltan
             $this->_tpl->append('comments', array('id' => $this->_comments[$i]->getVar('com_id') , 'title' => $title , 'text' => $text , 'date_posted' => formatTimestamp($this->_comments[$i]->getVar('com_created'), 'm') , 'date_modified' => formatTimestamp($this->_comments[$i]->getVar('com_modified'), 'm') , 'poster' => $poster));
         }
     }
@@ -150,7 +158,15 @@ class XoopsCommentRenderer
         }
         if (false != $admin_view) {
             // admins can see all
-            $text = $tree[$comment_id]['obj']->getVar('com_text') . '<div style="text-align:right; margin-top: 2px; margin-bottom: 0px; margin-right: 2px;">' . _CM_STATUS . ': ' . $this->_statusText[$tree[$comment_id]['obj']->getVar('com_status')] . '<br />IP: <span style="font-weight: bold;">' . $tree[$comment_id]['obj']->getVar('com_ip') . '</span><br />' . _CM_EMAIL . ' :<span style="font-weight: bold;">' . $tree[$comment_id]['obj']->getVar('com_email') . '</span></div>';
+            $com_email = $tree[$comment_id]['obj']->getVar('com_email');
+            $text = $tree[$comment_id]['obj']->getVar('com_text');
+            $text .= '<div style="text-align:right; margin-top: 2px; margin-bottom: 0px; margin-right: 2px;">';
+            $text .= _CM_STATUS . ': ' . $this->_statusText[$tree[$comment_id]['obj']->getVar('com_status')] . '<br />';
+            $text .= 'IP: <span style="font-weight: bold;">' . $tree[$comment_id]['obj']->getVar('com_ip') . '</span>';
+            if(!empty($com_email)) {
+		         $text .= '<br />' . _CM_EMAIL . ' :<span style="font-weight: bold;"><a href="mailto:' . $com_email . '" title="' . $com_email . '">' . $com_email . '</a></span>';
+            }
+            $text .= '</div>';
         } else {
             // hide comments that are not active
             if (XOOPS_COMMENT_ACTIVE != $tree[$comment_id]['obj']->getVar('com_status')) {
@@ -235,7 +251,15 @@ class XoopsCommentRenderer
             $title = $tree[$comment_id]['obj']->getVar('com_title');
         }
         if (false != $admin_view) {
-            $text = $tree[$comment_id]['obj']->getVar('com_text') . '<div style="text-align:right; margin-top: 2px; margin-bottom: 0px; margin-right: 2px;">' . _CM_STATUS . ': ' . $this->_statusText[$tree[$comment_id]['obj']->getVar('com_status')] . '<br />IP: <span style="font-weight: bold;">' . $tree[$comment_id]['obj']->getVar('com_ip') . '</span><br />' . _CM_EMAIL . ' :<span style="font-weight: bold;">' . $tree[$comment_id]['obj']->getVar('com_email') . '</span></div>';
+        	   $com_email = $tree[$comment_id]['obj']->getVar('com_email');
+            $text = $tree[$comment_id]['obj']->getVar('com_text');
+            $text .= '<div style="text-align:right; margin-top: 2px; margin-bottom: 0px; margin-right: 2px;">';
+            $text .= _CM_STATUS . ': ' . $this->_statusText[$tree[$comment_id]['obj']->getVar('com_status')] . '<br />';
+            $text .= 'IP: <span style="font-weight: bold;">' . $tree[$comment_id]['obj']->getVar('com_ip') . '</span>';
+            if(!empty($com_email)) {
+		         $text .= '<br />' . _CM_EMAIL . ' :<span style="font-weight: bold;"><a href="mailto:' . $com_email . '" title="' . $com_email . '">' . $com_email . '</a></span>';
+            }
+            $text .= '</div>';
         } else {
             // skip this comment if it is not active and continue on processing its child comments instead
             if (XOOPS_COMMENT_ACTIVE != $tree[$comment_id]['obj']->getVar('com_status')) {

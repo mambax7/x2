@@ -43,5 +43,6 @@ define('_CM_COMNOCOM', 'Disable comments');
 
 define('_CM_USER', 'Name');
 define('_CM_EMAIL', 'Email');
+define('_CM_URL', 'Website');
 
 ?>
