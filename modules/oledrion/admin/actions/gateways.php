@@ -94,7 +94,7 @@ switch($action) {
             echo "</tr>\n";
         }
         echo "</table>\n";
-		include_once 'admin_footer.php';
+		include_once OLEDRION_ADMIN_PATH . 'admin_footer.php';
     	break;
 
     // ****************************************************************************************************************
@@ -114,7 +114,7 @@ switch($action) {
         echo $logContent;
         echo "</pre>\n";
         echo "</div>\n";
-		include_once 'admin_footer.php';
+		include_once OLEDRION_ADMIN_PATH . 'admin_footer.php';
     	break;
 
     // ****************************************************************************************************************

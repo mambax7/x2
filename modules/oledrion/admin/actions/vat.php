@@ -54,7 +54,7 @@ switch($action) {
 		echo "<td colspan='3' align='center'>".$form."</td>\n";
 		echo "</tr>\n";
 		echo '</table>';
-        include_once 'admin_footer.php';
+        include_once OLEDRION_ADMIN_PATH . 'admin_footer.php';
 		break;
 
 	// ****************************************************************************************************************

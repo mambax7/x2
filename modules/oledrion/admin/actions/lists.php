@@ -74,7 +74,7 @@ switch($action) {
 		if(isset($pagenav) && is_object($pagenav)) {
 			echo "<div align='right'>".$pagenav->renderNav()."</div>";
 		}
-        include_once 'admin_footer.php';
+        include_once OLEDRION_ADMIN_PATH . 'admin_footer.php';
         break;
 
 	// ****************************************************************************************************************

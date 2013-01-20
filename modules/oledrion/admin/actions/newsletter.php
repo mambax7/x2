@@ -59,7 +59,7 @@ switch($action) {
 		$sform->addElement($button_tray);
 		$sform = oledrion_utils::formMarkRequiredFields($sform);
 		$sform->display();
-        include_once 'admin_footer.php';
+        include_once OLEDRION_ADMIN_PATH . 'admin_footer.php';
 		break;
 
 	// ****************************************************************************************************************
@@ -129,7 +129,7 @@ switch($action) {
 		fclose($fp);
 		$newsfile = OLEDRION_NEWSLETTER_URL;
 		echo "<a href='$newsfile' target='_blank'>"._AM_OLEDRION_NEWSLETTER_READY."</a>";
-        include_once 'admin_footer.php';
+        include_once OLEDRION_ADMIN_PATH . 'admin_footer.php';
 		break;
 }
 ?>

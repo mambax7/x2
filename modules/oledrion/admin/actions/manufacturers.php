@@ -73,7 +73,7 @@ switch($action) {
 		if(isset($pagenav) && is_object($pagenav)) {
 			echo "<div align='right'>".$pagenav->renderNav()."</div>";
 		}
-        include_once 'admin_footer.php';
+        include_once OLEDRION_ADMIN_PATH . 'admin_footer.php';
 		break;
 
 
@@ -140,7 +140,7 @@ switch($action) {
 
 		$sform = oledrion_utils::formMarkRequiredFields($sform);
 		$sform->display();
-		include_once 'admin_footer.php';
+		include_once OLEDRION_ADMIN_PATH . 'admin_footer.php';
 		break;
 
 	// ****************************************************************************************************************

@@ -54,7 +54,7 @@ switch($action) {
 		echo "<td colspan='3' align='center'>".$form."</td>\n";
 		echo "</tr>\n";
 		echo '</table>';
-        include_once 'admin_footer.php';
+        include_once OLEDRION_ADMIN_PATH . 'admin_footer.php';
 		break;
 
 	// ****************************************************************************************************************
@@ -95,7 +95,7 @@ switch($action) {
 		$sform->addElement($button_tray);
 		$sform = oledrion_utils::formMarkRequiredFields($sform);
 		$sform->display();
-		include_once 'admin_footer.php';
+		include_once OLEDRION_ADMIN_PATH . 'admin_footer.php';
 		break;
 
 

@@ -124,7 +124,7 @@ switch($action) {
 			echo "</td></tr>\n";
 			echo "</table>\n";
 		}
-		include_once 'admin_footer.php';
+		include_once OLEDRION_ADMIN_PATH . 'admin_footer.php';
 		break;
 
 

@@ -74,7 +74,7 @@ switch($action) {
 		}
 		$oledrion_reductions = new oledrion_reductions();
 
-        include_once 'admin_footer.php';
+        include_once OLEDRION_ADMIN_PATH . 'admin_footer.php';
 		break;
 
 	// ****************************************************************************************************************
@@ -249,7 +249,7 @@ switch($action) {
 		//$xoopsTpl->assign('editor', $editor->render());
 
 		$xoopsTpl->display('db:oledrion_admin_discounts.html');
-		include_once 'admin_footer.php';
+		include_once OLEDRION_ADMIN_PATH . 'admin_footer.php';
 
 
 		break;
