@@ -59,12 +59,13 @@ oledrion_utils::loadLanguageFile('modinfo.php');
 oledrion_utils::loadLanguageFile('main.php');
 
 // V�rification de l'existance du r�pertoire de cache
-if(!is_dir(OLEDRION_CACHE_PATH)) {
-	oledrion_utils::prepareFolder(OLEDRION_CACHE_PATH);
-}
+oledrion_utils::prepareFolder(OLEDRION_UPLOAD_PATH);
 oledrion_utils::prepareFolder(OLEDRION_ATTACHED_FILES_PATH);
 oledrion_utils::prepareFolder(OLEDRION_PICTURES_PATH);
 oledrion_utils::prepareFolder(OLEDRION_CSV_PATH);
+if(!is_dir(OLEDRION_CACHE_PATH)) {
+	oledrion_utils::prepareFolder(OLEDRION_CACHE_PATH);
+}
 
 // Est-ce que le r�pertoire du cache est ouvert en �criture ?
 if(!is_writable(OLEDRION_CACHE_PATH)) {

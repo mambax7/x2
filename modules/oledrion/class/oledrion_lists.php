@@ -368,7 +368,7 @@ class OledrionOledrion_listsHandler extends Oledrion_XoopsPersistableObjectHandl
 	 */
 	function isProductInUserList($productlist_product_id, $list_uid = 0)
 	{
-		require_once 'lite.php';
+		//require_once 'lite.php';
 		if($list_uid == 0) {
 			$list_uid = oledrion_utils::getCurrentUserID();
 		}
@@ -380,10 +380,10 @@ class OledrionOledrion_listsHandler extends Oledrion_XoopsPersistableObjectHandl
 		$list_uid = intval($list_uid);
 		$productlist_product_id = intval($productlist_product_id);
 		$sql = 'SELECT Count(*) FROM '.$this->table.' l, '.$this->db->prefix('oledrion_products_list').' p WHERE (p.productlist_list_id = l.list_id) AND (l.list_uid = '.$list_uid.') AND (p.productlist_product_id ='.$productlist_product_id.')';
-		$Cache_Lite = new oledrion_Cache_Lite($this->cacheOptions);
+		//$Cache_Lite = new oledrion_Cache_Lite($this->cacheOptions);
 		$id = $this->_getIdForCache($sql, $start, $limit);
-		$cacheData = $Cache_Lite->get($id);
-		if ($cacheData === false) {
+		//$cacheData = $Cache_Lite->get($id);
+		//if ($cacheData === false) {
 			$result = $this->db->query($sql, $limit, $start);
 			if ($result) {
 				list($count) = $this->db->fetchRow($result);
@@ -391,11 +391,11 @@ class OledrionOledrion_listsHandler extends Oledrion_XoopsPersistableObjectHandl
 					$ret = true;
 				}
 			}
-			$Cache_Lite->save($ret);
+			//$Cache_Lite->save($ret);
 			return $ret;
-		} else {
-			return $cacheData;
-		}
+		//} else {
+			//return $cacheData;
+		//}
 	}
 
 	/**
@@ -408,17 +408,17 @@ class OledrionOledrion_listsHandler extends Oledrion_XoopsPersistableObjectHandl
 	 */
 	function listsFromCurrentCategory($categoryId, $list_type, $limit)
 	{
-		require_once 'lite.php';
+		//require_once 'lite.php';
 		$ret = array();
 		$start = 0;
 		$categoryId = intval($categoryId);
 		$list_type = intval($list_type);
 		$limit = intval($limit);
 		$sql = 'SELECT distinct(z.productlist_list_id) FROM '.$this->db->prefix('oledrion_products_list').' z, '.$this->db->prefix('oledrion_products').' p, '.$this->db->prefix('oledrion_lists').' l WHERE (l.list_type = '.$list_type.') AND (p.product_cid = '.$categoryId.') AND (l.list_id = z.productlist_list_id) AND (z.productlist_product_id = p.product_id) AND (p.product_online = 1) ORDER BY l.list_date DESC';
-		$Cache_Lite = new oledrion_Cache_Lite($this->cacheOptions);
+		//$Cache_Lite = new oledrion_Cache_Lite($this->cacheOptions);
 		$id = $this->_getIdForCache($sql, $start, $limit);
-		$cacheData = $Cache_Lite->get($id);
-		if ($cacheData === false) {
+		//$cacheData = $Cache_Lite->get($id);
+		//if ($cacheData === false) {
 			$result = $this->db->query($sql, $limit, $start);
 			if ($result) {
 				while ($row = $this->db->fetchArray($result)) {
@@ -426,11 +426,11 @@ class OledrionOledrion_listsHandler extends Oledrion_XoopsPersistableObjectHandl
 				}
 				$ret = $this->getItemsFromIds($ret);
 			}
-			$Cache_Lite->save($ret);
+			//$Cache_Lite->save($ret);
 			return $ret;
-		} else {
-			return $cacheData;
-		}
+		//} else {
+		//	return $cacheData;
+		//}
 	}
 }
 ?>

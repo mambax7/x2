@@ -97,7 +97,7 @@ class OledrionOledrion_caddyHandler extends Oledrion_XoopsPersistableObjectHandl
 	 */
 	function getMostSoldProducts($start = 0, $limit = 0, $product_cid = 0, $withQuantity=false)
 	{
-	    require_once 'lite.php';
+	   //require_once 'lite.php';
 		$ret = array();
 		if(is_array($product_cid) && count($product_cid) > 0) {
 			$sql = 'SELECT c.caddy_product_id, sum( c.caddy_qte ) AS mv FROM '.$this->table.' c, '.$this->db->prefix('oledrion_products').' b WHERE (c.caddy_product_id = b.product_id) AND b.product_cid IN ('.implode(',', $product_cid).') GROUP BY c.caddy_product_id ORDER BY mv DESC';
@@ -106,10 +106,10 @@ class OledrionOledrion_caddyHandler extends Oledrion_XoopsPersistableObjectHandl
 		} else {
 			$sql = 'SELECT caddy_product_id, sum( caddy_qte ) as mv FROM '.$this->table.' GROUP BY caddy_product_id ORDER BY mv DESC';
 		}
-		$Cache_Lite = new oledrion_Cache_Lite($this->cacheOptions);
+		//$Cache_Lite = new oledrion_Cache_Lite($this->cacheOptions);
 		$id = $this->_getIdForCache($sql, $start, $limit);
-		$cacheData = $Cache_Lite->get($id);
-		if ($cacheData === false) {
+		//$cacheData = $Cache_Lite->get($id);
+		//if ($cacheData === false) {
             $result = $this->db->query($sql, $limit, $start);
             if ($result) {
     			while ($myrow = $this->db->fetchArray($result)) {
@@ -120,11 +120,11 @@ class OledrionOledrion_caddyHandler extends Oledrion_XoopsPersistableObjectHandl
 				    }
 			    }
             }
-            $Cache_Lite->save($ret);
+            //$Cache_Lite->save($ret);
             return $ret;
-		} else {
-		    return $cacheData;
-		}
+		//} else {
+		    //return $cacheData;
+		//}
 	}
 
     /**
@@ -137,24 +137,24 @@ class OledrionOledrion_caddyHandler extends Oledrion_XoopsPersistableObjectHandl
      */
 	function getRecentlySoldProducts($start = 0, $limit = 0)
 	{
-	    require_once 'lite.php';
+	    //require_once 'lite.php';
 	    $ret = array();
 	    $sql = 'SELECT c.caddy_product_id FROM '.$this->table.' c, '.$this->db->prefix('oledrion_commands').' o WHERE (c.caddy_cmd_id = o.cmd_id) AND (o.cmd_state = '.OLEDRION_STATE_VALIDATED.') ORDER BY cmd_date DESC';
-		$Cache_Lite = new oledrion_Cache_Lite($this->cacheOptions);
+		//$Cache_Lite = new oledrion_Cache_Lite($this->cacheOptions);
 		$id = $this->_getIdForCache($sql, $start, $limit);
-		$cacheData = $Cache_Lite->get($id);
-		if ($cacheData === false) {
+		//$cacheData = $Cache_Lite->get($id);
+		//if ($cacheData === false) {
             $result = $this->db->query($sql, $limit, $start);
             if ($result) {
     			while ($row = $this->db->fetchArray($result)) {
    					$ret[$row['caddy_product_id']] = $row['caddy_product_id'];
 			    }
             }
-            $Cache_Lite->save($ret);
+            //$Cache_Lite->save($ret);
             return $ret;
-		} else {
-		    return $cacheData;
-		}
+		//} else {
+		    //return $cacheData;
+		//}
 	}
 
 

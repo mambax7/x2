@@ -300,8 +300,8 @@ class XoopsCommentRenderer
             } else {
                 $title = $thread[$key]['obj']->getVar('com_title');
             }
-            // Start edit by voltan 
-            $text = (false != $admin_view) ? $thread[$key]['obj']->getVar('com_text') . '<div style="text-align:right; margin-top: 2px; margin-right: 2px;">' . _CM_STATUS . ': ' . $this->_statusText[$thread[$key]['obj']->getVar('com_status')] . '<br />IP: <span style="font-weight: bold;">' . $thread[$key]['obj']->getVar('com_ip') . '</span><br />' .  _CM_EMAIL . ' :<span style="font-weight: bold;">' . $thread[$key]['obj']->getVar('com_email') . '</span></div>' : $thread[$key]['obj']->getVar('com_text');
+            $text = (false != $admin_view) ? $thread[$key]['obj']->getVar('com_text') . '<div style="text-align:right; margin-top: 2px; margin-right: 2px;">' . _CM_STATUS . ': ' . $this->_statusText[$thread[$key]['obj']->getVar('com_status')] . '<br />IP: <span style="font-weight: bold;">' . $thread[$key]['obj']->getVar('com_ip') . '</span><br />' . _CM_EMAIL . ' :<span style="font-weight: bold;">' . $this->_comments[$i]->getVar('com_email') . '</span></div>' : $thread[$key]['obj']->getVar('com_text');
+            // Start edit by voltan
             $replies[] = array('id' => $key , 'prefix' => $prefix , 'pid' => $thread[$key]['obj']->getVar('com_pid') , 'itemid' => $thread[$key]['obj']->getVar('com_itemid') , 'rootid' => $thread[$key]['obj']->getVar('com_rootid') , 'title' => $title , 'text' => $text , 'date_posted' => formatTimestamp($thread[$key]['obj']->getVar('com_created'), 'm') , 'date_modified' => formatTimestamp($thread[$key]['obj']->getVar('com_modified'), 'm') , 'poster' => $this->_getPosterArray($thread[$key]['obj']->getVar('com_uid'), $thread[$key]['obj']->getVar('com_user'), $thread[$key]['obj']->getVar('com_url')));
             // End edit by voltan
             $prefix = $prefix + 25;

@@ -46,7 +46,7 @@ if( !defined("OLEDRION_DIRNAME") ) {
 	define("OLEDRION_TEXTFILE5", 'oledrion_restrictorders.txt');
 	define("OLEDRION_TEXTFILE6", 'oledrion_checkout1.txt');
 	define("OLEDRION_TEXTFILE7", 'oledrion_checkout2.txt');
-	define("OLEDRION_CACHE_PATH", XOOPS_UPLOAD_PATH.DIRECTORY_SEPARATOR.OLEDRION_DIRNAME.DIRECTORY_SEPARATOR);
+	define("OLEDRION_CACHE_PATH", XOOPS_UPLOAD_PATH.DIRECTORY_SEPARATOR.OLEDRION_DIRNAME.DIRECTORY_SEPARATOR.'cache'.DIRECTORY_SEPARATOR);
 }
 // Les classes pour les plugins
 require_once OLEDRION_CLASS_PATH.'oledrion_plugins.php';	// Classe principale
@@ -60,7 +60,7 @@ require_once OLEDRION_CLASS_PATH.'oledrion_parameters.php';
 require_once OLEDRION_CLASS_PATH.'oledrion_currency.php';
 require_once OLEDRION_CLASS_PATH.'oledrion_shelf.php';
 require_once OLEDRION_CLASS_PATH.'oledrion_shelf_parameters.php';
-require_once OLEDRION_CLASS_PATH.'PEAR.php';
+//require_once OLEDRION_CLASS_PATH.'PEAR.php';
 require_once OLEDRION_CLASS_PATH.'oledrion_reductions.php';
 require_once OLEDRION_CLASS_PATH.'oledrion_gateways.php';
 require_once OLEDRION_ADMIN_PATH.'gateways/gateway.php';    // La classe abstraite

@@ -26,19 +26,23 @@
 
 // Location of attached files (url and physical path on your disk)
 if(!defined("OLEDRION_ATTACHED_FILES_URL")) {
+	// Define here the place where main upload path
+	define("OLEDRION_UPLOAD_URL", XOOPS_UPLOAD_URL.'/oledrion');		// WITHOUT Trailing slash
+	define("OLEDRION_UPLOAD_PATH", XOOPS_UPLOAD_PATH.'/oledrion');	// WITHOUT Trailing slash
+	
 	// Define here the place where files attached to products are saved
-	define("OLEDRION_ATTACHED_FILES_URL", XOOPS_UPLOAD_URL);		// WITHOUT Trailing slash
-	define("OLEDRION_ATTACHED_FILES_PATH", XOOPS_UPLOAD_PATH);	// WITHOUT Trailing slash
+	define("OLEDRION_ATTACHED_FILES_URL", XOOPS_UPLOAD_URL.'/oledrion/attached');		// WITHOUT Trailing slash
+	define("OLEDRION_ATTACHED_FILES_PATH", XOOPS_UPLOAD_PATH.'/oledrion/attached');	// WITHOUT Trailing slash
 
 	// Define here where pictures are saved
-	define("OLEDRION_PICTURES_URL", XOOPS_UPLOAD_URL);		// WITHOUT Trailing slash
-	define("OLEDRION_PICTURES_PATH", XOOPS_UPLOAD_PATH);		// WITHOUT Trailing slash
+	define("OLEDRION_PICTURES_URL", XOOPS_UPLOAD_URL.'/oledrion/images');		// WITHOUT Trailing slash
+	define("OLEDRION_PICTURES_PATH", XOOPS_UPLOAD_PATH.'/oledrion/images');		// WITHOUT Trailing slash
 
 	// Maximum length of product's summary for pages (in characters)
 	define("OLEDRION_SUMMARY_MAXLENGTH", 150);
 
 	// Used in checkout to select a default country
-	define("OLEDRION_DEFAULT_COUNTRY", 'FR');
+	define("OLEDRION_DEFAULT_COUNTRY", 'EN');
 
 	// RSS Feed cache duration (in minutes)
 	define("OLEDRION_RSS_CACHE", 3600);
@@ -48,19 +52,19 @@ if(!defined("OLEDRION_ATTACHED_FILES_URL")) {
 	define("OLEDRION_MAX_PRODUCTS_POPUP_HEIGHT", 600);
 
 	// Newsletter URL (the folder must be writable)
-	define("OLEDRION_NEWSLETTER_URL", XOOPS_URL.'/uploads/oledrion_newsletter.txt');
+	define("OLEDRION_NEWSLETTER_URL", XOOPS_URL.'/uploads/oledrion/oledrion_newsletter.txt');
 	// Newsletter PATH (the folder must be writable)
-	define("OLEDRION_NEWSLETTER_PATH", XOOPS_ROOT_PATH.'/uploads/oledrion_newsletter.txt');
+	define("OLEDRION_NEWSLETTER_PATH", XOOPS_ROOT_PATH.'/uploads/oledrion/oledrion_newsletter.txt');
 
 	// CSV path (the folder must be writable)
-	define("OLEDRION_CSV_PATH", XOOPS_UPLOAD_PATH);
+	define("OLEDRION_CSV_PATH", XOOPS_UPLOAD_PATH.'/oledrion/cvs');
 	// CSV URL (the folder must be writable)
-	define("OLEDRION_CSV_URL", XOOPS_UPLOAD_URL);
+	define("OLEDRION_CSV_URL", XOOPS_UPLOAD_URL.'/oledrion/cvs');
 	// CSV Separator
 	define("OLEDRION_CSV_SEP", ';');
 
 	// Gateway log's path (must be writable)
-	define("OLEDRION_GATEWAY_LOG_PATH", XOOPS_UPLOAD_PATH.'/loggateway_oledrion.php');
+	define("OLEDRION_GATEWAY_LOG_PATH", XOOPS_UPLOAD_PATH.'/oledrion/loggateway_oledrion.php');
 
 	// Do you want to show the list of main categories on the category page when user is on category.php (without specifying a category to see)
 	define("OLEDRION_SHOW_MAIN_CATEGORIES", true);

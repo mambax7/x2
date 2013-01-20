@@ -55,7 +55,7 @@ if($limit > 0) {
 		$xoopsTpl->assign('pagenav', $pagenav->renderNav());
 	}
 
-	$oledrion_shelf_parameters->resetDefaultValues()->setProductsType('recent')->setStart($start)->setLimit($limit)->setSort('product_id DESC, product_title')->setWithXoopsUser(true)->setWithRelatedProducts(true);
+	$oledrion_shelf_parameters->resetDefaultValues()->setProductsType('recent')->setStart($start)->setLimit($limit)->setSort('product_submitted DESC, product_title')->setWithXoopsUser(true)->setWithRelatedProducts(true);
 	$products = $oledrion_shelf->getProducts($oledrion_shelf_parameters);
 
 	if(isset($products['lastTitle'])) {

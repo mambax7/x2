@@ -191,7 +191,7 @@ class Oledrion_XoopsPersistableObjectHandler extends XoopsObjectHandler {
      */
     function &getObjects($criteria = null, $id_as_key = false, $as_object = true, $fields = '*', $autoSort = true)
     {
-        require_once 'lite.php';
+        //require_once 'lite.php';
         $ret = array();
         $limit = $start = 0;
         $sql = 'SELECT '.$fields.' FROM '.$this->table;
@@ -208,20 +208,20 @@ class Oledrion_XoopsPersistableObjectHandler extends XoopsObjectHandler {
             $limit = $criteria->getLimit();
             $start = $criteria->getStart();
         }
-        $Cache_Lite = new oledrion_Cache_Lite($this->cacheOptions);
+        //$Cache_Lite = new oledrion_Cache_Lite($this->cacheOptions);
         $id = $this->_getIdForCache($sql, $start, $limit);
-        $cacheData = $Cache_Lite->get($id);
-        if ($cacheData === false) {
+        //$cacheData = $Cache_Lite->get($id);
+        //if ($cacheData === false) {
         $result = $this->db->query($sql, $limit, $start);
         if (!$result) {
             return $ret;
         }
 	        $ret = $this->convertResultSet($result, $id_as_key, $as_object, $fields);
-			$Cache_Lite->save($ret);
+			//$Cache_Lite->save($ret);
             return $ret;
-        } else {
-			return $cacheData;
-        }
+        //} else {
+			//return $cacheData;
+        //}
     }
 
 
@@ -283,10 +283,10 @@ class Oledrion_XoopsPersistableObjectHandler extends XoopsObjectHandler {
      */
     function getIds($criteria = null)
     {
-    	require_once 'lite.php';
+    	//require_once 'lite.php';
     	$limit = $start = 0;
 
-    	$Cache_Lite = new oledrion_Cache_Lite($this->cacheOptions);
+    	//$Cache_Lite = new oledrion_Cache_Lite($this->cacheOptions);
         $sql = 'SELECT '.$this->keyName.' FROM ' . $this->table;
         if (isset($criteria) && is_subclass_of($criteria, 'criteriaelement')) {
             $sql .= ' '.$criteria->renderWhere();
@@ -303,18 +303,18 @@ class Oledrion_XoopsPersistableObjectHandler extends XoopsObjectHandler {
         }
 
         $id = $this->_getIdForCache($sql, $start, $limit);
-        $cacheData = $Cache_Lite->get($id);
-        if ($cacheData === false) {
+        //$cacheData = $Cache_Lite->get($id);
+        //if ($cacheData === false) {
         	$result = $this->db->query($sql, $limit, $start);
         $ret = array();
         while ($myrow = $this->db->fetchArray($result)) {
 	        $ret[] = $myrow[$this->keyName];
         }
-        	$Cache_Lite->save($ret);
+        	//$Cache_Lite->save($ret);
         return $ret;
-        } else {
-        	return $cacheData;
-        }
+        //} else {
+        //	return $cacheData;
+        //}
 	}
 
 
@@ -326,9 +326,9 @@ class Oledrion_XoopsPersistableObjectHandler extends XoopsObjectHandler {
     */
     function getList($criteria = null)
     {
-    	require_once 'lite.php';
+    	//require_once 'lite.php';
     	$limit = $start = 0;
-    	$Cache_Lite = new oledrion_Cache_Lite($this->cacheOptions);
+    	//$Cache_Lite = new oledrion_Cache_Lite($this->cacheOptions);
 
         $ret = array();
 
@@ -352,8 +352,8 @@ class Oledrion_XoopsPersistableObjectHandler extends XoopsObjectHandler {
         }
 
         $id = $this->_getIdForCache($sql, $start, $limit);
-        $cacheData = $Cache_Lite->get($id);
-        if ($cacheData === false) {
+       // $cacheData = $Cache_Lite->get($id);
+        //if ($cacheData === false) {
 	        $result = $this->db->query($sql, $limit, $start);
         	if (!$result) {
 	       		$Cache_Lite->save($ret);
@@ -365,11 +365,11 @@ class Oledrion_XoopsPersistableObjectHandler extends XoopsObjectHandler {
 	            // identifiers should be textboxes, so sanitize them like that
             	$ret[$myrow[$this->keyName]] = empty($this->identifierName)?1:$myts->htmlSpecialChars($myrow[$this->identifierName]);
         	}
-       		$Cache_Lite->save($ret);
+       		//$Cache_Lite->save($ret);
         	return $ret;
-        } else {
-        	return $cacheData;
-        }
+        //} else {
+        	//return $cacheData;
+       // }
     }
 
     /**
@@ -417,10 +417,10 @@ class Oledrion_XoopsPersistableObjectHandler extends XoopsObjectHandler {
             $limit = $criteria->getLimit();
             $start = $criteria->getStart();
         }
-		$Cache_Lite = new oledrion_Cache_Lite($this->cacheOptions);
+		//$Cache_Lite = new oledrion_Cache_Lite($this->cacheOptions);
 		$id = $this->_getIdForCache($sql, $start, $limit);
-		$cacheData = $Cache_Lite->get($id);
-        if ($cacheData === false) {
+		//$cacheData = $Cache_Lite->get($id);
+        //if ($cacheData === false) {
 	        $result = $this->db->query($sql, $limit, $start);
         if (!$result) {
         		$ret = 0;
@@ -429,19 +429,19 @@ class Oledrion_XoopsPersistableObjectHandler extends XoopsObjectHandler {
         }
         if ($groupby == false) {
             list($count) = $this->db->fetchRow($result);
-	        	$Cache_Lite->save($count);
+	        	//$Cache_Lite->save($count);
             return $count;
         	} else {
             $ret = array();
             while (list($id, $count) = $this->db->fetchRow($result)) {
                 $ret[$id] = $count;
             }
-	        	$Cache_Lite->save($ret);
+	        //	$Cache_Lite->save($ret);
             return $ret;
         }
-        } else {
-        	return $cacheData;
-        }
+        //} else {
+        	//return $cacheData;
+        //}
     }
 
     /**
@@ -454,7 +454,7 @@ class Oledrion_XoopsPersistableObjectHandler extends XoopsObjectHandler {
     function getSum($field, $criteria = null)
     {
         $limit = $start = 0;
-		require_once 'lite.php';
+		//require_once 'lite.php';
 
         $sql = 'SELECT Sum('.$field.') as cpt FROM '.$this->table;
         if (isset($criteria) && is_subclass_of($criteria, 'criteriaelement')) {
@@ -465,23 +465,23 @@ class Oledrion_XoopsPersistableObjectHandler extends XoopsObjectHandler {
             $limit = $criteria->getLimit();
             $start = $criteria->getStart();
         }
-		$Cache_Lite = new oledrion_Cache_Lite($this->cacheOptions);
+		//$Cache_Lite = new oledrion_Cache_Lite($this->cacheOptions);
 		$id = $this->_getIdForCache($sql, $start, $limit);
-		$cacheData = $Cache_Lite->get($id);
-        if ($cacheData === false) {
+		//$cacheData = $Cache_Lite->get($id);
+        //if ($cacheData === false) {
 	        $result = $this->db->query($sql, $limit, $start);
         	if (!$result) {
         		$ret = 0;
-        		$Cache_Lite->save($ret);
+        		//$Cache_Lite->save($ret);
         		return $ret;
         	}
             $row = $this->db->fetchArray($result);
             $count = $row['cpt'];
-        	$Cache_Lite->save($count);
+        	//$Cache_Lite->save($count);
    	    	return $count;
-        } else {
-        	return $cacheData;
-        }
+        //} else {
+        //	return $cacheData;
+       // }
     }
 
     /**
@@ -752,7 +752,7 @@ class Oledrion_XoopsPersistableObjectHandler extends XoopsObjectHandler {
 	 */
     function getDistincts($field, $criteria = null, $format = 's')
 	{
-		require_once 'lite.php';
+		//require_once 'lite.php';
 		$limit = $start = 0;
         $sql = 'SELECT '.$this->keyName.', '.$field.' FROM '.$this->table;
 		if (isset($criteria) && is_subclass_of($criteria, 'criteriaelement')) {
@@ -762,10 +762,10 @@ class Oledrion_XoopsPersistableObjectHandler extends XoopsObjectHandler {
 		}
         $sql .=' GROUP BY '.$field.' ORDER BY '.$field;
 
-        $Cache_Lite = new oledrion_Cache_Lite($this->cacheOptions);
+        //$Cache_Lite = new oledrion_Cache_Lite($this->cacheOptions);
         $id = $this->_getIdForCache($sql, $start, $limit);
-        $cacheData = $Cache_Lite->get($id);
-        if ( $cacheData === false ) {
+        //$cacheData = $Cache_Lite->get($id);
+        //if ( $cacheData === false ) {
 	        $result = $this->db->query($sql, $limit, $start);
         $ret = array();
         $obj = new $this->className();
@@ -773,11 +773,11 @@ class Oledrion_XoopsPersistableObjectHandler extends XoopsObjectHandler {
 	        $obj->setVar($field, $myrow[$field]);
         	$ret[$myrow[$this->keyName]] = $obj->getVar($field, $format);
         }
-        	$Cache_Lite->save($ret);
+        	//$Cache_Lite->save($ret);
         return $ret;
-        } else {
-			return $cacheData;
-        }
+        //} else {
+			//return $cacheData;
+       // }
 	}
 
 
@@ -817,9 +817,9 @@ class Oledrion_XoopsPersistableObjectHandler extends XoopsObjectHandler {
 	 */
 	function forceCacheClean()
 	{
-        require_once 'lite.php';
-        $Cache_Lite = new oledrion_Cache_Lite($this->cacheOptions);
-        $Cache_Lite->clean();
+        //require_once 'lite.php';
+        //$Cache_Lite = new oledrion_Cache_Lite($this->cacheOptions);
+        //$Cache_Lite->clean();
 	}
 }
 ?>

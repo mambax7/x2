@@ -629,8 +629,8 @@ switch($action) {
 			$id = $item->getVar('product_id');
 			// Notifications ******************************************************
 			if($add == true) {
-				$plugins = oledrion_plugins::getInstance();
-				$plugins->fireAction(oledrion_plugins::EVENT_ON_PRODUCT_CREATE, new oledrion_parameters(array('product' => $item)));
+				//$plugins = oledrion_plugins::getInstance();
+				//$plugins->fireAction(oledrion_plugins::EVENT_ON_PRODUCT_CREATE, new oledrion_parameters(array('product' => $item)));
 			}
 			// Gestion des fabricants ************************************************
 			if($edit) {
