@@ -123,7 +123,7 @@ if( (is_object($category) && $category->getVar('cat_pid') == 0) || $cat_cid == 0
 
 	if( $chunk1 > 0 ) {		// Produits les plus récents (dans cette catégorie ou dans toutes les catégories)
 		$products = array();
-		$oledrion_shelf_parameters->resetDefaultValues()->setProductsType('recent')->setCategory($tblChilds)->setStart($start)->setLimit($limit)->setSort('product_submitted DESC, product_title');
+		$oledrion_shelf_parameters->resetDefaultValues()->setProductsType('recent')->setCategory($tblChilds)->setStart($start)->setLimit($limit)->setSort('product_id DESC, product_title');
 		$products = $oledrion_shelf->getProducts($oledrion_shelf_parameters);
 		if(count($products) > 0) {
 			$xoopsTpl->assign('chunk'.$chunk1.'Title', _OLEDRION_MOST_RECENT);
@@ -136,7 +136,7 @@ if( (is_object($category) && $category->getVar('cat_pid') == 0) || $cat_cid == 0
 
 	if( $chunk2 > 0 ) {		// Produits les plus achetés (dans cette catégorie ou dans toutes les catégories)
 		$products = array();
-		$oledrion_shelf_parameters->resetDefaultValues()->setProductsType('mostsold')->setStart($start)->setLimit($limit)->setSort('product_submitted DESC, product_title')->setCategory($tblChilds);
+		$oledrion_shelf_parameters->resetDefaultValues()->setProductsType('mostsold')->setStart($start)->setLimit($limit)->setSort('product_id DESC, product_title')->setCategory($tblChilds);
 		$products = $oledrion_shelf->getProducts($oledrion_shelf_parameters);
 		if(count($products) > 0) {
 			$xoopsTpl->assign('chunk'.$chunk2.'Title', _OLEDRION_MOST_SOLD);
@@ -229,7 +229,7 @@ if( is_object($category) && $cat_cid > 0 ) { // On est sur une catégorie défin
 
 	// Données des Produits *************************************************************************
 	$products = array();
-	$oledrion_shelf_parameters->resetDefaultValues()->setProductsType('recent')->setCategory($cat_cid)->setStart($start)->setLimit($limit)->setSort('product_submitted DESC, product_title');
+	$oledrion_shelf_parameters->resetDefaultValues()->setProductsType('recent')->setCategory($cat_cid)->setStart($start)->setLimit($limit)->setSort('product_id DESC, product_title');
 	$products = $oledrion_shelf->getProducts($oledrion_shelf_parameters);
 
 	if(count($products) > 0) {

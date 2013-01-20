@@ -55,7 +55,7 @@ if (isset($_REQUEST['start'])) {
 }
 
 $newscountbytopic = $story_handler->News_GetNewsCountByTopic();
-$topics = $topic_handler->News_GetTopics($NewsModule, $topic_limit, $topic_start, $topic_order, $topic_sort, $topic_menu = null, $topic_online = null , $topic_parent = null , $newscountbytopic);
+$topics = $topic_handler->News_GetTopics($NewsModule, $topic_limit, $topic_start, $topic_order, $topic_sort, $topic_menu = null, $topic_online = 1 , $topic_parent = null , $newscountbytopic);
 $topic_numrows = $topic_handler->News_GetTopicCount($NewsModule);
 
 if ($topic_numrows > $topic_limit) {
@@ -64,6 +64,17 @@ if ($topic_numrows > $topic_limit) {
 } else {
    $topic_pagenav = '';
 }
+
+
+$story_infos['story_limit'] = 10;
+$story_infos['story_start'] = 0;
+$story_infos['story_topic'] = null;
+$story_infos['story_user'] = null;
+$story_infos['story_sort'] = 'story_publish';
+$story_infos['story_order'] = 'DESC';   
+$story_infos['topics'] = $topic_handler->getall(); 
+$contents = $story_handler->News_GetContentList($NewsModule, $story_infos);      
+      
         
 if (xoops_getModuleOption ( 'img_lightbox', $NewsModule->getVar ( 'dirname' ) )) {
 	// Add scripts
@@ -75,6 +86,7 @@ if (xoops_getModuleOption ( 'img_lightbox', $NewsModule->getVar ( 'dirname' ) ))
 }
         
 $xoopsTpl->assign('topics', $topics);
+$xoopsTpl->assign('contents', $contents);
 $xoopsTpl->assign('topic_pagenav', $topic_pagenav);
 $xoopsTpl->assign('xoops_dirname', $NewsModule->getVar('dirname'));
 $xoopsTpl->assign ( 'advertisement', xoops_getModuleOption ( 'advertisement', $NewsModule->getVar ( 'dirname' ) ) );
