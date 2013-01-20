@@ -77,7 +77,7 @@ CREATE TABLE `news_topic` (
    KEY `topic_pid` (`topic_pid`),
    KEY `topic_online` (`topic_online`),
    KEY `topic_alias` (`topic_alias`),
-   KEY `topic_homepage` (`topic_homepage`),
+   KEY `topic_homepage` (`topic_homepage`)
 ) ENGINE=MyISAM;
 
 CREATE TABLE `news_file` (

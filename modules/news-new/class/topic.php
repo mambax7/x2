@@ -68,7 +68,7 @@ class news_topic extends XoopsObject {
 	 */
 	function getForm() {
 		
-		$form = new XoopsThemeForm ( _TOPIC_FORM, 'topic', 'backend.php', 'post' );
+		$form = new XoopsThemeForm ( _NEWS_AM_TOPIC_FORM, 'topic', 'backend.php', 'post' );
 		$form->setExtra ( 'enctype="multipart/form-data"' );
 		
 		if ($this->isNew ()) {
@@ -79,8 +79,8 @@ class news_topic extends XoopsObject {
 		
 		$form->addElement ( new XoopsFormHidden ( 'topic_id', $this->getVar ( 'topic_id', 'e' ) ) );
 		$form->addElement ( new XoopsFormHidden ( 'topic_submitter', $GLOBALS ['xoopsUser']->getVar ( 'uid' ) ) );
-		$form->addElement ( new XoopsFormText ( _TOPIC_NAME, "topic_title", 50, 255, $this->getVar ( "topic_title" ) ), true );
-		$form->addElement ( new XoopsFormText ( _TOPIC_ALIAS, "topic_alias", 50, 255, $this->getVar ( "topic_alias" ) ), true );
+		$form->addElement ( new XoopsFormText ( _NEWS_AM_TOPIC_NAME, "topic_title", 50, 255, $this->getVar ( "topic_title" ) ), true );
+		$form->addElement ( new XoopsFormText ( _NEWS_AM_TOPIC_ALIAS, "topic_alias", 50, 255, $this->getVar ( "topic_alias" ) ), true );
 		
 		$topic_Handler = xoops_getModuleHandler ( "topic", "news" );
 		$criteria = new CriteriaCompo ();
@@ -89,57 +89,57 @@ class news_topic extends XoopsObject {
 			$tree = new XoopsObjectTree ( $topic, 'topic_id', 'topic_pid' );
 			ob_start ();
 			echo $tree->makeSelBox ( 'topic_pid', 'topic_title', '--', $this->getVar ( 'topic_pid', 'e' ), true );
-			$form->addElement ( new XoopsFormLabel ( _TOPIC_PARENT, ob_get_contents () ) );
+			$form->addElement ( new XoopsFormLabel ( _NEWS_AM_TOPIC_PARENT, ob_get_contents () ) );
 			ob_end_clean ();
 		}
-		$form->addElement ( new XoopsFormTextArea ( _TOPIC_DESC, "topic_desc", $this->getVar ( "topic_desc" ), 8, 47 ), false );
+		$form->addElement ( new XoopsFormTextArea ( _NEWS_AM_TOPIC_DESC, "topic_desc", $this->getVar ( "topic_desc" ), 8, 47 ), false );
 		// Image
 		$topic_img = $this->getVar ( 'topic_img' ) ? $this->getVar ( 'topic_img' ) : 'blank.gif';
 		$uploadirectory_topic_img = xoops_getModuleOption ( 'img_dir', 'news' );
-		$fileseltray_topic_img = new XoopsFormElementTray ( _TOPIC_IMG, '<br />' );
+		$fileseltray_topic_img = new XoopsFormElementTray ( _NEWS_AM_TOPIC_IMG, '<br />' );
 		$fileseltray_topic_img->addElement ( new XoopsFormLabel ( '', "<img class='fromimage' src='" . XOOPS_URL . $uploadirectory_topic_img . $topic_img . "' name='image_topic_img' id='image_topic_img' alt='' />" ) );
 		if ($this->getVar ( 'topic_img' )) {
 			$delete_img = new XoopsFormCheckBox ( '', 'deleteimage', 0 );
 			$delete_img->addOption ( 1, _DELETE );
 			$fileseltray_topic_img->addElement ( $delete_img );
 		}
-		$fileseltray_topic_img->addElement ( new XoopsFormFile ( _GLOBAL_FORMUPLOAD, 'topic_img', xoops_getModuleOption ( 'img_size', 'news' ) ), false );
+		$fileseltray_topic_img->addElement ( new XoopsFormFile ( _NEWS_AM_GLOBAL_FORMUPLOAD, 'topic_img', xoops_getModuleOption ( 'img_size', 'news' ) ), false );
 		$form->addElement ( $fileseltray_topic_img );
 		
-		$form->addElement ( new XoopsFormText ( _TOPIC_STYLE, "topic_style", 50, 64, $this->getVar ( "topic_style" ) ), false );
+		$form->addElement ( new XoopsFormText ( _NEWS_AM_TOPIC_STYLE, "topic_style", 50, 64, $this->getVar ( "topic_style" ) ), false );
 		
-		$form->addElement ( new XoopsFormRadioYN ( _TOPIC_ONLINE, 'topic_online', $this->getVar ( 'topic_online', 'e' ) ) );
-		$form->addElement ( new XoopsFormRadioYN ( _TOPIC_MENU, 'topic_asmenu', $this->getVar ( 'topic_asmenu', 'e' ) ) );
-		$form->addElement ( new XoopsFormRadioYN ( _TOPIC_SHOW, 'topic_show', $this->getVar ( 'topic_show', 'e' ) ) );
-		$form->addElement ( new XoopsFormLabel ( _TOPIC_OPTIONS, _TOPIC_OPTIONS_DESC, '' ) );
-		$homepage = new XoopsFormSelect ( _TOPIC_HOMEPAGE, 'topic_homepage', $this->getVar ( "topic_homepage" ) );
-		$homepage->addOption ( '1', _TOPIC_HOMEPAGE_1 );
-		$homepage->addOption ( '2', _TOPIC_HOMEPAGE_2 );
-		$homepage->addOption ( '3', _TOPIC_HOMEPAGE_3 );
-		$homepage->addOption ( '4', _TOPIC_HOMEPAGE_4 );
-		$homepage->setDescription ( _TOPIC_HOMEPAGE_DESC );
+		$form->addElement ( new XoopsFormRadioYN ( _NEWS_AM_TOPIC_ONLINE, 'topic_online', $this->getVar ( 'topic_online', 'e' ) ) );
+		$form->addElement ( new XoopsFormRadioYN ( _NEWS_AM_TOPIC_MENU, 'topic_asmenu', $this->getVar ( 'topic_asmenu', 'e' ) ) );
+		$form->addElement ( new XoopsFormRadioYN ( _NEWS_AM_TOPIC_SHOW, 'topic_show', $this->getVar ( 'topic_show', 'e' ) ) );
+		$form->addElement ( new XoopsFormLabel ( _NEWS_AM_TOPIC_OPTIONS, _NEWS_AM_TOPIC_OPTIONS_DESC, '' ) );
+		$homepage = new XoopsFormSelect ( _NEWS_AM_TOPIC_HOMEPAGE, 'topic_homepage', $this->getVar ( "topic_homepage" ) );
+		$homepage->addOption ( '1', _NEWS_AM_TOPIC_HOMEPAGE_1 );
+		$homepage->addOption ( '2', _NEWS_AM_TOPIC_HOMEPAGE_2 );
+		$homepage->addOption ( '3', _NEWS_AM_TOPIC_HOMEPAGE_3 );
+		$homepage->addOption ( '4', _NEWS_AM_TOPIC_HOMEPAGE_4 );
+		$homepage->setDescription ( _NEWS_AM_TOPIC_HOMEPAGE_DESC );
 		$form->addElement ( $homepage );
 		
-		$showtype = new XoopsFormSelect ( _TOPIC_SHOWTYPE, 'topic_showtype', $this->getVar ( "topic_showtype" ) );
-		$showtype->addOption ( '0', _TOPIC_SHOWTYPE_0 );
-		$showtype->addOption ( '1', _TOPIC_SHOWTYPE_1 );
-		$showtype->addOption ( '2', _TOPIC_SHOWTYPE_2 );
-		$showtype->addOption ( '3', _TOPIC_SHOWTYPE_3 );
-		$showtype->addOption ( '4', _TOPIC_SHOWTYPE_4 );
-		$showtype->setDescription ( _TOPIC_SHOWTYPE_DESC );
+		$showtype = new XoopsFormSelect ( _NEWS_AM_TOPIC_SHOWTYPE, 'topic_showtype', $this->getVar ( "topic_showtype" ) );
+		$showtype->addOption ( '0', _NEWS_AM_TOPIC_SHOWTYPE_0 );
+		$showtype->addOption ( '1', _NEWS_AM_TOPIC_SHOWTYPE_1 );
+		$showtype->addOption ( '2', _NEWS_AM_TOPIC_SHOWTYPE_2 );
+		$showtype->addOption ( '3', _NEWS_AM_TOPIC_SHOWTYPE_3 );
+		$showtype->addOption ( '4', _NEWS_AM_TOPIC_SHOWTYPE_4 );
+		$showtype->setDescription ( _NEWS_AM_TOPIC_SHOWTYPE_DESC );
 		$form->addElement ( $showtype );
 		
-		$form->addElement ( new XoopsFormRadioYN ( _TOPIC_SHOWTOPIC, 'topic_showtopic', $this->getVar ( 'topic_showtopic', 'e' ) ) );
-		$form->addElement ( new XoopsFormRadioYN ( _TOPIC_SHOWAUTHOR, 'topic_showauthor', $this->getVar ( 'topic_showauthor', 'e' ) ) );
-		$form->addElement ( new XoopsFormRadioYN ( _TOPIC_SHOWDATE, 'topic_showdate', $this->getVar ( 'topic_showdate', 'e' ) ) );
-		$form->addElement ( new XoopsFormRadioYN ( _TOPIC_SHOWDPF, 'topic_showpdf', $this->getVar ( 'topic_showpdf', 'e' ) ) );
-		$form->addElement ( new XoopsFormRadioYN ( _TOPIC_SHOWPRINT, 'topic_showprint', $this->getVar ( 'topic_showprint', 'e' ) ) );
-		$form->addElement ( new XoopsFormRadioYN ( _TOPIC_SHOWMAIL, 'topic_showmail', $this->getVar ( 'topic_showmail', 'e' ) ) );
-		$form->addElement ( new XoopsFormRadioYN ( _TOPIC_SHOWNAV, 'topic_shownav', $this->getVar ( 'topic_shownav', 'e' ) ) );
-		$form->addElement ( new XoopsFormRadioYN ( _TOPIC_SHOWHITS, 'topic_showhits', $this->getVar ( 'topic_showhits', 'e' ) ) );
-		$form->addElement ( new XoopsFormRadioYN ( _TOPIC_SHOWCOMS, 'topic_showcoms', $this->getVar ( 'topic_showcoms', 'e' ) ) );
-		$form->addElement ( new XoopsFormText ( _TOPIC_PERPAGE, "topic_perpage", 50, 255, $this->getVar ( "topic_perpage" ) ), true );
-		$form->addElement ( new XoopsFormText ( _TOPIC_COLUMNS, "topic_columns", 50, 255, $this->getVar ( "topic_columns" ) ) );
+		$form->addElement ( new XoopsFormRadioYN ( _NEWS_AM_TOPIC_SHOWTOPIC, 'topic_showtopic', $this->getVar ( 'topic_showtopic', 'e' ) ) );
+		$form->addElement ( new XoopsFormRadioYN ( _NEWS_AM_TOPIC_SHOWAUTHOR, 'topic_showauthor', $this->getVar ( 'topic_showauthor', 'e' ) ) );
+		$form->addElement ( new XoopsFormRadioYN ( _NEWS_AM_TOPIC_SHOWDATE, 'topic_showdate', $this->getVar ( 'topic_showdate', 'e' ) ) );
+		$form->addElement ( new XoopsFormRadioYN ( _NEWS_AM_TOPIC_SHOWDPF, 'topic_showpdf', $this->getVar ( 'topic_showpdf', 'e' ) ) );
+		$form->addElement ( new XoopsFormRadioYN ( _NEWS_AM_TOPIC_SHOWPRINT, 'topic_showprint', $this->getVar ( 'topic_showprint', 'e' ) ) );
+		$form->addElement ( new XoopsFormRadioYN ( _NEWS_AM_TOPIC_SHOWMAIL, 'topic_showmail', $this->getVar ( 'topic_showmail', 'e' ) ) );
+		$form->addElement ( new XoopsFormRadioYN ( _NEWS_AM_TOPIC_SHOWNAV, 'topic_shownav', $this->getVar ( 'topic_shownav', 'e' ) ) );
+		$form->addElement ( new XoopsFormRadioYN ( _NEWS_AM_TOPIC_SHOWHITS, 'topic_showhits', $this->getVar ( 'topic_showhits', 'e' ) ) );
+		$form->addElement ( new XoopsFormRadioYN ( _NEWS_AM_TOPIC_SHOWCOMS, 'topic_showcoms', $this->getVar ( 'topic_showcoms', 'e' ) ) );
+		$form->addElement ( new XoopsFormText ( _NEWS_AM_TOPIC_PERPAGE, "topic_perpage", 50, 255, $this->getVar ( "topic_perpage" ) ), true );
+		$form->addElement ( new XoopsFormText ( _NEWS_AM_TOPIC_COLUMNS, "topic_columns", 50, 255, $this->getVar ( "topic_columns" ) ) );
 		
 		//permissions
 		$member_handler = & xoops_gethandler ( 'member' );
@@ -151,13 +151,13 @@ class news_topic extends XoopsObject {
 			$groups_ids_view = $gperm_handler->getGroupIds ( 'news_view', $this->getVar ( 'topic_id' ), $xoopsModule->getVar ( 'mid' ) );
 			$groups_ids_submit = $gperm_handler->getGroupIds ( 'news_submit', $this->getVar ( 'topic_id' ), $xoopsModule->getVar ( 'mid' ) );
 			$groups_ids_view = array_values ( $groups_ids_view );
-			$groups_can_view_checkbox = new XoopsFormCheckBox ( _PERMISSIONS_ACCESS, 'groups_view[]', $groups_ids_view );
+			$groups_can_view_checkbox = new XoopsFormCheckBox ( _NEWS_AM_PERMISSIONS_ACCESS, 'groups_view[]', $groups_ids_view );
 			$groups_ids_submit = array_values ( $groups_ids_submit );
-			$groups_can_submit_checkbox = new XoopsFormCheckBox ( _PERMISSIONS_SUBMIT, 'groups_submit[]', $groups_ids_submit );
+			$groups_can_submit_checkbox = new XoopsFormCheckBox ( _NEWS_AM_PERMISSIONS_SUBMIT, 'groups_submit[]', $groups_ids_submit );
 		
 		} else {
-			$groups_can_view_checkbox = new XoopsFormCheckBox ( _PERMISSIONS_ACCESS, 'groups_view[]', $full_list );
-			$groups_can_submit_checkbox = new XoopsFormCheckBox ( _PERMISSIONS_SUBMIT, 'groups_submit[]', $full_list );
+			$groups_can_view_checkbox = new XoopsFormCheckBox ( _NEWS_AM_PERMISSIONS_ACCESS, 'groups_view[]', $full_list );
+			$groups_can_submit_checkbox = new XoopsFormCheckBox ( _NEWS_AM_PERMISSIONS_SUBMIT, 'groups_submit[]', $full_list );
 		
 		}
 		// pour voir

@@ -58,11 +58,10 @@ class NewsPermission {
 	}
 	
 	function News_SetPermission( $gperm_name, $groups_action, $id, $new) {
+		global $xoopsModule;
 		
-		$gperm_handler = &xoops_gethandler ( 'groupperm' );
+		$gperm_handler = xoops_gethandler ( 'groupperm' );
 		
-		$moduleHandler = & xoops_gethandler ( 'module' );
-		$module = $moduleHandler->getByDirname ( 'news' );
 			
 		if (! $new) {
 			$criteria = new CriteriaCompo ();
@@ -74,7 +73,7 @@ class NewsPermission {
 		
 		if (isset ( $groups_action )) {
 			foreach ( $groups_action as $onegroup_id ) {
-				$gperm_handler->addRight ( $gperm_name, $id, $onegroup_id);
+				$gperm_handler->addRight ( $gperm_name, $id, $onegroup_id,$xoopsModule->getVar('mid'));
 			}
 		}
 	
