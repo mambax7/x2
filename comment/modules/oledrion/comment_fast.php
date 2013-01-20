@@ -18,13 +18,12 @@
  * @version     $Id$
  */
 
-$com_itemid = isset($_GET['product_id']) ? intval($_GET['product_id']) : 0;
-if ($com_itemid > 0) {
+$product_id = isset($_GET['product_id']) ? intval($_GET['product_id']) : 0;
+if ($product_id > 0) {
 	$product = null;
-	$product = $h_oledrion_products->get($com_itemid);
+	$product = $h_oledrion_products->get($product_id);
 	if(is_object($product)) {
     	$com_replytitle = $product->getVar('product_title');
-    	require XOOPS_ROOT_PATH.'/include/comment_new.php';
 	} else {
 		exit();
 	}
