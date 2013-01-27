@@ -356,7 +356,7 @@ class Oledrion_XoopsPersistableObjectHandler extends XoopsObjectHandler {
         //if ($cacheData === false) {
 	        $result = $this->db->query($sql, $limit, $start);
         	if (!$result) {
-	       		//$Cache_Lite->save($ret);
+	       		$Cache_Lite->save($ret);
             	return $ret;
         	}
 

@@ -220,8 +220,8 @@ switch($action) {
 		if($res) {
 			oledrion_utils::updateCache();
 			if($add) {
-				$plugins = oledrion_plugins::getInstance();
-				$plugins->fireAction(oledrion_plugins::EVENT_ON_CATEGORY_CREATE, new oledrion_parameters(array('category' => $item)));
+				//$plugins = oledrion_plugins::getInstance();
+				//$plugins->fireAction(oledrion_plugins::EVENT_ON_CATEGORY_CREATE, new oledrion_parameters(array('category' => $item)));
 			}
 			oledrion_utils::redirect(_AM_OLEDRION_SAVE_OK, $baseurl.'?op='.$opRedirect, 2);
 		} else {
