@@ -131,7 +131,7 @@ switch($op) {
 				 $items[$i]['title'] = $row['title'];
 				 $items[$i]['type'] = 'product';
 				 $items[$i]['link'] = XOOPS_URL . '/modules/oledrion/product.php?product_id=' . $row['id'];
-				 $items[$i]['image'] = XOOPS_URL . '/uploads/' . $row['image'];
+				 $items[$i]['image'] = OLEDRION_PICTURES_URL . '/' . $row['image'];
 				 //$items[$i]['price'] = oledrion_utils::getTTC($row['price']);
 				 $category = $h_oledrion_cat->get($row['cid']);
 				 $items[$i]['cat_cid'] = $category->getVar('cat_cid');
@@ -145,7 +145,7 @@ switch($op) {
 				 $items[$i]['title'] = $row['title'];
 				 $items[$i]['type'] = 'cat';
 				 $items[$i]['link'] = XOOPS_URL . '/modules/oledrion/category.php?cat_cid=' . $row['id'];
-				 $items[$i]['image'] = XOOPS_URL . '/uploads/' . $row['image'];
+				 $items[$i]['image'] = OLEDRION_PICTURES_URL . '/' . $row['image'];
 				 $items[$i]['price'] = '';
 				 $i++;
 			 }
