@@ -14,7 +14,7 @@
  * @author     Greg Beaver <cellog@php.net>
  * @copyright  1997-2010 The Authors
  * @license    http://opensource.org/licenses/bsd-license.php New BSD License
- * @version    CVS: $Id$
+ * @version    CVS: $Id: PEAR.php 10999 2013-02-06 09:33:52Z beckmi $
  * @link       http://pear.php.net/package/PEAR
  * @since      File available since Release 0.1
  */

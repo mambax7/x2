@@ -284,6 +284,10 @@ define("_OLEDRION_PRODUCTS_COUNT", "%u محصول");
 
 define("_OLEDRION_PLUGINS_ERROR_1", "خطا, رویداد ناشناس: %s");
 
+//2.32
+define("_OLEDRION_ECOTAXE","EcoTax");
+
+//2.34
 define('_OLEDRION_PRODUCT_PROPERTY1', "جنسیت");
 define('_OLEDRION_PRODUCT_PROPERTY2', "نوع عطر");
 define('_OLEDRION_PRODUCT_PROPERTY3', "رایحه");

@@ -42,6 +42,7 @@ define("_MI_OLEDRION_BNAME12","فهرست های من");
 define("_MI_OLEDRION_BNAME13","فهرست های شاخه فعلی");
 define("_MI_OLEDRION_BNAME14","فهرست های تصادفی");
 define("_MI_OLEDRION_BNAME15","فهرست های پر بازدید");
+define("_MI_OLEDRION_BNAME16","Ajax search");
 
 // Sub menu titles
 define("_MI_OLEDRION_SMNAME1","سبد خرید");
@@ -222,4 +223,19 @@ define("_MI_OLEDRION_BNAME12_DESC",'Shows user lists');
 define("_MI_OLEDRION_BNAME13_DESC",'Shows recent public lists according to the current category');
 define("_MI_OLEDRION_BNAME14_DESC",'Shows random lists');
 define("_MI_OLEDRION_BNAME15_DESC",'Shows most viewed lists');
+
+define("_MI_OLEDRION_SEARCH_CATEGORY",'Show category');
+define("_MI_OLEDRION_SEARCH_MANUFACTURERS",'Show Manufacturers');
+define("_MI_OLEDRION_SEARCH_VENDORS",'Show vendors');
+define("_MI_OLEDRION_SEARCH_PRICE",'Show price');
+define("_MI_OLEDRION_SEARCH_STOCKS",'Show stocks');
+define("_MI_OLEDRION_SEARCH_PROPERTY1",'Show property 1');
+define("_MI_OLEDRION_SEARCH_PROPERTY2",'Show property 2');
+define("_MI_OLEDRION_SEARCH_PROPERTY3",'Show property 3');
+define("_MI_OLEDRION_SEARCH_PROPERTY4",'Show property 4');
+define("_MI_OLEDRION_SEARCH_PROPERTY5",'Show property 5');
+
+define("_MI_OLEDRION_BREAK_COMMENT_NOTIFICATION",'Comments and Notifications');
+define("_MI_OLEDRION_BREAK_SEARCH",'Search');
+define("_MI_OLEDRION_BREAK_IMAGE",'Image');
 ?>

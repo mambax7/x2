@@ -261,6 +261,18 @@ $modversion['blocks'][$cptb]['edit_func'] = 'b_oledrion__mostviewed_lists_edit';
 $modversion['blocks'][$cptb]['options'] = '10|0';    // Nombre maximum de listes à voir, Type de listes (0 = les 2, 1 = liste cadeaux, 2 = produits recommandés)
 $modversion['blocks'][$cptb]['template'] = 'oledrion_block_mostviewed_lists.html';
 
+/**
+ * Ajax search
+ */
+$cptb++;
+$modversion['blocks'][$cptb]['file'] = 'oledrion_ajax_search.php';
+$modversion['blocks'][$cptb]['name'] = _MI_OLEDRION_BNAME16;
+$modversion['blocks'][$cptb]['description'] = _MI_OLEDRION_BNAME16_DESC;
+$modversion['blocks'][$cptb]['show_func'] = 'b_oledrion_ajax_search_show';
+$modversion['blocks'][$cptb]['edit_func'] = 'b_oledrion__ajax_search_edit';
+$modversion['blocks'][$cptb]['options'] = '1'; 
+$modversion['blocks'][$cptb]['template'] = 'oledrion_block_ajax_search.html';
+
 
 /*
  * $options:
@@ -901,6 +913,84 @@ $modversion['config'][$cpto]['valuetype'] = 'int';
 $modversion['config'][$cpto]['default'] = 0;
 
 /**
+ * Multiply Shipping by product's quantity ?
+ */
+$cpto++;
+$modversion['config'][$cpto]['name'] = 'shipping_quantity';
+$modversion['config'][$cpto]['title'] = '_MI_OLEDRION_SHIPPING_QUANTITY';
+$modversion['config'][$cpto]['description'] = '';
+$modversion['config'][$cpto]['formtype'] = 'yesno';
+$modversion['config'][$cpto]['valuetype'] = 'int';
+$modversion['config'][$cpto]['default'] = 1;
+
+/**
+ * Use tags ?
+ */
+$cpto++;
+$modversion['config'][$cpto]['name'] = 'use_tags';
+$modversion['config'][$cpto]['title'] = '_MI_OLEDRION_USE_TAGS';
+$modversion['config'][$cpto]['description'] = '';
+$modversion['config'][$cpto]['formtype'] = 'yesno';
+$modversion['config'][$cpto]['valuetype'] = 'int';
+$modversion['config'][$cpto]['default'] = 0;
+
+/**
+ * Ask for VAT number ?
+ * @since 2.3.2009.03.09
+ */
+$cpto++;
+$modversion['config'][$cpto]['name'] = 'ask_vatnumber';
+$modversion['config'][$cpto]['title'] = '_MI_OLEDRION_ASK_VAT_NUMBER';
+$modversion['config'][$cpto]['description'] = '';
+$modversion['config'][$cpto]['formtype'] = 'yesno';
+$modversion['config'][$cpto]['valuetype'] = 'int';
+$modversion['config'][$cpto]['default'] = 0;
+
+/**
+ * Use stocks in products attributes ?
+ * @since 2.3.2009.03.11
+ */
+$cpto++;
+$modversion['config'][$cpto]['name'] = 'attributes_stocks';
+$modversion['config'][$cpto]['title'] = '_MI_OLEDRION_USE_STOCK_ATTRIBUTES';
+$modversion['config'][$cpto]['description'] = '';
+$modversion['config'][$cpto]['formtype'] = 'yesno';
+$modversion['config'][$cpto]['valuetype'] = 'int';
+$modversion['config'][$cpto]['default'] = 1;
+
+$cpto++;
+$modversion['config'][$cpto]['name'] = 'index_colums';
+$modversion['config'][$cpto]['title'] = '_MI_OLEDRION_COLUMNS_INDEX';
+$modversion['config'][$cpto]['description'] = '';
+$modversion['config'][$cpto]['formtype'] = 'textbox';
+$modversion['config'][$cpto]['valuetype'] = 'int';
+$modversion['config'][$cpto]['default'] = 1;
+
+$cpto++;
+$modversion['config'][$cpto]['name'] = 'catagory_colums';
+$modversion['config'][$cpto]['title'] = '_MI_OLEDRION_COLUMNS_CATEGORY';
+$modversion['config'][$cpto]['description'] = '';
+$modversion['config'][$cpto]['formtype'] = 'textbox';
+$modversion['config'][$cpto]['valuetype'] = 'int';
+$modversion['config'][$cpto]['default'] = 1;
+
+$cpto++;
+$modversion['config'][$cpto]['name'] = 'max_products';
+$modversion['config'][$cpto]['title'] = '_MI_OLEDRION_ADAPTED_LIST';
+$modversion['config'][$cpto]['description'] = '';
+$modversion['config'][$cpto]['formtype'] = 'textbox';
+$modversion['config'][$cpto]['valuetype'] = 'int';
+$modversion['config'][$cpto]['default'] = 200;
+
+$cpto++;
+$modversion['config'][$cpto]['name'] = 'break' . $cpto;
+$modversion['config'][$cpto]['title'] = '_MI_OLEDRION_BREAK_IMAGE';
+$modversion['config'][$cpto]['description'] = '';
+$modversion['config'][$cpto]['formtype'] = 'line_break';
+$modversion['config'][$cpto]['valuetype'] = 'textbox';
+$modversion['config'][$cpto]['default'] = 'head';
+
+/**
  * Do you want to automatically resize the main picture of each product ?
  */
 $cpto++;
@@ -979,75 +1069,101 @@ $modversion['config'][$cpto]['formtype'] = 'yesno';
 $modversion['config'][$cpto]['valuetype'] = 'int';
 $modversion['config'][$cpto]['default'] = 0;
 
-/**
- * Multiply Shipping by product's quantity ?
- */
 $cpto++;
-$modversion['config'][$cpto]['name'] = 'shipping_quantity';
-$modversion['config'][$cpto]['title'] = '_MI_OLEDRION_SHIPPING_QUANTITY';
+$modversion['config'][$cpto]['name'] = 'break' . $cpto;
+$modversion['config'][$cpto]['title'] = '_MI_OLEDRION_BREAK_SEARCH';
 $modversion['config'][$cpto]['description'] = '';
-$modversion['config'][$cpto]['formtype'] = 'yesno';
-$modversion['config'][$cpto]['valuetype'] = 'int';
-$modversion['config'][$cpto]['default'] = 1;
+$modversion['config'][$cpto]['formtype'] = 'line_break';
+$modversion['config'][$cpto]['valuetype'] = 'textbox';
+$modversion['config'][$cpto]['default'] = 'head';
 
-/**
- * Use tags ?
- */
 $cpto++;
-$modversion['config'][$cpto]['name'] = 'use_tags';
-$modversion['config'][$cpto]['title'] = '_MI_OLEDRION_USE_TAGS';
-$modversion['config'][$cpto]['description'] = '';
-$modversion['config'][$cpto]['formtype'] = 'yesno';
-$modversion['config'][$cpto]['valuetype'] = 'int';
-$modversion['config'][$cpto]['default'] = 0;
-
-/**
- * Ask for VAT number ?
- * @since 2.3.2009.03.09
- */
-$cpto++;
-$modversion['config'][$cpto]['name'] = 'ask_vatnumber';
-$modversion['config'][$cpto]['title'] = '_MI_OLEDRION_ASK_VAT_NUMBER';
-$modversion['config'][$cpto]['description'] = '';
-$modversion['config'][$cpto]['formtype'] = 'yesno';
-$modversion['config'][$cpto]['valuetype'] = 'int';
-$modversion['config'][$cpto]['default'] = 0;
-
-/**
- * Use stocks in products attributes ?
- * @since 2.3.2009.03.11
- */
-$cpto++;
-$modversion['config'][$cpto]['name'] = 'attributes_stocks';
-$modversion['config'][$cpto]['title'] = '_MI_OLEDRION_USE_STOCK_ATTRIBUTES';
+$modversion['config'][$cpto]['name'] = 'search_category';
+$modversion['config'][$cpto]['title'] = '_MI_OLEDRION_SEARCH_CATEGORY';
 $modversion['config'][$cpto]['description'] = '';
 $modversion['config'][$cpto]['formtype'] = 'yesno';
 $modversion['config'][$cpto]['valuetype'] = 'int';
 $modversion['config'][$cpto]['default'] = 1;
 
 $cpto++;
-$modversion['config'][$cpto]['name'] = 'index_colums';
-$modversion['config'][$cpto]['title'] = '_MI_OLEDRION_COLUMNS_INDEX';
+$modversion['config'][$cpto]['name'] = 'search_manufacturers';
+$modversion['config'][$cpto]['title'] = '_MI_OLEDRION_SEARCH_MANUFACTURERS';
 $modversion['config'][$cpto]['description'] = '';
-$modversion['config'][$cpto]['formtype'] = 'textbox';
+$modversion['config'][$cpto]['formtype'] = 'yesno';
 $modversion['config'][$cpto]['valuetype'] = 'int';
 $modversion['config'][$cpto]['default'] = 1;
 
 $cpto++;
-$modversion['config'][$cpto]['name'] = 'catagory_colums';
-$modversion['config'][$cpto]['title'] = '_MI_OLEDRION_COLUMNS_CATEGORY';
+$modversion['config'][$cpto]['name'] = 'search_vendors';
+$modversion['config'][$cpto]['title'] = '_MI_OLEDRION_SEARCH_VENDORS';
 $modversion['config'][$cpto]['description'] = '';
-$modversion['config'][$cpto]['formtype'] = 'textbox';
+$modversion['config'][$cpto]['formtype'] = 'yesno';
 $modversion['config'][$cpto]['valuetype'] = 'int';
 $modversion['config'][$cpto]['default'] = 1;
 
 $cpto++;
-$modversion['config'][$cpto]['name'] = 'max_products';
-$modversion['config'][$cpto]['title'] = '_MI_OLEDRION_ADAPTED_LIST';
+$modversion['config'][$cpto]['name'] = 'search_price';
+$modversion['config'][$cpto]['title'] = '_MI_OLEDRION_SEARCH_PRICE';
 $modversion['config'][$cpto]['description'] = '';
-$modversion['config'][$cpto]['formtype'] = 'textbox';
+$modversion['config'][$cpto]['formtype'] = 'yesno';
 $modversion['config'][$cpto]['valuetype'] = 'int';
-$modversion['config'][$cpto]['default'] = 200;
+$modversion['config'][$cpto]['default'] = 1;
+
+$cpto++;
+$modversion['config'][$cpto]['name'] = 'search_stocks';
+$modversion['config'][$cpto]['title'] = '_MI_OLEDRION_SEARCH_STOCKS';
+$modversion['config'][$cpto]['description'] = '';
+$modversion['config'][$cpto]['formtype'] = 'yesno';
+$modversion['config'][$cpto]['valuetype'] = 'int';
+$modversion['config'][$cpto]['default'] = 1;
+
+$cpto++;
+$modversion['config'][$cpto]['name'] = 'search_property1';
+$modversion['config'][$cpto]['title'] = '_MI_OLEDRION_SEARCH_PROPERTY1';
+$modversion['config'][$cpto]['description'] = '';
+$modversion['config'][$cpto]['formtype'] = 'yesno';
+$modversion['config'][$cpto]['valuetype'] = 'int';
+$modversion['config'][$cpto]['default'] = 1;
+
+$cpto++;
+$modversion['config'][$cpto]['name'] = 'search_property2';
+$modversion['config'][$cpto]['title'] = '_MI_OLEDRION_SEARCH_PROPERTY2';
+$modversion['config'][$cpto]['description'] = '';
+$modversion['config'][$cpto]['formtype'] = 'yesno';
+$modversion['config'][$cpto]['valuetype'] = 'int';
+$modversion['config'][$cpto]['default'] = 1;
+
+$cpto++;
+$modversion['config'][$cpto]['name'] = 'search_property3';
+$modversion['config'][$cpto]['title'] = '_MI_OLEDRION_SEARCH_PROPERTY3';
+$modversion['config'][$cpto]['description'] = '';
+$modversion['config'][$cpto]['formtype'] = 'yesno';
+$modversion['config'][$cpto]['valuetype'] = 'int';
+$modversion['config'][$cpto]['default'] = 1;
+
+$cpto++;
+$modversion['config'][$cpto]['name'] = 'search_property4';
+$modversion['config'][$cpto]['title'] = '_MI_OLEDRION_SEARCH_PROPERTY4';
+$modversion['config'][$cpto]['description'] = '';
+$modversion['config'][$cpto]['formtype'] = 'yesno';
+$modversion['config'][$cpto]['valuetype'] = 'int';
+$modversion['config'][$cpto]['default'] = 1;
+
+$cpto++;
+$modversion['config'][$cpto]['name'] = 'search_property5';
+$modversion['config'][$cpto]['title'] = '_MI_OLEDRION_SEARCH_PROPERTY5';
+$modversion['config'][$cpto]['description'] = '';
+$modversion['config'][$cpto]['formtype'] = 'yesno';
+$modversion['config'][$cpto]['valuetype'] = 'int';
+$modversion['config'][$cpto]['default'] = 1;
+
+$cpto++;
+$modversion['config'][$cpto]['name'] = 'break' . $cpto;
+$modversion['config'][$cpto]['title'] = '_MI_OLEDRION_BREAK_COMMENT_NOTIFICATION';
+$modversion['config'][$cpto]['description'] = '';
+$modversion['config'][$cpto]['formtype'] = 'line_break';
+$modversion['config'][$cpto]['valuetype'] = 'textbox';
+$modversion['config'][$cpto]['default'] = 'head';
 
 // ************************************************************************************************
 // ************************* Hidden settings ******************************************************
@@ -1126,6 +1242,7 @@ $modversion['config'][$cpto]['title'] = '_MI_OLEDRION_PRODUCT_PROPERTY5';
 $modversion['config'][$cpto]['description'] = '';
 $modversion['config'][$cpto]['formtype'] = 'hidden';
 $modversion['config'][$cpto]['valuetype'] = 'text';
+
 
 // ************************************************************************************************
 // Notifications **********************************************************************************

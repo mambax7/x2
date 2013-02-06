@@ -1,5 +1,5 @@
 <?php
-// $Id$
+// $Id: tree.php 8117 2011-11-06 17:46:18Z beckmi $
 //  ------------------------------------------------------------------------ //
 //                XOOPS - PHP Content Management System                      //
 //                    Copyright (c) 2000 XOOPS.org                           //

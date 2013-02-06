@@ -19,7 +19,7 @@
 *
 * @package Cache_Lite
 * @category Caching
-* @version $Id$
+* @version $Id: lite.php 10999 2013-02-06 09:33:52Z beckmi $
 * @author Fabien MARTY <fab@php.net>
 */
 

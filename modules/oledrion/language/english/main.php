@@ -283,5 +283,18 @@ define("_OLEDRION_PRODUCTS_COUNT","%u products");
 define("_OLEDRION_PLUGINS_ERROR_1","Error, unknown event: %s");
 
 //2.32
-
 define("_OLEDRION_ECOTAXE","EcoTax");
+
+//2.34
+define('_OLEDRION_PRODUCT_PROPERTY1', "Property 1");
+define('_OLEDRION_PRODUCT_PROPERTY2', "Property 2");
+define('_OLEDRION_PRODUCT_PROPERTY3', "Property 3");
+define('_OLEDRION_PRODUCT_PROPERTY4', "Property 4");
+define('_OLEDRION_PRODUCT_PROPERTY5', "Property 5");
+define('_OLEDRION_FROM', "From");
+define('_OLEDRION_TO', "To");
+
+define("_OLEDRION_QUANTITYS","Quantitys");
+define("_OLEDRION_QUANTITYALL","All");
+define("_OLEDRION_QUANTITY1","Available");
+define("_OLEDRION_QUANTITY2","Not available");
