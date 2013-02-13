@@ -1,15 +1,15 @@
 <{include file="db:news_header.html"}>
 <div class="news">
+	<{if $sub_topic}>
+			<{include file="db:news_index_topic.html"}>
+	<{/if}>
+	<{if $advertisement}>
+			<div class="itemAde"><{$advertisement}></div>
+	<{/if}>
 	<{if $type == type1 || $type == type3}>
-
 		<{if $default}>
 			<{include file="db:news_index_default.html"}>
 		<{/if}>
-	
-		<{if $advertisement}>
-			<div class="itemAde"><{$advertisement}></div>
-		<{/if}>
-		
 		<{if $showtype == 1 && ($story_limit != 0 || !$story_topic)}>
 			<{include file="db:news_index_news.html"}>
 		<{elseif $showtype == 2 && ($story_limit != 0 || !$story_topic)}>
@@ -19,15 +19,10 @@
 		<{elseif $showtype == 4 && ($story_limit != 0 || !$story_topic)}>
 			<{include file="db:news_index_list.html"}>
 		<{/if}>
-		
 		<{if $story_pagenav}>
 		<div class="pagenave"><{$story_pagenav}></div>
 		<{/if}>
-	 
 	<{elseif $type == type2}>
-		<{if $advertisement}>
-		<div class="itemAde"><{$advertisement}></div>
-		<{/if}>
 		<table id="xo-content-data" class="outer" cellspacing="1" width="100%">
 			<thead>
 				<th><{$smarty.const._NEWS_MD_TOPIC_ID}></th>
@@ -47,9 +42,6 @@
 			</tbody>
 		</table>
 	<{elseif $type == type4}>
-		<{if $advertisement}>
-		<div class="itemAde"><{$advertisement}></div>
-		<{/if}>
 		<{include file="db:news_index_default.html"}>
 	<{/if}>
 </div>

@@ -92,6 +92,9 @@ define('_NEWS_MI_DISPTITLE_DESC','');
 // Topic
 define('_NEWS_MI_DISPTOPIC','Display Topic title');
 define('_NEWS_MI_DISPTOPIC_DESC','');
+// SubTopic
+define('_NEWS_MI_DISPSUB','Display SubTopic list');
+define('_NEWS_MI_DISPSUB_DESC','');
 // Date
 define('_NEWS_MI_DISPDATE','Display Date');
 define('_NEWS_MI_DISPDATE_DESC','');

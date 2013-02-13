@@ -51,7 +51,7 @@ switch ($op) {
 			
 		$obj->setVar ( 'topic_date_created', time () );
 		$obj->setVar ( 'topic_date_update', time () );
-		$obj->setVar ( 'topic_weight', $topic_handler->setorder() );
+		$obj->setVar ( 'topic_weight', $topic_handler->News_SetTopicOrder() );
 		
 		//image
 		NewsUtils::News_UploadImg ( 'topic_img', $obj, $_REQUEST ['topic_img'] );
@@ -171,7 +171,7 @@ switch ($op) {
 			$fileobj = $file_handler->create ();
 		   $fileobj->setVar ( 'file_date', time () );
 			$fileobj->setVar ( 'file_title', $_REQUEST ['story_title'] );
-			$fileobj->setVar ( 'file_content', $obj->getVar ( 'story_id' ) );
+			$fileobj->setVar ( 'file_story', $obj->getVar ( 'story_id' ) );
 		   $fileobj->setVar ( 'file_status', 1 );
 		   
 		   NewsUtils::News_UploadFile ( 'file_name', $fileobj, $_REQUEST ['file_name'] );
@@ -259,7 +259,7 @@ switch ($op) {
 				$fileobj = $file_handler->create ();
 			   $fileobj->setVar ( 'file_date', time () );
 				$fileobj->setVar ( 'file_title', $_REQUEST ['story_title'] );
-				$fileobj->setVar ( 'file_content', $obj->getVar ( 'story_id' ) );
+				$fileobj->setVar ( 'file_story', $obj->getVar ( 'story_id' ) );
 			   $fileobj->setVar ( 'file_status', 1 );
 			   
 			   NewsUtils::News_UploadFile ( 'file_name', $fileobj, $_REQUEST ['file_name'] );
@@ -286,7 +286,7 @@ switch ($op) {
 	   $obj->setVar ( 'file_date', time () );
 	   
 	   NewsUtils::News_UploadFile ( 'file_name', $obj, $_REQUEST ['file_name'] );
-	   $story_handler->News_Contentfile('add',$_REQUEST['file_content']);
+	   $story_handler->News_Contentfile('add',$_REQUEST['file_story']);
 	   if (! $file_handler->insert ( $obj )) {
 				NewsUtils::News_Redirect ( 'onclick="javascript:history.go(-1);"', 1, _NEWS_AM_MSG_ERROR );
 				xoops_cp_footer ();
@@ -306,8 +306,8 @@ switch ($op) {
 		   $obj = $file_handler->get ( $file_id );
 			$obj->setVars ( $_REQUEST );
 			
-			if($_REQUEST['file_content'] != $_REQUEST['file_previous']) {
-				$story_handler->News_Contentfile('add', $_REQUEST['file_content']);
+			if($_REQUEST['file_story'] != $_REQUEST['file_previous']) {
+				$story_handler->News_Contentfile('add', $_REQUEST['file_story']);
 				$story_handler->News_Contentfile('delete',$_REQUEST['file_previous']);
 			}
 			
@@ -442,7 +442,7 @@ switch ($op) {
 				case 'file':
 					$obj = $file_handler->get ( $id );
 					$url = 'file.php';
-					$story_handler->News_Contentfile('delete',$obj->getVar ( 'file_content' ));
+					$story_handler->News_Contentfile('delete',$obj->getVar ( 'file_story' ));
 					if (! $file_handler->delete ( $obj )) {
 						echo $obj->getHtmlErrors ();
 					}

@@ -91,13 +91,13 @@ switch ($op)
         // get content
         if (isset($_REQUEST['content'])) {
             $file['content'] = NewsUtils::News_CleanVars($_REQUEST, 'content', 0, 'int');
-            $content = $story_handler->get($file['content']);
+            $story = $story_handler->get($file['content']);
         } else {
-            $content = $story_handler->getall();
+            $story = $story_handler->getall();
         }
 
         
-        $files = $file_handler->News_GetAdminFiles($file , $content);
+        $files = $file_handler->News_GetAdminFiles($file , $story);
         
         $file_numrows = $file_handler->News_GetFileCount();
 

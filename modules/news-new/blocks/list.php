@@ -83,10 +83,10 @@ function news_list_show($options) {
     }		
 
     $story_infos ['topics'] = $topic_handler->getall ();
-    $contents = $story_handler->News_GetContentBlockList($story_infos ,$topics);
+    $stores = $story_handler->News_GetContentBlockList($story_infos ,$topics);
     
     if($show == 'spotlight') {
-	    $id = $story_handler->News_SpotlightId($contents);
+	    $id = $story_handler->News_SpotlightId($stores);
 	    $block['spotlightid'] = $id['spotlightid'];
        $block['subspotlightid1'] = $id['subspotlightid1'];
        $block['subspotlightid2'] = $id['subspotlightid2'];
@@ -99,7 +99,7 @@ function news_list_show($options) {
     $block['thumburl'] = XOOPS_URL . xoops_getModuleOption('img_dir', 'news/thumb/';
     $block['description'] = $showdescription;
     $block['date'] = $showdate;
-    $block['contents'] = $contents;
+    $block['contents'] = $stores;
     $block['width'] = $width;
     $block['float'] = $float;
 

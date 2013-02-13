@@ -27,9 +27,9 @@ function news_page_show($options) {
     $story_handler = xoops_getmodulehandler ( 'story', 'news' );
     $topic_handler = xoops_getmodulehandler ( 'topic', 'news' );
     // Get the content menu
-    $content = $story_handler->get($options[0]);
+    $story = $story_handler->get($options[0]);
     // Add block data
-    $block = $content->toArray();
+    $block = $story->toArray();
     $topic = $topic_handler->get($block['story_topic']);
     $topic = $topic->toArray();
     $block['topic_id'] = $topic['topic_id'];
@@ -54,14 +54,14 @@ function news_page_edit($options) {
 
     $criteria = new CriteriaCompo();
     $criteria->add(new Criteria('story_status', '1'));
-    $content = $story_handler->getObjects($criteria);
+    $story = $story_handler->getObjects($criteria);
     $form = _NEWS_MB_SELECTPAGE . '<select name="options[]">';
-    foreach (array_keys($content) as $i) {
-        $form .= '<option value="' . $content[$i]->getVar('story_id') . '"';
-        if ($options[0] == $content[$i]->getVar('story_id')) {
+    foreach (array_keys($story) as $i) {
+        $form .= '<option value="' . $story[$i]->getVar('story_id') . '"';
+        if ($options[0] == $story[$i]->getVar('story_id')) {
             $form .= " selected='selected'";
         }
-        $form .= ">" . $content[$i]->getVar('story_title') . "</option>\n";
+        $form .= ">" . $story[$i]->getVar('story_title') . "</option>\n";
     }
     $form .= "</select>\n";
     //$form .= "<input type='hidden' value='" . $options[1] . "'>\n";

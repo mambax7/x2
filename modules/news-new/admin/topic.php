@@ -71,9 +71,9 @@ switch ($op)
             $i = 1;
             foreach ($_POST['mod'] as $order) {
                 if ($order > 0) {
-                    $contentorder = $topic_handler->get($order);
-                    $contentorder->setVar('topic_weight', $i);
-                    if (!$topic_handler->insert($contentorder)) {
+                    $storyorder = $topic_handler->get($order);
+                    $storyorder->setVar('topic_weight', $i);
+                    if (!$topic_handler->insert($storyorder)) {
                         $error = true;
                     }
                     $i++;
@@ -103,7 +103,7 @@ switch ($op)
             $topic_start = 0;
         }
 
-        $topics = $topic_handler->News_GetTopics( $topic_limit, $topic_start, $topic_order = 'DESC', $topic_sort = 'topic_id', $topic_menu = null, $topic_online = null , $topic_parent = null);
+        $topics = $topic_handler->News_GetAdminTopics( $topic_limit, $topic_start);
         $topic_numrows = $topic_handler->News_GetTopicCount();
 
         if ($topic_numrows > $topic_limit) {

@@ -18,16 +18,11 @@
  * @version     $Id$
  */
 
+// Include module header
 require dirname(__FILE__) . '/header.php';
- 
 
 error_reporting(0);
 $GLOBALS['xoopsLogger']->activated = false;
-
-// Initialize content handler
-$story_handler = xoops_getmodulehandler ( 'story', 'news' );
-$topic_handler = xoops_getmodulehandler ( 'topic', 'news' );
-$file_handler = xoops_getmodulehandler('file', 'news');
 
 // Set option
 $op = NewsUtils::News_CleanVars ( $_REQUEST, 'op', '', 'string' );

@@ -17,25 +17,17 @@
  * @author      Hossein Azizabadi (AKA Voltan)
  * @version     $Id$
  */
- 
+
+// Include module header
 require dirname(__FILE__) . '/header.php';
- 
- 
-include_once XOOPS_ROOT_PATH.'/language/'.$xoopsConfig['language'].'/calendar.php';
- include_once XOOPS_ROOT_PATH . "/class/pagenav.php";
-// Initialize content handler
-$story_handler = xoops_getmodulehandler ( 'story', 'news' );
-$topic_handler = xoops_getmodulehandler ( 'topic', 'news' );
-$file_handler = xoops_getmodulehandler('file', 'news');
- 
 // Include content template
 $xoopsOption ['template_main'] = 'news_archive.html'; 
-
 // include Xoops header
 include XOOPS_ROOT_PATH . '/header.php'; 
- 
 // Add Stylesheet
 $xoTheme->addStylesheet ( XOOPS_URL . '/modules/news/css/style.css' );
+ 
+include_once XOOPS_ROOT_PATH.'/language/'.$xoopsConfig['language'].'/calendar.php'; 
  
 $lastyear = 0;
 $lastmonth = 0;

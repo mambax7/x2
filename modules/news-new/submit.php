@@ -18,27 +18,25 @@
  * @version     $Id$
  */
 
+// Include module header
 require dirname(__FILE__) . '/header.php';
+// Include content template
+$xoopsOption ['template_main'] = 'news_submit.html';
+// include Xoops header
+include XOOPS_ROOT_PATH . '/header.php';
+// Add Stylesheet
+$xoTheme->addStylesheet ( XOOPS_URL . '/modules/news/css/style.css' );
 
+// Include language file
+xoops_loadLanguage ( 'admin', 'news' );
 
 include_once XOOPS_ROOT_PATH . "/class/xoopsformloader.php";
 include_once XOOPS_ROOT_PATH . "/class/tree.php";
 
 $op = NewsUtils::News_CleanVars ( $_REQUEST, 'op', '', 'string' );
 
-// include Xoops header
-include XOOPS_ROOT_PATH . '/header.php';
-
-$story_handler = xoops_getmodulehandler ( 'story', 'news' );
-$topic_handler = xoops_getmodulehandler ( 'topic', 'news' );
-$file_handler = xoops_getmodulehandler ( 'file', 'news' );
-
-// Include language file
-xoops_loadLanguage ( 'admin', 'news' );
-
 // Check the access permission
 global $xoopsUser;
-$perm_handler = NewsPermission::getHandler ();
 if (! $perm_handler->News_IsAllowed ( $xoopsUser, 'news_ac', '8')) {
 	redirect_header ( "index.php", 3, _NOPERM );
 	exit ();
@@ -94,7 +92,7 @@ switch ($op) {
 			$fileobj = $file_handler->create ();
 		   $fileobj->setVar ( 'file_date', time () );
 			$fileobj->setVar ( 'file_title', $_REQUEST ['story_title'] );
-			$fileobj->setVar ( 'file_content', $obj->getVar ( 'story_id' ) );
+			$fileobj->setVar ( 'file_story', $obj->getVar ( 'story_id' ) );
 		   $fileobj->setVar ( 'file_status', 1 );
 		   
 		   NewsUtils::News_UploadFile ('file_name', $fileobj, $_REQUEST ['file_name'] );
@@ -113,10 +111,16 @@ switch ($op) {
 		break;
 	
 	default :
-		
+		// Form
 		$story_type = NewsUtils::News_CleanVars ( $_REQUEST, 'story_type', 'news', 'string' );
 		$obj = $story_handler->create ();
-		$obj->News_GetContentSimpleForm ($story_type );
+		$form = $obj->News_GetContentSimpleForm($story_type );
+		$xoopsTpl->assign('form', $form->render());
+		// breadcrumb
+		if (xoops_getModuleOption ( 'bc_show', 'news' )) {
+			$breadcrumb = NewsUtils::News_Breadcrumb('submit.php', _NEWS_MD_SUBMIT, 0, ' &raquo; ');
+			$xoopsTpl->assign('breadcrumb', $breadcrumb);
+		}
 		break;
 
 }

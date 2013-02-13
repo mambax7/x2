@@ -23,7 +23,6 @@ require_once dirname(dirname(dirname(dirname(__FILE__)))) . '/mainfile.php';
 
 require_once XOOPS_ROOT_PATH . '/include/cp_header.php';
 require_once XOOPS_ROOT_PATH . '/class/tree.php';
-require_once XOOPS_ROOT_PATH . '/modules/news/class/folder.php';
 require_once XOOPS_ROOT_PATH . '/modules/news/include/functions.php';
 require_once XOOPS_ROOT_PATH . '/modules/news/class/utils.php';
 

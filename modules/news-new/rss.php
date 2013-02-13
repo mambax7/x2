@@ -18,8 +18,8 @@
  * @version     $Id$
  */
 
+// Include module header
 require dirname(__FILE__) . '/header.php';
-
 
 error_reporting(0);
 $GLOBALS['xoopsLogger']->activated = false;
@@ -38,7 +38,7 @@ if (!$xoopsTpl->is_cached('db:news_rss.html')) {
     } else {
         $channel_category = 'news';
     }
-    // Check if ML Hack is installed, and if yes, parse the $content in formatForML
+    // Check if ML Hack is installed, and if yes, parse the $story in formatForML
     if (method_exists($myts, 'formatForML')) {
         $xoopsConfig['sitename'] = $myts->formatForML($xoopsConfig['sitename']);
         $xoopsConfig['slogan'] = $myts->formatForML($xoopsConfig['slogan']);
@@ -86,9 +86,6 @@ if (!$xoopsTpl->is_cached('db:news_rss.html')) {
 
     }
 
-    $story_handler = xoops_getmodulehandler('story', 'news');
-    $topic_handler = xoops_getmodulehandler('topic', 'news');
-
     if ($story_topic != 0) {
         $permHandler = NewsPermission::getHandler();
         if ($permHandler->News_IsAllowed($xoopsUser, 'news_view', $story_topic)) {
@@ -109,9 +106,9 @@ if (!$xoopsTpl->is_cached('db:news_rss.html')) {
         'admin_side' => false
     );
 
-    $contents = $story_handler->News_GetContentList( $story_infos);
+    $stores = $story_handler->News_GetContentList( $story_infos);
 
-    $xoopsTpl->assign('contents', $contents);
+    $xoopsTpl->assign('contents', $stores);
 }
 $xoopsTpl->display('db:news_rss.html');
 ?>

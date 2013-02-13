@@ -21,8 +21,8 @@ require dirname(__FILE__) . '/header.php';
 $com_itemid = isset($_GET['com_itemid']) ? intval($_GET['com_itemid']) : 0;
 if ($com_itemid > 0) {
     $story_handler = xoops_getmodulehandler('story', 'news');
-    $content = $story_handler->get($com_itemid);
-    $com_replytitle = $content->getVar('story_title');
+    $story = $story_handler->get($com_itemid);
+    $com_replytitle = $story->getVar('story_title');
     include_once XOOPS_ROOT_PATH . '/include/comment_new.php';
 }
 ?>

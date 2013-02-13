@@ -24,7 +24,7 @@ require dirname(__FILE__) . '/header.php';
 
 $modversion = array(
     // Main setting
-    'name' => 'news',
+    'name' => _MI_NEWS_NAME,
     'description' => _MI_NEWS_DESC,
     'version' => 1.83,
     'author' => '',
@@ -37,7 +37,7 @@ $modversion = array(
     'module_website_url' => "",
     'module_website_name' => "",
     'help' => 'page=help',
-    'module_status' => "Alpha1",
+    'module_status' => "Alpha2",
     // Admin things
     'system_menu' => 1,
     'hasAdmin' => 1,
@@ -46,7 +46,6 @@ $modversion = array(
     // Modules scripts
     'onInstall' => 'include/functions_install.php',
     'onUpdate' => 'include/functions_update.php',
-    'onUninstall' => 'include/functions_uninstall.php',
     // Main menu
     'hasMain' => 1,
     // Recherche
@@ -89,12 +88,15 @@ $modversion['templates'][] = array('file' => 'news_index_news.html', 'descriptio
 $modversion['templates'][] = array('file' => 'news_index_list.html', 'description' => '');
 $modversion['templates'][] = array('file' => 'news_index_table.html', 'description' => '');
 $modversion['templates'][] = array('file' => 'news_index_photo.html', 'description' => '');
+$modversion['templates'][] = array('file' => 'news_index_topic.html', 'description' => '');
 $modversion['templates'][] = array('file' => 'news_article.html', 'description' => '');
 $modversion['templates'][] = array('file' => 'news_rss.html', 'description' => '');
 $modversion['templates'][] = array('file' => 'news_bookmarkme.html', 'description' => '');
 $modversion['templates'][] = array('file' => 'news_header.html', 'description' => '');
 $modversion['templates'][] = array('file' => 'news_topic.html', 'description' => '');
+$modversion['templates'][] = array('file' => 'news_topic_list.html', 'description' => '');
 $modversion['templates'][] = array('file' => 'news_archive.html', 'description' => '');
+$modversion['templates'][] = array('file' => 'news_submit.html', 'description' => '');
 
 // Menu
 $modversion['sub'][] = array(
@@ -346,6 +348,14 @@ $modversion['config'][] = array(
     'formtype' => 'yesno',
     'valuetype' => 'int',
     'default' => 1);
+    
+$modversion['config'][] = array(
+    'name' => 'disp_sub',
+    'title' => '_NEWS_MI_DISPSUB',
+    'description' => '_NEWS_MI_DISPSUB_DESC',
+    'formtype' => 'yesno',
+    'valuetype' => 'int',
+    'default' => 1);    
 
 $modversion['config'][] = array(
     'name' => 'disp_author',

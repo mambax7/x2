@@ -1,9 +1,5 @@
 <{include file="db:news_header.html"}>
 <div class="news">
-<{if $story_error}>
-<!-- Display error message -->
-	<div class="errorMsg"><{$story_error}></div>
-<{else}>
 	<div class="item">
 		<div class="itemHead">
 			<div class="itemTitle">
@@ -177,6 +173,4 @@
 		<{/if}>
 		<!-- end comments loop -->
 	</div>
-   
-<{/if}>
 </div>

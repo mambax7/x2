@@ -71,7 +71,7 @@ if (isset($_REQUEST['topic'])) {
        $topics = $topic_handler->getall($story_topic);
        $topic_title = NewsTopicHandler::News_GetTopicFromId ( $story_topic );
    } else {
-       $topics = $topic_title = _NEWS_AM_CONTENT_STATICS;
+       $topics = $topic_title = _NEWS_AM_STORY_STATICS;
    }
 } else {
    $story_topic = null;
@@ -100,9 +100,9 @@ switch ($op)
     case 'delete':
         $story_id = NewsUtils::News_CleanVars($_REQUEST, 'story_id', '0', 'int');
         if ($story_id > 0) {
-            $content = $story_handler->get($story_id);
+            $story = $story_handler->get($story_id);
             // Prompt message
-            NewsUtils::News_Message('backend.php', sprintf(_NEWS_AM_MSG_DELETE, $content->getVar('story_type') . ': "' . $content->getVar('story_title') . '"'), $story_id, 'content');
+            NewsUtils::News_Message('backend.php', sprintf(_NEWS_AM_MSG_DELETE, $story->getVar('story_type') . ': "' . $story->getVar('story_title') . '"'), $story_id, 'content');
             // Display Admin footer
             xoops_cp_footer();
         }
@@ -120,7 +120,7 @@ switch ($op)
             'story_static' => false,
         );
         
-        $contents = $story_handler->News_GetExpireContentList($story_infos);
+        $stores = $story_handler->News_GetExpireContentList($story_infos);
         $story_numrows = $story_handler->News_GetExpireContentCount($story_infos);
         
         if ($story_numrows > $story_limit) {
@@ -133,7 +133,7 @@ switch ($op)
         $xoopsTpl->assign('navigation', 'content');
         $xoopsTpl->assign('navtitle', _NEWS_MI_CONTENT);
         $xoopsTpl->assign('topic_title', $topic_title);
-        $xoopsTpl->assign('contents', $contents);
+        $xoopsTpl->assign('contents', $stores);
         $xoopsTpl->assign('story_pagenav', $story_pagenav);
         $xoopsTpl->assign('xoops_dirname', 'news');
 
@@ -154,7 +154,7 @@ switch ($op)
             'story_static' => false,
         );
 
-        $contents = $story_handler->News_GetAdminContentList($story_infos);
+        $stores = $story_handler->News_GetAdminContentList($story_infos);
         $story_numrows = $story_handler->News_GetOfflineContentCount($story_infos);
 
         if ($story_numrows > $story_limit) {
@@ -167,7 +167,7 @@ switch ($op)
         $xoopsTpl->assign('navigation', 'content');
         $xoopsTpl->assign('navtitle', _NEWS_MI_CONTENT);
         $xoopsTpl->assign('topic_title', $topic_title);
-        $xoopsTpl->assign('contents', $contents);
+        $xoopsTpl->assign('contents', $stores);
         $xoopsTpl->assign('story_pagenav', $story_pagenav);
         $xoopsTpl->assign('xoops_dirname', 'news');
 
@@ -188,7 +188,7 @@ switch ($op)
             'story_static' => false,
         );
 
-        $contents = $story_handler->News_GetAdminContentList($story_infos);
+        $stores = $story_handler->News_GetAdminContentList($story_infos);
         $story_numrows = $story_handler->News_GetAdminContentCount($story_infos);
 
         if ($story_numrows > $story_limit) {
@@ -205,7 +205,7 @@ switch ($op)
         $xoopsTpl->assign('navigation', 'content');
         $xoopsTpl->assign('navtitle', _NEWS_MI_ARTICLE);
         $xoopsTpl->assign('topic_title', $topic_title);
-        $xoopsTpl->assign('contents', $contents);
+        $xoopsTpl->assign('contents', $stores);
         $xoopsTpl->assign('story_pagenav', $story_pagenav);
         $xoopsTpl->assign('xoops_dirname', 'news');
 

@@ -18,11 +18,8 @@
  * @version     $Id$
  */
 
+// Include module header
 require dirname(__FILE__) . '/header.php';
-
-
-// Initialize content handler
-$story_handler = xoops_getmodulehandler('story', 'news');$topic_handler = xoops_getmodulehandler('topic', 'news');
 
 if(isset($_REQUEST['storyid'])) {
 	$story_id = NewsUtils::News_CleanVars ( $_REQUEST, 'storyid', 0, 'int' );
@@ -57,7 +54,6 @@ if (isset($story_topic) && $story_topic > 0) {
     }
 
     // Check the access permission
-    $perm_handler = NewsPermission::getHandler();
     if (!$perm_handler->News_IsAllowed($xoopsUser, 'news_view', $view_topic->getVar('topic_id'))) {
         redirect_header("index.php", 3, _NOPERM);
         exit;

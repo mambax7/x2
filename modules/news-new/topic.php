@@ -18,33 +18,20 @@
  * @version     $Id$
  */
  
+// Include module header
 require dirname(__FILE__) . '/header.php';
-
-
-include_once XOOPS_ROOT_PATH . "/class/pagenav.php";
-
-$story_handler = xoops_getmodulehandler ( 'story', 'news' );
-$topic_handler = xoops_getmodulehandler ( 'topic', 'news' );
-
 // Include content template
 $xoopsOption ['template_main'] = 'news_topic.html';
-
 // include Xoops header
 include XOOPS_ROOT_PATH . '/header.php';
-
 // Add Stylesheet
 $xoTheme->addStylesheet ( XOOPS_URL . '/modules/news/css/style.css' );
-
-// get module configs
-$topic_perpage = xoops_getModuleOption('admin_perpage_topic', 'news');
-$topic_order = xoops_getModuleOption('admin_showorder_topic', 'news');
-$topic_sort = xoops_getModuleOption('admin_showsort_topic', 'news');
 
 // get limited information
 if (isset($_REQUEST['limit'])) {
    $topic_limit = NewsUtils::News_CleanVars($_REQUEST, 'limit', 0, 'int');
 } else {
-   $topic_limit = $topic_perpage;
+   $topic_limit = xoops_getModuleOption('admin_perpage_topic', 'news');
 }
 
 // get start information
@@ -55,7 +42,7 @@ if (isset($_REQUEST['start'])) {
 }
 
 $newscountbytopic = $story_handler->News_GetNewsCountByTopic();
-$topics = $topic_handler->News_GetTopics( $topic_limit, $topic_start, $topic_order, $topic_sort, $topic_menu = null, $topic_online = null , $topic_parent = null , $newscountbytopic);
+$topics = $topic_handler->News_GetTopics( $topic_limit, $topic_start, $newscountbytopic);
 $topic_numrows = $topic_handler->News_GetTopicCount();
 
 if ($topic_numrows > $topic_limit) {
@@ -73,10 +60,15 @@ if (xoops_getModuleOption ( 'img_lightbox', 'news' )) {
 	$xoTheme->addStylesheet ( XOOPS_URL . '/modules/system/css/lightbox.css' );
 	$xoopsTpl->assign ( 'img_lightbox', true );
 }
-        
+
+// breadcrumb
+if (xoops_getModuleOption ( 'bc_show', 'news' )) {
+	$breadcrumb = NewsUtils::News_Breadcrumb('topic.php', _NEWS_MD_TOPICS, 0, ' &raquo; ');
+	$xoopsTpl->assign('breadcrumb', $breadcrumb);
+}
+
 $xoopsTpl->assign('topics', $topics);
 $xoopsTpl->assign('topic_pagenav', $topic_pagenav);
-$xoopsTpl->assign('xoops_dirname', 'news');
 $xoopsTpl->assign ( 'advertisement', xoops_getModuleOption ( 'advertisement', 'news' ) );
 $xoopsTpl->assign ( 'imgwidth', xoops_getModuleOption ( 'imgwidth', 'news' ) );
 $xoopsTpl->assign ( 'imgfloat', xoops_getModuleOption ( 'imgfloat', 'news' ) );  

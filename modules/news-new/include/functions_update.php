@@ -70,8 +70,14 @@ function xoops_module_update_news($module, $version) {
 	    {
 		    NewsUtils::News_DropField('story_modid', $db->prefix('news_story'));
 	    }
+	    // topic sub
+	    if(!NewsUtils::News_FieldExists('topic_showsub', $db->prefix('news_topic')))
+	    {
+		    $sql = 'ALTER TABLE `' . $db->prefix('news_topic') . '` ADD  `topic_showsub` tinyint(1) NOT NULL default "1"';
+			 $db->query($sql);
+	    }
     }
-    // end update to version 1.80	
+    // end update to version 1.83
     	
     // start update to version 1.80
 	 if($version < 180) {
@@ -290,25 +296,28 @@ function xoops_module_update_news($module, $version) {
 				 $sql = 'ALTER TABLE `' . $db->prefix('news_story') . '` ADD UNIQUE `story_alias` ( `story_alias` )';
 				 $db->query($sql);
 				 // story_topic
-				 $sql = 'ALTER TABLE `' . $db->prefix('news_story') . '` ADD INDEX ( `story_topic` )';
+				 $sql = 'ALTER TABLE `' . $db->prefix('news_story') . '` ADD INDEX `story_topic` ( `story_topic` )';
 				 $db->query($sql);
 				 // story_title
-				 $sql = 'ALTER TABLE `' . $db->prefix('news_story') . '` ADD INDEX ( `story_title` )';
+				 $sql = 'ALTER TABLE `' . $db->prefix('news_story') . '` ADD INDEX `story_title` ( `story_title` )';
 				 $db->query($sql);
 				 // story_create
-				 $sql = 'ALTER TABLE `' . $db->prefix('news_story') . '` ADD INDEX ( `story_create` )';
+				 $sql = 'ALTER TABLE `' . $db->prefix('news_story') . '` ADD INDEX `story_create` ( `story_create` )';
 				 $db->query($sql);
 				 // story_publish
-				 $sql = 'ALTER TABLE `' . $db->prefix('news_story') . '` ADD INDEX ( `story_publish` )';
+				 $sql = 'ALTER TABLE `' . $db->prefix('news_story') . '` ADD INDEX `story_publish` ( `story_publish` )';
 				 $db->query($sql);
 				 // story_expire
-				 $sql = 'ALTER TABLE `' . $db->prefix('news_story') . '` ADD INDEX ( `story_expire` )';
+				 $sql = 'ALTER TABLE `' . $db->prefix('news_story') . '` ADD INDEX `story_expire` ( `story_expire` )';
 				 $db->query($sql);
 				 // story_uid
-				 $sql = 'ALTER TABLE `' . $db->prefix('news_story') . '` ADD INDEX ( `story_uid` )';
+				 $sql = 'ALTER TABLE `' . $db->prefix('news_story') . '` ADD INDEX `story_uid` ( `story_uid` )';
 				 $db->query($sql);
 				 // story_type
-				 $sql = 'ALTER TABLE `' . $db->prefix('news_story') . '` ADD INDEX ( `story_type` )';
+				 $sql = 'ALTER TABLE `' . $db->prefix('news_story') . '` ADD INDEX `story_type` ( `story_type` )';
+				 $db->query($sql);
+				 // select
+				 $sql = 'ALTER TABLE `' . $db->prefix('news_story') . '` ADD INDEX `select` (`story_topic`, `story_status`, `story_publish`, `story_expire`)';
 				 $db->query($sql);
 				 // search
 				 $sql = 'ALTER TABLE `' . $db->prefix('news_story') . '` ADD FULLTEXT `search` (`story_title` ,`story_short` ,`story_text` ,`story_subtitle`)';
@@ -335,10 +344,54 @@ function xoops_module_update_news($module, $version) {
 		 }
 		 
 		 // Add news_rate table
-       if(!NewsUtils::News_TableExists($db->prefix('news_topic'))) {
+       if(!NewsUtils::News_TableExists($db->prefix('news_rate'))) {
 		    $sql = "RENAME TABLE `" . $db->prefix('stories_votedata') . "` TO `" . $db->prefix('news_rate') . "`";
 		    if ($db->query($sql)) {
-		    // TODO	
+			    /* 
+				  * Rename fields
+				  */
+				 // rate_id
+				 $sql = 'ALTER TABLE `' . $db->prefix('news_rate') . '` CHANGE `ratingid` `rate_id` int(10) unsigned NOT NULL auto_increment';
+				 $db->query($sql);
+				 // rate_story
+				 $sql = 'ALTER TABLE `' . $db->prefix('news_rate') . '` CHANGE `storyid` `rate_story` int(8) unsigned NOT NULL';
+				 $db->query($sql);
+				 // rate_user
+				 $sql = 'ALTER TABLE `' . $db->prefix('news_rate') . '` CHANGE `ratinguser` `rate_user` int(10) NOT NULL';
+				 $db->query($sql);
+				 // rate_rating
+				 $sql = 'ALTER TABLE `' . $db->prefix('news_rate') . '` CHANGE `rating` `rate_rating` tinyint(3) unsigned NOT NULL';
+				 $db->query($sql);
+				 // rate_hostname
+				 $sql = 'ALTER TABLE `' . $db->prefix('news_rate') . '` CHANGE `ratinghostname` `rate_hostname` varchar(60) NOT NULL default ""';
+				 $db->query($sql);
+				 // rate_created
+				 $sql = 'ALTER TABLE `' . $db->prefix('news_rate') . '` CHANGE `ratingtimestamp` `rate_created` int(10) NOT NULL';
+				 $db->query($sql);
+				 /* 
+				  * Remove index
+				  */
+				 // ratinguser
+				 $sql = 'ALTER TABLE `' . $db->prefix('news_rate') . '` DROP INDEX `ratinguser`'; 
+				 $db->query($sql);
+				 // ratinghostname
+				 $sql = 'ALTER TABLE `' . $db->prefix('news_rate') . '` DROP INDEX `ratinghostname`'; 
+				 $db->query($sql);
+				 // storyid
+				 $sql = 'ALTER TABLE `' . $db->prefix('news_rate') . '` DROP INDEX `storyid`'; 
+				 $db->query($sql);
+				 /* 
+				  * Add index
+				  */
+             // rate_user	  
+				 $sql = 'ALTER TABLE `' . $db->prefix('news_rate') . '` ADD INDEX `rate_user` ( `rate_user` )';
+				 $db->query($sql);
+				 // rate_user	  
+				 $sql = 'ALTER TABLE `' . $db->prefix('news_rate') . '` ADD INDEX `rate_hostname` ( `rate_hostname` )';
+				 $db->query($sql);
+				 // rate_user	  
+				 $sql = 'ALTER TABLE `' . $db->prefix('news_rate') . '` ADD INDEX `rate_story` ( `rate_story` )';
+				 $db->query($sql);
 		    }
 		 }   	
 	}

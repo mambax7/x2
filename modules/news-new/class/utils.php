@@ -219,23 +219,23 @@ class NewsUtils {
 		if (! $type) {
 			$type = 'type1';
 		}
-		$contents = array ();
+		$stores = array ();
 		
 		switch ($type) {
 			
 			// list all contents from all topics whit out topic list
 			case 'type1' :
-				$contents ['content'] = $story_handler->News_GetContentList ($story_infos );
-				$contents ['numrows'] = $story_handler->News_GetContentCount ($story_infos );
-				if ($contents ['numrows'] > $story_infos ['story_limit']) {
+				$stores ['content'] = $story_handler->News_GetContentList ($story_infos );
+				$stores ['numrows'] = $story_handler->News_GetContentCount ($story_infos );
+				if ($stores ['numrows'] > $story_infos ['story_limit']) {
 					if ($story_infos ['story_topic']) {
-						$story_pagenav = new XoopsPageNav ( $contents ['numrows'], $story_infos ['story_limit'], $story_infos ['story_start'], 'start', 'limit=' . $story_infos ['story_limit'] . '&storytopic=' . $story_infos ['story_topic'] );
+						$story_pagenav = new XoopsPageNav ( $stores ['numrows'], $story_infos ['story_limit'], $story_infos ['story_start'], 'start', 'limit=' . $story_infos ['story_limit'] . '&storytopic=' . $story_infos ['story_topic'] );
 					} else {
-						$story_pagenav = new XoopsPageNav ( $contents ['numrows'], $story_infos ['story_limit'], $story_infos ['story_start'], 'start', 'limit=' . $story_infos ['story_limit'] );
+						$story_pagenav = new XoopsPageNav ( $stores ['numrows'], $story_infos ['story_limit'], $story_infos ['story_start'], 'start', 'limit=' . $story_infos ['story_limit'] );
 					}
-					$contents ['pagenav'] = $story_pagenav->renderNav ( 4 );
+					$stores ['pagenav'] = $story_pagenav->renderNav ( 4 );
 				} else {
-					$contents ['pagenav'] = '';
+					$stores ['pagenav'] = '';
 				}
 				break;
 			
@@ -244,8 +244,8 @@ class NewsUtils {
 			     $topic_order = xoops_getModuleOption('admin_showorder_topic', 'news');
               $topic_sort = xoops_getModuleOption('admin_showsort_topic', 'news');
               $topic_parent = $story_infos ['story_topic'];
-		        $contents ['content'] = $topic_handler->News_GetTopics( null, 0, $topic_order, $topic_sort, null, 1 , $topic_parent);
-			     $contents ['pagenav'] = null;
+		        $stores ['content'] = $topic_handler->News_GetTopics( null, 0, $topic_order, $topic_sort, null, 1 , $topic_parent);
+			     $stores ['pagenav'] = null;
 				break;
 			
 			// List all static pages
@@ -257,17 +257,17 @@ class NewsUtils {
             $story_infos ['story_static'] = 0;
             $story_infos ['admin_side'] = 1;
             
-				$contents ['content'] = $story_handler->News_GetContentList ($story_infos );
-				$contents ['numrows'] = $story_handler->News_GetContentCount ($story_infos );
-				if ($contents ['numrows'] > $story_infos ['story_limit']) {
+				$stores ['content'] = $story_handler->News_GetContentList ($story_infos );
+				$stores ['numrows'] = $story_handler->News_GetContentCount ($story_infos );
+				if ($stores ['numrows'] > $story_infos ['story_limit']) {
 					if ($story_topic) {
-						$story_pagenav = new XoopsPageNav ( $contents ['numrows'], $story_infos ['story_limit'], $story_infos ['story_start'], 'start', 'limit=' . $story_infos ['story_limit'] . '&storytopic=' . $story_infos ['story_topic'] );
+						$story_pagenav = new XoopsPageNav ( $stores ['numrows'], $story_infos ['story_limit'], $story_infos ['story_start'], 'start', 'limit=' . $story_infos ['story_limit'] . '&storytopic=' . $story_infos ['story_topic'] );
 					} else {
-						$story_pagenav = new XoopsPageNav ( $contents ['numrows'], $story_infos ['story_limit'], $story_infos ['story_start'], 'start', 'limit=' . $story_infos ['story_limit'] );
+						$story_pagenav = new XoopsPageNav ( $stores ['numrows'], $story_infos ['story_limit'], $story_infos ['story_start'], 'start', 'limit=' . $story_infos ['story_limit'] );
 					}
-					$contents ['pagenav'] = $story_pagenav->renderNav ( 4 );
+					$stores ['pagenav'] = $story_pagenav->renderNav ( 4 );
 				} else {
-					$contents ['pagenav'] = '';
+					$stores ['pagenav'] = '';
 				}
 				break;
 			
@@ -283,10 +283,10 @@ class NewsUtils {
 				   	$alias = self::News_AliasFilter(xoops_getModuleOption('static_name', 'news'));
 				   }		
 					$default_info = array('id'=> $id , 'title' => $title , 'alias' => $alias);
-					$contents ['content'] = $story_handler->News_ContentDefault( $default_info);
+					$stores ['content'] = $story_handler->News_ContentDefault( $default_info);
 				break;
 		}
-		return $contents;
+		return $stores;
 	}
 	
 	/**
@@ -733,5 +733,21 @@ class NewsUtils {
 	            break;        
 	    }
 	}
+	
+	function News_getTree($elements, $parentId = 0)
+   {
+        $branch = array();
+        foreach ($elements as $element) {
+            if ($element['topic_pid'] == $parentId) {
+                $children = self::News_getTree($elements, $element['topic_id']);
+                if ($children) {
+                    $element['topic_children'] = $children;
+                }
+                $branch[$element['topic_id']] = $element;
+                unset($elements[$element['topic_id']]);
+            }
+        }
+        return $branch;
+   }
 }
 ?>

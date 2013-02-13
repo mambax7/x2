@@ -41,6 +41,7 @@ CREATE TABLE `news_story` (
    KEY `story_expire` (`story_expire`),
    KEY `story_uid` (`story_uid`),
    KEY `story_type` (`story_type`),
+   KEY `select` (`story_topic`, `story_status`, `story_publish`, `story_expire`),
 	FULLTEXT KEY `search` (`story_title`,`story_short`,`story_text`,`story_subtitle`)
 ) ENGINE=MyISAM;
 
@@ -60,7 +61,8 @@ CREATE TABLE `news_topic` (
 	`topic_date_update` int (10)   NOT NULL,
 	`topic_asmenu` tinyint (1)   NOT NULL default '1',
 	`topic_online` tinyint (1)   NOT NULL default '1',
-	`topic_showtopic` tinyint (1)   NOT NULL,
+	`topic_showtopic` tinyint (1)   NOT NULL default '1',
+	`topic_showsub` tinyint (1)   NOT NULL default '1',
 	`topic_showauthor` tinyint (1)   NOT NULL default '1',
 	`topic_showdate` tinyint (1)   NOT NULL default '1',
 	`topic_showpdf` tinyint (1)   NOT NULL default '1',
