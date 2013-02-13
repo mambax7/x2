@@ -21,12 +21,12 @@
 class NewsUtils {
 	
 	/**
-	 * Uploadimg function
+	 * Uploadimg public function
 	 *
 	 * For manage all upload parts for images
 	 * Add topic , Edit topic , Add article , Edit article
 	 */
-	function News_UploadImg($type, $obj, $image) {
+	public function News_UploadImg($type, $obj, $image) {
 		include_once XOOPS_ROOT_PATH . "/class/uploader.php";
 		$pach_original = XOOPS_ROOT_PATH . xoops_getModuleOption ( 'img_dir', 'news') . '/original/';
 		$pach_medium = XOOPS_ROOT_PATH . xoops_getModuleOption ( 'img_dir', 'news') . '/medium/';
@@ -54,12 +54,12 @@ class NewsUtils {
 	}
 	
 	/**
-	 * Deleteimg function
+	 * Deleteimg public function
 	 *
 	 * For Deleteing uploaded images
 	 * Edit topic ,Edit article
 	 */
-	function News_DeleteImg( $type, $obj) {
+	public function News_DeleteImg( $type, $obj) {
 		if ($obj->getVar ( $type )) {
 			
 			// delete original image
@@ -90,11 +90,11 @@ class NewsUtils {
 	}
 	
 	/**
-	 * Uploadfile function
+	 * Uploadfile public function
 	 *
 	 * For manage all upload parts for files
 	 */
-	function News_UploadFile( $type, $obj, $file) {   
+	public function News_UploadFile( $type, $obj, $file) {   
       include_once XOOPS_ROOT_PATH . "/class/uploader.php";
 		$uploader = new XoopsMediaUploader(XOOPS_ROOT_PATH . xoops_getModuleOption ( 'file_dir', 'news' ), explode('|',xoops_getModuleOption ( 'file_mime', 'news' )), xoops_getModuleOption ( 'file_size', 'news' ));
       if ($uploader->fetchMedia($type)) {
@@ -120,7 +120,7 @@ class NewsUtils {
 	 * @license     GNU GPL 2 (http://www.gnu.org/licenses/old-licenses/gpl-2.0.html)
 	 * @author      Gregory Mage (Aka Mage)
 	 */
-	function News_Breadcrumb( $lasturl, $breadcrumbtitle, $topic_id, $prefix = ' &raquo; ', $title = 'topic_title') {
+	public function News_Breadcrumb( $lasturl, $breadcrumbtitle, $topic_id, $prefix = ' &raquo; ', $title = 'topic_title') {
 		$breadcrumb = '';
 		include_once XOOPS_ROOT_PATH . '/modules/news/class/topic.php';
 		require_once $GLOBALS ['xoops']->path ( '/class/tree.php' );
@@ -146,7 +146,7 @@ class NewsUtils {
 	 * @license     GNU GPL 2 (http://www.gnu.org/licenses/old-licenses/gpl-2.0.html)
 	 * @author      Gregory Mage (Aka Mage)
 	 */
-	function News_PathTreeUrl($mytree, $key, $topic_array, $title, $prefix = ' &raquo; ', $link = false, $order = 'ASC', $lasturl = false, $modname ) {
+	public function News_PathTreeUrl($mytree, $key, $topic_array, $title, $prefix = ' &raquo; ', $link = false, $order = 'ASC', $lasturl = false, $modname ) {
 		global $xoopsModule;
 		$topic_parent = $mytree->getAllParent ( $key );
 		if ($order == 'ASC') {
@@ -204,7 +204,7 @@ class NewsUtils {
 	}
 	
 	/**
-	 * Homepage function
+	 * Homepage public function
 	 * For management module index page
 	 * Types:
 	 * list all contents from all topics whit out topic list
@@ -212,7 +212,7 @@ class NewsUtils {
 	 * List all static pages
 	 * Show selected content
 	 */
-	function News_Homepage( $story_infos, $type) {
+	public function News_Homepage( $story_infos, $type) {
 		
 		$story_handler = xoops_getmodulehandler ( 'story', 'news' );
 		$topic_handler = xoops_getmodulehandler ( 'topic', 'news' );
@@ -295,7 +295,7 @@ class NewsUtils {
 	 * @license     GNU GPL 2 (http://www.gnu.org/licenses/old-licenses/gpl-2.0.html)
 	 * @author      Hervé Thouzard (ttp://www.instant-zero.com)
 	*/
-	function News_FieldExists($fieldname,$table)
+	public function News_FieldExists($fieldname,$table)
 	{
 		global $xoopsDB;
 		$result=$xoopsDB->queryF("SHOW COLUMNS FROM	$table LIKE '$fieldname'");
@@ -308,7 +308,7 @@ class NewsUtils {
 	 * @license     GNU GPL 2 (http://www.gnu.org/licenses/old-licenses/gpl-2.0.html)
 	 * @author      Hervé Thouzard (ttp://www.instant-zero.com)
 	 */
-	function News_AddField($field, $table)
+	public function News_AddField($field, $table)
 	{
 		global $xoopsDB;
 		$result=$xoopsDB->queryF('ALTER TABLE ' . $table . ' ADD ' . $field);
@@ -318,7 +318,7 @@ class NewsUtils {
 	/**
 	 * DROP a field from a mysql table
 	 */
-	function News_DropField($field, $table)
+	public function News_DropField($field, $table)
 	{
 		global $xoopsDB;
 		$result=$xoopsDB->queryF('ALTER TABLE ' . $table . ' DROP ' . $field);
@@ -331,7 +331,7 @@ class NewsUtils {
 	 * @license     GNU GPL 2 (http://www.gnu.org/licenses/old-licenses/gpl-2.0.html)
 	 * @author      Hervé Thouzard (ttp://www.instant-zero.com)
 	*/
-	function News_TableExists($tablename)
+	public function News_TableExists($tablename)
 	{
 		global $xoopsDB;
 		$result = $xoopsDB->queryF("SHOW TABLES LIKE '$tablename'");
@@ -344,7 +344,7 @@ class NewsUtils {
 	 * @license     GNU GPL 2 (http://www.gnu.org/licenses/old-licenses/gpl-2.0.html)
 	 * @author      Hervé Thouzard (ttp://www.instant-zero.com)
 	*/
-	function News_AddTable($query) {
+	public function News_AddTable($query) {
 		global $xoopsDB;
 		$result = $xoopsDB->queryF($query);
 		return $result;
@@ -363,7 +363,7 @@ class NewsUtils {
 	 * @param boolean $keep_original	Do we have to keep the original picture ?
 	 * @param string $fit	Resize mode (see the wideImage library for more information)
 	 */
-	function News_ResizePicture($src_path , $dst_path, $param_width , $param_height, $keep_original = true, $fit = 'inside')
+	public function News_ResizePicture($src_path , $dst_path, $param_width , $param_height, $keep_original = true, $fit = 'inside')
 	{
 	  require XOOPS_ROOT_PATH.'/modules/news/class/wideimage/WideImage.inc.php';
 	  $resize = true;
@@ -393,7 +393,7 @@ class NewsUtils {
    /**
     *  Rebuild
 	 */
-	function News_Rebuild ($handler , $item_id , $op , $set , $get , $start_id, $end_id) {
+	public function News_Rebuild ($handler , $item_id , $op , $set , $get , $start_id, $end_id) {
 		// check last_id
 		$criteria = new CriteriaCompo ();
 		$criteria->setSort ( $item_id );
@@ -431,7 +431,7 @@ class NewsUtils {
 	/**
     *  Make text for Rebuild
 	 */
-	function News_DoRebuild ($op , $get) {
+	public function News_DoRebuild ($op , $get) {
 		switch($op) {
 			case 'alias':
 				$item = self::News_AliasFilter($get);
@@ -456,7 +456,7 @@ class NewsUtils {
 	 * Get variables passed by GET or POST method
 	 *
 	 */
-	function News_CleanVars(&$global, $key, $default = '', $type = 'int') {
+	public function News_CleanVars(&$global, $key, $default = '', $type = 'int') {
 	
 	    switch ($type) {
 	        case 'array':
@@ -482,7 +482,7 @@ class NewsUtils {
 	 * Check html editors
 	 *
 	 */
-	function News_isEditorHTML() {
+	public function News_isEditorHTML() {
 	   $editor = xoops_getModuleOption('form_editor', 'news');
       if (isset($editor) && in_array($editor, array('tinymce', 'fckeditor', 'koivi', 'inbetween', 'spaw', 'ckeditor'))) {
         return true;
@@ -497,7 +497,7 @@ class NewsUtils {
 	 * @String  $type   string replacement for any blank case
 	 * @return  $url
 	 */
-	function News_AliasFilter($url, $type = '', $module = 'news') {
+	public function News_AliasFilter($url, $type = '', $module = 'news') {
 	
 	    // Get regular expression from module setting. default setting is : `[^a-z0-9]`i
 	    $regular_expression = xoops_getModuleOption('regular_expression', $module);
@@ -519,7 +519,7 @@ class NewsUtils {
 	 * @String  $type   string replacement for any blank case
 	 * @return  $meta
 	 */
-	function News_MetaFilter($meta, $type = '', $module = 'news') {
+	public function News_MetaFilter($meta, $type = '', $module = 'news') {
 	
 	    // Get regular expression from module setting. default setting is : `[^a-z0-9]`i
 	    $regular_expression = xoops_getModuleOption('regular_expression', $module);
@@ -541,7 +541,7 @@ class NewsUtils {
 	 * @String  $type   string replacement for any blank case
 	 * @return  $text
 	 */
-	function News_AjaxFilter($text, $type = '') {
+	public function News_AjaxFilter($text, $type = '') {
 		 $text = strip_tags($text);
 	    $text = preg_replace("`\[.*\]`U", "", $text);
 	    $text = preg_replace('`&(amp;)?#?[a-z0-9]+;`i', '-', $text);
@@ -554,7 +554,7 @@ class NewsUtils {
 	/**
 	 * Build Redirect page
 	 */
-	function News_Redirect($url, $time = 3, $message = '') {
+	public function News_Redirect($url, $time = 3, $message = '') {
 	    global $xoopsModule;
 	    if (preg_match("/[\\0-\\31]|about:|script:/i", $url)) {
 	        if (!preg_match('/^\b(java)?script:([\s]*)history\.go\(-[0-9]*\)([\s]*[;]*[\s]*)$/si', $url)) {
@@ -577,7 +577,7 @@ class NewsUtils {
 	/**
 	 * Build Message
 	 */
-	function News_Message($page, $message = '', $id , $handler) {
+	public function News_Message($page, $message = '', $id , $handler) {
 	    global $xoopsModule;
 	    $tpl = new XoopsTpl();
 	    //ob_start();
@@ -593,7 +593,7 @@ class NewsUtils {
    /**
 	 * Build topic URL
 	 */
-	function News_TopicUrl($array) {
+	public function News_TopicUrl($array) {
 	    $lenght_id = xoops_getModuleOption('lenght_id', 'news');
 	    $friendly_url = xoops_getModuleOption('friendly_url', 'news');
 	    if ($lenght_id != 0) {
@@ -651,7 +651,7 @@ class NewsUtils {
    /**
 	 * Build Item URL
 	 */
-	function News_Url($array , $type = 'article') {
+	public function News_Url($array , $type = 'article') {
 	    $comment = '';
 	    $lenght_id = xoops_getModuleOption('lenght_id', 'news');
 	    $friendly_url = xoops_getModuleOption('friendly_url', 'news');
@@ -734,7 +734,7 @@ class NewsUtils {
 	    }
 	}
 	
-	function News_getTree($elements, $parentId = 0)
+	public function News_getTree($elements, $parentId = 0)
    {
         $branch = array();
         foreach ($elements as $element) {

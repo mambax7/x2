@@ -20,14 +20,13 @@
 
 class news_story extends XoopsObject {
 	
-	public $mod;
 	public $db;
 	public $table;
 	
 	/**
 	 * Class constructor
 	 */
-	function news_story() {
+	public function news_story() {
 		$this->initVar ( 'story_id', XOBJ_DTYPE_INT );
 		$this->initVar ( 'story_title', XOBJ_DTYPE_TXTBOX, '' );
 		$this->initVar ( 'story_subtitle', XOBJ_DTYPE_TXTBOX, '' );
@@ -68,7 +67,7 @@ class news_story extends XoopsObject {
 	/**
 	 * Submit form in admin side
 	 */
-	function News_GetContentForm($story_type = 'news') {
+	public function News_GetContentForm($story_type = 'news') {
 		$form = new XoopsThemeForm ( _NEWS_AM_STORY_FORM, 'news', 'backend.php', 'post' );
 		$form->setExtra ( 'enctype="multipart/form-data"' );
 		
@@ -228,7 +227,7 @@ class news_story extends XoopsObject {
 	/**
 	 * Submit form in admin side
 	 */
-	function News_GetContentSimpleForm($story_type = 'news') {
+	public function News_GetContentSimpleForm($story_type = 'news') {
 		$form = new XoopsThemeForm ( _NEWS_AM_STORY_FORM, 'news', 'submit.php', 'post' );
 		$form->setExtra ( 'enctype="multipart/form-data"' );
 		
@@ -361,7 +360,7 @@ class news_story extends XoopsObject {
 	 *
 	 * @return array
 	 **/
-	function toArray() {
+	public function toArray() {
 		$ret = array ();
 		$vars = $this->getVars ();
 		foreach ( array_keys ( $vars ) as $i ) {
@@ -378,7 +377,7 @@ class news_story extends XoopsObject {
  **/
 class NewsStoryHandler extends XoopsPersistableObjectHandler {
 	
-	function NewsStoryHandler($db) {
+	public function NewsStoryHandler($db) {
 		parent::XoopsPersistableObjectHandler ( $db, 'news_story', 'news_story', 'story_id', 'story_alias' );
 	}
 	
@@ -388,7 +387,7 @@ class NewsStoryHandler extends XoopsPersistableObjectHandler {
 	 * @param   String  $alias
 	 * @return  boolean
 	 **/
-	function News_ExistAlias($infos) {
+	public function News_ExistAlias($infos) {
 		$criteria = new CriteriaCompo ();
 		$criteria->add ( new Criteria ( 'story_alias', $infos['story_alias'] ) );
 		if($infos['story_id']) {
@@ -404,7 +403,7 @@ class NewsStoryHandler extends XoopsPersistableObjectHandler {
 	/**
 	 * Get id from alias
 	 */
-	function News_GetId($alias) {
+	public function News_GetId($alias) {
 		$criteria = new CriteriaCompo ();
 		$criteria = new Criteria ( 'story_alias', $alias );
 		$criteria->setLimit ( 1 );
@@ -418,7 +417,7 @@ class NewsStoryHandler extends XoopsPersistableObjectHandler {
 	/**
 	 * Get Default content
 	 */
-	function News_GetDefault($criteria = null) {
+	public function News_GetDefault($criteria = null) {
 		$obj_array = $this->getObjects ( $criteria, false, false );
 		if (count ( $obj_array ) != 1) {
 			return 0;
@@ -429,7 +428,7 @@ class NewsStoryHandler extends XoopsPersistableObjectHandler {
 	/**
 	 * Get Default content
 	 */
-	function News_ContentDefault($default_info) {
+	public function News_ContentDefault($default_info) {
 		$storyDefault = array ();
 		$criteria = new CriteriaCompo ();
 		$criteria->add ( new Criteria ( 'story_default', 1 ) );
@@ -451,7 +450,7 @@ class NewsStoryHandler extends XoopsPersistableObjectHandler {
 	/**
 	 * Get content list for admin side
 	 */
-	function News_GetAdminContentList($story_infos) {
+	public function News_GetAdminContentList($story_infos) {
 		$ret = array ();
 		$criteria = new CriteriaCompo ();
 		$criteria->add ( new Criteria ( 'story_status', $story_infos ['story_status'] ) );
@@ -499,7 +498,7 @@ class NewsStoryHandler extends XoopsPersistableObjectHandler {
 	/**
 	 * Get content list for user side
 	 */	
-	function News_GetContentList($story_infos) {
+	public function News_GetContentList($story_infos) {
 		$ret = array ();
 		
 		$access_topic = NewsPermission::News_GetItemIds ( 'news_view');
@@ -563,7 +562,7 @@ class NewsStoryHandler extends XoopsPersistableObjectHandler {
 	/**
 	 * Get content list for list block
 	 */
-	function News_GetContentBlockList($story_infos ,$topics) {
+	public function News_GetContentBlockList($story_infos ,$topics) {
 		$ret = array ();
 
       $access_topic = NewsPermission::News_GetItemIds ( 'news_view');
@@ -622,7 +621,7 @@ class NewsStoryHandler extends XoopsPersistableObjectHandler {
 	/**
 	 * Get Expire list for admin side
 	 */
-	function News_GetExpireContentList($story_infos) {
+	public function News_GetExpireContentList($story_infos) {
 		$ret = array ();
 		$criteria = new CriteriaCompo ();
 		$criteria->add ( new Criteria ( 'story_expire', 0 , '!='));
@@ -667,7 +666,7 @@ class NewsStoryHandler extends XoopsPersistableObjectHandler {
 	 *
 	 *
 	 */
-	function News_Json($story_infos) {
+	public function News_Json($story_infos) {
 		$ret = array ();
       //$access_topic = NewsPermission::News_GetItemIds ( 'news_view');
 		//if(in_array($story_infos['story_topic'], $access_topic)) {
@@ -701,9 +700,9 @@ class NewsStoryHandler extends XoopsPersistableObjectHandler {
 	
 	/**
 	 * Get Content Count for user side
-	 * use in homepage function in NewsUtils class
+	 * use in homepage public function in NewsUtils class
 	 */
-	function News_GetContentCount($story_infos) {
+	public function News_GetContentCount($story_infos) {
 		$access_topic = NewsPermission::News_GetItemIds ( 'news_view');
 		$topic_handler = xoops_getmodulehandler ( 'topic', 'news' );
 		$topic_show = $topic_handler->News_AllVisibleTopic($story_infos ['topics'],$story_infos ['story_topic']);
@@ -731,7 +730,7 @@ class NewsStoryHandler extends XoopsPersistableObjectHandler {
 	/**
 	 * Get Content Count for admin side
 	 */
-	function News_GetAdminContentCount($story_infos) {
+	public function News_GetAdminContentCount($story_infos) {
 		$criteria = new CriteriaCompo ();
 		$criteria->add ( new Criteria ( 'story_topic', $story_infos ['story_topic'] ) );
 		if ($story_infos ['story_static']) {
@@ -743,7 +742,7 @@ class NewsStoryHandler extends XoopsPersistableObjectHandler {
 	/**
 	 * Get Offline Content Count for admin side
 	 */	
-	function News_GetOfflineContentCount($story_infos) {
+	public function News_GetOfflineContentCount($story_infos) {
 		$criteria = new CriteriaCompo ();
 		$criteria->add ( new Criteria ( 'story_topic', $story_infos ['story_topic'] ) );
 		$criteria->add ( new Criteria ( 'story_status', 0 ) );
@@ -753,7 +752,7 @@ class NewsStoryHandler extends XoopsPersistableObjectHandler {
 	/**
 	 * Get Expire Content Count for admin side
 	 */
-	function News_GetExpireContentCount ($story_infos) {
+	public function News_GetExpireContentCount ($story_infos) {
 		$criteria = new CriteriaCompo ();
 		$criteria->add ( new Criteria ( 'story_topic', $story_infos ['story_topic'] ) );
       $criteria->add ( new Criteria ( 'story_expire', 0 , '!='));
@@ -763,7 +762,7 @@ class NewsStoryHandler extends XoopsPersistableObjectHandler {
 	/**
 	 * Get All Content Count for admin side
 	 */
-	function News_GetAllContentCount() {
+	public function News_GetAllContentCount() {
 		$criteria = new CriteriaCompo ();
       return $this->getCount ( $criteria );
 	}
@@ -771,7 +770,7 @@ class NewsStoryHandler extends XoopsPersistableObjectHandler {
 	/**
 	 * Get Last Content
 	 */
-	function News_GetLastContent($story_infos) {
+	public function News_GetLastContent($story_infos) {
 		$ret = array ();
 		$criteria = new CriteriaCompo ();
 		$obj = $this->getObjects ( $criteria, false );
@@ -795,7 +794,7 @@ class NewsStoryHandler extends XoopsPersistableObjectHandler {
 	 * @author      Hervé Thouzard (http://www.instant-zero.com)
 	 */
 	
-	function News_UpdateHits($story_id) {
+	public function News_UpdateHits($story_id) {
 		$sql = 'UPDATE ' . $this->table . ' SET story_hits = story_hits + 1 WHERE story_id= ' . intval ( $story_id );
 		return $this->db->queryF ( $sql );
 	}
@@ -806,7 +805,7 @@ class NewsStoryHandler extends XoopsPersistableObjectHandler {
 	 * @license     GNU GPL 2 (http://www.gnu.org/licenses/old-licenses/gpl-2.0.html)
 	 * @author      Zoullou (http://www.zoullou.net)
 	 */
-	function News_GetSearchedContent($queryArray, $condition, $limit, $start, $userId) {
+	public function News_GetSearchedContent($queryArray, $condition, $limit, $start, $userId) {
 		$ret = array ();
 		include_once 'topic.php';
 		$criteria = new CriteriaCompo ();
@@ -852,13 +851,13 @@ class NewsStoryHandler extends XoopsPersistableObjectHandler {
 	}
 	
 	/**
-	 * Generate function for update user post
+	 * Generate public function for update user post
 	 *
 	 * @ Update user post count after send approve content
 	 * @ Update user post count after change status content
 	 * @ Update user post count after delete content
 	 */
-	function News_Updateposts($story_uid, $story_status, $story_action) {
+	public function News_Updateposts($story_uid, $story_status, $story_action) {
 		switch ($story_action) {
 			case 'add' :
 				if ($story_uid && $story_status) {
@@ -893,7 +892,7 @@ class NewsStoryHandler extends XoopsPersistableObjectHandler {
 	/**
 	 * Set number of files for each content
 	 */
-	function News_Contentfile($action , $id , $previous = null) {
+	public function News_Contentfile($action , $id , $previous = null) {
 		switch($action) {
 			case 'add':
 				$sql = 'UPDATE ' . $this->table . ' SET story_file = story_file + 1 WHERE story_id= ' . intval ( $id );
@@ -909,7 +908,7 @@ class NewsStoryHandler extends XoopsPersistableObjectHandler {
 	/**
 	 * Get all files fro each content
 	 */
-	function getfile() {
+	public function getfile() {
 		$criteria = new CriteriaCompo ();
 		$criteria->add ( new Criteria ( 'story_file', '0', '>' ) );
 		return $this->getAll ( $criteria );
@@ -918,7 +917,7 @@ class NewsStoryHandler extends XoopsPersistableObjectHandler {
 	/**
 	 * Get related contents
 	 */
-	 function News_RelatedContent($story_infos) {
+	 public function News_RelatedContent($story_infos) {
 	 	 $ret = array();
 		 $criteria = new CriteriaCompo ();
 		 $criteria->add ( new Criteria ( 'story_topic', $story_infos ['story_topic'] ) );
@@ -947,7 +946,7 @@ class NewsStoryHandler extends XoopsPersistableObjectHandler {
 	/**
 	 * Get Spotlight Id
 	 */
-	 function News_SpotlightId($list) {
+	 public function News_SpotlightId($list) {
 	 	 $defaultid = array();
 	 	 $storyid = array();
 	 	 
@@ -993,7 +992,7 @@ class NewsStoryHandler extends XoopsPersistableObjectHandler {
 	* @license     GNU GPL 2 (http://www.gnu.org/licenses/old-licenses/gpl-2.0.html)
 	* @author      Hervé Thouzard (http://www.instant-zero.com)
 	*/
-	 function News_GetNewsCountByTopic()
+	 public function News_GetNewsCountByTopic()
 	 {
 		 $ret = array();
 		 $sql = "SELECT count( story_id ) AS cpt, story_topic FROM ".$this->db->prefix('news_story')." WHERE ( story_publish > 0 AND story_publish <= " . time() . " ) AND ( story_expire = 0 OR story_expire > " . time() . " ) GROUP BY story_topic";
@@ -1010,7 +1009,7 @@ class NewsStoryHandler extends XoopsPersistableObjectHandler {
 	* @license     GNU GPL 2 (http://www.gnu.org/licenses/old-licenses/gpl-2.0.html)
 	* @author      Hervé Thouzard (http://www.instant-zero.com)
 	*/
-	 function News_GetArchiveMonth() {
+	 public function News_GetArchiveMonth() {
 		 $sql = "SELECT `story_publish` FROM ".$this->db->prefix('news_story')." WHERE ( story_status = 1 ) AND ( story_topic != 0  ) AND ( story_publish > 0 AND story_publish <= " . time() . " ) AND ( story_expire = 0 OR story_expire <= " . time() . " ) ORDER BY story_publish DESC";
 	    $result = $this->db->query($sql);
 	    return $result;
@@ -1019,7 +1018,7 @@ class NewsStoryHandler extends XoopsPersistableObjectHandler {
   /**
 	* Get archive
 	*/
-	 function News_GetArchive($publish_start, $publish_end ,$topics ,$limit ,$start) {
+	 public function News_GetArchive($publish_start, $publish_end ,$topics ,$limit ,$start) {
 		 $ret = array();
 		 $criteria = new CriteriaCompo ();
 		 $criteria->add ( new Criteria ( 'story_status', '1' ) );
@@ -1057,7 +1056,7 @@ class NewsStoryHandler extends XoopsPersistableObjectHandler {
   /**
 	* Get archive count
 	*/
-	 function News_GetArchiveCount($publish_start, $publish_end ,$topics) {
+	 public function News_GetArchiveCount($publish_start, $publish_end ,$topics) {
 		 $criteria = new CriteriaCompo ();
 		 $criteria->add ( new Criteria ( 'story_status', '1' ) );
        $criteria->add ( new Criteria ( 'story_publish', $publish_start , '>' ));
@@ -1070,7 +1069,7 @@ class NewsStoryHandler extends XoopsPersistableObjectHandler {
   /**
 	* News Prune Count
 	*/
-	function News_PruneCount($timestamp,$expired,$topiclist) {
+	public function News_PruneCount($timestamp,$expired,$topiclist) {
 		 $criteria = new CriteriaCompo ();
 		 $criteria->add ( new Criteria ( 'story_publish', $timestamp , '<=' ));
 		 if($expired) {
@@ -1086,7 +1085,7 @@ class NewsStoryHandler extends XoopsPersistableObjectHandler {
 	/**
 	* News Delete Before Date
 	*/
-	function News_DeleteBeforeDate($timestamp,$expired,$topiclist) {
+	public function News_DeleteBeforeDate($timestamp,$expired,$topiclist) {
 		 $criteria = new CriteriaCompo ();
 		 $criteria->add ( new Criteria ( 'story_publish', $timestamp , '<=' ));
 		 if($expired) {
@@ -1109,7 +1108,7 @@ class NewsStoryHandler extends XoopsPersistableObjectHandler {
 		 return true;
 	}	
 	
-	function News_Slide($story_infos ,$topics) {
+	public function News_Slide($story_infos ,$topics) {
 		 $ret = array();
        $access_topic = NewsPermission::News_GetItemIds ( 'news_view');
 		 if (! (count ( $topics ) == 1 && $topics [0] == 0)) {
@@ -1181,7 +1180,7 @@ class NewsStoryHandler extends XoopsPersistableObjectHandler {
 		 return $ret;	
 	}
 	
-	function News_Marquee($story_infos ,$topics) {
+	public function News_Marquee($story_infos ,$topics) {
 		 $ret = array();
        $access_topic = NewsPermission::News_GetItemIds ( 'news_view');
 		 if (! (count ( $topics ) == 1 && $topics [0] == 0)) {

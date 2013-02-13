@@ -19,14 +19,13 @@
  */
 class news_topic extends XoopsObject {
 	
-	public $mod;
 	public $db;
 	public $table;
 	
 	/**
 	 * Class constructor
 	 */
-	function news_topic() {
+	public function news_topic() {
 		
 		$this->initVar ( "topic_id", XOBJ_DTYPE_INT, '' );
 		$this->initVar ( "topic_title", XOBJ_DTYPE_TXTBOX, '' );
@@ -67,7 +66,7 @@ class news_topic extends XoopsObject {
 	/**
 	 * Topic form
 	 */
-	function getForm() {
+	public function getForm() {
 		
 		$form = new XoopsThemeForm ( _NEWS_AM_TOPIC_FORM, 'topic', 'backend.php', 'post' );
 		$form->setExtra ( 'enctype="multipart/form-data"' );
@@ -186,7 +185,7 @@ class news_topic extends XoopsObject {
 	 *
 	 * @return array
 	 **/
-	function toArray() {
+	public function toArray() {
 		$ret = array ();
 		$vars = $this->getVars ();
 		foreach ( array_keys ( $vars ) as $i ) {
@@ -200,7 +199,7 @@ class news_topic extends XoopsObject {
 
 class NewsTopicHandler extends XoopsPersistableObjectHandler {
 	
-	function NewsTopicHandler($db) {
+	public function NewsTopicHandler($db) {
 		parent::XoopsPersistableObjectHandler ( $db, 'news_topic', 'news_topic', 'topic_id', 'topic_alias' );
 	}
 	
@@ -211,7 +210,7 @@ class NewsTopicHandler extends XoopsPersistableObjectHandler {
 	 * @param   String  $alias
 	 * @return  boolean
 	 **/
-	function News_ExistTopicAlias($infos) {
+	public function News_ExistTopicAlias($infos) {
 		$criteria = new CriteriaCompo ();
 		$criteria->add ( new Criteria ( 'topic_alias', $infos['topic_alias'] ) );
 		if($infos['topic_id']) {
@@ -227,7 +226,7 @@ class NewsTopicHandler extends XoopsPersistableObjectHandler {
 	/**
 	 * Get id from alias
 	 */
-	function News_GetTopicId($alias) {
+	public function News_GetTopicId($alias) {
 		$criteria = new CriteriaCompo ();
 		$criteria = new Criteria ( 'topic_alias', $alias );
 		$criteria->setLimit ( 1 );
@@ -241,7 +240,7 @@ class NewsTopicHandler extends XoopsPersistableObjectHandler {
 	/**
 	 * Get topic information
 	 */
-	function News_GetAdminTopics( $topic_limit, $topic_start) {
+	public function News_GetAdminTopics( $topic_limit, $topic_start) {
 		$ret = array ();
 		$criteria = new CriteriaCompo ();
 		$criteria->setSort('topic_id');
@@ -262,7 +261,7 @@ class NewsTopicHandler extends XoopsPersistableObjectHandler {
 		return $ret;
 	}
 	
-	function News_GetTopics( $topic_limit, $topic_start, $newscountbytopic = null) {
+	public function News_GetTopics( $topic_limit, $topic_start, $newscountbytopic = null) {
 		$ret = array ();
 		$criteria = new CriteriaCompo ();
 		$criteria->add ( new Criteria ( 'topic_online', 1 ) );
@@ -293,7 +292,7 @@ class NewsTopicHandler extends XoopsPersistableObjectHandler {
 	/**
 	 * Get topic Count
 	 */
-	function News_GetTopicCount() {
+	public function News_GetTopicCount() {
 		$criteria = new CriteriaCompo ();
 		return $this->getCount ( $criteria );
 	}
@@ -301,7 +300,7 @@ class NewsTopicHandler extends XoopsPersistableObjectHandler {
 	/**
 	 * Get topic from ID
 	 */
-	function News_GetTopicFromId($topicid) {
+	public function News_GetTopicFromId($topicid) {
 		$myts = & MyTextSanitizer::getInstance ();
 		$topicid = intval ( $topicid );
 		$topic_title = '';
@@ -318,14 +317,14 @@ class NewsTopicHandler extends XoopsPersistableObjectHandler {
 	/**
 	 * Get Insert ID
 	 */
-	function getInsertId() {
+	public function getInsertId() {
 		return $this->db->getInsertId ();
 	}
 	
 	/**
 	 * Get All of sub topics
 	 */
-	function News_SubTopicId($id ,$topics) {
+	public function News_SubTopicId($id ,$topics) {
 		$ret = array();
 		   $ret [] = $id;
 			foreach ( $topics as $root ) {
@@ -339,7 +338,7 @@ class NewsTopicHandler extends XoopsPersistableObjectHandler {
 	/**
 	 * Get sub topics list
 	 */
-	function News_SubTopicIdList($topic_pid = null) {
+	public function News_SubTopicIdList($topic_pid = null) {
 		if(!isset($topic_pid)) {
 			$topic_pid = 0;
 		}
@@ -362,7 +361,7 @@ class NewsTopicHandler extends XoopsPersistableObjectHandler {
 	/**
 	 * Set order
 	 */
-	function News_SetTopicOrder() {
+	public function News_SetTopicOrder() {
 		$criteria = new CriteriaCompo ();
 		$criteria->setSort ( 'topic_weight' );
 		$criteria->setOrder ( 'DESC' );
@@ -378,7 +377,7 @@ class NewsTopicHandler extends XoopsPersistableObjectHandler {
 	/**
 	 * Get all visible topics
 	 */
-	function News_AllVisibleTopic( $topics, $topic) {
+	public function News_AllVisibleTopic( $topics, $topic) {
 		$topic_show = array();
 		if($topic) {
 			$topic_show[] = $topic;
@@ -394,7 +393,7 @@ class NewsTopicHandler extends XoopsPersistableObjectHandler {
 	/**
 	 *
 	 */
-	 function News_GetBlockTopic($info) {
+	 public function News_GetBlockTopic($info) {
 		$ret = array ();
 		$criteria = new CriteriaCompo ();
 		$criteria->add ( new Criteria ( 'topic_asmenu', 1 ) );

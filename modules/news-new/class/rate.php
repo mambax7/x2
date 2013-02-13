@@ -20,17 +20,19 @@
 
 class news_rate extends XoopsObject {
 	
+	public $db;
+	public $table;
+	
 	/**
 	 * Class constructor
 	 */
-	function news_rate() {
+	public function news_rate() {
 		$this->initVar ( "rate_id", XOBJ_DTYPE_INT, '' );
 		$this->initVar ( "rate_story", XOBJ_DTYPE_INT, '' );
 		$this->initVar ( "rate_user", XOBJ_DTYPE_INT, '' );
 		$this->initVar ( "rate_rating", XOBJ_DTYPE_INT, '' );
 		$this->initVar ( "rate_hostname", XOBJ_DTYPE_TXTBOX, '' );
 		$this->initVar ( "rate_created", XOBJ_DTYPE_INT, '' );
-
 
 		$this->db = $GLOBALS ['xoopsDB'];
 		$this->table = $this->db->prefix ( 'news_rate' );
@@ -41,7 +43,7 @@ class news_rate extends XoopsObject {
 	 *
 	 * @return array
 	 **/
-	function toArray() {
+	public function toArray() {
 		$ret = array ();
 		$vars = $this->getVars ();
 		foreach ( array_keys ( $vars ) as $i ) {
@@ -54,7 +56,7 @@ class news_rate extends XoopsObject {
 
 class NewsRateHandler extends XoopsPersistableObjectHandler {
 	
-	function NewsRateHandler($db) {
+	public function NewsRateHandler($db) {
 		parent::XoopsPersistableObjectHandler ( $db, 'news_rate', 'news_rate', 'rate_id', 'rate_story' );
 	}
 

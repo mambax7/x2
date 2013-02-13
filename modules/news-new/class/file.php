@@ -19,11 +19,14 @@
  */ 
 
 class news_file extends XoopsObject {
+		
+	public $db;
+	public $table;
 	
 	/**
 	 * Class constructor
 	 */
-	function news_file() {
+	public function news_file() {
 		$this->initVar ( "file_id", XOBJ_DTYPE_INT, '' );
 		$this->initVar ( "file_title", XOBJ_DTYPE_TXTBOX, '' );
 		$this->initVar ( "file_name", XOBJ_DTYPE_TXTBOX, '' );
@@ -40,7 +43,7 @@ class news_file extends XoopsObject {
 	/**
 	 * File form
 	 */
-	function getForm() {
+	public function getForm() {
 		$form = new XoopsThemeForm ( _NEWS_AM_FILE_FORM, 'file', 'backend.php', 'post' );
 		$form->setExtra ( 'enctype="multipart/form-data"' );
 		
@@ -90,7 +93,7 @@ class news_file extends XoopsObject {
 	 *
 	 * @return array
 	 **/
-	function toArray() {
+	public function toArray() {
 		$ret = array ();
 		$vars = $this->getVars ();
 		foreach ( array_keys ( $vars ) as $i ) {
@@ -103,14 +106,14 @@ class news_file extends XoopsObject {
 
 class NewsFileHandler extends XoopsPersistableObjectHandler {
 	
-	function NewsFileHandler($db) {
+	public function NewsFileHandler($db) {
 		parent::XoopsPersistableObjectHandler ( $db, 'news_file', 'news_file', 'file_id', 'file_title' );
 	}
 
    /**
 	 * Get file list in admin side
 	 */
-	function News_GetAdminFiles($file , $story) {
+	public function News_GetAdminFiles($file , $story) {
 		$ret = array ();
 		$criteria = new CriteriaCompo ();
 		if(isset($file['content'])) {
@@ -151,7 +154,7 @@ class NewsFileHandler extends XoopsPersistableObjectHandler {
 	/**
 	 * Get file list for each content
 	 */
-	function News_GetFiles( $file) {
+	public function News_GetFiles( $file) {
 		$ret = array ();
 		$criteria = new CriteriaCompo ();
 		$criteria->add ( new Criteria ( 'file_story', $file['content'] ) );
@@ -174,7 +177,7 @@ class NewsFileHandler extends XoopsPersistableObjectHandler {
 	/**
 	 * Get file Count
 	 */	
-	function News_GetFileCount () {
+	public function News_GetFileCount () {
 		$criteria = new CriteriaCompo ();
 		return $this->getCount ( $criteria );
 	}	
