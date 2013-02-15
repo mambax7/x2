@@ -77,16 +77,16 @@ function news_list_show($options) {
     // Set topic limit
     if($topiclimit) {
     	$topics = array();
-    	$topics[] = NewsUtils::News_CleanVars ( $_GET, 'storytopic', 0, 'int' );
+    	$topics[] = NewsUtils::News_UtilityCleanVars ( $_GET, 'storytopic', 0, 'int' );
     } else {
     	$topics = $options;
     }		
 
     $story_infos ['topics'] = $topic_handler->getall ();
-    $stores = $story_handler->News_GetContentBlockList($story_infos ,$topics);
+    $stores = $story_handler->News_StoryBlockList($story_infos ,$topics);
     
     if($show == 'spotlight') {
-	    $id = $story_handler->News_SpotlightId($stores);
+	    $id = $story_handler->News_StorySpotlightId($stores);
 	    $block['spotlightid'] = $id['spotlightid'];
        $block['subspotlightid1'] = $id['subspotlightid1'];
        $block['subspotlightid2'] = $id['subspotlightid2'];

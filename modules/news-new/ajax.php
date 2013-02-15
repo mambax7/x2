@@ -25,17 +25,17 @@ error_reporting(0);
 $GLOBALS['xoopsLogger']->activated = false;
 
 // Set option
-$op = NewsUtils::News_CleanVars ( $_REQUEST, 'op', '', 'string' );
+$op = NewsUtils::News_UtilityCleanVars ( $_REQUEST, 'op', '', 'string' );
 
 if(!empty($op)) {
 	switch($op) {
 		// Get last story as json
 		case 'story':
 		   $story_infos =  array();
-		   $story_infos['story_id'] = NewsUtils::News_CleanVars ( $_REQUEST, 'storyid', 0, 'int' );
-		   $story_infos['story_topic'] = NewsUtils::News_CleanVars ( $_REQUEST, 'storytopic', 0, 'int' );
-		   $story_infos['story_limit'] = NewsUtils::News_CleanVars ( $_REQUEST, 'limit', 50, 'int' );
-		   $return = $story_handler->News_Json($story_infos);
+		   $story_infos['story_id'] = NewsUtils::News_UtilityCleanVars ( $_REQUEST, 'storyid', 0, 'int' );
+		   $story_infos['story_topic'] = NewsUtils::News_UtilityCleanVars ( $_REQUEST, 'storytopic', 0, 'int' );
+		   $story_infos['story_limit'] = NewsUtils::News_UtilityCleanVars ( $_REQUEST, 'limit', 50, 'int' );
+		   $return = $story_handler->News_StoryJson($story_infos);
 			break;
 	}
 	echo $return;	

@@ -113,7 +113,7 @@ class NewsFileHandler extends XoopsPersistableObjectHandler {
    /**
 	 * Get file list in admin side
 	 */
-	public function News_GetAdminFiles($file , $story) {
+	public function News_FileAdminList($file , $story) {
 		$ret = array ();
 		$criteria = new CriteriaCompo ();
 		if(isset($file['content'])) {
@@ -154,7 +154,7 @@ class NewsFileHandler extends XoopsPersistableObjectHandler {
 	/**
 	 * Get file list for each content
 	 */
-	public function News_GetFiles( $file) {
+	public function News_FileList( $file) {
 		$ret = array ();
 		$criteria = new CriteriaCompo ();
 		$criteria->add ( new Criteria ( 'file_story', $file['content'] ) );
@@ -177,7 +177,7 @@ class NewsFileHandler extends XoopsPersistableObjectHandler {
 	/**
 	 * Get file Count
 	 */	
-	public function News_GetFileCount () {
+	public function News_FileCount () {
 		$criteria = new CriteriaCompo ();
 		return $this->getCount ( $criteria );
 	}	

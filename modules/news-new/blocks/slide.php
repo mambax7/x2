@@ -52,7 +52,7 @@ function news_slide_show($options) {
     array_shift($options);
 
     $story_infos['topics'] = $topic_handler->getall ();
-    $block['slide'] = $story_handler->News_Slide($story_infos ,$options);
+    $block['slide'] = $story_handler->News_StorySlide($story_infos ,$options);
     
     switch($block['slidetype']) {
     	

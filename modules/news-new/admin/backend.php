@@ -21,21 +21,16 @@
 require dirname(__FILE__) . '/header.php';
 
 // Define default value
-$op = NewsUtils::News_CleanVars ( $_REQUEST, 'op', 'new', 'string' );
+$op = NewsUtils::News_UtilityCleanVars ( $_REQUEST, 'op', 'new', 'string' );
 // Admin header
 xoops_cp_header ();
 // Redirect to content page
 if (! isset ( $op )) {
-	NewsUtils::News_Redirect ( 'index.php', 0, _NEWS_AM_MSG_WAIT );
+	NewsUtils::News_UtilityRedirect ( 'index.php', 0, _NEWS_AM_MSG_WAIT );
 	// Include footer
 	xoops_cp_footer ();
 	exit ();
 }
-
-// Initialize content handler
-$story_handler = xoops_getmodulehandler ( 'story', 'news' );
-$topic_handler = xoops_getmodulehandler ( 'topic', 'news' );
-$file_handler = xoops_getmodulehandler ( 'file', 'news' );
 
 switch ($op) {
 	
@@ -43,21 +38,21 @@ switch ($op) {
 		$obj = $topic_handler->create ();
 		$obj->setVars ( $_REQUEST );
 
-		if($topic_handler->News_ExistTopicAlias($_REQUEST)) {
-	      NewsUtils::News_Redirect ( "javascript:history.go(-1)", 3, _NEWS_AM_MSG_ALIASERROR );
+		if($topic_handler->News_TopicExistAlias($_REQUEST)) {
+	      NewsUtils::News_UtilityRedirect ( "javascript:history.go(-1)", 3, _NEWS_AM_MSG_ALIASERROR );
 			xoops_cp_footer ();
 			exit ();
 		}	
 			
 		$obj->setVar ( 'topic_date_created', time () );
 		$obj->setVar ( 'topic_date_update', time () );
-		$obj->setVar ( 'topic_weight', $topic_handler->News_SetTopicOrder() );
+		$obj->setVar ( 'topic_weight', $topic_handler->News_TopicOrder() );
 		
 		//image
-		NewsUtils::News_UploadImg ( 'topic_img', $obj, $_REQUEST ['topic_img'] );
+		NewsUtils::News_UtilityUploadImg ( 'topic_img', $obj, $_REQUEST ['topic_img'] );
 		
 		if (! $topic_handler->insert ( $obj )) {
-			NewsUtils::News_Redirect ( 'onclick="javascript:history.go(-1);"', 1, _NEWS_AM_MSG_ERROR );
+			NewsUtils::News_UtilityRedirect ( 'onclick="javascript:history.go(-1);"', 1, _NEWS_AM_MSG_ERROR );
 			xoops_cp_footer ();
 			exit ();
 		}
@@ -65,47 +60,47 @@ switch ($op) {
 		$topic_id = $obj->db->getInsertId ();
 		
 		//permission
-		NewsPermission::News_SetPermission ( 'news_view', $_POST ['groups_view'], $topic_id, true );
-		NewsPermission::News_SetPermission ( 'news_submit', $_POST ['groups_submit'], $topic_id, true );
+		NewsPermission::News_PermissionSet ( 'news_view', $_POST ['groups_view'], $topic_id, true );
+		NewsPermission::News_PermissionSet ( 'news_submit', $_POST ['groups_submit'], $topic_id, true );
 		
 		// Redirect page
-		NewsUtils::News_Redirect ( 'topic.php', 1, _NEWS_AM_MSG_WAIT );
+		NewsUtils::News_UtilityRedirect ( 'topic.php', 1, _NEWS_AM_MSG_WAIT );
 		xoops_cp_footer ();
 		exit ();
 		break;
 	
 	case 'edit_topic' :
-		$topic_id = NewsUtils::News_CleanVars ( $_REQUEST, 'topic_id', 0, 'int' );
+		$topic_id = NewsUtils::News_UtilityCleanVars ( $_REQUEST, 'topic_id', 0, 'int' );
 		if ($topic_id > 0) {
 			
 			$obj = $topic_handler->get ( $topic_id );
 			$obj->setVars ( $_POST );
 			$obj->setVar ( 'topic_date_update', time () );
 
-			if($topic_handler->News_ExistTopicAlias($_REQUEST)) {
-		      NewsUtils::News_Redirect ( "javascript:history.go(-1)", 3, _NEWS_AM_MSG_ALIASERROR );
+			if($topic_handler->News_TopicExistAlias($_REQUEST)) {
+		      NewsUtils::News_UtilityRedirect ( "javascript:history.go(-1)", 3, _NEWS_AM_MSG_ALIASERROR );
 				xoops_cp_footer ();
 				exit ();
 			}	
 		
 			//image
-			NewsUtils::News_UploadImg ( 'topic_img', $obj, $_REQUEST ['topic_img'] );
+			NewsUtils::News_UtilityUploadImg ( 'topic_img', $obj, $_REQUEST ['topic_img'] );
 			if (isset ( $_POST ['deleteimage'] ) && intval ( $_POST ['deleteimage'] ) == 1) {
-				NewsUtils::News_DeleteImg ( 'topic_img', $obj );
+				NewsUtils::News_UtilityDeleteImg ( 'topic_img', $obj );
 			}
 			//permission
-			NewsPermission::News_SetPermission ( 'news_view', $_POST ['groups_view'], $topic_id, false );
-			NewsPermission::News_SetPermission ( 'news_submit', $_POST ['groups_submit'], $topic_id, false );
+			NewsPermission::News_PermissionSet ( 'news_view', $_POST ['groups_view'], $topic_id, false );
+			NewsPermission::News_PermissionSet ( 'news_submit', $_POST ['groups_submit'], $topic_id, false );
 			
 			if (! $topic_handler->insert ( $obj )) {
-				NewsUtils::News_Redirect ( 'onclick="javascript:history.go(-1);"', 1, _NEWS_AM_MSG_ERROR );
+				NewsUtils::News_UtilityRedirect ( 'onclick="javascript:history.go(-1);"', 1, _NEWS_AM_MSG_ERROR );
 				xoops_cp_footer ();
 				exit ();
 			}
 		}
 		
 		// Redirect page
-		NewsUtils::News_Redirect ( 'topic.php', 1, _NEWS_AM_MSG_WAIT );
+		NewsUtils::News_UtilityRedirect ( 'topic.php', 1, _NEWS_AM_MSG_WAIT );
 		xoops_cp_footer ();
 		exit ();
 		break;
@@ -114,8 +109,8 @@ switch ($op) {
 		$obj = $story_handler->create ();
 		$obj->setVars ( $_REQUEST );
 		
-		if($story_handler->News_ExistAlias($_REQUEST)) {
-	      NewsUtils::News_Redirect ( "javascript:history.go(-1)", 3, _NEWS_AM_MSG_ALIASERROR );
+		if($story_handler->News_StoryExistAlias($_REQUEST)) {
+	      NewsUtils::News_UtilityRedirect ( "javascript:history.go(-1)", 3, _NEWS_AM_MSG_ALIASERROR );
 			xoops_cp_footer ();
 			exit ();
 		}	
@@ -145,13 +140,13 @@ switch ($op) {
 		}	
 			
 		//image
-		NewsUtils::News_UploadImg ( 'story_img', $obj, $_REQUEST ['story_img'] );
+		NewsUtils::News_UtilityUploadImg ( 'story_img', $obj, $_REQUEST ['story_img'] );
 
-		$story_handler->News_Updateposts ( $_REQUEST ['story_uid'], $_REQUEST ['story_status'], $story_action = 'add' );
+		$story_handler->News_StoryUpdatePost ( $_REQUEST ['story_uid'], $_REQUEST ['story_status'], $story_action = 'add' );
 		
 		
 		if (! $story_handler->insert ( $obj )) {
-			NewsUtils::News_Redirect ( 'onclick="javascript:history.go(-1);"', 1, _NEWS_AM_MSG_ERROR );
+			NewsUtils::News_UtilityRedirect ( 'onclick="javascript:history.go(-1);"', 1, _NEWS_AM_MSG_ERROR );
 			xoops_cp_footer ();
 			exit ();
 		}
@@ -174,23 +169,23 @@ switch ($op) {
 			$fileobj->setVar ( 'file_story', $obj->getVar ( 'story_id' ) );
 		   $fileobj->setVar ( 'file_status', 1 );
 		   
-		   NewsUtils::News_UploadFile ( 'file_name', $fileobj, $_REQUEST ['file_name'] );
-		   $story_handler->News_Contentfile('add',$obj->getVar ( 'story_id' ));
+		   NewsUtils::News_UtilityUploadFile ( 'file_name', $fileobj, $_REQUEST ['file_name'] );
+		   $story_handler->News_StoryFile('add',$obj->getVar ( 'story_id' ));
 		   if (! $file_handler->insert ( $fileobj )) {
-					NewsUtils::News_Redirect ( 'onclick="javascript:history.go(-1);"', 1, _NEWS_AM_MSG_ERROR );
+					NewsUtils::News_UtilityRedirect ( 'onclick="javascript:history.go(-1);"', 1, _NEWS_AM_MSG_ERROR );
 					xoops_cp_footer ();
 					exit ();
 			}
 		}
 		
 		// Redirect page
-		NewsUtils::News_Redirect ( 'article.php', 1, _NEWS_AM_MSG_WAIT );
+		NewsUtils::News_UtilityRedirect ( 'article.php', 1, _NEWS_AM_MSG_WAIT );
 		xoops_cp_footer ();
 	   exit ();
 		break;
 	
 	case 'edit' :
-		$story_id = NewsUtils::News_CleanVars ( $_REQUEST, 'story_id', 0, 'int' );
+		$story_id = NewsUtils::News_UtilityCleanVars ( $_REQUEST, 'story_id', 0, 'int' );
 		if ($story_id > 0) {
 			
 			$obj = $story_handler->get ( $story_id );
@@ -210,8 +205,8 @@ switch ($op) {
 				$obj->setVar ( 'story_expire', 0 );
 			}
 		
-			if($story_handler->News_ExistAlias($_REQUEST)) {
-		      NewsUtils::News_Redirect ( "javascript:history.go(-1)", 3, _NEWS_AM_MSG_ALIASERROR );
+			if($story_handler->News_StoryExistAlias($_REQUEST)) {
+		      NewsUtils::News_UtilityRedirect ( "javascript:history.go(-1)", 3, _NEWS_AM_MSG_ALIASERROR );
 				xoops_cp_footer ();
 				exit ();
 			}	
@@ -237,13 +232,13 @@ switch ($op) {
 			}
 			
 			//image
-			NewsUtils::News_UploadImg ('story_img', $obj, $_REQUEST ['story_img'] );
+			NewsUtils::News_UtilityUploadImg ('story_img', $obj, $_REQUEST ['story_img'] );
 			if (isset ( $_POST ['deleteimage'] ) && intval ( $_POST ['deleteimage'] ) == 1) {
-				NewsUtils::News_DeleteImg ('story_img', $obj );
+				NewsUtils::News_UtilityDeleteImg ('story_img', $obj );
 			}
 			
 			if (! $story_handler->insert ( $obj )) {
-				NewsUtils::News_Redirect ( 'onclick="javascript:history.go(-1);"', 1, _NEWS_AM_MSG_ERROR );
+				NewsUtils::News_UtilityRedirect ( 'onclick="javascript:history.go(-1);"', 1, _NEWS_AM_MSG_ERROR );
 				xoops_cp_footer ();
 				exit ();
 			}
@@ -262,10 +257,10 @@ switch ($op) {
 				$fileobj->setVar ( 'file_story', $obj->getVar ( 'story_id' ) );
 			   $fileobj->setVar ( 'file_status', 1 );
 			   
-			   NewsUtils::News_UploadFile ( 'file_name', $fileobj, $_REQUEST ['file_name'] );
-			   $story_handler->News_Contentfile('add',$obj->getVar ( 'story_id' ));
+			   NewsUtils::News_UtilityUploadFile ( 'file_name', $fileobj, $_REQUEST ['file_name'] );
+			   $story_handler->News_StoryFile('add',$obj->getVar ( 'story_id' ));
 			   if (! $file_handler->insert ( $fileobj )) {
-						NewsUtils::News_Redirect ( 'onclick="javascript:history.go(-1);"', 1, _NEWS_AM_MSG_ERROR );
+						NewsUtils::News_UtilityRedirect ( 'onclick="javascript:history.go(-1);"', 1, _NEWS_AM_MSG_ERROR );
 						xoops_cp_footer ();
 						exit ();
 				}
@@ -274,7 +269,7 @@ switch ($op) {
 		}
 		
 		// Redirect page
-		NewsUtils::News_Redirect ( 'article.php', 1, _NEWS_AM_MSG_WAIT );
+		NewsUtils::News_UtilityRedirect ( 'article.php', 1, _NEWS_AM_MSG_WAIT );
 		xoops_cp_footer ();
 		exit ();
 		break;
@@ -285,50 +280,50 @@ switch ($op) {
 		$obj->setVars ( $_REQUEST );
 	   $obj->setVar ( 'file_date', time () );
 	   
-	   NewsUtils::News_UploadFile ( 'file_name', $obj, $_REQUEST ['file_name'] );
-	   $story_handler->News_Contentfile('add',$_REQUEST['file_story']);
+	   NewsUtils::News_UtilityUploadFile ( 'file_name', $obj, $_REQUEST ['file_name'] );
+	   $story_handler->News_StoryFile('add',$_REQUEST['file_story']);
 	   if (! $file_handler->insert ( $obj )) {
-				NewsUtils::News_Redirect ( 'onclick="javascript:history.go(-1);"', 1, _NEWS_AM_MSG_ERROR );
+				NewsUtils::News_UtilityRedirect ( 'onclick="javascript:history.go(-1);"', 1, _NEWS_AM_MSG_ERROR );
 				xoops_cp_footer ();
 				exit ();
 		}
 			
 		// Redirect page
-		NewsUtils::News_Redirect ( 'file.php', 1, _NEWS_AM_MSG_WAIT );
+		NewsUtils::News_UtilityRedirect ( 'file.php', 1, _NEWS_AM_MSG_WAIT );
 		xoops_cp_footer ();
 		exit ();
 		break;
 		
 	case 'edit_file' :
-	   $file_id = NewsUtils::News_CleanVars ( $_REQUEST, 'file_id', 0, 'int' );
+	   $file_id = NewsUtils::News_UtilityCleanVars ( $_REQUEST, 'file_id', 0, 'int' );
 		if ($file_id > 0) {
 
 		   $obj = $file_handler->get ( $file_id );
 			$obj->setVars ( $_REQUEST );
 			
 			if($_REQUEST['file_story'] != $_REQUEST['file_previous']) {
-				$story_handler->News_Contentfile('add', $_REQUEST['file_story']);
-				$story_handler->News_Contentfile('delete',$_REQUEST['file_previous']);
+				$story_handler->News_StoryFile('add', $_REQUEST['file_story']);
+				$story_handler->News_StoryFile('delete',$_REQUEST['file_previous']);
 			}
 			
 		   if (! $file_handler->insert ( $obj )) {
-					NewsUtils::News_Redirect ( 'onclick="javascript:history.go(-1);"', 1, _NEWS_AM_MSG_ERROR );
+					NewsUtils::News_UtilityRedirect ( 'onclick="javascript:history.go(-1);"', 1, _NEWS_AM_MSG_ERROR );
 					xoops_cp_footer ();
 					exit ();
 			}
 		}	
 		// Redirect page
-		NewsUtils::News_Redirect ( 'file.php', 1, _NEWS_AM_MSG_WAIT );
+		NewsUtils::News_UtilityRedirect ( 'file.php', 1, _NEWS_AM_MSG_WAIT );
 		xoops_cp_footer ();
 		exit ();
 		break;
 		
 	case 'status' :
-		$story_id = NewsUtils::News_CleanVars ( $_REQUEST, 'story_id', 0, 'int' );
+		$story_id = NewsUtils::News_UtilityCleanVars ( $_REQUEST, 'story_id', 0, 'int' );
 		if ($story_id > 0) {
 			$obj = & $story_handler->get ( $story_id );
 			$old = $obj->getVar ( 'story_status' );
-			$story_handler->News_Updateposts ( $obj->getVar ( 'story_uid' ), $obj->getVar ( 'story_status' ), $story_action = 'status' );
+			$story_handler->News_StoryUpdatePost ( $obj->getVar ( 'story_uid' ), $obj->getVar ( 'story_status' ), $story_action = 'status' );
 			$obj->setVar ( 'story_status', ! $old );
 			if ($story_handler->insert ( $obj )) {
 				exit ();
@@ -338,8 +333,8 @@ switch ($op) {
 		break;
 	
 	case 'default' :
-		$story_id = NewsUtils::News_CleanVars ( $_REQUEST, 'story_id', 0, 'int' );
-		$topic_id = NewsUtils::News_CleanVars ( $_REQUEST, 'topic_id', 0, 'int' );
+		$story_id = NewsUtils::News_UtilityCleanVars ( $_REQUEST, 'story_id', 0, 'int' );
+		$topic_id = NewsUtils::News_UtilityCleanVars ( $_REQUEST, 'topic_id', 0, 'int' );
 		if ($story_id > 0) {
 			$criteria = new CriteriaCompo ();
 			$criteria->add ( new Criteria ( 'story_topic', $topic_id ) );
@@ -354,7 +349,7 @@ switch ($op) {
 		break;
 	
 	case 'important' :
-		$story_id = NewsUtils::News_CleanVars ( $_REQUEST, 'story_id', 0, 'int' );
+		$story_id = NewsUtils::News_UtilityCleanVars ( $_REQUEST, 'story_id', 0, 'int' );
 		if ($story_id > 0) {
 			$obj = & $story_handler->get ( $story_id );
 			$old = $obj->getVar ( 'story_important' );
@@ -367,7 +362,7 @@ switch ($op) {
 		break;
 	
 	case 'topic_asmenu' :
-		$topic_id = NewsUtils::News_CleanVars ( $_REQUEST, 'topic_id', 0, 'int' );
+		$topic_id = NewsUtils::News_UtilityCleanVars ( $_REQUEST, 'topic_id', 0, 'int' );
 		if ($topic_id > 0) {
 			$obj = & $topic_handler->get ( $topic_id );
 			$old = $obj->getVar ( 'topic_asmenu' );
@@ -380,7 +375,7 @@ switch ($op) {
 		break;
 	
 	case 'topic_online' :
-		$topic_id = NewsUtils::News_CleanVars ( $_REQUEST, 'topic_id', 0, 'int' );
+		$topic_id = NewsUtils::News_UtilityCleanVars ( $_REQUEST, 'topic_id', 0, 'int' );
 		if ($topic_id > 0) {
 			$obj = & $topic_handler->get ( $topic_id );
 			$old = $obj->getVar ( 'topic_online' );
@@ -393,7 +388,7 @@ switch ($op) {
 		break;
 
 	case 'topic_show' :
-		$topic_id = NewsUtils::News_CleanVars ( $_REQUEST, 'topic_id', 0, 'int' );
+		$topic_id = NewsUtils::News_UtilityCleanVars ( $_REQUEST, 'topic_id', 0, 'int' );
 		if ($topic_id > 0) {
 			$obj = & $topic_handler->get ( $topic_id );
 			$old = $obj->getVar ( 'topic_show' );
@@ -406,7 +401,7 @@ switch ($op) {
 		break;
 	
 	case 'file_status' :
-		$file_id = NewsUtils::News_CleanVars ( $_REQUEST, 'file_id', 0, 'int' );
+		$file_id = NewsUtils::News_UtilityCleanVars ( $_REQUEST, 'file_id', 0, 'int' );
 		if ($file_id > 0) {
 			$obj = & $file_handler->get ( $file_id );
 			$old = $obj->getVar ( 'file_status' );
@@ -420,14 +415,14 @@ switch ($op) {
 			
 	case 'delete' :
 	   //print_r($_POST);
-		$id = NewsUtils::News_CleanVars ( $_REQUEST, 'id', 0, 'int' );
-		$handler = NewsUtils::News_CleanVars ( $_REQUEST, 'handler', 0, 'string' );
+		$id = NewsUtils::News_UtilityCleanVars ( $_REQUEST, 'id', 0, 'int' );
+		$handler = NewsUtils::News_UtilityCleanVars ( $_REQUEST, 'handler', 0, 'string' );
 		if ($id > 0 && $handler) {
 			switch($handler) {
 				case 'content':
 					$obj = $story_handler->get ( $id );
 					$url = 'article.php';
-					$story_handler->News_Updateposts ( $obj->getVar ( 'story_uid' ), $obj->getVar ( 'story_status' ), $story_action = 'delete' );
+					$story_handler->News_StoryUpdatePost ( $obj->getVar ( 'story_uid' ), $obj->getVar ( 'story_status' ), $story_action = 'delete' );
 					if (! $story_handler->delete ( $obj )) {
 						echo $obj->getHtmlErrors ();
 					}
@@ -442,7 +437,7 @@ switch ($op) {
 				case 'file':
 					$obj = $file_handler->get ( $id );
 					$url = 'file.php';
-					$story_handler->News_Contentfile('delete',$obj->getVar ( 'file_story' ));
+					$story_handler->News_StoryFile('delete',$obj->getVar ( 'file_story' ));
 					if (! $file_handler->delete ( $obj )) {
 						echo $obj->getHtmlErrors ();
 					}
@@ -451,14 +446,14 @@ switch ($op) {
 		}
 		
 		// Redirect page
-		NewsUtils::News_Redirect ( $url , 1, _NEWS_AM_MSG_WAIT );
+		NewsUtils::News_UtilityRedirect ( $url , 1, _NEWS_AM_MSG_WAIT );
 		xoops_cp_footer ();
 		exit ();
 		break;
 }
 
 // Redirect page
-NewsUtils::News_Redirect ( 'index.php', 1, _NEWS_AM_MSG_WAIT );
+NewsUtils::News_UtilityRedirect ( 'index.php', 1, _NEWS_AM_MSG_WAIT );
 // Include footer
 xoops_cp_footer ();
 

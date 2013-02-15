@@ -45,9 +45,9 @@ function news_topic_show($options) {
     
     
     if($count) {
-	    $info['newscountbytopic'] = $story_handler->News_GetNewsCountByTopic();
+	    $info['newscountbytopic'] = $story_handler->News_StoryCountByTopic();
     }
-    $topics = $topic_handler->News_GetBlockTopic($info);
+    $topics = $topic_handler->News_TopicBlockList($info);
     $block['topics'] = $topics;
     $block['float'] = $float;
     $block['count'] = $count;

@@ -28,9 +28,6 @@ xoops_cp_header();
 $xoTheme->addStylesheet(XOOPS_URL . '/modules/news/css/admin.css');
 $xoTheme->addStylesheet(XOOPS_URL . '/modules/system/css/admin.css');
 
-$topic_handler = xoops_getmodulehandler('topic', 'news');
-$story_handler = xoops_getmodulehandler('story', 'news');
-
 $folder = array(
 	XOOPS_ROOT_PATH . '/uploads/news/', 
 	XOOPS_ROOT_PATH . xoops_getModuleOption ( 'img_dir', 'news' ),
@@ -47,10 +44,10 @@ $story_infos = array(
 $index_admin = new ModuleAdmin();
 $index_admin->addInfoBox(_NEWS_AM_INDEX_ADMENU1);
 $index_admin->addInfoBox(_NEWS_AM_INDEX_ADMENU2);
-$index_admin->addInfoBoxLine(_NEWS_AM_INDEX_ADMENU1, _NEWS_AM_INDEX_TOPICS, $topic_handler->News_GetTopicCount());
-$index_admin->addInfoBoxLine(_NEWS_AM_INDEX_ADMENU2, _NEWS_AM_INDEX_CONTENTS, $story_handler->News_GetAllContentCount());
-$index_admin->addInfoBoxLine(_NEWS_AM_INDEX_ADMENU2, _NEWS_AM_INDEX_CONTENTS_OFFLINE, $story_handler->News_GetOfflineContentCount($story_infos));
-$index_admin->addInfoBoxLine(_NEWS_AM_INDEX_ADMENU2, _NEWS_AM_INDEX_CONTENTS_EXPIRE, $story_handler->News_GetExpireContentCount($story_infos));
+$index_admin->addInfoBoxLine(_NEWS_AM_INDEX_ADMENU1, _NEWS_AM_INDEX_TOPICS, $topic_handler->News_TopicCount());
+$index_admin->addInfoBoxLine(_NEWS_AM_INDEX_ADMENU2, _NEWS_AM_INDEX_CONTENTS, $story_handler->News_StoryAllCount());
+$index_admin->addInfoBoxLine(_NEWS_AM_INDEX_ADMENU2, _NEWS_AM_INDEX_CONTENTS_OFFLINE, $story_handler->News_StoryOfflineCount($story_infos));
+$index_admin->addInfoBoxLine(_NEWS_AM_INDEX_ADMENU2, _NEWS_AM_INDEX_CONTENTS_EXPIRE, $story_handler->News_StoryExpireCount($story_infos));
 
 foreach (array_keys( $folder) as $i) {
     $index_admin->addConfigBoxLine($folder[$i], 'folder');

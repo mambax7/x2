@@ -22,7 +22,7 @@ require dirname(__FILE__) . '/header.php';
 include_once XOOPS_ROOT_PATH . '/class/xoopstopic.php';
 include_once XOOPS_ROOT_PATH . '/class/xoopslists.php';
 include_once XOOPS_ROOT_PATH . '/class/xoopsform/grouppermform.php';
-include_once XOOPS_ROOT_PATH . '/modules/news/class/topic.php';
+
 
 // Display Admin header
 xoops_cp_header();
@@ -37,8 +37,6 @@ if (count ( array_intersect ( $group, $groups ) ) <= 0) {
 // Add module stylesheet
 $xoTheme->addStylesheet(XOOPS_URL . '/modules/news/css/admin.css');
 $xoTheme->addStylesheet(XOOPS_URL . '/modules/system/css/admin.css');
-
-$topic_handler = xoops_getmodulehandler('topic', 'news');
 
 $permtoset = isset($_POST["permtoset"]) ? intval($_POST["permtoset"]) : 1;
 $selected = array("", "", "");
@@ -97,10 +95,10 @@ if ($permtoset == 1) {
     }
     
     //check if topics exist before rendering the form and redirect, if there are no topics   
-    if ($topic_handler->News_GetTopicCount()) {
+    if ($topic_handler->News_TopicCount()) {
         $xoopsTpl->assign('permform', $permform->render());
 	 } else {
-	     NewsUtils::News_Redirect ( 'topic.php?op=new_topic', 02, _NEWS_AM_MSG_NOPERMSSET );
+	     NewsUtils::News_UtilityRedirect ( 'topic.php?op=new_topic', 02, _NEWS_AM_MSG_NOPERMSSET );
 	     // Include footer
 	     xoops_cp_footer ();
 	     exit ();

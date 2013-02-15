@@ -29,11 +29,11 @@ $xoTheme->addStylesheet ( XOOPS_URL . '/modules/news/css/style.css' );
 
 // get story id
 if(isset($_REQUEST['storyid'])) {
-	$story_id = NewsUtils::News_CleanVars ( $_REQUEST, 'storyid', 0, 'int' );
+	$story_id = NewsUtils::News_UtilityCleanVars ( $_REQUEST, 'storyid', 0, 'int' );
 } else {
-	$story_alias = NewsUtils::News_CleanVars ( $_REQUEST, 'story', 0, 'string' );
+	$story_alias = NewsUtils::News_UtilityCleanVars ( $_REQUEST, 'story', 0, 'string' );
 	if($story_alias) {
-		$_GET['storyid'] = $story_id = $story_handler->News_GetId($story_alias);
+		$_GET['storyid'] = $story_id = $story_handler->News_StoryGetId($story_alias);
 	}
 }
 
@@ -60,7 +60,7 @@ if(!$obj->getVar ( 'story_status' )) {
 $story = $obj->toArray ();
 
 // Update content hits
-$story_handler->News_UpdateHits ( $story_id );
+$story_handler->News_StoryUpdateHits ( $story_id );
 
 // set arrey
 $view_topic = $topic_handler->get ( $story_topic );
@@ -85,7 +85,7 @@ if (isset ( $story_topic ) && $story_topic > 0) {
 	}
 	
 	// Check the access permission
-	if (! $perm_handler->News_IsAllowed ( $xoopsUser, 'news_view', $view_topic->getVar ( 'topic_id' ) )) {
+	if (! $perm_handler->News_PermissionIsAllowed ( $xoopsUser, 'news_view', $view_topic->getVar ( 'topic_id' ) )) {
 		redirect_header ( "index.php", 3, _NOPERM );
 		exit ();
 	}
@@ -109,10 +109,10 @@ if (isset ( $story_topic ) && $story_topic > 0 && $view_topic->getVar ( 'topic_s
 		$link ['date'] = '1';
 	}
 	if ($view_topic->getVar ( 'topic_showpdf' )) {
-		$link ['pdf'] = NewsUtils::News_Url ( $story, 'pdf' );
+		$link ['pdf'] = NewsUtils::News_UtilityStoryUrl ( $story, 'pdf' );
 	}
 	if ($view_topic->getVar ( 'topic_showprint' )) {
-		$link ['print'] = NewsUtils::News_Url ( $story, 'print' );
+		$link ['print'] = NewsUtils::News_UtilityStoryUrl ( $story, 'print' );
 	}
 	if ($view_topic->getVar ( 'topic_showhits' )) {
 		$link ['hits'] = '1';
@@ -123,7 +123,7 @@ if (isset ( $story_topic ) && $story_topic > 0 && $view_topic->getVar ( 'topic_s
 	if ($view_topic->getVar ( 'topic_showmail' )) {
 		// Mail link & label
 		$link ['mail_subject'] = $story ['story_title'] . ' - ' . $xoopsConfig ['sitename'];
-		$link ['mail_linkto'] = NewsUtils::News_Url ( $story );
+		$link ['mail_linkto'] = NewsUtils::News_UtilityStoryUrl ( $story );
 		if (xoops_getModuleOption ( 'tellafriend')) {
 			$link ['mail'] = "mailto:|xoops_tellafriend:" . $link ['mail_subject'];
 		} else {
@@ -135,14 +135,14 @@ if (isset ( $story_topic ) && $story_topic > 0 && $view_topic->getVar ( 'topic_s
 			$next_obj = $story_handler->get ( $obj->getVar ( 'story_next' ) );
 			$next_link = $next_obj->toArray ();
 			$next_link ['topic'] = $story ['topic'];
-			$link ['next'] = NewsUtils::News_Url ( $next_link );
+			$link ['next'] = NewsUtils::News_UtilityStoryUrl ( $next_link );
 			$link ['next_title'] = $next_link ['story_title'];
 		}
 		if ($obj->getVar ( 'story_prev' ) != 0) {
 			$prev_obj = $story_handler->get ( $obj->getVar ( 'story_prev' ) );
 			$prev_link = $prev_obj->toArray ();
 			$prev_link ['topic'] = $story ['topic'];
-			$link ['prev'] = NewsUtils::News_Url ( $prev_link );
+			$link ['prev'] = NewsUtils::News_UtilityStoryUrl ( $prev_link );
 			$link ['prev_title'] = $prev_link ['story_title'];
 		}
 	}
@@ -166,10 +166,10 @@ if (isset ( $story_topic ) && $story_topic > 0 && $view_topic->getVar ( 'topic_s
 		$story ['author'] = XoopsUser::getUnameFromId ( $obj->getVar ( 'story_uid' ) );
 	}
 	if (xoops_getModuleOption ( 'disp_pdflink', 'news' )) {
-		$link ['pdf'] = NewsUtils::News_Url ( $story, 'pdf' );
+		$link ['pdf'] = NewsUtils::News_UtilityStoryUrl ( $story, 'pdf' );
 	}
 	if (xoops_getModuleOption ( 'disp_printlink', 'news' )) {
-		$link ['print'] = NewsUtils::News_Url ($story, 'print' );
+		$link ['print'] = NewsUtils::News_UtilityStoryUrl ($story, 'print' );
 	}
 	if (xoops_getModuleOption ( 'disp_hits', 'news' )) {
 		$link ['hits'] = '1';
@@ -180,7 +180,7 @@ if (isset ( $story_topic ) && $story_topic > 0 && $view_topic->getVar ( 'topic_s
 	if (xoops_getModuleOption ( 'disp_maillink', 'news' )) {
 		// Mail link & label
 		$link ['mail_subject'] = $story ['story_title'] . ' - ' . $xoopsConfig ['sitename'];
-		$link ['mail_linkto'] = NewsUtils::News_Url ($story );
+		$link ['mail_linkto'] = NewsUtils::News_UtilityStoryUrl ($story );
 		if (xoops_getModuleOption ( 'tellafriend', 'news' )) {
 			$link ['mail'] = "mailto:|xoops_tellafriend:" . $link ['mail_subject'];
 		} else {
@@ -192,14 +192,14 @@ if (isset ( $story_topic ) && $story_topic > 0 && $view_topic->getVar ( 'topic_s
 			$next_obj = $story_handler->get ( $obj->getVar ( 'story_next' ) );
 			$next_link = $next_obj->toArray ();
 			$next_link ['topic'] = $story ['topic'];
-			$link ['next'] = NewsUtils::News_Url ( $next_link );
+			$link ['next'] = NewsUtils::News_UtilityStoryUrl ( $next_link );
 			$link ['next_title'] = $next_link ['story_title'];
 		}
 		if ($obj->getVar ( 'story_prev' ) != 0) {
 			$prev_obj = $story_handler->get ( $obj->getVar ( 'story_prev' ) );
 			$prev_link = $prev_obj->toArray ();
 			$prev_link ['topic'] = $story ['topic'];
-			$link ['prev'] = NewsUtils::News_Url ( $prev_link );
+			$link ['prev'] = NewsUtils::News_UtilityStoryUrl ( $prev_link );
 			$link ['prev_title'] = $prev_link ['story_title'];
 		}
 	}
@@ -253,12 +253,12 @@ if ((xoops_getModuleOption ( 'usetag', 'news' )) and (is_dir ( XOOPS_ROOT_PATH .
 }
 
 // Get URLs 
-$link ['url'] = NewsUtils::News_Url ( $story );
-$link ['topicurl'] = NewsUtils::News_TopicUrl ( $story );
+$link ['url'] = NewsUtils::News_UtilityStoryUrl ( $story );
+$link ['topicurl'] = NewsUtils::News_UtilityTopicUrl ( $story );
 
 // breadcrumb
 if (xoops_getModuleOption ( 'bc_show', 'news' )) {
-	$breadcrumb = NewsUtils::News_Breadcrumb ( true, $story ['story_title'], $story ['story_topic'], ' &raquo; ', 'topic_title' );
+	$breadcrumb = NewsUtils::News_UtilityBreadcrumb ( true, $story ['story_title'], $story ['story_topic'], ' &raquo; ', 'topic_title' );
 }
 
 
@@ -269,7 +269,7 @@ if($story ['story_file'] > 0) {
    $file['sort'] = 'file_id';
 	$file['start'] = 0;
 	$file['content'] = $story_id;
-	$view_file = $file_handler->News_GetFiles($file);
+	$view_file = $file_handler->News_FileList($file);
 	$xoopsTpl->assign ( 'files', $view_file );
 	$xoopsTpl->assign ( 'jwwidth', '470' );
 	$xoopsTpl->assign ( 'jwheight', '320' );
@@ -281,7 +281,7 @@ if(xoops_getModuleOption ( 'related', 'news' )) {
 	$related_infos ['story_topic'] = $obj->getVar ( 'story_topic' );
 	$related_infos ['story_limit'] = xoops_getModuleOption ( 'related_limit', 'news' );
 	$related_infos ['topic_alias'] = $view_topic->getVar ( 'topic_alias' );
-	$related = $story_handler->News_RelatedContent($related_infos);
+	$related = $story_handler->News_StoryRelated($related_infos);
 	$xoopsTpl->assign ( 'related', $related );	
 }	
  

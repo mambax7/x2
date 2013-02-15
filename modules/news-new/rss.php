@@ -72,13 +72,13 @@ if (!$xoopsTpl->is_cached('db:news_rss.html')) {
     $xoopsTpl->assign('image_height', $height);
 
     if (isset($_REQUEST["user"])) {
-        $story_user = NewsUtils::News_CleanVars($_REQUEST, 'user', 0, 'int');
+        $story_user = NewsUtils::News_UtilityCleanVars($_REQUEST, 'user', 0, 'int');
     } else {
         $story_user = null;
     }
 
     if (isset($_REQUEST["topic"])) {
-        $story_topic = NewsUtils::News_CleanVars($_REQUEST, 'topic', 0, 'int');
+        $story_topic = NewsUtils::News_UtilityCleanVars($_REQUEST, 'topic', 0, 'int');
 
     } else {
         $story_topic = null;
@@ -88,7 +88,7 @@ if (!$xoopsTpl->is_cached('db:news_rss.html')) {
 
     if ($story_topic != 0) {
         $permHandler = NewsPermission::getHandler();
-        if ($permHandler->News_IsAllowed($xoopsUser, 'news_view', $story_topic)) {
+        if ($permHandler->News_PermissionIsAllowed($xoopsUser, 'news_view', $story_topic)) {
             $topic_obj = $topic_handler->get($story_topic);
         }
     }
@@ -106,7 +106,7 @@ if (!$xoopsTpl->is_cached('db:news_rss.html')) {
         'admin_side' => false
     );
 
-    $stores = $story_handler->News_GetContentList( $story_infos);
+    $stores = $story_handler->News_StoryList( $story_infos);
 
     $xoopsTpl->assign('contents', $stores);
 }

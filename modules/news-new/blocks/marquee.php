@@ -42,7 +42,7 @@ function news_marquee_show($options) {
     array_shift($options);
 
     $story_infos['topics'] = $topic_handler->getall ();
-    $block['marquee'] = $story_handler->News_Marquee($story_infos ,$options);
+    $block['marquee'] = $story_handler->News_StoryMarquee($story_infos ,$options);
     
     $xoTheme->addScript("browse.php?Frameworks/jquery/jquery.js");
 	 $xoTheme->addScript(XOOPS_URL . '/modules/news/js/marquee/marquee.js');

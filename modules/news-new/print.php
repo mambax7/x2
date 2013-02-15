@@ -22,11 +22,11 @@
 require dirname(__FILE__) . '/header.php';
 
 if(isset($_REQUEST['storyid'])) {
-	$story_id = NewsUtils::News_CleanVars ( $_REQUEST, 'storyid', 0, 'int' );
+	$story_id = NewsUtils::News_UtilityCleanVars ( $_REQUEST, 'storyid', 0, 'int' );
 } else {
-	$story_alias = NewsUtils::News_CleanVars ( $_REQUEST, 'story', 0, 'string' );
+	$story_alias = NewsUtils::News_UtilityCleanVars ( $_REQUEST, 'story', 0, 'string' );
 	if($story_alias) {
-		$story_id = $story_handler->News_GetId($story_alias);
+		$story_id = $story_handler->News_StoryGetId($story_alias);
 	}
 }
 
@@ -54,7 +54,7 @@ if (isset($story_topic) && $story_topic > 0) {
     }
 
     // Check the access permission
-    if (!$perm_handler->News_IsAllowed($xoopsUser, 'news_view', $view_topic->getVar('topic_id'))) {
+    if (!$perm_handler->News_PermissionIsAllowed($xoopsUser, 'news_view', $view_topic->getVar('topic_id'))) {
         redirect_header("index.php", 3, _NOPERM);
         exit;
     }
@@ -76,7 +76,7 @@ $page['img'] = $obj->getVar('story_img');
 $page['thumburl'] = XOOPS_URL . '/uploads/news/image/thumb/' . $obj->getVar('story_img');
 $page['author'] = XoopsUser::getUnameFromId($obj->getVar('story_uid'));
 $page['date'] = formatTimestamp($obj->getVar('story_create'), _MEDIUMDATESTRING);
-$page['link'] = NewsUtils::News_Url($page);
+$page['link'] = NewsUtils::News_UtilityStoryUrl($page);
 
 $xoopsTpl->assign('content', $page);
 $xoopsTpl->assign('module', 'news');

@@ -34,10 +34,10 @@ $lastmonth = 0;
 
 $months_arr = array(1 => _CAL_JANUARY, 2 => _CAL_FEBRUARY, 3 => _CAL_MARCH, 4 => _CAL_APRIL, 5 => _CAL_MAY, 6 => _CAL_JUNE, 7 => _CAL_JULY, 8 => _CAL_AUGUST, 9 => _CAL_SEPTEMBER, 10 => _CAL_OCTOBER, 11 => _CAL_NOVEMBER, 12 => _CAL_DECEMBER);
 
-$fromyear = NewsUtils::News_CleanVars ( $_GET, 'year', 0, 'int' );
-$frommonth = NewsUtils::News_CleanVars ( $_GET, 'month', 0, 'int' );
-$start = NewsUtils::News_CleanVars ( $_GET, 'start', 0, 'int' );
-$limit = NewsUtils::News_CleanVars ( $_GET, 'limit', 50, 'int' );
+$fromyear = NewsUtils::News_UtilityCleanVars ( $_GET, 'year', 0, 'int' );
+$frommonth = NewsUtils::News_UtilityCleanVars ( $_GET, 'month', 0, 'int' );
+$start = NewsUtils::News_UtilityCleanVars ( $_GET, 'start', 0, 'int' );
+$limit = NewsUtils::News_UtilityCleanVars ( $_GET, 'limit', 50, 'int' );
 
 $pgtitle = '';
 if($fromyear && $frommonth) {
@@ -58,7 +58,7 @@ if(is_object($xoopsUser)) {
 	}
 }
  
-$result = $story_handler->News_GetArchiveMonth();
+$result = $story_handler->News_StoryArchiveMonth();
 $years = array();
 $months = array();
 $i = 0;
@@ -106,8 +106,8 @@ if ($fromyear != 0 && $frommonth != 0) {
 	$monthend = ($monthend > time()) ? time() : $monthend;
    
    $topics = $topic_handler->getall (); 
-	$archive = $story_handler->News_GetArchive($monthstart, $monthend , $topics , $limit , $start);
-	$numrows = $story_handler->News_GetArchiveCount($monthstart, $monthend ,$topics);
+	$archive = $story_handler->News_StoryArchive($monthstart, $monthend , $topics , $limit , $start);
+	$numrows = $story_handler->News_StoryArchiveCount($monthstart, $monthend ,$topics);
   
 	if ($numrows > $limit) {
 		$pagenav = new XoopsPageNav ( $numrows, $limit, $start, 'start', 'limit=' . $limit . '&year=' . $fromyear . '&month=' . $frommonth );

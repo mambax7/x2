@@ -210,7 +210,7 @@ class NewsTopicHandler extends XoopsPersistableObjectHandler {
 	 * @param   String  $alias
 	 * @return  boolean
 	 **/
-	public function News_ExistTopicAlias($infos) {
+	public function News_TopicExistAlias($infos) {
 		$criteria = new CriteriaCompo ();
 		$criteria->add ( new Criteria ( 'topic_alias', $infos['topic_alias'] ) );
 		if($infos['topic_id']) {
@@ -226,7 +226,7 @@ class NewsTopicHandler extends XoopsPersistableObjectHandler {
 	/**
 	 * Get id from alias
 	 */
-	public function News_GetTopicId($alias) {
+	public function News_TopicGetId($alias) {
 		$criteria = new CriteriaCompo ();
 		$criteria = new Criteria ( 'topic_alias', $alias );
 		$criteria->setLimit ( 1 );
@@ -240,7 +240,7 @@ class NewsTopicHandler extends XoopsPersistableObjectHandler {
 	/**
 	 * Get topic information
 	 */
-	public function News_GetAdminTopics( $topic_limit, $topic_start) {
+	public function News_TopicAdminList( $topic_limit, $topic_start) {
 		$ret = array ();
 		$criteria = new CriteriaCompo ();
 		$criteria->setSort('topic_id');
@@ -252,7 +252,7 @@ class NewsTopicHandler extends XoopsPersistableObjectHandler {
 			foreach ( $topics as $root ) {
 				$tab = array ();
 				$tab = $root->toArray ();
-				$tab ['topicurl'] = NewsUtils::News_TopicUrl (  $tab );
+				$tab ['topicurl'] = NewsUtils::News_UtilityTopicUrl (  $tab );
 				$tab ['thumburl'] = XOOPS_URL . xoops_getModuleOption ( 'img_dir', 'news' ) . '/thumb/' .$root->getVar ( 'topic_img' );
 				$tab ['imageurl'] = XOOPS_URL . xoops_getModuleOption ( 'img_dir', 'news' ) . '/medium/' .$root->getVar ( 'topic_img' );
 				$ret [] = $tab;
@@ -261,7 +261,7 @@ class NewsTopicHandler extends XoopsPersistableObjectHandler {
 		return $ret;
 	}
 	
-	public function News_GetTopics( $topic_limit, $topic_start, $newscountbytopic = null) {
+	public function News_TopicList( $topic_limit, $topic_start, $newscountbytopic = null) {
 		$ret = array ();
 		$criteria = new CriteriaCompo ();
 		$criteria->add ( new Criteria ( 'topic_online', 1 ) );
@@ -274,7 +274,7 @@ class NewsTopicHandler extends XoopsPersistableObjectHandler {
 			foreach ( $topics as $root ) {
 				$tab = array ();
 				$tab = $root->toArray ();
-				$tab ['topicurl'] = NewsUtils::News_TopicUrl (  $tab );
+				$tab ['topicurl'] = NewsUtils::News_UtilityTopicUrl (  $tab );
 				$tab ['thumburl'] = XOOPS_URL . xoops_getModuleOption ( 'img_dir', 'news' ) . '/thumb/' .$root->getVar ( 'topic_img' );
 				$tab ['imageurl'] = XOOPS_URL . xoops_getModuleOption ( 'img_dir', 'news' ) . '/medium/' .$root->getVar ( 'topic_img' );
 				if(isset($newscountbytopic[$root->getVar ( 'topic_id' )])) {
@@ -285,14 +285,14 @@ class NewsTopicHandler extends XoopsPersistableObjectHandler {
 				$ret [] = $tab;
 			}
 		}
-		$ret = NewsUtils::News_getTree($ret);
+		$ret = NewsUtils::News_UtilityGetTree($ret);
 		return $ret;
 	}
 	
 	/**
 	 * Get topic Count
 	 */
-	public function News_GetTopicCount() {
+	public function News_TopicCount() {
 		$criteria = new CriteriaCompo ();
 		return $this->getCount ( $criteria );
 	}
@@ -300,7 +300,7 @@ class NewsTopicHandler extends XoopsPersistableObjectHandler {
 	/**
 	 * Get topic from ID
 	 */
-	public function News_GetTopicFromId($topicid) {
+	public function News_TopicFromId($topicid) {
 		$myts = & MyTextSanitizer::getInstance ();
 		$topicid = intval ( $topicid );
 		$topic_title = '';
@@ -324,7 +324,7 @@ class NewsTopicHandler extends XoopsPersistableObjectHandler {
 	/**
 	 * Get All of sub topics
 	 */
-	public function News_SubTopicId($id ,$topics) {
+	public function News_TopicSubId($id ,$topics) {
 		$ret = array();
 		   $ret [] = $id;
 			foreach ( $topics as $root ) {
@@ -338,7 +338,7 @@ class NewsTopicHandler extends XoopsPersistableObjectHandler {
 	/**
 	 * Get sub topics list
 	 */
-	public function News_SubTopicIdList($topic_pid = null) {
+	public function News_TopicSubIdList($topic_pid = null) {
 		if(!isset($topic_pid)) {
 			$topic_pid = 0;
 		}
@@ -351,7 +351,7 @@ class NewsTopicHandler extends XoopsPersistableObjectHandler {
 			foreach ( $topics as $root ) {
 				$tab = array ();
 				$tab = $root->toArray ();
-				$tab['topic_url'] = NewsUtils::News_TopicUrl($tab);
+				$tab['topic_url'] = NewsUtils::News_UtilityTopicUrl($tab);
 		      $ret [] = $tab;
 			}
 		}
@@ -361,7 +361,7 @@ class NewsTopicHandler extends XoopsPersistableObjectHandler {
 	/**
 	 * Set order
 	 */
-	public function News_SetTopicOrder() {
+	public function News_TopicOrder() {
 		$criteria = new CriteriaCompo ();
 		$criteria->setSort ( 'topic_weight' );
 		$criteria->setOrder ( 'DESC' );
@@ -377,7 +377,7 @@ class NewsTopicHandler extends XoopsPersistableObjectHandler {
 	/**
 	 * Get all visible topics
 	 */
-	public function News_AllVisibleTopic( $topics, $topic) {
+	public function News_TopicAllVisible( $topics, $topic) {
 		$topic_show = array();
 		if($topic) {
 			$topic_show[] = $topic;
@@ -393,7 +393,7 @@ class NewsTopicHandler extends XoopsPersistableObjectHandler {
 	/**
 	 *
 	 */
-	 public function News_GetBlockTopic($info) {
+	 public function News_TopicBlockList($info) {
 		$ret = array ();
 		$criteria = new CriteriaCompo ();
 		$criteria->add ( new Criteria ( 'topic_asmenu', 1 ) );
@@ -405,7 +405,7 @@ class NewsTopicHandler extends XoopsPersistableObjectHandler {
 			foreach ( $topics as $root ) {
 				$tab = array ();
 				$tab = $root->toArray ();
-				$tab ['topicurl'] = NewsUtils::News_TopicUrl ( $tab );
+				$tab ['topicurl'] = NewsUtils::News_UtilityTopicUrl ( $tab );
 				$tab ['thumburl'] = XOOPS_URL . xoops_getModuleOption ( 'img_dir', 'news' ) . '/thumb/' .$root->getVar ( 'topic_img' );
 				$tab ['imageurl'] = XOOPS_URL . xoops_getModuleOption ( 'img_dir', 'news' ) . '/medium/' .$root->getVar ( 'topic_img' );
 				if(isset($info['newscountbytopic'])) {
