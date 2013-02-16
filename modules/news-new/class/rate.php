@@ -60,5 +60,59 @@ class NewsRateHandler extends XoopsPersistableObjectHandler {
 		parent::XoopsPersistableObjectHandler ( $db, 'news_rate', 'news_rate', 'rate_id', 'rate_story' );
 	}
 
+   /**
+	 * Do rate
+	 *
+	 * @param   Array  $info
+	 * @return  boolean
+	 **/
+	public function News_RateDo($info) {
+		$ret = array();
+		if(in_array($info['rate'], array(1,2,3,4,5,6,7,8,9,10))) {
+			// Get and check user ID
+			$info['user'] = NewsUtils::News_UtilityCurrentUserID();
+		   if($info['user']) {
+				// Check voted to this story or not
+			   if(self::News_RateCheckUser($info)) {
+				   $obj = $this->create();	
+				   $obj->setVar('rate_story', $info['story']);
+				   $obj->setVar('rate_user', $info['user']);
+				   $obj->setVar('rate_rating', $info['rate']);
+				   $obj->setVar('rate_hostname', getenv("REMOTE_ADDR"));
+				   $obj->setVar('rate_created', time());
+				   if($this->insert($obj)) {
+					   $ret['status'] = 1;	
+					   $ret['message'] = _NEWS_MD_RATE_MESSAGE_SAVE;
+				   } else {
+				   	$ret['status'] = 0;	
+					   $ret['message'] = _NEWS_MD_RATE_MESSAGE_NOTSAVE;
+				   }		
+			   } else {
+			   	$ret['status'] = 0;	
+					$ret['message'] = _NEWS_MD_RATE_MESSAGE_VOTEBEFORE;
+			   }	
+		   } else {
+		   	$ret['status'] = 0;	
+				$ret['message'] = _NEWS_MD_RATE_MESSAGE_NOTUSER;
+		   }
+		} else {
+			$ret['status'] = 0;	
+			$ret['message'] = _NEWS_MD_RATE_MESSAGE_OUTOFRANGE;
+		}		
+	   return $ret;		
+	}
+	
+	/**
+	 * Check user
+	 *
+	 * @param   String  $alias
+	 * @return  boolean
+	 **/
+	public function News_RateCheckUser($info) {
+	   $criteria = new CriteriaCompo();
+	   $criteria->add( new Criteria('rate_story', $info['story']));
+	   $criteria->add( new Criteria('rate_user', $info['user']));
+	   return $this->getCount($criteria);
+	}
 }
 ?>

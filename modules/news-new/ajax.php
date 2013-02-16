@@ -37,6 +37,19 @@ if(!empty($op)) {
 		   $story_infos['story_limit'] = NewsUtils::News_UtilityCleanVars ( $_REQUEST, 'limit', 50, 'int' );
 		   $return = $story_handler->News_StoryJson($story_infos);
 			break;
+		// vote to story	
+		case 'rate':
+			// Check vote allowed
+			$vote = true;
+			if($vote) {
+				$info = array();
+				$info['story'] = NewsUtils::News_UtilityCleanVars ( $_POST, 'story', 0, 'int' );
+				$info['rate'] = NewsUtils::News_UtilityCleanVars ( $_POST, 'rate', 0, 'int' );
+				if($info['story'] && $info['rate']) {
+					$return = $rate_handler->News_RateDo($info);
+				}	
+			}
+			break;	
 	}
 	echo $return;	
 }

@@ -749,5 +749,12 @@ class NewsUtils {
         }
         return $branch;
    }
+   
+   public function News_UtilityCurrentUserID()
+	{
+		global $xoopsUser;
+		$uid = is_object($xoopsUser) ? $xoopsUser->getVar('uid') : 0;
+		return $uid;
+	}
 }
 ?>
