@@ -73,7 +73,7 @@ class NewsRateHandler extends XoopsPersistableObjectHandler {
 			$info['user'] = NewsUtils::News_UtilityCurrentUserID();
 		   if($info['user']) {
 				// Check voted to this story or not
-			   if(self::News_RateCheckUser($info)) {
+			   if(!self::News_RateCheckUser($info)) {
 				   $obj = $this->create();	
 				   $obj->setVar('rate_story', $info['story']);
 				   $obj->setVar('rate_user', $info['user']);
@@ -81,6 +81,7 @@ class NewsRateHandler extends XoopsPersistableObjectHandler {
 				   $obj->setVar('rate_hostname', getenv("REMOTE_ADDR"));
 				   $obj->setVar('rate_created', time());
 				   if($this->insert($obj)) {
+				   	self::News_RateMake($info);
 					   $ret['status'] = 1;	
 					   $ret['message'] = _NEWS_MD_RATE_MESSAGE_SAVE;
 				   } else {
@@ -114,5 +115,23 @@ class NewsRateHandler extends XoopsPersistableObjectHandler {
 	   $criteria->add( new Criteria('rate_user', $info['user']));
 	   return $this->getCount($criteria);
 	}
+	
+	public function News_RateMake($info) {
+
+		$sql = 'SELECT rate_rating FROM ' . $this->table . ' WHERE rate_story = ' . $info['story'];
+		$voteresult = $this->db->queryF($sql);
+	   $votes = $this->db->getRowsNum($voteresult);
+	   $totalrating = 0;
+		while(list($rating)=$this->db->fetchRow($voteresult)){
+			$totalrating += $rating;
+		}
+		$finalrating = $totalrating/$votes;
+		$finalrating = number_format($finalrating, 4);
+		//
+		$story_handler = xoops_getModuleHandler("story", "news"); 
+		$story_handler->News_StoryUpdateRating($info['story'], $finalrating, $votes);
+
+
+	}	
 }
 ?>

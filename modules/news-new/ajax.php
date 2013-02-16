@@ -39,9 +39,7 @@ if(!empty($op)) {
 			break;
 		// vote to story	
 		case 'rate':
-			// Check vote allowed
-			$vote = true;
-			if($vote) {
+			if(xoops_getModuleOption('vote_active', 'news')) {
 				$info = array();
 				$info['story'] = NewsUtils::News_UtilityCleanVars ( $_POST, 'story', 0, 'int' );
 				$info['rate'] = NewsUtils::News_UtilityCleanVars ( $_POST, 'rate', 0, 'int' );

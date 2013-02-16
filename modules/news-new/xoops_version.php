@@ -828,6 +828,22 @@ $modversion['config'][] = array(
 
 $modversion['config'][] = array(
     'name' => 'break',
+    'title' => '_NEWS_MI_BREAK_VOTE',
+    'description' => '',
+    'formtype' => 'line_break',
+    'valuetype' => 'textbox',
+    'default' => 'head');
+
+$modversion['config'][] = array(
+    'name' => 'vote_active',
+    'title' => '_NEWS_MI_VOTE_ACTIVE',
+    'description' => '_NEWS_MI_VOTE_ACTIVE_DESC',
+    'formtype' => 'yesno',
+    'valuetype' => 'int',
+    'default' => 1);
+     
+$modversion['config'][] = array(
+    'name' => 'break',
     'title' => '_NEWS_MI_BREAK_COMNOTI',
     'description' => '',
     'formtype' => 'line_break',

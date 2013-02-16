@@ -98,6 +98,32 @@
 			<{/foreach}>
 			</div>
 			<{/if}>
+			
+			<div class="vote">
+				<input value="<{$content.story_rating}>" step="1" id="backing<{$content.story_id}>" type="range">
+				<div class="rateit" data-url="<{$xoops_url}>/modules/<{$xoops_dirname}>/ajax.php?op=rate" data-story="<{$content.story_id}>" data-rateit-backingfld="#backing<{$content.story_id}>" data-rateit-resetable="false" data-rateit-ispreset="true" data-rateit-min="0" data-rateit-max="10"></div>
+			</div>
+			<script type="text/javascript">
+			    $('.vote .rateit').bind('rated reset', function (e) {
+					var ri = $(this);
+					var rate = ri.rateit('vote');
+					var story = ri.data('story');
+					var url = ri.data('url');
+					ri.rateit('readonly', true);
+					$.ajax({
+						url: url,
+						data: { story: story, rate: rate},
+						type: 'POST',
+						dataType: "json",
+						success:function (result) {
+			        	   if (!result.status == 1) {
+				            alert(result.message);
+			        	   }
+			        }
+					});
+				});
+			</script>
+			
 		</div>
 		
 		<div class="itemFoot">
@@ -130,7 +156,6 @@
 			<div class="clear"></div>		
 		</div>
 	</div>
-	
 	<{if $tags}>
 	<div class="tagbar"><{include file="db:tag_bar.html"}></div>
 	<{/if}>

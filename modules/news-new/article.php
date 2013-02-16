@@ -282,7 +282,7 @@ if(xoops_getModuleOption ( 'related', 'news' )) {
 	$related_infos ['story_limit'] = xoops_getModuleOption ( 'related_limit', 'news' );
 	$related_infos ['topic_alias'] = $view_topic->getVar ( 'topic_alias' );
 	$related = $story_handler->News_StoryRelated($related_infos);
-	$xoopsTpl->assign ( 'related', $related );	
+	$xoopsTpl->assign ( 'related', $related );
 }	
  
 // Add topic style if set
@@ -290,6 +290,16 @@ if(file_exists(XOOPS_ROOT_PATH .'/modules/news/css/' . $view_topic->getVar ( 'to
 	$xoTheme->addStylesheet ( XOOPS_URL . '/modules/news/css/' . $view_topic->getVar ( 'topic_style' ) . '.css');
 }
  
+// Vote system
+if(xoops_getModuleOption('vote_active', 'news')) {
+   // Add scripts
+	$xoTheme->addScript('browse.php?Frameworks/jquery/jquery.js');
+	$xoTheme->addScript(XOOPS_URL . '/modules/news/js/rateit.js');
+	// Add Stylesheet
+	$xoTheme->addStylesheet (XOOPS_URL . '/modules/news/css/rateit.css');
+	$xoopsTpl->assign('vote', true);
+}
+
 $xoopsTpl->assign ( 'content', $story );
 $xoopsTpl->assign ( 'link', $link );
 $xoopsTpl->assign ( 'xoops_pagetitle', $story ['story_title'] );

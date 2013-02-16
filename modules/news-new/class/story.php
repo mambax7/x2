@@ -54,6 +54,8 @@ class news_story extends XoopsObject {
 		$this->initVar ( 'story_img', XOBJ_DTYPE_TXTBOX, '' );
 		$this->initVar ( 'story_comments', XOBJ_DTYPE_INT, '' );
 		$this->initVar ( 'story_file', XOBJ_DTYPE_INT, '' );
+		$this->initVar ( 'story_rating', XOBJ_DTYPE_INT, '' );
+		$this->initVar ( 'story_votes', XOBJ_DTYPE_INT, '' );
 		$this->initVar ( 'dohtml', XOBJ_DTYPE_INT, 1 );
 		$this->initVar ( 'doxcode', XOBJ_DTYPE_INT, 1 );
 		$this->initVar ( 'dosmiley', XOBJ_DTYPE_INT, 1 );
@@ -1242,6 +1244,12 @@ class NewsStoryHandler extends XoopsPersistableObjectHandler {
 		 }
 		 return $ret;	
 	}		
+	
+	public function News_StoryUpdateRating($id, $rating, $votes)
+	{
+		$sql = 'UPDATE ' . $this->db->prefix('news_story') . ' SET story_rating = ' . intval($rating) . ', story_votes = ' . intval($votes) . ' WHERE story_id = ' . intval($id);
+		return $this->db->queryF($sql);
+	}
 }
 
 ?> 
