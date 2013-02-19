@@ -276,6 +276,7 @@ define('_NEWS_MI_BREAK_PRINT','Print');
 define('_NEWS_MI_BREAK_BREADCRUMB','Breadcrumb');
 define('_NEWS_MI_BREAK_COMNOTI','Comments and notifications');
 define('_NEWS_MI_BREAK_FILE','File');
+define('_NEWS_MI_BREAK_VOTE','Vote');
 //install/action
 define('_NEWS_MI_SQL_FOUND','SQL Database found');
 define('_NEWS_MI_CREATE_TABLES','Create Tables');
@@ -299,5 +300,7 @@ define('_NEWS_MI_RELATED','Related table');
 define('_NEWS_MI_RELATED_DESC','When you use this option, a summary containing links to all the recent published articles is visible at the bottom of each article');  
 define('_NEWS_MI_RELATED_LIMIT','Related limit');
 define('_NEWS_MI_RELATED_LIMIT_DESC','Number of articles for show in Related table');  	 
+// Vote
+define('_NEWS_MI_VOTE_ACTIVE','Active vote system');
 
 ?>
