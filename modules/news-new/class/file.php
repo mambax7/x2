@@ -33,6 +33,7 @@ class news_file extends XoopsObject {
 		$this->initVar ( "file_story", XOBJ_DTYPE_INT, '' );
 		$this->initVar ( "file_date", XOBJ_DTYPE_INT, '' );
 		$this->initVar ( "file_type", XOBJ_DTYPE_TXTBOX, '' );
+		$this->initVar ( "file_mimetype", XOBJ_DTYPE_TXTBOX, '' );
 		$this->initVar ( "file_status", XOBJ_DTYPE_INT, 1 );
 		$this->initVar ( 'file_hits', XOBJ_DTYPE_INT, '' );
 

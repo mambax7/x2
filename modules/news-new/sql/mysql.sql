@@ -76,9 +76,9 @@ CREATE TABLE `news_topic` (
 	`topic_show` tinyint (1)   NOT NULL default '1',
 	`topic_style` varchar(64)   NOT NULL,
 	PRIMARY KEY (`topic_id`),
+	UNIQUE KEY `topic_alias` (`topic_alias`),
    KEY `topic_pid` (`topic_pid`),
    KEY `topic_online` (`topic_online`),
-   KEY `topic_alias` (`topic_alias`),
    KEY `topic_homepage` (`topic_homepage`)
 ) ENGINE=MyISAM;
 
@@ -89,6 +89,7 @@ CREATE TABLE `news_file` (
 	`file_story` int(10) NOT NULL,
 	`file_date` int(10) NOT NULL,
 	`file_type` varchar(64) NOT NULL default '',
+	`file_mimetype` varchar(64) NOT NULL default '',
 	`file_status` tinyint(1) NOT NULL,
 	`file_hits` int(10) NOT NULL,
 	PRIMARY KEY (`file_id`),
