@@ -95,8 +95,8 @@ function news_list_show($options) {
     // Add block data
 	 $block['show'] = $show;
     $block['img'] = $showimg;
-    $block['imageurl'] = XOOPS_URL . xoops_getModuleOption('img_dir', 'news/medium/';
-    $block['thumburl'] = XOOPS_URL . xoops_getModuleOption('img_dir', 'news/thumb/';
+    $block['imageurl'] = XOOPS_URL . xoops_getModuleOption ( 'img_dir', 'news' ) .' /medium/';
+    $block['thumburl'] = XOOPS_URL . xoops_getModuleOption ( 'img_dir', 'news' ) .' /thumb/';
     $block['description'] = $showdescription;
     $block['date'] = $showdate;
     $block['contents'] = $stores;
