@@ -211,7 +211,7 @@ if (xoops_getModuleOption ( 'bc_show', 'news' )) {
 }
 
 // sub topic
-if($info ['subtopic'] == '1') {
+if(isset($info['subtopic']) && $info['subtopic'] == '1') {
 	$sub_topic = $topic_handler->News_TopicSubIdList($story_topic);	
    $xoopsTpl->assign ('sub_topic', $sub_topic);
 }
