@@ -77,10 +77,12 @@ class NewsPermission {
 	}
 	
 	public function News_PermissionItemId($permtype) {
-	    global $xoopsUser, $xoopsModule;
+	    global $xoopsUser;
+	    $moduleHandler = xoops_gethandler('module');
+		 $module = $moduleHandler->getByDirname('news');
 	    $groups = is_object($xoopsUser) ? $xoopsUser->getGroups() : XOOPS_GROUP_ANONYMOUS;
-	    $gperm_handler =& xoops_gethandler('groupperm');
-	    $categories = $gperm_handler->getItemIds($permtype, $groups, $xoopsModule->getVar('mid'));
+	    $gperm_handler = xoops_gethandler('groupperm');
+	    $categories = $gperm_handler->getItemIds($permtype, $groups, $module->getVar ( "mid" ));
 	    return $categories;
 	}
 

@@ -2,20 +2,11 @@
 	<{foreach item=content from=$contents}>
 	<div class="item">
 		<div class="itemBody" id="story_<{$content.story_id}>">
-			<div class="itemImg center gallery">
-				<{if $img_lightbox}>
-				<a href="<{$content.imageurl}>" title ="<{$content.story_title}>" >
-					<img width="<{$imgwidth}>" class="story_img" src="<{$content.thumburl}>" alt="<{$content.story_title}>"/>
+			<div class="itemBigImg center">
+				<a href="<{$content.url}>" title ="<{$content.story_title}>" >
+					<img class="story_img" src="<{$content.imageurl}>" alt="<{$content.story_title}>"/>
 				</a>
-				<{else}>
-				<img width="<{$imgwidth}>" class="story_img" src="<{$content.thumburl}>" alt="<{$content.story_title}>"/>
-				<{/if}>
 			</div>
-			<{if $content.story_short}>
-			<div class="itemText"><{$content.story_short}></div>
-			<{else}>
-			<div class="itemText"><{$content.story_text|truncate:300}></div>
-			<{/if}>
 		</div>
 		<div class="itemHead">
 			<div class="itemTitle">
@@ -51,8 +42,8 @@
 			<{/if}>
 			<{if $xoops_isadmin}>
 			<span class="itemAdminLink">
-				<a href="<{$xoops_url}>/modules/<{$xoops_dirname}>/admin/article.php?op=edit_content&amp;story_id=<{$content.story_id}>" title="<{$smarty.const._NEWS_MD_EDIT}>"><img src="<{$xoops_url}>/modules/<{$xoops_dirname}>/images/icons/edit.png" alt="<{$smarty.const._story_EDIT}>"/></a>
-				<a href="<{$xoops_url}>/modules/<{$xoops_dirname}>/admin/article.php?op=delete&amp;story_id=<{$content.story_id}>" title="<{$smarty.const._NEWS_MD_DELETE}>"><img src="<{$xoops_url}>/modules/<{$xoops_dirname}>/images/icons/delete.png" alt="<{$smarty.const._story_DELETE}>"/></a>
+				<a href="<{$xoops_url}>/modules/<{$xoops_dirname}>/admin/article.php?op=edit_content&amp;story_id=<{$content.story_id}>" title="<{$smarty.const._NEWS_MD_EDIT}>"><img src="<{$xoops_url}>/modules/<{$xoops_dirname}>/images/icons/edit.png" alt="<{$smarty.const._NEWS_MD_EDIT}>"/></a>
+				<a href="<{$xoops_url}>/modules/<{$xoops_dirname}>/admin/article.php?op=delete&amp;story_id=<{$content.story_id}>" title="<{$smarty.const._NEWS_MD_DELETE}>"><img src="<{$xoops_url}>/modules/<{$xoops_dirname}>/images/icons/delete.png" alt="<{$smarty.const._NEWS_MD_DELETE}>"/></a>
 			</span>
 			<{/if}>
 		</div>

@@ -495,13 +495,13 @@ function xoops_module_update_news($module, $version) {
 				 $sql = 'ALTER TABLE `' . $db->prefix('news_file') . '` CHANGE `counter` `file_hits` int(10) NOT NULL';
 				 $db->query($sql);
 				 // file_mimetype
-				 $sql = 'ALTER TABLE `' . $db->prefix('news_file') . '` CHANGE `mimetype` `file_mimetype` varchar(64) NOT NULL default ''';
+				 $sql = 'ALTER TABLE `' . $db->prefix('news_file') . '` CHANGE `mimetype` `file_mimetype` varchar(64) NOT NULL default ""';
 				 $db->query($sql);
 				 /* 
 				  * Add new fields 
 				  */
 				 // file_type
-				 $sql = 'ALTER TABLE `' . $db->prefix('news_file') . '` ADD `file_type` varchar(64) NOT NULL default ''';
+				 $sql = 'ALTER TABLE `' . $db->prefix('news_file') . '` ADD `file_type` varchar(64) NOT NULL default ""';
 				 $db->query($sql);
 				 /* 
 				  * Add index
