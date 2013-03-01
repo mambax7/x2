@@ -53,7 +53,7 @@
 		<{if count($product.product_attributes) > 0}>
 		<tr>
 			<td rowspan="<{math equation='x + y' x=$product.product_attributes_count y=1}>" class="center"><{$product.product_extraid}></td>
-			<td rowspan="<{math equation='x + y' x=$product.product_attributes_count y=1}>" class="center"><{$product.product_joined_manufacturers}> <{$product.product_title}></td>
+			<td rowspan="<{math equation='x + y' x=$product.product_attributes_count y=1}>" class="center"><{$product.product_cat_title}> <{$product.product_title}></td>
 			<td rowspan="<{math equation='x + y' x=$product.product_attributes_count y=1}>" class="center"><{$product.product_id}></td>
 			<td class="center" style="border-bottom-color: #fff;"></td>
 			<td class="center" style="border-bottom-color: #fff;"></td>
@@ -110,6 +110,8 @@
 		</table>
 		<div class="moreinfo"><span class="bold">زمان ارسال</span> :‌ </div>
 		<div class="moreinfo"><span class="bold">سایر توضیحات</span> :‌ </div>
+		<div class="moreinfo"><span class="bold">شماره کارت ( ۴ رقم )</span> :‌ </div>
+		<div class="moreinfo"><span class="bold">شماره پیگیری</span> :‌ </div>
 	</div>
 	
 	 <{if $order.cmd_text_fordisplay != ''}>

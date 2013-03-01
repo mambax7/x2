@@ -60,7 +60,7 @@ $xoopsTpl->assign('pdf_catalog', oledrion_utils::getModuleOption('pdf_catalog'))
 oledrion_utils::setCSS();
 oledrion_utils::setLocalCSS($xoopsConfig['language']);
 if(!OLEDRION_MY_THEME_USES_JQUERY) {
-	oledrion_utils::callJavascriptFile('jquery/jquery.js');
+	$xoTheme->addScript("browse.php?Frameworks/jquery/jquery.js");
 }
 oledrion_utils::callJavascriptFile('noconflict.js');
 oledrion_utils::callJavascriptFile('tablesorter/jquery.tablesorter.min.js');

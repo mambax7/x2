@@ -240,7 +240,6 @@ define("_OLEDRION_PRODUCT","Product");
 define("_OLEDRION_PAY_ONLINE","Do you want to pay Online?");
 define("_OLEDRION_FINISH","Your order is finalized");
 
-//define("_OLEDRION_ECOTAXE","Ecotax");
 define("_OLEDRION_DELIVERY_TIME","Delivery");
 define("_OLEDRION_IN_DAYS","in days");
 define("_OLEDRION_DAYS","days");

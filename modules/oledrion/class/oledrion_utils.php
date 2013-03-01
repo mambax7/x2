@@ -1454,11 +1454,9 @@ class oledrion_utils
         } else {
             $fileToCall = OLEDRION_JS_URL.$javascriptFile;
         }
-        if(!$oldWay && isset($xoTheme)) {
-            $xoTheme->addScript($fileToCall);
-        } else {
-            echo "<script type=\"text/javascript\" src=\"".$fileToCall."\"></script>\n";
-        }
+       
+        $xoTheme->addScript("browse.php?Frameworks/jquery/jquery.js");
+        $xoTheme->addScript($fileToCall);
     }
 
 	/**

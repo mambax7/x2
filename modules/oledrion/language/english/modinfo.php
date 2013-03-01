@@ -213,6 +213,7 @@ define('_MI_OLEDRION_PRODUCT_PROPERTY2',"Product Property 2");
 define('_MI_OLEDRION_PRODUCT_PROPERTY3',"Product Property 3");
 define('_MI_OLEDRION_PRODUCT_PROPERTY4',"Product Property 4");
 define('_MI_OLEDRION_PRODUCT_PROPERTY5',"Product Property 5");
+define('_MI_OLEDRION_PRODUCT_PROPERTY_TITLE',"Title");
 define('_MI_OLEDRION_GATEWAY',"Gateway used by the module");
 
 
@@ -247,3 +248,4 @@ define("_MI_OLEDRION_SEARCH_PROPERTY5",'Show property 5');
 define("_MI_OLEDRION_BREAK_COMMENT_NOTIFICATION",'Comments and Notifications');
 define("_MI_OLEDRION_BREAK_SEARCH",'Search');
 define("_MI_OLEDRION_BREAK_IMAGE",'Image');
+?>

@@ -32,8 +32,20 @@ switch($action) {
       oledrion_adminMenu(0);
 		oledrion_utils::htitle(_MI_OLEDRION_ADMENU10, 4);
 		$indexAdmin = new ModuleAdmin();
+		$indexAdmin->addConfigBoxLine(OLEDRION_UPLOAD_PATH, 'folder');
+      $indexAdmin->addConfigBoxLine(array(OLEDRION_UPLOAD_PATH, '777'), 'chmod');
+      $indexAdmin->addConfigBoxLine(OLEDRION_ATTACHED_FILES_PATH, 'folder');
+      $indexAdmin->addConfigBoxLine(array(OLEDRION_ATTACHED_FILES_PATH, '777'), 'chmod');
+      $indexAdmin->addConfigBoxLine(OLEDRION_PICTURES_PATH, 'folder');
+      $indexAdmin->addConfigBoxLine(array(OLEDRION_PICTURES_PATH, '777'), 'chmod');
+      $indexAdmin->addConfigBoxLine(OLEDRION_CSV_PATH, 'folder');
+      $indexAdmin->addConfigBoxLine(array(OLEDRION_CSV_PATH, '777'), 'chmod');
+      $indexAdmin->addConfigBoxLine(OLEDRION_CACHE_PATH, 'folder');
+      $indexAdmin->addConfigBoxLine(array(OLEDRION_CACHE_PATH, '777'), 'chmod');
+      
       echo $indexAdmin->addNavigation('index.php');
       echo $indexAdmin->renderIndex();
+      
 		$itemsCount = 5;	// Nombre d'éléments à afficher
 		if($h_oledrion_products->getCount() > 0) {
 			echo "<table border='0' width='100%' cellpadding='2' cellspacing='2'>";

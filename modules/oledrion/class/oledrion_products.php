@@ -409,6 +409,20 @@ class oledrion_products extends Oledrion_Object
        return oledrion_handler::getInstance()->h_oledrion_attributes->getInitialOptionsPrice($this);
     }
 
+   /**
+	 *
+	 */
+	function isNew()
+	{
+		$time = time() - (60 * 60 * 24 * 10);
+		if($this->getVar('product_submitted') > $time) {
+			return 1;
+		} else {
+			return 0;
+		}
+	}
+
+
 	/**
 	 * Retourne les éléments du produits formatés pour affichage
 	 *
@@ -477,6 +491,7 @@ class oledrion_products extends Oledrion_Object
 
 		$ret['product_shorten_summary'] = oledrion_utils::truncate_tagsafe($this->getVar('product_summary'), OLEDRION_SUMMARY_MAXLENGTH);
 		$ret['product_shorten_description'] = oledrion_utils::truncate_tagsafe($this->getVar('product_description'), OLEDRION_SUMMARY_MAXLENGTH);
+		$ret['product_new'] = $this->isNew();
 		return $ret;
     }
 }
@@ -1246,7 +1261,8 @@ class OledrionOledrion_productsHandler extends Oledrion_XoopsPersistableObjectHa
 			if($parameters['multiple']) {
 				if($jqueryIncluded == null) {
 					$jqueryIncluded = true;
-					oledrion_utils::callJavascriptFile('jquery/jquery.js');
+					global $xoTheme;
+					$xoTheme->addScript("browse.php?Frameworks/jquery/jquery.js");
 				}
 				oledrion_utils::callJavascriptFile('select/select.js', false, true);
 				$productTray = new XoopsFormElementTray($parameters['caption'], '');

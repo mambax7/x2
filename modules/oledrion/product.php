@@ -74,7 +74,7 @@ if(!isset($_GET['op'])) {
 	$xoopsConfig['sitename'] = $title;
 	xoops_header(false);
 	// Inclusion de la feuille de style du module
-	$url = OLEDRION_URL.'include/oledrion.css';
+	$url = OLEDRION_URL.'css/oledrion.css';
 	echo "<link rel=\"stylesheet\" type=\"text/css\" href=\"$url\" />";
 	echo "</head><body>";
 	if(!isset($xoopsTpl)) {
@@ -83,11 +83,12 @@ if(!isset($_GET['op'])) {
 	}
 }
 if(!OLEDRION_MY_THEME_USES_JQUERY) {
-	oledrion_utils::callJavascriptFile('jquery/jquery.js');
+	$xoTheme->addScript("browse.php?Frameworks/jquery/jquery.js");
 }
 oledrion_utils::callJavascriptFile('noconflict.js');
-$xoTheme->addStylesheet(OLEDRION_JS_URL.'css/prettyPhoto.css');
-oledrion_utils::callJavascriptFile('prettyphoto/jquery.prettyPhoto.js');
+// Add lightbox
+$xoTheme->addScript('browse.php?Frameworks/jquery/plugins/jquery.lightbox.js');
+$xoTheme->addStylesheet( XOOPS_URL . '/modules/system/css/lightbox.css');
 
 if(isset($_GET['stock']) && $_GET['stock'] == 'add' && oledrion_utils::isMemberOfGroup(oledrion_utils::getModuleOption('grp_qty'))) {
 	$h_oledrion_products->increaseStock($product);
@@ -154,12 +155,12 @@ $product_user = $user_handler->get($product->getVar('product_submitter'), true);
 $xoopsTpl->assign('product_submitter', $product_user);
 
 // Image du bouton "Ajouter au panier"
-if (file_exists(OLEDRION_PATH.'language'.DIRECTORY_SEPARATOR.$xoopsConfig['language'].DIRECTORY_SEPARATOR.'addtocart.png')) {
-    $addToCart = OLEDRION_URL.'language/'.$xoopsConfig['language'].'/addtocart.png';
-    $addToWishList = OLEDRION_URL.'language/'.$xoopsConfig['language'].'/addtowishlist.png';
+if (file_exists(OLEDRION_PATH.'language'.DIRECTORY_SEPARATOR.$xoopsConfig['language'].DIRECTORY_SEPARATOR.'image'.DIRECTORY_SEPARATOR.'addtocart.png')) {
+    $addToCart = OLEDRION_URL.'language/'.$xoopsConfig['language'].'/image/addtocart.png';
+    $addToWishList = OLEDRION_URL.'language/'.$xoopsConfig['language'].'/image/addtowishlist.png';
 } else {    // Fallback
-    $addToCart = OLEDRION_URL.'language/english/addtocart.png';
-    $addToWishList = OLEDRION_URL.'language/english/addtowishlist.png';
+    $addToCart = OLEDRION_URL.'language/english/image/addtocart.png';
+    $addToWishList = OLEDRION_URL.'language/english/image/addtowishlist.png';
 }
 $xoopsTpl->assign('addToCartImage', $addToCart);
 $xoopsTpl->assign('addToWishList', $addToWishList);
@@ -283,6 +284,13 @@ if($handlers->h_oledrion_attributes->getProductAttributesCount($product_id) > 0)
         $xoopsTpl->assign('mandatoryFieldsCount', $mandatoryFieldsCount);
     }
 }
+// Product
+$tbl_tmp['product_property1_title'] = oledrion_utils::getModuleOption('product_property1_title');
+$tbl_tmp['product_property2_title'] = oledrion_utils::getModuleOption('product_property2_title');
+$tbl_tmp['product_property3_title'] = oledrion_utils::getModuleOption('product_property3_title');
+$tbl_tmp['product_property4_title'] = oledrion_utils::getModuleOption('product_property4_title');
+$tbl_tmp['product_property5_title'] = oledrion_utils::getModuleOption('product_property5_title');
+
 $xoopsTpl->assign('product', $tbl_tmp);
 
 // Breadcrumb *************************************************************************************
@@ -422,6 +430,10 @@ if(oledrion_utils::getModuleOption('rateproducts') == 1 ) {
 	} else {
 		$canRate = !$h_oledrion_votedata->hasAnonymousAlreadyVoted('', $product->getVar('product_id'));
 	}
+	$xoTheme->addScript("browse.php?Frameworks/jquery/jquery.js");
+	oledrion_utils::callJavascriptFile('rateit.js');
+	oledrion_utils::setCSS(OLEDRION_URL.'css/rateit.css');
+	
 	$xoopsTpl->assign('userCanRate', $canRate);
 }
 
@@ -441,7 +453,7 @@ if(!isset($_GET['op'])) {
 	require_once XOOPS_ROOT_PATH.'/include/comment_view.php';
 	require_once XOOPS_ROOT_PATH.'/footer.php';
 } elseif(isset($_GET['op']) && $_GET['op'] == 'print') {	// Version imprimable de la page
-	$xoopsTpl->display('db:oledrion_product.html');
+	$xoopsTpl->display(XOOPS_ROOT_PATH . '/modules/oledrion/templates/oledrion_product.html');
 	xoops_footer();
 }
 ?>

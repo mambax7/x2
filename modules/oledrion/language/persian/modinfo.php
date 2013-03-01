@@ -208,6 +208,15 @@ define('_MI_OLEDRION_COLUMNS_INDEX', "تعداد ستون ها در صفحه ا�
 define('_MI_OLEDRION_COLUMNS_CATEGORY', "تعداد ستون ها در هر شاخه");
 define('_MI_OLEDRION_ADAPTED_LIST', "بیشترین تعداد محصولات برای نمایش قبل از جایگزین لیست با لیست تطبیق داده شده");
 
+define('_MI_OLEDRION_PRODUCT_PROPERTY1',"Product Property 1");
+define('_MI_OLEDRION_PRODUCT_PROPERTY2',"Product Property 2");
+define('_MI_OLEDRION_PRODUCT_PROPERTY3',"Product Property 3");
+define('_MI_OLEDRION_PRODUCT_PROPERTY4',"Product Property 4");
+define('_MI_OLEDRION_PRODUCT_PROPERTY5',"Product Property 5");
+define('_MI_OLEDRION_PRODUCT_PROPERTY_TITLE',"Title");
+define('_MI_OLEDRION_GATEWAY',"Gateway used by the module");
+
+
 define("_MI_OLEDRION_BNAME1_DESC",'Shows recently added products titles');
 define("_MI_OLEDRION_BNAME2_DESC",'Shows most viewed products titles');
 define("_MI_OLEDRION_BNAME3_DESC",'Show categories in relation with the category page');
@@ -223,6 +232,7 @@ define("_MI_OLEDRION_BNAME12_DESC",'Shows user lists');
 define("_MI_OLEDRION_BNAME13_DESC",'Shows recent public lists according to the current category');
 define("_MI_OLEDRION_BNAME14_DESC",'Shows random lists');
 define("_MI_OLEDRION_BNAME15_DESC",'Shows most viewed lists');
+define("_MI_OLEDRION_BNAME16_DESC",'Shows ajax search form');
 
 define("_MI_OLEDRION_SEARCH_CATEGORY",'Show category');
 define("_MI_OLEDRION_SEARCH_MANUFACTURERS",'Show Manufacturers');

@@ -277,7 +277,7 @@ switch($action) {
 			$edit = false;
 		}
 		// Appel à jQuery
-		oledrion_utils::callJavascriptFile('jquery/jquery.js', false, true);
+		$xoTheme->addScript("browse.php?Frameworks/jquery/jquery.js");
 		oledrion_utils::callJavascriptFile('noconflict.js', false, true);
 		// Appel du fichier langue
 		oledrion_utils::callJavascriptFile('messages.js', true, true);

@@ -35,15 +35,7 @@
 		});	
 	</script>
 	<{/if}>
-	
-	<script type="text/javascript">
-	jQuery().ready(function() {
-		// Effet lightview
-		jQuery("a[rel^='prettyPhoto']").prettyPhoto({
-			theme: 'light_rounded'
-		});
-	});	
-	</script>
+
 	<!--*********** HEADER ********-->
 	<div id="oledrion-logo">
 		<{* Display category's advertisement and if it does not exists, the module's advertisement *}>
@@ -86,13 +78,60 @@
 	  		</tr>
 	  		<tr>
 				<td class="top">
+					<!--********* VOTES ******-->
+					<{if $canRateProducts}>
+					<div class="oledrion_rating">
+						<div class="floatleft"><{$smarty.const._OLEDRION_RATINGC}> <{$product.product_rating_formated}> (<{$product.product_votes_count}>)</div>
+						<div class="vote">
+							<input value="<{$product.product_rating_formated}>" step="1" id="backing<{$product.product_id}>" type="range">
+							<div class="floatleft rateit" data-url="<{$smarty.const.OLEDRION_URL}>ajax.php?op=rate" data-product="<{$product.product_id}>" data-rateit-backingfld="#backing<{$product.product_id}>" data-rateit-resetable="false" data-rateit-ispreset="true" data-rateit-min="0" data-rateit-max="10"></div>
+						</div>
+                  <{if $userCanRate}>
+						<script type="text/javascript">
+						    $('.vote .rateit').bind('rated reset', function (e) {
+								var ri = $(this);
+								var rating = ri.rateit('vote');
+								var product_id = ri.data('product');
+								var url = ri.data('url');
+								ri.rateit('readonly', true);
+								$.ajax({
+									url: url,
+									data: { product_id: product_id, rating: rating},
+									type: 'POST',
+									dataType: "json",
+									success:function (result) {
+						        	   if (!result.status == 1) {
+							            alert(result.message);
+						        	   }
+						        }
+								});
+							});
+						</script>
+						<{/if}>
+						<div class="clear"></div>
+					</div>
+					<{/if}>
+					<!--********* /VOTES ******-->
 					<{if $product.product_thumb_full_url != ''}>
-						<div class="oledrion_productthumb-big">
-							<!-- Old way to see the product's picture -->
-							<!-- <a href="javascript:openWithSelfMain('<{$smarty.const.OLEDRION_URL}>media.php?product_id=<{$product.product_id}>&type=picture', '',<{$smarty.const.OLEDRION_POPUP_MEDIA_WIDTH}>, <{$smarty.const.OLEDRION_POPUP_MEDIA_HEIGHT}>);" title="<{$product.product_href_title}>"> <img src="<{$product.product_thumb_full_url}>" alt="<{$product.product_href_title}>" /></a> -->
-							<!-- With a ligthview effect -->
-							<a href="<{$product.product_image_full_url}>" rel="prettyPhoto" title="<{$product.product_href_title}>"> <img src="<{$product.product_thumb_full_url}>" alt="<{$product.product_href_title}>" /></a> 
-						</div>		
+					<script type="text/javascript">
+						$(function() {
+						  $('.lightbox').lightBox({
+					        imageLoading:'<{$smarty.const.OLEDRION_URL}>language/<{$xoops_language}>/images/lightbox-ico-loading.gif',
+					        imageBtnClose:'<{$smarty.const.OLEDRION_URL}>language/<{$xoops_language}>/images/lightbox-btn-close.gif',
+					        imageBtnNext:'<{$smarty.const.OLEDRION_URL}>language/<{$xoops_language}>/images/lightbox-btn-next.gif',
+					        imageBtnPrev:'<{$smarty.const.OLEDRION_URL}>language/<{$xoops_language}>/images/lightbox-btn-prev.gif',
+					        imageBlank:'<{$smarty.const.OLEDRION_URL}>language/<{$xoops_language}>/images/lightbox-blank.gif',
+					        txtImage: '<{$smarty.const._NEWS_MD_LIGHTBOX_IMAGE}>',
+					        overlayOpacity: 0.6,
+					        containerResizeSpeed: 350
+						  });
+						});
+					</script>
+					<div class="oledrion_productthumb-big">
+						<a class="lightbox" href="<{$product.product_image_full_url}>" title="<{$product.product_href_title}>"> 
+							<img src="<{$product.product_thumb_full_url}>" alt="<{$product.product_href_title}>" />
+						</a> 
+					</div>		
 					<{/if}>  				
 				</td>			  			
 				<td class="top">
@@ -108,62 +147,61 @@
 					<{/if}>
 					<!-- Price box -->
 					<{if $mod_pref.use_price}>
-						<div class="oledrion_productprice_view-product">
-							<div class="oledrion_view-product_price">
-								<{if $product.product_stock ==  0 }>
-									<{$mod_pref.nostock_msg}>
-								<{elseif count($product.product_attributes) == 0 }>
-									<span class="oledrion_productdescription-contentTitles"><{$smarty.const._OLEDRION_PRICE}></span>: <a href="<{$smarty.const.OLEDRION_URL}>caddy.php?op=addproduct&product_id=<{$product.product_id}>" title="<{$smarty.const._OLEDRION_ADD_TO_CART}>">
-                                <{if $product.product_discount_price_ttc != ''}>
-                                                       <s><{$product.product_price_ttc_long}> </s> <{$product.product_discount_price_ttc}>
-                       									<{else}>
-                       										<{$product.product_price_ttc_long}>
-                       									<{/if}>
-
-									<img src="<{$smarty.const.OLEDRION_IMAGES_URL}>cartadd.png" alt="" /></a>
-									<{if $product.product_ecotaxe != ''}>
-										<div class="oledrion_view-product_price_ecotaxe"><span class="oledrion_productdescription-contentTitles"><{$smarty.const._OLEDRION_ECOTAXE}></span> : <{$product.product_ecotaxe_formated}></div>
-									<{/if}>
-								<{else}>
-									<div class="oledrion_view-product_price_frmcart">
-									<form method="post" name="frmCart" id="frmCart" action="<{$smarty.const.OLEDRION_URL}>caddy.php?op=addproduct&product_id=<{$product.product_id}>">
-										<table class="tablefix">								
+					<div class="oledrion_productprice_view-product">
+						<div class="oledrion_view-product_price">
+							<{if $product.product_stock ==  0 }>
+							<{$mod_pref.nostock_msg}>
+							<{elseif count($product.product_attributes) == 0 }>
+							<span class="oledrion_productdescription-contentTitles"><{$smarty.const._OLEDRION_PRICE}></span>: <a href="<{$smarty.const.OLEDRION_URL}>caddy.php?op=addproduct&product_id=<{$product.product_id}>" title="<{$smarty.const._OLEDRION_ADD_TO_CART}>">
+							<{if $product.product_discount_price_ttc != ''}>
+							<s><{$product.product_price_ttc_long}> </s> <{$product.product_discount_price_ttc}>
+							<{else}>
+							<{$product.product_price_ttc_long}>
+							<{/if}>
+							<img src="<{$smarty.const.OLEDRION_IMAGES_URL}>cartadd.png" alt="" /></a>
+							<{if $product.product_ecotaxe != ''}>
+							<div class="oledrion_view-product_price_ecotaxe"><span class="oledrion_productdescription-contentTitles"><{$smarty.const._OLEDRION_ECOTAXE}></span> : <{$product.product_ecotaxe_formated}></div>
+							<{/if}>
+							<{else}>
+							<div class="oledrion_view-product_price_frmcart">
+								<form method="post" name="frmCart" id="frmCart" action="<{$smarty.const.OLEDRION_URL}>caddy.php?op=addproduct&product_id=<{$product.product_id}>">
+									<table class="tablefix">								
 										<tr>
 											<td>	
 												<{foreach item=attribute from=$product.product_attributes}>
-													<div class="pad2"><{$attribute}></div>
+												<div class="pad2"><{$attribute}></div>
 												<{/foreach}>
 											</td>
 											<td>
 												<span class="oledrion_productdescription-contentTitles"><{$smarty.const._OLEDRION_PRICE}></span> : <{if $product.product_discount_price_ttc != ''}>
-												                                                       <s><{$product.product_price_ttc}> </s>  <b><{$product.product_discount_price_ttc}></b>
-												                       									<{else}>
-												                       										<{$product.product_price_ttc_long}>
-												                       									<{/if}>
-                                                <span id="oledrion_final_price_ttc"><{$product.product_final_price_ttc_formated_long}></span>
-                                                <{if $product.product_ecotaxe != ''}>
-                                        										<div class="oledrion_view-product_price_ecotaxe"><span class="oledrion_productdescription-contentTitles"><{$smarty.const._OLEDRION_ECOTAXE}></span> : <{$product.product_ecotaxe_formated}></div>
-                                        									<{/if}>
+												<s><{$product.product_price_ttc}> </s>  <b><{$product.product_discount_price_ttc}></b>
+												<{else}>
+												<{$product.product_price_ttc_long}>
+												<{/if}>
+												<span id="oledrion_final_price_ttc"><{$product.product_final_price_ttc_formated_long}></span>
+												<{if $product.product_ecotaxe != ''}>
+												<div class="oledrion_view-product_price_ecotaxe"><span class="oledrion_productdescription-contentTitles"><{$smarty.const._OLEDRION_ECOTAXE}></span> : <{$product.product_ecotaxe_formated}></div>
+												<{/if}>
 												<br /><br />										
 												<input type="image" src="<{$addToCartImage}>" id="buy_button" alt="<{$smarty.const._OLEDRION_ADD_TO_CART}>" title="<{$smarty.const._OLEDRION_ADD_TO_CART}>" value="<{$smarty.const._OLEDRION_ADD_TO_CART}>" />
 												<div class="error" style="display: none;">
-	      											<br /><img src="<{$smarty.const.OLEDRION_IMAGES_URL}>warning.png" width="24" height="24" style="float:left; margin: -5px 10px 0px 0px; " /><span></span>.<br clear="all" />
-	      										</div>											
+													<br /><img src="<{$smarty.const.OLEDRION_IMAGES_URL}>warning.png" width="24" height="24" style="float:left; margin: -5px 10px 0px 0px; " /><span></span>.<br clear="all" />
+												</div>											
 											</td>
 										</tr>											
-										</table>
-									</form>
-									</div>
-								<{/if}>
+									</table>
+								</form>
 							</div>
-							<{if $product.product_shipping_price != 0}>
-								<div class="oledrion_view-product_shipping-price">
-									<span class="oledrion_productdescription-contentTitles"><{$smarty.const._OLEDRION_SHIPPING_PRICE}></span>: <{$product.product_shipping_price_formated}>
-								</div>
 							<{/if}>
 						</div>
+						<{if $product.product_shipping_price != 0}>
+						<div class="oledrion_view-product_shipping-price">
+							<span class="oledrion_productdescription-contentTitles"><{$smarty.const._OLEDRION_SHIPPING_PRICE}></span>: <{$product.product_shipping_price_formated}>
+						</div>
+						<{/if}>
+					</div>
 					<{else}>
-						<br />
+					<br />
 					<{/if}>
 					<!-- /Price box -->
 					<div class="oledrion_productdate">
@@ -175,12 +213,40 @@
 					<div class="oledrion_productlangue">
 						<span class="oledrion_productdescription-contentTitles"><{$smarty.const._OLEDRION_VENDOR}></span>: <{$product.product_vendor.vendor_name}>
 					</div>
+					<br />
+					<div class="oledrion_productproperty">
+					   <{if $product.product_property1}>
+						<div class="oledrion_productdescription">
+							<span class="oledrion_productdescription-contentTitles"><{$product.product_property1_title}></span>: <{$product.product_property1}>
+						</div>
+						<{/if}>
+						<{if $product.product_property2}>
+						<div class="oledrion_productdescription">
+							<span class="oledrion_productdescription-contentTitles"><{$product.product_property2_title}></span>: <{$product.product_property2}>
+						</div>
+						<{/if}>
+						<{if $product.product_property3}>
+						<div class="oledrion_productdescription">
+							<span class="oledrion_productdescription-contentTitles"><{$product.product_property3_title}></span>: <{$product.product_property3}>
+						</div>
+						<{/if}>
+						<{if $product.product_property4}>
+						<div class="oledrion_productdescription">
+							<span class="oledrion_productdescription-contentTitles"><{$product.product_property4_title}></span>: <{$product.product_property4}>
+						</div>
+						<{/if}>
+						<{if $product.product_property5}>
+						<div class="oledrion_productdescription">
+							<span class="oledrion_productdescription-contentTitles"><{$product.product_property5_title}></span>: <{$product.product_property5}>
+						</div>
+						<{/if}>
+					</div>
 					<{if $product.product_attachment != ''}>
 						<a href="<{$smarty.const.XOOPS_UPLOAD_URL}>/<{$product.product_attachment}>" target="_blank" ><img src="<{$smarty.const.OLEDRION_IMAGES_URL}>attach.gif" alt="<{$smarty.const._OLEDRION_ATTACHED_FILE}>" width="9"  height="15" /> <{$smarty.const._OLEDRION_ATTACHED_FILE}></a>
 					<{/if}>
 					<{if $currentUserId > 0}>
 						<br /><a href="<{$smarty.const.OLEDRION_URL}>my-lists.php?op=addProduct&product_id=<{$product.product_id}>" ><img src="<{$addToWishList}>" alt="<{$smarty.const._OLEDRION_ADD_TO_LIST}>" /></a>
-					<{/if}>				
+					<{/if}>
 				</td>
 			</tr>
 			<tr>
@@ -365,18 +431,7 @@
 	</div>
 	<br />
 	<!--********* /CADDY ******-->
-	
-	<!--********* VOTES ******-->
-	<{if $canRateProducts}>
-		<div class="oledrion_rating">
-			<{$smarty.const._OLEDRION_RATINGC}> <{$product.product_rating_formated}> (<{$product.product_votes_count}>)
-			<{if $userCanRate}>
-				- <a href="<{$smarty.const.OLEDRION_URL}>rate-product.php?product_id=<{$product.product_id}>" title="<{$smarty.const._OLEDRION_RATETHISPRODUCT}>"><{$smarty.const._OLEDRION_RATETHISPRODUCT}></a>
-			<{/if}>
-		</div>
-	<{/if}>
-	<!--********* /VOTES ******-->
-	
+
 	<{* Pour afficher le pied de page de la catégorie du produit *}>
 	<{* <{$product.product_category.cat_footer}> *}>
 	

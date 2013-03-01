@@ -24,7 +24,8 @@
  * Notation d'un produit
  */
 require 'header.php';
-
+oledrion_utils::redirect(_OLEDRION_NORATE, 'index.php', 5);
+/*
 $product_id = 0;
 // Les tests **************************************************************************************
 // Peut on voter ?
@@ -119,7 +120,7 @@ if(!empty($_POST['btnsubmit'])) {
 	oledrion_utils::setCSS();
 oledrion_utils::setLocalCSS($xoopsConfig['language']);
 }
-
+*/
 
 require_once XOOPS_ROOT_PATH.'/footer.php';
 ?>

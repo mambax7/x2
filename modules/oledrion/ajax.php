@@ -238,6 +238,51 @@ switch($op) {
 	       $return = json_encode($ret); 
        }
 	    break;
+	    
+	// Ajax rate
+	case 'rate':
+		if(isset($_POST['product_id'])) {
+			$product_id = intval($_POST['product_id']);
+			$product = null;
+			$product = $h_oledrion_products->get($product_id);
+			if(is_object($product) && $product->getVar('product_online') && !oledrion_utils::getModuleOption('show_unpublished') && $product->getVar('product_submitted') < time() && oledrion_utils::getModuleOption('nostock_display') && $product->getVar('product_stock')) {
+				$GLOBALS['current_category'] = -1;
+				$ratinguser = oledrion_utils::getCurrentUserID();
+				$canRate = true;
+				if ($ratinguser != 0) {
+					if($h_oledrion_votedata->hasUserAlreadyVoted($ratinguser, $product->getVar('product_id'))) {
+						$canRate = false;
+					}
+				} else {
+					if($h_oledrion_votedata->hasAnonymousAlreadyVoted('', $product->getVar('product_id'))) {
+						$canRate = false;
+					}
+				}
+				if($canRate) {
+					if($_POST['rating'] == '--' ) {
+						oledrion_utils::redirect(_OLEDRION_NORATING, OLEDRION_URL.'product.php?product_id='.$product->getVar('product_id'),4);
+					}
+					$rating = intval($_POST['rating']);
+					if($rating <1 || $rating > 10) {
+						exit(_ERRORS);
+					}
+					$result = $h_oledrion_votedata->createRating($product->getVar('product_id'), $ratinguser, $rating);
+			
+					// Calcul du nombre de votes et du total des votes pour mettre à jour les informations du produit
+					$totalVotes = 0;
+					$sumRating = 0;
+					$ret = 0;
+					$ret = $h_oledrion_votedata->getCountRecordSumRating($product->getVar('product_id'), $totalVotes, $sumRating);
+			
+					$finalrating = $sumRating / $totalVotes;
+					$finalrating = number_format($finalrating, 4);
+					$h_oledrion_products->updateRating($product_id, $finalrating, $totalVotes);
+					$ratemessage = _OLEDRION_VOTEAPPRE.'<br />'.sprintf(_OLEDRION_THANKYOU,$xoopsConfig['sitename']);
+					oledrion_utils::redirect($ratemessage, OLEDRION_URL.'product.php?product_id='.$product->getVar('product_id'), 2);
+				}
+			}
+		}
+		break;
 }
 echo $return;
 ?>

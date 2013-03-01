@@ -2,14 +2,18 @@
 2.34
 ---------------------------------------
 - Add Ajax search system and block (voltan)
+- Add Ajax rate (voltan)
+- Add json output for products and categoresy (voltan)
 - Improve search (voltan) 
 - Improve gateway ( checkout.php admin/gateways/gateway.php ) (voltan)
+- improve admin order page (voltan)
+- improve product properties (voltan)
+- improve load jquery (voltan)
+- improve js image gallery, remove pretty Photo and add core lightbox (voltan)
 - Fix errors in admin and user side (voltan)
 - Remove Cache Lite (voltan)
-- Support php 5.4.11 and mysql 5.5.28 (voltan)
+- Support php 5.4.11 and mysql 5.5.29 (voltan)
 - convert all files to utf-8 (voltan)
-- json output for products and categoresy (voltan)
-- improve admin order page (voltan)
 
 ---------------------------------------
 2.33 Beta 1 2012-07-23

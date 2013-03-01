@@ -19,7 +19,7 @@
  * Version : $Id:
  * ****************************************************************************
  */
-
+define("_AM_OLEDRION_COUNTRY","کشور");
 define("_OLEDRION_SEARCHFOR","جستجو برای");
 define("_OLEDRION_SEARCH","جستجو");
 define("_OLEDRION_CATEGORYC","شاخه: ");
@@ -242,7 +242,6 @@ define("_OLEDRION_PRODUCT","محصول");
 define("_OLEDRION_PAY_ONLINE","پرداخت بصورت آنلاین ؟");
 define("_OLEDRION_FINISH","تایید نهایی");
 
-define("_OLEDRION_ECOTAXE","Ecotaxe");
 define("_OLEDRION_DELIVERY_TIME","زمان تحویل");
 define("_OLEDRION_IN_DAYS","در روز");
 define("_OLEDRION_DAYS","روز");

@@ -88,7 +88,8 @@ oledrion_utils::setLocalCSS($xoopsConfig['language']);
 oledrion_utils::loadLanguageFile('modinfo.php');
 
 $xoopsTpl->assign('global_advert', oledrion_utils::getModuleOption('advertisement'));
-$breadcrumb = array(OLEDRION_URL.'whoswho.php' => _OLEDRION_MANUFACTURERS,
+// By voltan
+$breadcrumb = array(/*OLEDRION_URL.'whoswho.php' => _OLEDRION_MANUFACTURERS,*/
 					OLEDRION_URL.basename(__FILE__) => $manufacturer->getVar('manu_name').' '.$manufacturer->getVar('manu_commercialname'));
 $xoopsTpl->assign('breadcrumb', oledrion_utils::breadcrumb($breadcrumb));
 

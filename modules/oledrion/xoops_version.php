@@ -501,6 +501,9 @@ $modversion['templates'][$cptt]['description'] = "Used to select products";
 // ********************************************************************************************************************
 // ****************************************** SETTINGS ****************************************************************
 // ********************************************************************************************************************
+// Load class
+xoops_load('xoopslists');
+
 $cpto = 0;
 
 $cpto++;
@@ -614,15 +617,13 @@ $modversion['config'][$cpto]['default'] = 0;
  */
 $cpto++;
 $modversion['config'][$cpto]['name'] = 'bl_form_options';
-$modversion['config'][$cpto]['title'] = "_MI_OLEDRION_FORM_OPTIONS";
+$modversion['config'][$cpto]['title'] = '_MI_OLEDRION_FORM_OPTIONS';
 $modversion['config'][$cpto]['description'] = '_MI_OLEDRION_FORM_OPTIONS_DESC';
 $modversion['config'][$cpto]['formtype'] = 'select';
 $modversion['config'][$cpto]['valuetype'] = 'text';
-xoops_load('xoopseditorhandler');
-$editor_handler = XoopsEditorHandler::getInstance();
-$modversion['config'][$cpto]['options'] = array_flip($editor_handler->getList());
-$modversion['config'][$cpto]['default'] = 'dhtml';
-
+$modversion['config'][$cpto]['options'] = XoopsLists::getDirListAsArray(XOOPS_ROOT_PATH . '/class/xoopseditor');
+$modversion['config'][$cpto]['default'] = 'dhtmltextarea';
+    
 /**
  * Tooltips, or infotips are some small textes you can see when you
  * move your mouse over an article's title. This text contains the
@@ -999,7 +1000,7 @@ $modversion['config'][$cpto]['title'] = '_MI_OLEDRION_RESIZE_MAIN';
 $modversion['config'][$cpto]['description'] = '_MI_OLEDRION_RESIZE_MAIN_DSC';
 $modversion['config'][$cpto]['formtype'] = 'yesno';
 $modversion['config'][$cpto]['valuetype'] = 'int';
-$modversion['config'][$cpto]['default'] = 0;
+$modversion['config'][$cpto]['default'] = 1;
 
 /**
  * Create thumbs automatically ?
@@ -1010,7 +1011,7 @@ $modversion['config'][$cpto]['title'] = '_MI_OLEDRION_CREATE_THUMBS';
 $modversion['config'][$cpto]['description'] = '_MI_OLEDRION_CREATE_THUMBS_DSC';
 $modversion['config'][$cpto]['formtype'] = 'yesno';
 $modversion['config'][$cpto]['valuetype'] = 'int';
-$modversion['config'][$cpto]['default'] = 0;
+$modversion['config'][$cpto]['default'] = 1;
 
 /**
  * Images width
@@ -1021,7 +1022,7 @@ $modversion['config'][$cpto]['title'] = '_MI_OLEDRION_IMAGES_WIDTH';
 $modversion['config'][$cpto]['description'] = '';
 $modversion['config'][$cpto]['formtype'] = 'textbox';
 $modversion['config'][$cpto]['valuetype'] = 'int';
-$modversion['config'][$cpto]['default'] = 150;
+$modversion['config'][$cpto]['default'] = 600;
 
 
 /**
@@ -1033,7 +1034,7 @@ $modversion['config'][$cpto]['title'] = '_MI_OLEDRION_IMAGES_HEIGHT';
 $modversion['config'][$cpto]['description'] = '';
 $modversion['config'][$cpto]['formtype'] = 'textbox';
 $modversion['config'][$cpto]['valuetype'] = 'int';
-$modversion['config'][$cpto]['default'] = 150;
+$modversion['config'][$cpto]['default'] = 600;
 
 
 /**
@@ -1045,7 +1046,7 @@ $modversion['config'][$cpto]['title'] = '_MI_OLEDRION_THUMBS_WIDTH';
 $modversion['config'][$cpto]['description'] = '';
 $modversion['config'][$cpto]['formtype'] = 'textbox';
 $modversion['config'][$cpto]['valuetype'] = 'int';
-$modversion['config'][$cpto]['default'] = 80;
+$modversion['config'][$cpto]['default'] = 180;
 
 /**
  * Thumbs height
@@ -1056,7 +1057,7 @@ $modversion['config'][$cpto]['title'] = '_MI_OLEDRION_THUMBS_HEIGHT';
 $modversion['config'][$cpto]['description'] = '';
 $modversion['config'][$cpto]['formtype'] = 'textbox';
 $modversion['config'][$cpto]['valuetype'] = 'int';
-$modversion['config'][$cpto]['default'] = 80;
+$modversion['config'][$cpto]['default'] = 180;
 
 /**
  * Do you also want to resize categories'pictures to the above dimensions ?
@@ -1067,7 +1068,7 @@ $modversion['config'][$cpto]['title'] = '_MI_OLEDRION_RESIZE_CATEGORIES';
 $modversion['config'][$cpto]['description'] = '';
 $modversion['config'][$cpto]['formtype'] = 'yesno';
 $modversion['config'][$cpto]['valuetype'] = 'int';
-$modversion['config'][$cpto]['default'] = 0;
+$modversion['config'][$cpto]['default'] = 1;
 
 $cpto++;
 $modversion['config'][$cpto]['name'] = 'break' . $cpto;
@@ -1216,11 +1217,27 @@ $modversion['config'][$cpto]['formtype'] = 'hidden';
 $modversion['config'][$cpto]['valuetype'] = 'text';
 
 $cpto++;
+$modversion['config'][$cpto]['name'] = 'product_property1_title';
+$modversion['config'][$cpto]['title'] = '_MI_OLEDRION_PRODUCT_PROPERTY_TITLE';
+$modversion['config'][$cpto]['description'] = '';
+$modversion['config'][$cpto]['formtype'] = 'hidden';
+$modversion['config'][$cpto]['valuetype'] = 'text';
+$modversion['config'][$cpto]['default'] = 'property 1';
+
+$cpto++;
 $modversion['config'][$cpto]['name'] = 'product_property2';
 $modversion['config'][$cpto]['title'] = '_MI_OLEDRION_PRODUCT_PROPERTY2';
 $modversion['config'][$cpto]['description'] = '';
 $modversion['config'][$cpto]['formtype'] = 'hidden';
 $modversion['config'][$cpto]['valuetype'] = 'text';
+
+$cpto++;
+$modversion['config'][$cpto]['name'] = 'product_property2_title';
+$modversion['config'][$cpto]['title'] = '_MI_OLEDRION_PRODUCT_PROPERTY_TITLE';
+$modversion['config'][$cpto]['description'] = '';
+$modversion['config'][$cpto]['formtype'] = 'hidden';
+$modversion['config'][$cpto]['valuetype'] = 'text';
+$modversion['config'][$cpto]['default'] = 'property 2';
 
 $cpto++;
 $modversion['config'][$cpto]['name'] = 'product_property3';
@@ -1230,11 +1247,27 @@ $modversion['config'][$cpto]['formtype'] = 'hidden';
 $modversion['config'][$cpto]['valuetype'] = 'text';
 
 $cpto++;
+$modversion['config'][$cpto]['name'] = 'product_property3_title';
+$modversion['config'][$cpto]['title'] = '_MI_OLEDRION_PRODUCT_PROPERTY_TITLE';
+$modversion['config'][$cpto]['description'] = '';
+$modversion['config'][$cpto]['formtype'] = 'hidden';
+$modversion['config'][$cpto]['valuetype'] = 'text';
+$modversion['config'][$cpto]['default'] = 'property 3';
+
+$cpto++;
 $modversion['config'][$cpto]['name'] = 'product_property4';
 $modversion['config'][$cpto]['title'] = '_MI_OLEDRION_PRODUCT_PROPERTY4';
 $modversion['config'][$cpto]['description'] = '';
 $modversion['config'][$cpto]['formtype'] = 'hidden';
 $modversion['config'][$cpto]['valuetype'] = 'text';
+
+$cpto++;
+$modversion['config'][$cpto]['name'] = 'product_property4_title';
+$modversion['config'][$cpto]['title'] = '_MI_OLEDRION_PRODUCT_PROPERTY_TITLE';
+$modversion['config'][$cpto]['description'] = '';
+$modversion['config'][$cpto]['formtype'] = 'hidden';
+$modversion['config'][$cpto]['valuetype'] = 'text';
+$modversion['config'][$cpto]['default'] = 'property 4';
 
 $cpto++;
 $modversion['config'][$cpto]['name'] = 'product_property5';
@@ -1243,6 +1276,13 @@ $modversion['config'][$cpto]['description'] = '';
 $modversion['config'][$cpto]['formtype'] = 'hidden';
 $modversion['config'][$cpto]['valuetype'] = 'text';
 
+$cpto++;
+$modversion['config'][$cpto]['name'] = 'product_property5_title';
+$modversion['config'][$cpto]['title'] = '_MI_OLEDRION_PRODUCT_PROPERTY_TITLE';
+$modversion['config'][$cpto]['description'] = '';
+$modversion['config'][$cpto]['formtype'] = 'hidden';
+$modversion['config'][$cpto]['valuetype'] = 'text';
+$modversion['config'][$cpto]['default'] = 'property 5';
 
 // ************************************************************************************************
 // Notifications **********************************************************************************
