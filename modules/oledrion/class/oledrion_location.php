@@ -24,7 +24,11 @@ class oledrion_location extends Oledrion_Object
 {
 	function __construct()
 	{
-		
+		$this->initVar('location_id',XOBJ_DTYPE_INT,null,false);
+		$this->initVar('location_pid',XOBJ_DTYPE_INT,null,false);
+		$this->initVar('location_title',XOBJ_DTYPE_TXTBOX,null,false);
+		$this->initVar('location_online',XOBJ_DTYPE_INT,null,false);
+		$this->initVar('location_type',XOBJ_DTYPE_TXTBOX,null,false);
 	}	
 }
 

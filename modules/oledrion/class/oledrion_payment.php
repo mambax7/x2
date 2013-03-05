@@ -24,7 +24,11 @@ class oledrion_payment extends Oledrion_Object
 {
 	function __construct()
 	{
-		
+		$this->initVar('payment_id',XOBJ_DTYPE_INT,null,false);
+		$this->initVar('payment_title',XOBJ_DTYPE_TXTBOX,null,false);
+		$this->initVar('payment_description',XOBJ_DTYPE_TXTAREA, null, false);
+		$this->initVar('payment_online',XOBJ_DTYPE_INT,null,false);
+		$this->initVar('payment_image',XOBJ_DTYPE_TXTBOX,null,false);
 	}	
 }
 

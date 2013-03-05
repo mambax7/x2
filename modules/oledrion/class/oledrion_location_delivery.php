@@ -24,7 +24,11 @@ class oledrion_location_delivery extends Oledrion_Object
 {
 	function __construct()
 	{
-		
+		$this->initVar('ld_id',XOBJ_DTYPE_INT,null,false);
+		$this->initVar('ld_location',XOBJ_DTYPE_INT,null,false);
+		$this->initVar('ld_delivery',XOBJ_DTYPE_INT,null,false);
+		$this->initVar('ld_price',XOBJ_DTYPE_INT,null,false);
+		$this->initVar('ld_delivery_time',XOBJ_DTYPE_INT,null,false);
 	}	
 }
 

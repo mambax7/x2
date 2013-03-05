@@ -24,7 +24,9 @@ class oledrion_delivery_payment extends Oledrion_Object
 {
 	function __construct()
 	{
-		
+		$this->initVar('dp_id',XOBJ_DTYPE_INT,null,false);
+		$this->initVar('dp_delivery',XOBJ_DTYPE_INT,null,false);
+		$this->initVar('dp_payment',XOBJ_DTYPE_INT,null,false);
 	}	
 }
 

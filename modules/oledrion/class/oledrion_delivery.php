@@ -24,7 +24,13 @@ class oledrion_delivery extends Oledrion_Object
 {
 	function __construct()
 	{
+		$this->initVar('delivery_id',XOBJ_DTYPE_INT,null,false);
+		$this->initVar('delivery_title',XOBJ_DTYPE_TXTBOX,null,false);
+		$this->initVar('delivery_description',XOBJ_DTYPE_TXTAREA, null, false);
+		$this->initVar('delivery_online',XOBJ_DTYPE_INT,null,false);
+		$this->initVar('delivery_image',XOBJ_DTYPE_TXTBOX,null,false);
 		
+		$this->initVar('dohtml', XOBJ_DTYPE_INT, 1, false);
 	}	
 }
 

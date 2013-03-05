@@ -24,7 +24,15 @@ class oledrion_packing extends Oledrion_Object
 {
 	function __construct()
 	{
-		
+		$this->initVar('packing_id',XOBJ_DTYPE_INT,null,false);
+		$this->initVar('packing_title',XOBJ_DTYPE_TXTBOX,null,false);
+		$this->initVar('packing_width',XOBJ_DTYPE_TXTBOX,null,false);
+		$this->initVar('packing_length',XOBJ_DTYPE_TXTBOX,null,false);
+		$this->initVar('packing_weight',XOBJ_DTYPE_TXTBOX,null,false);
+		$this->initVar('packing_image',XOBJ_DTYPE_TXTBOX,null,false);
+		$this->initVar('packing_description',XOBJ_DTYPE_TXTAREA, null, false);
+		$this->initVar('packing_price',XOBJ_DTYPE_INT,null,false);
+		$this->initVar('packing_online',XOBJ_DTYPE_INT,null,false);
 	}	
 }
 
