@@ -1,21 +1,22 @@
 <?php
+/*
+ You may not change or alter any portion of this comment or credits
+ of supporting developers from this source code or any supporting source code
+ which is considered copyrighted (c) material of the original comment or credit authors.
+
+ This program is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+*/
+
 /**
- * Birthday module
+ * oledrion
  *
- * You may not change or alter any portion of this comment or credits
- * of supporting developers from this source code or any supporting source code
- * which is considered copyrighted (c) material of the original comment or credit authors.
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- *
- * @copyright	The XOOPS Project http://sourceforge.net/projects/xoops/
- * @license             http://www.gnu.org/licenses/gpl-2.0.html GNU Public License
- * @package	birthday
- * @since		2.5.0
- * @author 	XOOPS Module Team
- * @version	$Id $
-**/
+ * @copyright   The XOOPS Project http://sourceforge.net/projects/xoops/
+ * @license     http://www.fsf.org/copyleft/gpl.html GNU public license
+ * @author      Hervé Thouzard (http://www.herve-thouzard.com/)
+ * @version     $Id$
+ */
 
 $path = dirname(dirname(dirname(dirname(__FILE__))));
 include_once $path . '/mainfile.php';

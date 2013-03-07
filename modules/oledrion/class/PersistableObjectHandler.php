@@ -1,25 +1,21 @@
 <?php
+/*
+ You may not change or alter any portion of this comment or credits
+ of supporting developers from this source code or any supporting source code
+ which is considered copyrighted (c) material of the original comment or credit authors.
+
+ This program is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+*/
+
 /**
- * ****************************************************************************
- * oledrion - MODULE FOR XOOPS
- * Copyright (c) Hervé Thouzard (http://www.herve-thouzard.com/)
+ * oledrion
  *
- * You may not change or alter any portion of this comment or credits
- * of supporting developers from this source code or any supporting source code
- * which is considered copyrighted (c) material of the original comment or credit authors.
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- *
- * @copyright 		Jan Pedersen
- * @copyright       Hervé Thouzard (http://www.herve-thouzard.com/)
- * @license         http://www.fsf.org/copyleft/gpl.html GNU public license
- * @package         oledrion
- * @author          Jan Pedersen
- * @author 			Hervé Thouzard (http://www.herve-thouzard.com/)
- *
- * Version : $Id:
- * ****************************************************************************
+ * @copyright   The XOOPS Project http://sourceforge.net/projects/xoops/
+ * @license     http://www.fsf.org/copyleft/gpl.html GNU public license
+ * @author      Hervé Thouzard (http://www.herve-thouzard.com/)
+ * @version     $Id$
  */
 
 if (!defined('XOOPS_ROOT_PATH')) {
@@ -400,7 +396,7 @@ class Oledrion_XoopsPersistableObjectHandler extends XoopsObjectHandler {
         $field = '';
         $groupby = false;
         $limit = $start = 0;
-		require_once 'lite.php';
+		  //require_once 'lite.php';
 
         if (isset($criteria) && is_subclass_of($criteria, 'criteriaelement')) {
             if ($criteria->groupby != '') {
