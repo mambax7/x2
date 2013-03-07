@@ -33,8 +33,10 @@ $modversion['license_url'] = "www.gnu.org/licenses/gpl-2.0.html/";
 $modversion['official'] = 0;
 $modversion['image'] = 'images/oledrion_logo.png';
 $modversion['dirname'] = 'oledrion';
-
-
+// Modules scripts
+$modversion['onInstall'] = 'include/functions_install.php';
+$modversion['onUpdate'] = 'include/functions_update.php';
+//icons
 $modversion['dirmoduleadmin'] = '/Frameworks/moduleclasses/moduleadmin';
 $modversion['icons16']        = '../../Frameworks/moduleclasses/icons/16';
 $modversion['icons32']        = '../../Frameworks/moduleclasses/icons/32';

@@ -243,7 +243,7 @@ switch($action) {
 			oledrion_utils::redirect(_AM_OLEDRION_ERROR_10, $baseurl, 5);
 		}
 		$msg = sprintf(_AM_OLEDRION_CONF_DEL_CATEG, $category->getVar('cat_title'));
-		xoops_confirm(array( 'op' => 'categories', 'action' => 'confdelete', 'id' => $id), 'main.php', $msg);
+		xoops_confirm(array( 'op' => 'categories', 'action' => 'confdelete', 'id' => $id), 'index.php', $msg);
 		break;
 
 

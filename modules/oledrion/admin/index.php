@@ -61,9 +61,7 @@ oledrion_utils::prepareFolder(OLEDRION_UPLOAD_PATH);
 oledrion_utils::prepareFolder(OLEDRION_ATTACHED_FILES_PATH);
 oledrion_utils::prepareFolder(OLEDRION_PICTURES_PATH);
 oledrion_utils::prepareFolder(OLEDRION_CSV_PATH);
-if(!is_dir(OLEDRION_CACHE_PATH)) {
-	oledrion_utils::prepareFolder(OLEDRION_CACHE_PATH);
-}
+oledrion_utils::prepareFolder(OLEDRION_CACHE_PATH);
 
 // Est-ce que le r�pertoire du cache est ouvert en �criture ?
 if(!is_writable(OLEDRION_CACHE_PATH)) {
@@ -73,9 +71,6 @@ if(!is_writable(OLEDRION_CACHE_PATH)) {
 // ********************************************************************************************************************
 $destname = '';
 define("OLEDRION_ADMIN", true);
-
-// Mise � jour des structures de donn�es
-require 'dbupdate.php';
 
 $op = str_replace('..', '', $op);
 $controler = OLEDRION_ADMIN_PATH.'actions/'.$op.'.php';
