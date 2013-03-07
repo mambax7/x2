@@ -87,6 +87,18 @@ $h_oledrion_vendors =  $oledrion_handlers->h_oledrion_vendors;
 $h_oledrion_files =  $oledrion_handlers->h_oledrion_files;
 $h_oledrion_persistent_cart =  $oledrion_handlers->h_oledrion_persistent_cart;
 $h_oledrion_gateways_options = $oledrion_handlers->h_oledrion_gateways_options;
+// Add by voltan
+$h_oledrion_attributes = $oledrion_handlers->h_oledrion_attributes;
+$h_oledrion_caddy_attributes = $oledrion_handlers->h_oledrion_caddy_attributes;
+$h_oledrion_products_list = $oledrion_handlers->h_oledrion_products_list;
+$h_oledrion_lists = $oledrion_handlers->h_oledrion_lists;
+$h_oledrion_delivery = $oledrion_handlers->h_oledrion_delivery;
+$h_oledrion_location = $oledrion_handlers->h_oledrion_location;
+$h_oledrion_packing = $oledrion_handlers->h_oledrion_packing;
+$h_oledrion_payment = $oledrion_handlers->h_oledrion_payment;
+$h_oledrion_location_delivery = $oledrion_handlers->h_oledrion_location_delivery;
+$h_oledrion_delivery_payment = $oledrion_handlers->h_oledrion_delivery_payment;
+
 
 $oledrion_shelf = new oledrion_shelf();	// Façade
 $oledrion_shelf_parameters = new oledrion_shelf_parameters();	// Les paramètres de la façade

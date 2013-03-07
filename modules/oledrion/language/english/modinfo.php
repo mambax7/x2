@@ -76,6 +76,10 @@ define("_MI_OLEDRION_ADMENU14","Blocks");
 define("_MI_OLEDRION_ADMENU15","Lists");
 define("_MI_OLEDRION_ADMENU16","Maintain");
 define("_MI_OLEDRION_ADMENU17","Product Properties");
+define("_MI_OLEDRION_ADMENU18", "Packing");
+define("_MI_OLEDRION_ADMENU19", "Location");
+define("_MI_OLEDRION_ADMENU20", "Delivery");
+define("_MI_OLEDRION_ADMENU21", "Payment");
 
 // Title of config items
 define('_MI_OLEDRION_NEWLINKS','Select the maximum number of new products displayed on top page');

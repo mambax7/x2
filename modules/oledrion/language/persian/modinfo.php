@@ -76,6 +76,10 @@ define("_MI_OLEDRION_ADMENU14", "بلاک ها");
 define("_MI_OLEDRION_ADMENU15", "فهرست ها");
 define("_MI_OLEDRION_ADMENU16", "تعمیرات");
 define("_MI_OLEDRION_ADMENU17", "ویژگی محصولات");
+define("_MI_OLEDRION_ADMENU18", "بسته بندی");
+define("_MI_OLEDRION_ADMENU19", "محل");
+define("_MI_OLEDRION_ADMENU20", "روش تحویل");
+define("_MI_OLEDRION_ADMENU21", "روش پرداخت");
 
 // Title of config items
 define('_MI_OLEDRION_NEWLINKS', 'بیشترین تعداد محصولاتی را که در صفحهٔ اول نمایش داده می‌شوند را انتخاب کنید');
