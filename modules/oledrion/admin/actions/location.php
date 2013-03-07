@@ -48,5 +48,11 @@ switch($action) {
         
    include_once OLEDRION_ADMIN_PATH . 'admin_footer.php';
    break;
+   
+   case 'confdelete':
+	xoops_cp_header();
+        
+   include_once OLEDRION_ADMIN_PATH . 'admin_footer.php';
+   break;
 }	 
 ?>

@@ -641,7 +641,7 @@ switch($action) {
 			if(isset($_POST['manufacturers'])) {
 				foreach ($_POST['manufacturers'] as $id2) {
 					$item2 = $h_oledrion_productsmanu->create(true);
-					$item2->setVar('pm_product_id', $id);
+					$item2->setVar('dp_delivery', $id);
 					$item2->setVar('pm_manu_id', intval($id2));
 					$res = $h_oledrion_productsmanu->insert($item2);
 				}

@@ -83,6 +83,31 @@ switch($action) {
 		$sform->addElement(new XoopsFormHidden('action', 'save'));
 		$sform->addElement(new XoopsFormHidden('delivery_id', $item->getVar('delivery_id')));
 		$sform->addElement(new XoopsFormText(_OLEDRION_DELIVERY_TITLE,'delivery_title',50,150, $item->getVar('delivery_title','e')), true);
+      
+      // Add payment options ************************************************************
+		$payments = $deliveryPayments = $payments_d = $deliveryPayments_d = array();
+
+		$criteria = new Criteria('payment_id', 0, '<>');
+		$criteria->setSort('payment_title');
+		$payments = $h_oledrion_payment->getObjects($criteria);
+		foreach($payments as $oneitem) {
+			$payments_d[$oneitem->getVar('payment_id')] = xoops_trim($oneitem->getVar('payment_title'));
+		}
+
+		if($edit) {
+			$criteria = new CriteriaCompo();
+			$criteria->add(new Criteria('dp_delivery', $item->getVar('delivery_id'), '='));
+			$deliveryPayments = $h_oledrion_delivery_payment->getObjects($criteria);
+			foreach($deliveryPayments as $oneproduct) {
+				$deliveryPayments_d[] = $oneproduct->getVar('dp_payment');
+			}
+		}
+		$paymentSelect = new XoopsFormSelect(_OLEDRION_PAYMENT_DELIVERY , 'payments', $deliveryPayments_d, 5, true);
+		$paymentSelect->addOptionArray($payments_d);
+		$paymentSelect->setDescription(_AM_OLEDRION_SELECT_HLP);
+		$sform->addElement($paymentSelect, true);
+      
+      
       if( $action == 'edit' && $item->pictureExists() ) {
 			$pictureTray = new XoopsFormElementTray(_AM_OLEDRION_CURRENT_PICTURE ,'<br />');
 			$pictureTray->addElement(new XoopsFormLabel('', "<img src='".$item->getPictureUrl()."' alt='' border='0' />"));
@@ -122,8 +147,6 @@ switch($action) {
 		}
 		$opRedirect = 'delivery';
 		$item->setVars($_POST);
-
-
 		if(isset($_POST['delpicture']) && intval($_POST['delpicture']) == 1) {
 			$item->deletePicture();
 		}
@@ -140,6 +163,25 @@ switch($action) {
    			}
    		}
 	$res = $h_oledrion_delivery->insert($item);
+	
+	$delivery_id = $item->getVar('delivery_id');
+	
+	 // Save payments for each delivery type
+	      if($edit) {
+				// Suppression préalable
+				$criteria = new CriteriaCompo();
+				$criteria->add(new Criteria('dp_delivery', $delivery_id, '='));
+				$h_oledrion_delivery_payment->deleteAll($criteria);
+			}
+			if(isset($_POST['payments'])) {
+				foreach ($_POST['payments'] as $id2) {
+					$item2 = $h_oledrion_delivery_payment->create(true);
+					$item2->setVar('dp_delivery', $delivery_id);
+					$item2->setVar('dp_payment', intval($id2));
+					$res1 = $h_oledrion_delivery_payment->insert($item2);
+				}
+			}
+
 		if($res) {
 			oledrion_utils::updateCache();
 			oledrion_utils::redirect(_AM_OLEDRION_SAVE_OK, $baseurl.'?op='.$opRedirect, 2);
@@ -154,7 +196,6 @@ switch($action) {
 		if($id == 0) {
 			oledrion_utils::redirect(_AM_OLEDRION_ERROR_1, $baseurl, 5);
 		}
-		print_r($_GET);
 		$delivery = null;
 		$delivery = $h_oledrion_delivery->get($id);
 		if(!is_object($delivery)) {
