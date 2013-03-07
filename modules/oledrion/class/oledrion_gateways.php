@@ -46,6 +46,20 @@ class oledrion_gateways
         }
         return $return;
     }
+    
+    /**
+     * Retourne la passerelle de paiement en cours d'utilisation
+     *
+     * @return string	Le nom de la  passerelle de paiement (en fait le nom de son répertoire)
+     */
+    function getDefaultGateway()
+    {
+        $return = xoops_trim(oledrion_utils::getModuleOption('used_gateway'));
+        if($return == '') {
+            $return = 'paypal';    // Valeur par défaut
+        }
+        return $return;
+    }
 
     /**
      * Nettoie le nom de la passerelle de paiement

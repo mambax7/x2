@@ -80,9 +80,6 @@ class oledrion_packing extends Oledrion_Object
     {
 		$ret = array();
 		$ret = parent::toArray($format);
-		//$ret['cat_full_imgurl'] = $this->getPictureUrl();
-		//$ret['cat_href_title'] = $this->getHrefTitle();
-		//$ret['cat_url_rewrited'] = $this->getLink();
 		return $ret;
     }
 }

@@ -29,7 +29,6 @@ require_once XOOPS_ROOT_PATH.'/class/pagenav.php';
 require_once XOOPS_ROOT_PATH.'/class/xoopsformloader.php';
 require_once XOOPS_ROOT_PATH.'/class/xoopslists.php';
 require_once OLEDRION_PATH.'class/tree.php';
-require_once OLEDRION_ADMIN_PATH.'tablefunctions.php';
 
 $op = 'dashboard';
 if (isset($_POST['op'])) {

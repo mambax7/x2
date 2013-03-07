@@ -264,10 +264,14 @@ function xoops_module_update_oledrion($module, $version) {
 			  `payment_title` varchar(255) NOT NULL default '',
 			  `payment_description` text,
 			  `payment_online` tinyint(1) NOT NULL default '1',
+			  `payment_type` enum('online','offline') NOT NULL,
+			  `payment_gateway` varchar(64) NOT NULL default '',
 			  `payment_image` varchar(255) NOT NULL,
 			  PRIMARY KEY  (`payment_id`),
 			  KEY `payment_title` (`payment_title`),
-			  KEY `payment_online` (`payment_online`)
+			  KEY `payment_online` (`payment_online`),
+			  KEY `payment_type` (`payment_type`),
+			  KEY `payment_gateway` (`payment_gateway`)
 			) ENGINE=InnoDB;";
 	    $xoopsDB->queryF($sql);
 	}	
