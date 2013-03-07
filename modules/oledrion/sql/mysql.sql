@@ -400,7 +400,7 @@ CREATE TABLE `oledrion_delivery_payment` (
   `dp_id` int(5) unsigned NOT NULL auto_increment,
   `dp_delivery` int(5) unsigned NOT NULL,
   `dp_payment` int(5) unsigned NOT NULL,
-  PRIMARY KEY  (`ld_id`),
+  PRIMARY KEY  (`dp_id`),
   KEY `dp_delivery` (`dp_delivery`),
   KEY `dp_payment` (`dp_payment`)
 ) ENGINE=InnoDB;

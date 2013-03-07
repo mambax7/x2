@@ -4,16 +4,24 @@
 - Add Ajax search system and block (voltan)
 - Add Ajax rate (voltan)
 - Add json output for products and categoresy (voltan)
+- Add isNew function for products (voltan)
 - Improve search (voltan) 
 - Improve gateway ( checkout.php admin/gateways/gateway.php ) (voltan)
-- improve admin order page (voltan)
-- improve product properties (voltan)
-- improve load jquery (voltan)
-- improve js image gallery, remove pretty Photo and add core lightbox (voltan)
+- Improve admin order page (voltan)
+- Improve product properties (voltan)
+- Improve load jquery (voltan)
+- Improve js image gallery, remove pretty Photo and add core lightbox (voltan)
+- Update SQL file and full support InnoDB (voltan)
+- Update copyright header  (voltan)
+- Update all files to utf-8 (voltan)
+- Update codes to support php 5.4.12 and mysql 5.5.30 (voltan)
 - Fix errors in admin and user side (voltan)
-- Remove Cache Lite (voltan)
-- Support php 5.4.11 and mysql 5.5.29 (voltan)
-- convert all files to utf-8 (voltan)
+- Remove Cache Lite Support(voltan)
+- Remove class/lite.php class/PEAR.php class/PEAR5.php admin/main.php files (voltan)
+
+TODO:
+- Rebuild order/buy method
+- Rebuild admin files and add template
 
 ---------------------------------------
 2.33 Beta 1 2012-07-23

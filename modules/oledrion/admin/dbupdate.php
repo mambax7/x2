@@ -207,6 +207,131 @@ if(!oledrion_fieldExists('product_property5', $tableName)) {
     $wasUpdated = true;
 }
 
+/**
+ * Nouvelle table oledrion_packing
+ * @since 2.3.4 2013.03.10
+ */
+$tableName = $xoopsDB->prefix('oledrion_packing');
+if(!oledrion_tableExists($tableName)) {
+    $sql = "CREATE TABLE `$tableName` (
+		  `packing_id` int(5) unsigned NOT NULL auto_increment,
+		  `packing_title` varchar(255) NOT NULL default '',
+		  `packing_width` varchar(50) NOT NULL,
+		  `packing_length` varchar(50) NOT NULL,
+		  `packing_weight` varchar(50) NOT NULL,
+		  `packing_image` varchar(255) NOT NULL,
+		  `packing_description` text,
+		  `packing_price` decimal(16,2) NOT NULL,
+		  `packing_online` tinyint(1) NOT NULL default '1',
+		  PRIMARY KEY  (`packing_id`),
+		  KEY `packing_title` (`packing_title`),
+		  KEY `packing_online` (`packing_online`),
+		  KEY `packing_price` (`packing_price`)
+		) ENGINE=InnoDB;";
+    $xoopsDB->queryF($sql);
+    $wasUpdated = true;
+}	
+
+/**
+ * Nouvelle table oledrion_location
+ * @since 2.3.4 2013.03.10
+ */
+$tableName = $xoopsDB->prefix('oledrion_location');
+if(!oledrion_tableExists($tableName)) {
+    $sql = "CREATE TABLE `$tableName` (
+		  `location_id` int(5) unsigned NOT NULL auto_increment,
+		  `location_pid` int(5) unsigned NOT NULL default '0',
+		  `location_title` varchar(255) NOT NULL default '',
+		  `location_online` tinyint(1) NOT NULL default '1',
+		  `location_type` enum('location','parent') NOT NULL,
+		  PRIMARY KEY  (`location_id`),
+		  KEY `location_title` (`location_title`),
+		  KEY `location_pid` (`location_pid`),
+		  KEY `location_online` (`location_online`)
+		) ENGINE=InnoDB;";
+    $xoopsDB->queryF($sql);
+    $wasUpdated = true;
+}	
+
+/**
+ * Nouvelle table oledrion_delivery
+ * @since 2.3.4 2013.03.10
+ */
+$tableName = $xoopsDB->prefix('oledrion_delivery');
+if(!oledrion_tableExists($tableName)) {
+    $sql = "CREATE TABLE `$tableName` (
+		  `delivery_id` int(10) unsigned NOT NULL auto_increment,
+		  `delivery_title` varchar(255) NOT NULL default '',
+		  `delivery_description` text,
+		  `delivery_online` tinyint(1) NOT NULL default '1',
+		  `delivery_image` varchar(255) NOT NULL,
+		  PRIMARY KEY  (`delivery_id`),
+		  KEY `delivery_title` (`delivery_title`),
+		  KEY `delivery_online` (`delivery_online`)
+		) ENGINE=InnoDB;";
+    $xoopsDB->queryF($sql);
+    $wasUpdated = true;
+}	
+
+/**
+ * Nouvelle table oledrion_payment
+ * @since 2.3.4 2013.03.10
+ */
+$tableName = $xoopsDB->prefix('oledrion_payment');
+if(!oledrion_tableExists($tableName)) {
+    $sql = "CREATE TABLE `$tableName` (
+		  `payment_id` int(10) unsigned NOT NULL auto_increment,
+		  `payment_title` varchar(255) NOT NULL default '',
+		  `payment_description` text,
+		  `payment_online` tinyint(1) NOT NULL default '1',
+		  `payment_image` varchar(255) NOT NULL,
+		  PRIMARY KEY  (`payment_id`),
+		  KEY `payment_title` (`payment_title`),
+		  KEY `payment_online` (`payment_online`)
+		) ENGINE=InnoDB;";
+    $xoopsDB->queryF($sql);
+    $wasUpdated = true;
+}	
+
+/**
+ * Nouvelle table oledrion_location_delivery
+ * @since 2.3.4 2013.03.10
+ */
+$tableName = $xoopsDB->prefix('oledrion_location_delivery');
+if(!oledrion_tableExists($tableName)) {
+    $sql = "CREATE TABLE `$tableName` (
+		  `ld_id` int(5) unsigned NOT NULL auto_increment,
+		  `ld_location` int(5) unsigned NOT NULL,
+		  `ld_delivery` int(5) unsigned NOT NULL,
+		  `ld_price` decimal(16,2) NOT NULL,
+		  `ld_delivery_time` mediumint(8) unsigned NOT NULL,
+		  PRIMARY KEY  (`ld_id`),
+		  KEY `ld_location` (`ld_location`),
+		  KEY `ld_delivery` (`ld_delivery`)
+		) ENGINE=InnoDB;";
+    $xoopsDB->queryF($sql);
+    $wasUpdated = true;
+}	
+
+/**
+ * Nouvelle table oledrion_delivery_payment
+ * @since 2.3.4 2013.03.10
+ */
+
+$tableName = $xoopsDB->prefix('oledrion_delivery_payment');
+if(!oledrion_tableExists($tableName)) {
+    $sql = "CREATE TABLE `$tableName` (
+		  `dp_id` int(5) unsigned NOT NULL auto_increment,
+		  `dp_delivery` int(5) unsigned NOT NULL,
+		  `dp_payment` int(5) unsigned NOT NULL,
+		  PRIMARY KEY  (`dp_id`),
+		  KEY `dp_delivery` (`dp_delivery`),
+		  KEY `dp_payment` (`dp_payment`)
+		) ENGINE=InnoDB;";
+    $xoopsDB->queryF($sql);
+    $wasUpdated = true;
+}	
+
 if($wasUpdated) {
     $op = 'maintain';    // On force la mise à jour du cache de requêtes
 }
