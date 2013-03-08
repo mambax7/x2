@@ -35,7 +35,7 @@ switch ($action) {
 
         $class = '';
         echo "<table width='100%' cellspacing='1' cellpadding='3' border='0' class='outer'>";
-        echo "<tr><th align='center'>" . _AM_OLEDRION_ID . "</th><th align='center'>" . _OLEDRION_PAYMENT_TITLE . "</th><th align='center'>" . _OLEDRION_PAYMENT_TYPE . "</th><th align='center'>" . _OLEDRION_PAYMENT_ONLINE . "</th><th align='center'>" . _AM_OLEDRION_ACTION . "</th></tr>";
+        echo "<tr><th align='center'>" . _AM_OLEDRION_ID . "</th><th align='center'>" . _AM_OLEDRION_PAYMENT_TITLE . "</th><th align='center'>" . _AM_OLEDRION_PAYMENT_TYPE . "</th><th align='center'>" . _AM_OLEDRION_PAYMENT_ONLINE . "</th><th align='center'>" . _AM_OLEDRION_ACTION . "</th></tr>";
         foreach ($payment as $item) {
             $id = $item->getVar('payment_id');
             $class = ($class == 'even') ? 'odd' : 'even';
@@ -44,9 +44,9 @@ switch ($action) {
             $actions[] = "<a href='$baseurl?op=payment&action=delete&id=" . $id . "' title='" . _OLEDRION_DELETE . "'" . $conf_msg . ">" . $icones['delete'] . '</a>';
             $online = $item->getVar('payment_online') == 1 ? _YES : _NO;
             if ($item->getVar('payment_type') == 'online') {
-                $payment_type = _OLEDRION_PAYMENT_ONLINE . '( ' . $item->getVar('payment_gateway') . ' )';
+                $payment_type = _AM_OLEDRION_PAYMENT_ONLINE . '( ' . $item->getVar('payment_gateway') . ' )';
             } else {
-                $payment_type = _OLEDRION_PAYMENT_OFFLINE;
+                $payment_type = _AM_OLEDRION_PAYMENT_OFFLINE;
             }
             echo "<tr class='" . $class . "'>\n";
             echo "<td align='center'>" . $id . "</td><td align='center'>" . $item->getVar('payment_title') . "</td><td align='center'>" . $payment_type . "</td><td align='center'>" . $online . "</td><td align='center'>" . implode(' ', $actions) . "</td>\n";
@@ -64,7 +64,7 @@ switch ($action) {
     case 'edit':
         xoops_cp_header();
         if ($action == 'edit') {
-            $title = _AM_OLEDRION_EDIT_PAYMENT;
+            $title = _AM_OLEDRION_PAYMENT_EDIT;
             $id = isset($_GET['id']) ? intval($_GET['id']) : 0;
             if (empty($id)) {
                 oledrion_utils::redirect(_AM_OLEDRION_ERROR_1, $baseurl, 5);
@@ -78,7 +78,7 @@ switch ($action) {
             $edit = true;
             $label_submit = _AM_OLEDRION_MODIFY;
         } else {
-            $title = _AM_OLEDRION_ADD_PAYMENT;
+            $title = _AM_OLEDRION_PAYMENT_ADD;
             $item = $h_oledrion_payment->create(true);
             $label_submit = _AM_OLEDRION_ADD;
             $edit = false;
@@ -87,13 +87,13 @@ switch ($action) {
         $sform->addElement(new XoopsFormHidden('op', 'payment'));
         $sform->addElement(new XoopsFormHidden('action', 'save'));
         $sform->addElement(new XoopsFormHidden('payment_id', $item->getVar('payment_id')));
-        $sform->addElement(new XoopsFormText(_OLEDRION_PAYMENT_TITLE, 'payment_title', 50, 150, $item->getVar('payment_title', 'e')), true);
-        $product_type = new XoopsFormSelect(_OLEDRION_PAYMENT_TYPE, 'payment_type', $item->getVar('payment_type'));
-        $product_type->addOption('offline', _OLEDRION_PAYMENT_TYPE_OFFLINE);
-        $product_type->addOption('online', _OLEDRION_PAYMENT_TYPE_ONLINE);
+        $sform->addElement(new XoopsFormText(_AM_OLEDRION_PAYMENT_TITLE, 'payment_title', 50, 150, $item->getVar('payment_title', 'e')), true);
+        $product_type = new XoopsFormSelect(_AM_OLEDRION_PAYMENT_TYPE, 'payment_type', $item->getVar('payment_type'));
+        $product_type->addOption('offline', _AM_OLEDRION_PAYMENT_OFFLINE);
+        $product_type->addOption('online', _AM_OLEDRION_PAYMENT_ONLINE);
         $sform->addElement($product_type, true);
-        $payment_gateway = new XoopsFormSelect(_OLEDRION_PAYMENT_GATEWAY, 'payment_gateway', $item->getVar('payment_gateway'));
-        $payment_gateway->addOption('offline', _OLEDRION_PAYMENT_GATEWAY_OFFLINE);
+        $payment_gateway = new XoopsFormSelect(_AM_OLEDRION_PAYMENT_GATEWAY, 'payment_gateway', $item->getVar('payment_gateway'));
+        $payment_gateway->addOption('offline', _AM_OLEDRION_PAYMENT_GATEWAY_OFFLINE);
         $payment_gateway_list = oledrion_gateways::getInstalledGatewaysList();
         foreach ($payment_gateway_list as $payment_gateway_item) {
             $payment_gateway->addOption($payment_gateway_item);
@@ -178,13 +178,12 @@ switch ($action) {
         if ($id == 0) {
             oledrion_utils::redirect(_AM_OLEDRION_ERROR_1, $baseurl, 5);
         }
-        print_r($_GET);
         $payment = null;
         $payment = $h_oledrion_payment->get($id);
         if (!is_object($payment)) {
             oledrion_utils::redirect(_AM_OLEDRION_ERROR_10, $baseurl, 5);
         }
-        $msg = sprintf(_AM_OLEDRION_CONF_DEL_CATEG, $payment->getVar('payment_title'));
+        $msg = sprintf(_AM_OLEDRION_CONF_DEL_ITEM, $payment->getVar('payment_title'));
         xoops_confirm(array('op' => 'payment', 'action' => 'confdelete', 'id' => $id), 'index.php', $msg);
 
         break;

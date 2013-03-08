@@ -35,7 +35,7 @@ switch ($action) {
 
         $class = '';
         echo "<table width='100%' cellspacing='1' cellpadding='3' border='0' class='outer'>";
-        echo "<tr><th align='center'>" . _AM_OLEDRION_ID . "</th><th align='center'>" . _OLEDRION_DELIVERY_TITLE . "</th><th align='center'>" . _OLEDRION_ONLINE . "</th><th align='center'>" . _AM_OLEDRION_ACTION . "</th></tr>";
+        echo "<tr><th align='center'>" . _AM_OLEDRION_ID . "</th><th align='center'>" . _AM_OLEDRION_DELIVERY_TITLE . "</th><th align='center'>" . _OLEDRION_ONLINE . "</th><th align='center'>" . _AM_OLEDRION_ACTION . "</th></tr>";
         foreach ($delivery as $item) {
             $id = $item->getVar('delivery_id');
             $class = ($class == 'even') ? 'odd' : 'even';
@@ -59,7 +59,7 @@ switch ($action) {
     case 'edit':
         xoops_cp_header();
         if ($action == 'edit') {
-            $title = _AM_OLEDRION_EDIT_DELIVERY;
+            $title = _AM_OLEDRION_DELIVERY_EDIT;
             $id = isset($_GET['id']) ? intval($_GET['id']) : 0;
             if (empty($id)) {
                 oledrion_utils::redirect(_AM_OLEDRION_ERROR_1, $baseurl, 5);
@@ -73,7 +73,7 @@ switch ($action) {
             $edit = true;
             $label_submit = _AM_OLEDRION_MODIFY;
         } else {
-            $title = _AM_OLEDRION_ADD_DELIVERY;
+            $title = _AM_OLEDRION_DELIVERY_ADD;
             $item = $h_oledrion_delivery->create(true);
             $label_submit = _AM_OLEDRION_ADD;
             $edit = false;
@@ -82,7 +82,7 @@ switch ($action) {
         $sform->addElement(new XoopsFormHidden('op', 'delivery'));
         $sform->addElement(new XoopsFormHidden('action', 'save'));
         $sform->addElement(new XoopsFormHidden('delivery_id', $item->getVar('delivery_id')));
-        $sform->addElement(new XoopsFormText(_OLEDRION_DELIVERY_TITLE, 'delivery_title', 50, 150, $item->getVar('delivery_title', 'e')), true);
+        $sform->addElement(new XoopsFormText(_AM_OLEDRION_DELIVERY_TITLE, 'delivery_title', 50, 150, $item->getVar('delivery_title', 'e')), true);
 
         // Add payment options ************************************************************
         $payments = $deliveryPayments = $payments_d = $deliveryPayments_d = array();
@@ -93,7 +93,11 @@ switch ($action) {
         foreach ($payments as $oneitem) {
             $payments_d[$oneitem->getVar('payment_id')] = xoops_trim($oneitem->getVar('payment_title'));
         }
-
+        
+        if (empty($payments_d)) {
+            oledrion_utils::redirect(_AM_OLEDRION_DELIVERY_PAYMENTADD, $baseurl, 5);	
+        }
+        
         if ($edit) {
             $criteria = new CriteriaCompo();
             $criteria->add(new Criteria('dp_delivery', $item->getVar('delivery_id'), '='));
@@ -102,12 +106,11 @@ switch ($action) {
                 $deliveryPayments_d[] = $oneproduct->getVar('dp_payment');
             }
         }
-        $paymentSelect = new XoopsFormSelect(_OLEDRION_PAYMENT_DELIVERY, 'payments', $deliveryPayments_d, 5, true);
+        $paymentSelect = new XoopsFormSelect(_AM_OLEDRION_DELIVERY_PAYMENT, 'payments', $deliveryPayments_d, 5, true);
         $paymentSelect->addOptionArray($payments_d);
         $paymentSelect->setDescription(_AM_OLEDRION_SELECT_HLP);
         $sform->addElement($paymentSelect, true);
-
-
+        
         if ($action == 'edit' && $item->pictureExists()) {
             $pictureTray = new XoopsFormElementTray(_AM_OLEDRION_CURRENT_PICTURE, '<br />');
             $pictureTray->addElement(new XoopsFormLabel('', "<img src='" . $item->getPictureUrl() . "' alt='' border='0' />"));
@@ -201,7 +204,7 @@ switch ($action) {
         if (!is_object($delivery)) {
             oledrion_utils::redirect(_AM_OLEDRION_ERROR_10, $baseurl, 5);
         }
-        $msg = sprintf(_AM_OLEDRION_CONF_DEL_CATEG, $delivery->getVar('delivery_title'));
+        $msg = sprintf(_AM_OLEDRION_CONF_DEL_ITEM, $delivery->getVar('delivery_title'));
         xoops_confirm(array('op' => 'delivery', 'action' => 'confdelete', 'id' => $id), 'index.php', $msg);
         break;
 

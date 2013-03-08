@@ -106,7 +106,7 @@ class OledrionOledrion_deliveryHandler extends Oledrion_XoopsPersistableObjectHa
     function getLocationDelivery(oledrion_parameters $parameters)
     {
         global $h_oledrion_location_delivery;
-
+        $ret = array();
         $parameters = $parameters->extend(new oledrion_parameters(array('start' => 0, 'limit' => 0, 'sort' => 'delivery_id', 'order' => 'ASC', 'location' => '')));
         $location_delivery = $h_oledrion_location_delivery->getLocationDeliveryId($parameters);
 

@@ -34,7 +34,7 @@ switch ($action) {
         $location = $h_oledrion_location->getAllLocation(new oledrion_parameters(array('start' => $start, 'limit' => $limit)));
         $class = '';
         echo "<table width='100%' cellspacing='1' cellpadding='3' border='0' class='outer'>";
-        echo "<tr><th align='center'>" . _AM_OLEDRION_ID . "</th><th align='center'>" . _OLEDRION_LOCATION_TITLE . "</th><th align='center'>" . _OLEDRION_LOCATION_TYPE . "</th><th align='center'>" . _OLEDRION_LOCATION_ONLINE . "</th><th align='center'>" . _AM_OLEDRION_ACTION . "</th></tr>";
+        echo "<tr><th align='center'>" . _AM_OLEDRION_ID . "</th><th align='center'>" . _AM_OLEDRION_LOCATION_TITLE . "</th><th align='center'>" . _AM_OLEDRION_LOCATION_TYPE . "</th><th align='center'>" . _OLEDRION_ONLINE . "</th><th align='center'>" . _AM_OLEDRION_ACTION . "</th></tr>";
         foreach ($location as $item) {
             $id = $item->getVar('location_id');
             $class = ($class == 'even') ? 'odd' : 'even';
@@ -43,9 +43,9 @@ switch ($action) {
             $actions[] = "<a href='$baseurl?op=location&action=delete&id=" . $id . "' title='" . _OLEDRION_DELETE . "'" . $conf_msg . ">" . $icones['delete'] . '</a>';
             $online = $item->getVar('location_online') == 1 ? _YES : _NO;
             if ($item->getVar('location_type') == 'parent') {
-                $location_type = _OLEDRION_LOCATION_PARENT;
+                $location_type = _AM_OLEDRION_LOCATION_PARENT;
             } else {
-                $location_type = _OLEDRION_LOCATION_LOCATION;
+                $location_type = _AM_OLEDRION_LOCATION_LOCATION;
             }
             echo "<tr class='" . $class . "'>\n";
             echo "<td align='center'>" . $id . "</td><td align='center'>" . $item->getVar('location_title') . "</td><td align='center'>" . $location_type . "</td><td align='center'>" . $online . "</td><td align='center'>" . implode(' ', $actions) . "</td>\n";
@@ -64,7 +64,7 @@ switch ($action) {
         xoops_cp_header();
         $id = isset($_GET['id']) ? intval($_GET['id']) : 0;
         if ($action == 'edit') {
-            $title = _AM_OLEDRION_EDIT_LOCATION;
+            $title = _AM_OLEDRION_LOCATION_EDIT;
             if (empty($id)) {
                 oledrion_utils::redirect(_AM_OLEDRION_ERROR_1, $baseurl, 5);
             }
@@ -77,42 +77,47 @@ switch ($action) {
             $edit = true;
             $label_submit = _AM_OLEDRION_MODIFY;
         } else {
-            $title = _AM_OLEDRION_ADD_LOCATION;
+            $title = _AM_OLEDRION_LOCATION_ADD;
             $item = $h_oledrion_location->create(true);
             $label_submit = _AM_OLEDRION_ADD;
             $edit = false;
         }
+        // Get delivery methods
+        $deliveres = $h_oledrion_delivery->getLocationDelivery(new oledrion_parameters(array('limit' => $limit, 'location' => $id)));
+        if (empty($deliveres)) {
+            oledrion_utils::redirect(_AM_OLEDRION_LOCATION_DELIVERYADD, $baseurl, 5);	
+        }
+        	
         $sform = new XoopsThemeForm($title, 'frmaddlocation', $baseurl);
         $sform->addElement(new XoopsFormHidden('op', 'location'));
         $sform->addElement(new XoopsFormHidden('action', 'save'));
         $sform->addElement(new XoopsFormHidden('location_id', $item->getVar('location_id')));
-        $sform->addElement(new XoopsFormText(_OLEDRION_LOCATION_TITLE, 'location_title', 50, 150, $item->getVar('location_title', 'e')), true);
+        $sform->addElement(new XoopsFormText(_AM_OLEDRION_LOCATION_TITLE, 'location_title', 50, 150, $item->getVar('location_title', 'e')), true);
         $location_pid = $h_oledrion_location->getAllPid(new oledrion_parameters());
         $mytree = new XoopsObjectTree($location_pid, 'location_id', 'location_pid');
         $select_pid = $mytree->makeSelBox('location_pid', 'location_title', '-', $item->getVar('location_pid'), true);
-        $sform->addElement(new XoopsFormLabel(_OLEDRION_LOCATION_PID, $select_pid), false);
-        $product_type = new XoopsFormSelect(_OLEDRION_LOCATION_TYPE, 'location_type', $item->getVar('location_type'));
-        $product_type->addOption('location', _OLEDRION_LOCATION_LOCATION);
-        $product_type->addOption('parent', _OLEDRION_LOCATION_PARENT);
+        $sform->addElement(new XoopsFormLabel(_AM_OLEDRION_LOCATION_PID, $select_pid), false);
+        $product_type = new XoopsFormSelect(_AM_OLEDRION_LOCATION_TYPE, 'location_type', $item->getVar('location_type'));
+        $product_type->addOption('location', _AM_OLEDRION_LOCATION_LOCATION);
+        $product_type->addOption('parent', _AM_OLEDRION_LOCATION_PARENT);
         $sform->addElement($product_type, true);
         $sform->addElement(new XoopsFormRadioYN(_OLEDRION_ONLINE_HLP, 'location_online', $item->getVar('location_online')), true);
-
-        $deliveres = $h_oledrion_delivery->getLocationDelivery(new oledrion_parameters(array('limit' => $limit, 'location' => $id)));
-        $delivery_options = new XoopsFormElementTray(_NEWS_AM_CONTENT_FORMTEXT, '<br />');
+        
+        $delivery_options = new XoopsFormElementTray(_AM_OLEDRION_LOCATION_DELIVERY, '<br />');
         foreach ($deliveres as $delivery) {
-            if (is_array($delivery['ld_id'])) {
+            if (isset($delivery['ld_id']) && is_array($delivery['ld_id'])) {
                 $delivery_checkbox = new XoopsFormCheckBox('', $delivery['delivery_id'] . '_ld_select', $delivery['ld_id']['delivery_select']);
                 $delivery_checkbox->addOption(1, $delivery['delivery_title']);
                 $delivery_options->addElement($delivery_checkbox);
-                $delivery_options->addElement(new XoopsFormText(_OLEDRION_LOCATION_PRICE, $delivery['delivery_id'] . '_ld_price', 16, 16, $delivery['ld_id']['ld_price']));
-                $delivery_options->addElement(new XoopsFormText(_OLEDRION_LOCATION_DELIVERY_TIME, $delivery['delivery_id'] . '_ld_delivery_time', 8, 8, $delivery['ld_id']['ld_delivery_time']));
+                $delivery_options->addElement(new XoopsFormText(_AM_OLEDRION_LOCATION_PRICE, $delivery['delivery_id'] . '_ld_price', 16, 16, $delivery['ld_id']['ld_price']));
+                $delivery_options->addElement(new XoopsFormText(_AM_OLEDRION_LOCATION_DELIVERY_TIME, $delivery['delivery_id'] . '_ld_delivery_time', 8, 8, $delivery['ld_id']['ld_delivery_time']));
                 $delivery_options->addElement(new XoopsFormHidden($delivery['delivery_id'] . '_ld_id', $delivery['ld_id']['ld_id']));
             } else {
                 $delivery_checkbox = new XoopsFormCheckBox('', $delivery['delivery_id'] . '_ld_select', '');
                 $delivery_checkbox->addOption(1, $delivery['delivery_title']);
                 $delivery_options->addElement($delivery_checkbox);
-                $delivery_options->addElement(new XoopsFormText(_OLEDRION_LOCATION_PRICE, $delivery['delivery_id'] . '_ld_price', 16, 16, ''));
-                $delivery_options->addElement(new XoopsFormText(_OLEDRION_LOCATION_DELIVERY_TIME, $delivery['delivery_id'] . '_ld_delivery_time', 8, 8, ''));
+                $delivery_options->addElement(new XoopsFormText(_AM_OLEDRION_LOCATION_PRICE, $delivery['delivery_id'] . '_ld_price', 16, 16, ''));
+                $delivery_options->addElement(new XoopsFormText(_AM_OLEDRION_LOCATION_DELIVERY_TIME, $delivery['delivery_id'] . '_ld_delivery_time', 8, 8, ''));
             }
         }
 
@@ -156,27 +161,27 @@ switch ($action) {
         $opRedirect = 'location';
         $item->setVars($post);
         $res = $h_oledrion_location->insert($item);
-        if ($res) {
-
-            $location_id = $item->getVar('location_id');
-
-            // Save payments for each delivery type
-            if ($edit) {
-                // Suppression préalable
-                $criteria = new CriteriaCompo();
-                $criteria->add(new Criteria('ld_location', $location_id, '='));
-                $h_oledrion_location_delivery->deleteAll($criteria);
+            
+        $location_id = $item->getVar('location_id');
+        // Save payments for each delivery type
+        if ($edit) {
+            // Suppression préalable
+            $criteria = new CriteriaCompo();
+            $criteria->add(new Criteria('ld_location', $location_id, '='));
+            $h_oledrion_location_delivery->deleteAll($criteria);
+        }
+        if (!empty($location_delivery)) {
+            foreach ($location_delivery as $ld) {
+                $item2 = $h_oledrion_location_delivery->create(true);
+                $item2->setVar('ld_location', $location_id);
+                $item2->setVar('ld_delivery', $ld['ld_delivery']);
+                $item2->setVar('ld_price', $ld['ld_price']);
+                $item2->setVar('ld_delivery_time', $ld['ld_delivery_time']);
+                $res1 = $h_oledrion_location_delivery->insert($item2);
             }
-            if (!empty($location_delivery)) {
-                foreach ($location_delivery as $ld) {
-                    $item2 = $h_oledrion_location_delivery->create(true);
-                    $item2->setVar('ld_location', $ld['ld_location']);
-                    $item2->setVar('ld_delivery', $ld['ld_delivery']);
-                    $item2->setVar('ld_price', $ld['ld_price']);
-                    $item2->setVar('ld_delivery_time', $ld['ld_delivery_time']);
-                    $res1 = $h_oledrion_location_delivery->insert($item2);
-                }
-            }
+        }
+
+        if ($res) {    
             oledrion_utils::updateCache();
             oledrion_utils::redirect(_AM_OLEDRION_SAVE_OK, $baseurl . '?op=' . $opRedirect, 2);
         } else {
@@ -197,8 +202,8 @@ switch ($action) {
         if (!is_object($location)) {
             oledrion_utils::redirect(_AM_OLEDRION_ERROR_10, $baseurl, 5);
         }
-        $msg = sprintf(_AM_OLEDRION_CONF_DEL_CATEG, $location->getVar('location_title'));
-        xoops_confirm(array('op' => 'delivery', 'action' => 'confdelete', 'id' => $id), 'index.php', $msg);
+        $msg = sprintf(_AM_OLEDRION_CONF_DEL_ITEM, $location->getVar('location_title'));
+        xoops_confirm(array('op' => 'location', 'action' => 'confdelete', 'id' => $id), 'index.php', $msg);
         break;
 
     case 'confdelete':

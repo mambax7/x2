@@ -35,7 +35,7 @@ switch ($action) {
 
         $class = '';
         echo "<table width='100%' cellspacing='1' cellpadding='3' border='0' class='outer'>";
-        echo "<tr><th align='center'>" . _AM_OLEDRION_ID . "</th><th align='center'>" . _OLEDRION_PACKING_TITLE . "</th><th align='center'>" . _OLEDRION_PRICE . "</th><th align='center'>" . _OLEDRION_ONLINE . "</th><th align='center'>" . _AM_OLEDRION_ACTION . "</th></tr>";
+        echo "<tr><th align='center'>" . _AM_OLEDRION_ID . "</th><th align='center'>" . _AM_OLEDRION_PACKING_TITLE . "</th><th align='center'>" . _OLEDRION_PRICE . "</th><th align='center'>" . _OLEDRION_ONLINE . "</th><th align='center'>" . _AM_OLEDRION_ACTION . "</th></tr>";
         foreach ($packing as $item) {
             $id = $item->getVar('packing_id');
             $class = ($class == 'even') ? 'odd' : 'even';
@@ -59,7 +59,7 @@ switch ($action) {
     case 'edit':
         xoops_cp_header();
         if ($action == 'edit') {
-            $title = _AM_OLEDRION_EDIT_PACKING;
+            $title = _AM_OLEDRION_PACKING_EDIT;
             $id = isset($_GET['id']) ? intval($_GET['id']) : 0;
             if (empty($id)) {
                 oledrion_utils::redirect(_AM_OLEDRION_ERROR_1, $baseurl, 5);
@@ -73,7 +73,7 @@ switch ($action) {
             $edit = true;
             $label_submit = _AM_OLEDRION_MODIFY;
         } else {
-            $title = _AM_OLEDRION_ADD_PACKING;
+            $title = _AM_OLEDRION_PACKING_ADD;
             $item = $h_oledrion_packing->create(true);
             $label_submit = _AM_OLEDRION_ADD;
             $edit = false;
@@ -82,10 +82,10 @@ switch ($action) {
         $sform->addElement(new XoopsFormHidden('op', 'packing'));
         $sform->addElement(new XoopsFormHidden('action', 'save'));
         $sform->addElement(new XoopsFormHidden('packing_id', $item->getVar('packing_id')));
-        $sform->addElement(new XoopsFormText(_OLEDRION_PACKING_TITLE, 'packing_title', 50, 150, $item->getVar('packing_title', 'e')), true);
-        $sform->addElement(new XoopsFormText(_OLEDRION_PACKING_WIDTH, 'packing_width', 20, 20, $item->getVar('packing_width', 'e')), false);
-        $sform->addElement(new XoopsFormText(_OLEDRION_PACKING_LENGTH, 'packing_length', 20, 20, $item->getVar('packing_length', 'e')), false);
-        $sform->addElement(new XoopsFormText(_OLEDRION_PACKING_WEIGHT, 'packing_weight', 20, 20, $item->getVar('packing_weight', 'e')), false);
+        $sform->addElement(new XoopsFormText(_AM_OLEDRION_PACKING_TITLE, 'packing_title', 50, 150, $item->getVar('packing_title', 'e')), true);
+        $sform->addElement(new XoopsFormText(_AM_OLEDRION_PACKING_WIDTH, 'packing_width', 20, 20, $item->getVar('packing_width', 'e')), false);
+        $sform->addElement(new XoopsFormText(_AM_OLEDRION_PACKING_LENGTH, 'packing_length', 20, 20, $item->getVar('packing_length', 'e')), false);
+        $sform->addElement(new XoopsFormText(_AM_OLEDRION_PACKING_WEIGHT, 'packing_weight', 20, 20, $item->getVar('packing_weight', 'e')), false);
         if ($action == 'edit' && $item->pictureExists()) {
             $pictureTray = new XoopsFormElementTray(_AM_OLEDRION_CURRENT_PICTURE, '<br />');
             $pictureTray->addElement(new XoopsFormLabel('', "<img src='" . $item->getPictureUrl() . "' alt='' border='0' />"));
@@ -100,7 +100,7 @@ switch ($action) {
         if ($editor) {
             $sform->addElement($editor, false);
         }
-        $sform->addElement(new XoopsFormText(_OLEDRION_TITLE_PACKING, 'packing_price', 20, 20, $item->getVar('packing_price', 'e')), false);
+        $sform->addElement(new XoopsFormText(_AM_OLEDRION_PACKING_PRICE, 'packing_price', 20, 20, $item->getVar('packing_price', 'e')), false);
         $sform->addElement(new XoopsFormRadioYN(_OLEDRION_ONLINE_HLP, 'packing_online', $item->getVar('packing_online')), true);
         $button_tray = new XoopsFormElementTray('', '');
         $submit_btn = new XoopsFormButton('', 'post', $label_submit, 'submit');
@@ -158,13 +158,12 @@ switch ($action) {
         if ($id == 0) {
             oledrion_utils::redirect(_AM_OLEDRION_ERROR_1, $baseurl, 5);
         }
-        print_r($_GET);
         $packing = null;
         $packing = $h_oledrion_packing->get($id);
         if (!is_object($packing)) {
             oledrion_utils::redirect(_AM_OLEDRION_ERROR_10, $baseurl, 5);
         }
-        $msg = sprintf(_AM_OLEDRION_CONF_DEL_CATEG, $packing->getVar('packing_title'));
+        $msg = sprintf(_AM_OLEDRION_CONF_DEL_ITEM, $packing->getVar('packing_title'));
         xoops_confirm(array('op' => 'packing', 'action' => 'confdelete', 'id' => $id), 'index.php', $msg);
 
         break;
