@@ -187,15 +187,47 @@ switch($action) {
    break;
    
    case 'delete':
-	xoops_cp_header();
-        
-   include_once OLEDRION_ADMIN_PATH . 'admin_footer.php';
+        xoops_cp_header();
+		$id = isset($_GET['id']) ? intval($_GET['id']) : 0;
+		if($id == 0) {
+			oledrion_utils::redirect(_AM_OLEDRION_ERROR_1, $baseurl, 5);
+		}
+		$location = null;
+		$location = $h_oledrion_location->get($id);
+		if(!is_object($location)) {
+			oledrion_utils::redirect(_AM_OLEDRION_ERROR_10, $baseurl, 5);
+		}
+		$msg = sprintf(_AM_OLEDRION_CONF_DEL_CATEG, $location->getVar('location_title'));
+		xoops_confirm(array( 'op' => 'delivery', 'action' => 'confdelete', 'id' => $id), 'index.php', $msg);
    break;
    
-   case 'confdelete':
-	xoops_cp_header();
-        
-   include_once OLEDRION_ADMIN_PATH . 'admin_footer.php';
-   break;
+	case 'confdelete':
+
+		xoops_cp_header();
+		$id = isset($_POST['id']) ? intval($_POST['id']) : 0;
+		if(empty($id)) {
+			oledrion_utils::redirect(_AM_OLEDRION_ERROR_1, $baseurl, 5);
+		}
+		$opRedirect = 'location';
+
+			$item = null;
+			$item = $h_oledrion_location->get($id);
+			if(is_object($item)) {
+				//Delete location_delivery info
+				$criteria = new CriteriaCompo();
+				$criteria->add(new Criteria('ld_location', $item->getVar('location_id')));
+				$h_oledrion_location_delivery->deleteAll($criteria);
+				// Delete delivery
+				$res = $h_oledrion_location->delete($item);
+				if($res) {
+					oledrion_utils::updateCache();
+					oledrion_utils::redirect(_AM_OLEDRION_SAVE_OK, $baseurl.'?op='.$opRedirect,2);
+				} else {
+					oledrion_utils::redirect(_AM_OLEDRION_SAVE_PB, $baseurl.'?op='.$opRedirect,5);
+				}
+			} else {
+				oledrion_utils::redirect(_AM_OLEDRION_NOT_FOUND, $baseurl.'?op='.$opRedirect,5);
+			}
+		break;
 }	 
 ?>

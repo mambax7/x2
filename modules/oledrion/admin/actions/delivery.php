@@ -203,7 +203,6 @@ switch($action) {
 		}
 		$msg = sprintf(_AM_OLEDRION_CONF_DEL_CATEG, $delivery->getVar('delivery_title'));
 		xoops_confirm(array( 'op' => 'delivery', 'action' => 'confdelete', 'id' => $id), 'index.php', $msg);
-
    break;
 
 	case 'confdelete':
@@ -218,6 +217,11 @@ switch($action) {
 			$item = null;
 			$item = $h_oledrion_delivery->get($id);
 			if(is_object($item)) {
+				//Delete delivery payment info
+				$criteria = new CriteriaCompo();
+				$criteria->add(new Criteria('dp_delivery', $item->getVar('delivery_id')));
+				$h_oledrion_delivery_payment->deleteAll($criteria);
+				// Delete delivery
 				$res = $h_oledrion_delivery->delete($item);
 				if($res) {
 					oledrion_utils::updateCache();
