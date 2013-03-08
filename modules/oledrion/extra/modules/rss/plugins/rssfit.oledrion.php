@@ -18,48 +18,54 @@
  * @version     $Id$
  */
 
-if( !defined('RSSFIT_ROOT_PATH') ){ exit(); }
-class RssfitOledrion {
-	var $dirname = 'oledrion';
-	var $modname;
-	var $grab;
+if (!defined('RSSFIT_ROOT_PATH')) {
+    exit();
+}
+class RssfitOledrion
+{
+    var $dirname = 'oledrion';
+    var $modname;
+    var $grab;
 
-	function RssfitOledrion(){
-	}
+    function RssfitOledrion()
+    {
+    }
 
-	function loadModule(){
-		$mod =& $GLOBALS['module_handler']->getByDirname($this->dirname);
-		if( !$mod || !$mod->getVar('isactive') ){
-			return false;
-		}
-		$this->modname = $mod->getVar('name');
-		return $mod;
-	}
+    function loadModule()
+    {
+        $mod =& $GLOBALS['module_handler']->getByDirname($this->dirname);
+        if (!$mod || !$mod->getVar('isactive')) {
+            return false;
+        }
+        $this->modname = $mod->getVar('name');
+        return $mod;
+    }
 
-	function &grabEntries(&$obj){
-		$ret = false;
-		include XOOPS_ROOT_PATH.'/modules/oledrion/include/common.php';
-		$items = $h_oledrion_products->getRecentProducts(new oledrion_parameters(array('start' => 0, 'limit' => $this->grab)));
-		$i = 0;
+    function &grabEntries(&$obj)
+    {
+        $ret = false;
+        include XOOPS_ROOT_PATH . '/modules/oledrion/include/common.php';
+        $items = $h_oledrion_products->getRecentProducts(new oledrion_parameters(array('start' => 0, 'limit' => $this->grab)));
+        $i = 0;
 
-		if( false != $items && count($items) > 0 ){
-			foreach($items as $item) {
-				$ret[$i]['link'] = $ret[$i]['guid'] = $item->getLink();
-				$ret[$i]['title'] = $item->getVar('product_title', 'n');
-				$ret[$i]['timestamp'] = $item->getVar('product_submitted');
-				if(xoops_trim($item->getVar('product_summary')) != '') {
-					$description = $item->getVar('product_summary');
-				} else {
-					$description = $item->getVar('product_description');
-				}
-				$ret[$i]['description'] = $description;
-				$ret[$i]['category'] = $this->modname;
-				$ret[$i]['domain'] = XOOPS_URL.'/modules/'.$this->dirname.'/';
-				$i++;
-			}
-		}
-		return $ret;
-	}
+        if (false != $items && count($items) > 0) {
+            foreach ($items as $item) {
+                $ret[$i]['link'] = $ret[$i]['guid'] = $item->getLink();
+                $ret[$i]['title'] = $item->getVar('product_title', 'n');
+                $ret[$i]['timestamp'] = $item->getVar('product_submitted');
+                if (xoops_trim($item->getVar('product_summary')) != '') {
+                    $description = $item->getVar('product_summary');
+                } else {
+                    $description = $item->getVar('product_description');
+                }
+                $ret[$i]['description'] = $description;
+                $ret[$i]['category'] = $this->modname;
+                $ret[$i]['domain'] = XOOPS_URL . '/modules/' . $this->dirname . '/';
+                $i++;
+            }
+        }
+        return $ret;
+    }
 }
 
 

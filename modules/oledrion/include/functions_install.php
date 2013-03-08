@@ -18,7 +18,9 @@
  * @version     $Id$
  */
 
-function xoops_module_pre_install_oledrion($module) {
+function xoops_module_pre_install_oledrion($module)
+{
     return true;
 }
-?>	
+
+?>

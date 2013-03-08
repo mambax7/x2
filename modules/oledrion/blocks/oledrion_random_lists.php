@@ -26,22 +26,22 @@
  */
 function b_oledrion_random_lists_show($options)
 {
-	require XOOPS_ROOT_PATH.'/modules/oledrion/include/common.php';
-	oledrion_utils::loadLanguageFile('main.php');
-	$start = 0;
-	$limit = intval($options[0]);
-	$listType = intval($options[1]);
-	$block = array();
-	$handlers = oledrion_handler::getInstance();
-	$items = array();
-	//$items = $handlers->h_oledrion_lists->getRecentLists(new oledrion_parameters(array('start' => $start, 'limit' => $limit, 'sort' => 'RAND()', 'order' => 'DESC', 'idAsKey' => true, 'listType' => $listType)));
+    require XOOPS_ROOT_PATH . '/modules/oledrion/include/common.php';
+    oledrion_utils::loadLanguageFile('main.php');
+    $start = 0;
+    $limit = intval($options[0]);
+    $listType = intval($options[1]);
+    $block = array();
+    $handlers = oledrion_handler::getInstance();
+    $items = array();
+    //$items = $handlers->h_oledrion_lists->getRecentLists(new oledrion_parameters(array('start' => $start, 'limit' => $limit, 'sort' => 'RAND()', 'order' => 'DESC', 'idAsKey' => true, 'listType' => $listType)));
     $items = $handlers->h_oledrion_lists->getRecentLists(new oledrion_parameters(array('start' => $start, 'limit' => $limit, 'sort' => 'RAND()', 'order' => 'DESC', 'idAsKey' => true, 'listType' => OLEDRION_LISTS_ALL_PUBLIC)));
-	if(count($items) > 0) {
-		foreach($items as $item) {
-			$block['random_lists'][] = $item->toArray();
-		}
-	}
-	return $block;
+    if (count($items) > 0) {
+        foreach ($items as $item) {
+            $block['random_lists'][] = $item->toArray();
+        }
+    }
+    return $block;
 }
 
 /**
@@ -52,15 +52,15 @@ function b_oledrion_random_lists_show($options)
  */
 function b_oledrion_random_lists_edit($options)
 {
-	include XOOPS_ROOT_PATH.'/modules/oledrion/include/common.php';
-	$form = '';
-	$form .= "<table border='0'>";
-	$form .= '<tr><td>'._MB_OLEDRION_LISTS_COUNT."</td><td><input type='text' name='options[]' id='options' value='".intval($options[0])."' /></td></tr>";
-	$listTypes = oledrion_lists::getTypesArray();
-	$listTypeSelect = oledrion_utils::htmlSelect('options[]', $listTypes, intval($options[1]), false);
-	$form .= '<tr><td>'._MB_OLEDRION_LISTS_TYPE."</td><td>".$listTypeSelect."</td></tr>";
-	$form .= '</table>';
-	return $form;
+    include XOOPS_ROOT_PATH . '/modules/oledrion/include/common.php';
+    $form = '';
+    $form .= "<table border='0'>";
+    $form .= '<tr><td>' . _MB_OLEDRION_LISTS_COUNT . "</td><td><input type='text' name='options[]' id='options' value='" . intval($options[0]) . "' /></td></tr>";
+    $listTypes = oledrion_lists::getTypesArray();
+    $listTypeSelect = oledrion_utils::htmlSelect('options[]', $listTypes, intval($options[1]), false);
+    $form .= '<tr><td>' . _MB_OLEDRION_LISTS_TYPE . "</td><td>" . $listTypeSelect . "</td></tr>";
+    $form .= '</table>';
+    return $form;
 }
 
 /**
@@ -68,11 +68,12 @@ function b_oledrion_random_lists_edit($options)
  */
 function b_oledrion_random_lists_duplicatable($options)
 {
-	$options = explode('|',$options);
-	$block = & b_oledrion_random_lists_show($options);
+    $options = explode('|', $options);
+    $block = & b_oledrion_random_lists_show($options);
 
-	$tpl = new XoopsTpl();
-	$tpl->assign('block', $block);
-	$tpl->display('db:oledrion_block_random_lists.html');
+    $tpl = new XoopsTpl();
+    $tpl->assign('block', $block);
+    $tpl->display('db:oledrion_block_random_lists.html');
 }
+
 ?>

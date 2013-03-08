@@ -24,86 +24,87 @@
 
 
 if (!defined('XOOPS_ROOT_PATH')) {
-	die("XOOPS root path not defined");
+    die("XOOPS root path not defined");
 }
 
 
 class oledrion_Currency
 {
-	protected $_decimalsCount;
-	protected $_thousandsSep;
-	protected $_decimalSep;
-	protected $_moneyFull;
-	protected $_moneyShort;
-	protected $_monnaiePlace;
+    protected $_decimalsCount;
+    protected $_thousandsSep;
+    protected $_decimalSep;
+    protected $_moneyFull;
+    protected $_moneyShort;
+    protected $_monnaiePlace;
 
-	function __construct()
-	{
-		// Get the module's preferences
-		$this->_decimalsCount = oledrion_utils::getModuleOption('decimals_count');
-		$this->_thousandsSep = oledrion_utils::getModuleOption('thousands_sep');
-		$this->_decimalSep = oledrion_utils::getModuleOption('decimal_sep');
-		$this->_moneyFull = oledrion_utils::getModuleOption('money_full');
-		$this->_moneyShort = oledrion_utils::getModuleOption('money_short');
-		$this->_monnaiePlace = oledrion_utils::getModuleOption('monnaie_place');
-		$this->_thousandsSep = str_replace('[space]', ' ', $this->_thousandsSep);
-		$this->_decimalSep = str_replace('[space]', ' ', $this->_decimalSep);
-	}
+    function __construct()
+    {
+        // Get the module's preferences
+        $this->_decimalsCount = oledrion_utils::getModuleOption('decimals_count');
+        $this->_thousandsSep = oledrion_utils::getModuleOption('thousands_sep');
+        $this->_decimalSep = oledrion_utils::getModuleOption('decimal_sep');
+        $this->_moneyFull = oledrion_utils::getModuleOption('money_full');
+        $this->_moneyShort = oledrion_utils::getModuleOption('money_short');
+        $this->_monnaiePlace = oledrion_utils::getModuleOption('monnaie_place');
+        $this->_thousandsSep = str_replace('[space]', ' ', $this->_thousandsSep);
+        $this->_decimalSep = str_replace('[space]', ' ', $this->_decimalSep);
+    }
 
-	/**
-	 * Access the only instance of this class
+    /**
+     * Access the only instance of this class
      *
-     * @return	object
+     * @return    object
      *
      * @static
      * @staticvar   object
-	 */
+     */
 
-	function &getInstance()
-	{
-		static $instance;
-		if (!isset($instance)) {
-			$instance = new oledrion_Currency();
-		}
-		return $instance;
-	}
+    function &getInstance()
+    {
+        static $instance;
+        if (!isset($instance)) {
+            $instance = new oledrion_Currency();
+        }
+        return $instance;
+    }
 
-	/**
-	 * Returns an amount according to the currency's preferences (defined in the module's options)
-	 *
-	 * @param float $amount The amount to work on
-	 * @return string The amount formated according to the currency
-	 */
-	function amountInCurrency($amount = 0)
-	{
-		return number_format($amount, $this->_decimalsCount, $this->_decimalSep, $this->_thousandsSep);
-	}
+    /**
+     * Returns an amount according to the currency's preferences (defined in the module's options)
+     *
+     * @param float $amount The amount to work on
+     * @return string The amount formated according to the currency
+     */
+    function amountInCurrency($amount = 0)
+    {
+        return number_format($amount, $this->_decimalsCount, $this->_decimalSep, $this->_thousandsSep);
+    }
 
 
-	/**
-	 * Format an amount for display according to module's preferences
-	 *
-	 * @param float $originalAmount The amount to format
-	 * @param string $format Format to use, 's' for Short and 'l' for Long
-	 * @return string The amount formated
-	 */
+    /**
+     * Format an amount for display according to module's preferences
+     *
+     * @param float $originalAmount The amount to format
+     * @param string $format Format to use, 's' for Short and 'l' for Long
+     * @return string The amount formated
+     */
     function amountForDisplay($originalAmount, $format = 's')
     {
-		$amount = $this->amountInCurrency($originalAmount);
+        $amount = $this->amountInCurrency($originalAmount);
 
-		$monnaieLeft = $monnaieRight = $monnaieSleft = $monnaieSright = '';
-		if($this->_monnaiePlace == 1) {	// To the right
-			$monnaieRight = ''.$this->_moneyFull;		// Long version
-			$monnaieSright = ''.$this->_moneyShort;	// Short version
-		} else {	// To the left
-			$monnaieLeft = $this->_moneyFull.'';	// Long version
-			$monnaieSleft = $this->_moneyShort.'';	// Short version
-		}
-		if($format != 's') {
-			return $monnaieLeft.$amount.$monnaieRight;
-		} else {
-			return $monnaieSleft.$amount.$monnaieSright;
-		}
+        $monnaieLeft = $monnaieRight = $monnaieSleft = $monnaieSright = '';
+        if ($this->_monnaiePlace == 1) { // To the right
+            $monnaieRight = '' . $this->_moneyFull; // Long version
+            $monnaieSright = '' . $this->_moneyShort; // Short version
+        } else { // To the left
+            $monnaieLeft = $this->_moneyFull . ''; // Long version
+            $monnaieSleft = $this->_moneyShort . ''; // Short version
+        }
+        if ($format != 's') {
+            return $monnaieLeft . $amount . $monnaieRight;
+        } else {
+            return $monnaieSleft . $amount . $monnaieSright;
+        }
     }
 }
+
 ?>

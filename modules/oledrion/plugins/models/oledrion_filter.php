@@ -22,15 +22,16 @@
  * Every filter plugin must extend this class
  */
 if (!defined('XOOPS_ROOT_PATH')) {
-	die("XOOPS root path not defined");
+    die("XOOPS root path not defined");
 }
 
 abstract class oledrion_filter
 {
-	/**
-	 * Retourne la liste des évènements traités par le plugin
-	 * @return array
-	 */
-	abstract static function registerEvents();
+    /**
+     * Retourne la liste des évènements traités par le plugin
+     * @return array
+     */
+    abstract static function registerEvents();
 }
+
 ?>

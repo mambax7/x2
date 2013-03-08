@@ -25,10 +25,10 @@
  *
  */
 if (!defined('XOOPS_ROOT_PATH')) {
-	die("XOOPS root path not defined");
+    die("XOOPS root path not defined");
 }
 
-require_once XOOPS_ROOT_PATH.'/class/xoopslists.php';
+require_once XOOPS_ROOT_PATH . '/class/xoopslists.php';
 
 class oledrion_gateways
 {
@@ -36,27 +36,27 @@ class oledrion_gateways
     /**
      * Retourne la passerelle de paiement en cours d'utilisation
      *
-     * @return string	Le nom de la  passerelle de paiement (en fait le nom de son répertoire)
+     * @return string    Le nom de la  passerelle de paiement (en fait le nom de son répertoire)
      */
     function getCurrentGateway()
     {
         $return = xoops_trim(oledrion_utils::getModuleOption('used_gateway'));
-        if($return == '') {
-            $return = 'paypal';    // Valeur par défaut
+        if ($return == '') {
+            $return = 'paypal'; // Valeur par défaut
         }
         return $return;
     }
-    
+
     /**
      * Retourne la passerelle de paiement en cours d'utilisation
      *
-     * @return string	Le nom de la  passerelle de paiement (en fait le nom de son répertoire)
+     * @return string    Le nom de la  passerelle de paiement (en fait le nom de son répertoire)
      */
     function getDefaultGateway()
     {
         $return = xoops_trim(oledrion_utils::getModuleOption('used_gateway'));
-        if($return == '') {
-            $return = 'paypal';    // Valeur par défaut
+        if ($return == '') {
+            $return = 'paypal'; // Valeur par défaut
         }
         return $return;
     }
@@ -64,11 +64,12 @@ class oledrion_gateways
     /**
      * Nettoie le nom de la passerelle de paiement
      *
-     * @param string $gatewayName	Le nom de la  passerelle de paiement
+     * @param string $gatewayName    Le nom de la  passerelle de paiement
      * @return string
      */
-    function purifyGatewayName($gatewayName) {
-    	return str_replace('..', '', $gatewayName);
+    function purifyGatewayName($gatewayName)
+    {
+        return str_replace('..', '', $gatewayName);
     }
 
     /**
@@ -78,19 +79,20 @@ class oledrion_gateways
      */
     function getInstalledGatewaysList()
     {
-        return XoopsLists::getDirListAsArray(OLEDRION_ADMIN_PATH.'gateways/');
+        return XoopsLists::getDirListAsArray(OLEDRION_ADMIN_PATH . 'gateways/');
     }
 
     /**
      * Retourne le chemin d'accès à une passerelle de paiement
      *
-     * @param string $gatewayName	Le nom de la  passerelle de paiement (son répertoire)
+     * @param string $gatewayName    Le nom de la  passerelle de paiement (son répertoire)
      * @return string
      */
     function getGatewayPath($gatewayName)
     {
-        return OLEDRION_ADMIN_PATH.'gateways'.DIRECTORY_SEPARATOR.$gatewayName;    // Par exemple c:/inetpub/wwwroot/xoops/modules/oledrion/admin/gateways/paypal
-	}
+        return OLEDRION_ADMIN_PATH . 'gateways' . DIRECTORY_SEPARATOR . $gatewayName; // Par exemple c:/inetpub/wwwroot/xoops/modules/oledrion/admin/gateways/paypal
+    }
+
     /**
      * Retourne le chemin complet vers le fichier de langue de la passerelle
      *
@@ -101,34 +103,34 @@ class oledrion_gateways
     {
         global $xoopsConfig;
         $gatewayPath = self::getGatewayPath($gatewayName);
-        return $gatewayPath.DIRECTORY_SEPARATOR.'language/'.$xoopsConfig['language'].'/main.php';
+        return $gatewayPath . DIRECTORY_SEPARATOR . 'language/' . $xoopsConfig['language'] . '/main.php';
     }
 
 
     /**
      * Charge le fichier de traductions d'une passerelle de paiement
      *
-     * @param string $gatewayName		Le nom de la  passerelle de paiement (son répertoire)
-     * @param string $languageFilename	Utilisé pour retourner le nom du fichier de langue inclu
-     * @return boolean		True si le chargement a réussi sinon Faux
+     * @param string $gatewayName        Le nom de la  passerelle de paiement (son répertoire)
+     * @param string $languageFilename    Utilisé pour retourner le nom du fichier de langue inclu
+     * @return boolean        True si le chargement a réussi sinon Faux
      */
     function loadGatewaysLanguageDefines($gatewayName, &$languageFilename = null, $includeIt = true)
     {
         $gatewayPath = self::getGatewayPath($gatewayName);
         $languageFileIncluded = false;
         $languageFile = self::getGatewayLanguageFilename($gatewayName);
-        $defaultLanguageFile = $gatewayPath.DIRECTORY_SEPARATOR.'language/english/main.php';
+        $defaultLanguageFile = $gatewayPath . DIRECTORY_SEPARATOR . 'language/english/main.php';
         if (file_exists($languageFile)) {
-            if($includeIt) {
-            	require_once $languageFile;
+            if ($includeIt) {
+                require_once $languageFile;
             }
             $languageFileIncluded = true;
             $languageFilename = $languageFile;
-        } elseif(file_exists($defaultLanguageFile)) {
+        } elseif (file_exists($defaultLanguageFile)) {
             $languageFileIncluded = true;
-            if($includeIt) {
-				require_once $defaultLanguageFile;
-			}
+            if ($includeIt) {
+                require_once $defaultLanguageFile;
+            }
             $languageFilename = $defaultLanguageFile;
         }
         return $languageFileIncluded;
@@ -137,25 +139,25 @@ class oledrion_gateways
     /**
      * Retourne le chemin d'accès complet à une passerelle de paiement
      *
-     * @param string $gatewayName	Le nom de la  passerelle de paiement (son répertoire)
+     * @param string $gatewayName    Le nom de la  passerelle de paiement (son répertoire)
      * @return string
      */
     function getGatewayFullClassPath($gatewayName)
     {
         $gatewayPath = self::getGatewayPath($gatewayName);
-        return $gatewayPath.DIRECTORY_SEPARATOR.'gateway.php';
+        return $gatewayPath . DIRECTORY_SEPARATOR . 'gateway.php';
     }
 
     /**
      * Indique si le fichier contenant la classe d'une passerelle de paiement existe
      *
-     * @param string $gatewayName	Le nom de la  passerelle de paiement (son répertoire)
-     * @return boolean	True si le fichier de la classe existe sinon Faux
+     * @param string $gatewayName    Le nom de la  passerelle de paiement (son répertoire)
+     * @return boolean    True si le fichier de la classe existe sinon Faux
      */
     function gatewayClassFileExists($gatewayName)
     {
         $gatewayClassPath = self::getGatewayFullClassPath($gatewayName);
-        if(file_exists($gatewayClassPath)) {
+        if (file_exists($gatewayClassPath)) {
             return true;
         } else {
             return false;
@@ -176,23 +178,24 @@ class oledrion_gateways
     /**
      * Retourne le nom de la classe attendu pour une passerelle de paiement
      *
-     * @param string $gatewayName	Le nom de la  passerelle de paiement (son répertoire)
+     * @param string $gatewayName    Le nom de la  passerelle de paiement (son répertoire)
      * @return string
      */
     function gatewayClassName($gatewayName)
     {
-        return 'oledrion_'.$gatewayName;
+        return 'oledrion_' . $gatewayName;
     }
+
     /**
      * Indique si la classe de la passerelle de paiement existe
      *
-     * @param string $gatewayName	Le nom de la  passerelle de paiement (son répertoire)
+     * @param string $gatewayName    Le nom de la  passerelle de paiement (son répertoire)
      * @return boolean
      */
     function gatewayClassExists($gatewayName)
     {
         $gatewayClassName = self::gatewayClassName($gatewayName);
-        if(class_exists($gatewayClassName)) {
+        if (class_exists($gatewayClassName)) {
             return true;
         } else {
             return false;
@@ -202,12 +205,12 @@ class oledrion_gateways
     /**
      * Indique si un objet de type gateway étend bien la classe abstraite
      *
-     * @param object $gateway	L'objet à vérifier
+     * @param object $gateway    L'objet à vérifier
      * @return boolean
      */
     function asGoodAncestor($gateway)
     {
-        if(get_parent_class($gateway) == 'oledrion_gateway') {
+        if (get_parent_class($gateway) == 'oledrion_gateway') {
             return true;
         } else {
             return false;
@@ -223,7 +226,7 @@ class oledrion_gateways
     function isInstalledGatewayName($gatewayName)
     {
         $installedGateways = self::getInstalledGatewaysList();
-        if(!in_array($gatewayName, $installedGateways)) {
+        if (!in_array($gatewayName, $installedGateways)) {
             return false;
         } else {
             return true;
@@ -233,20 +236,20 @@ class oledrion_gateways
     /**
      * Raccourcis pour récupérer l'objet gateway courant
      *
-     * @return mixed	Soit l'objet gateway soit null
+     * @return mixed    Soit l'objet gateway soit null
      *
      */
     function getGatewayObject()
     {
         $gateway = self::getCurrentGateway();
-        if(self::isInstalledGatewayName($gateway)) {
-            if(self::gatewayClassFileExists($gateway)) {
-                if(self::loadGatewaysLanguageDefines($gateway)) {
+        if (self::isInstalledGatewayName($gateway)) {
+            if (self::gatewayClassFileExists($gateway)) {
+                if (self::loadGatewaysLanguageDefines($gateway)) {
                     self::includeGatewayClass($gateway);
-                    if(self::gatewayClassExists($gateway)) {
+                    if (self::gatewayClassExists($gateway)) {
                         $gatewayClassName = self::gatewayClassName($gateway);
                         $temporaryGateway = new $gatewayClassName();
-                        if(self::asGoodAncestor($temporaryGateway)) {
+                        if (self::asGoodAncestor($temporaryGateway)) {
                             return $temporaryGateway;
                         }
                     }
@@ -256,4 +259,5 @@ class oledrion_gateways
         return null;
     }
 }
+
 ?>

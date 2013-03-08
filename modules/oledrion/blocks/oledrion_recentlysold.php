@@ -20,47 +20,47 @@
 
 /**
  * This block shows the products that were recently sold
- * @param array $options	[0] = Nombre maximum de produits à voir
+ * @param array $options    [0] = Nombre maximum de produits à voir
  * @return array
  */
 function b_oledrion_recentlysold_show($options)
 {
-	global $xoopsConfig, $xoopsTpl;
-	require XOOPS_ROOT_PATH.'/modules/oledrion/include/common.php';
-	$categoryId = 0;
-	$start = 0;
-	$limit = $options[0];
-	$oledrion_shelf_parameters->resetDefaultValues()->setProductsType('recentlysold')->setStart($start)->setLimit($limit);
-	$products = $oledrion_shelf->getProducts($oledrion_shelf_parameters);
-	if(isset($products['lastTitle'])) {
-		unset($products['lastTitle']);
-	}
-	if(count($products) > 0) {
-		$url = OLEDRION_URL.'include/oledrion.css';
-		$block = array();
-		$block['nostock_msg'] = oledrion_utils::getModuleOption('nostock_msg');
-		$block['block_products']= $products;
-		$xoopsTpl->assign("xoops_module_header", "<link rel=\"stylesheet\" type=\"text/css\" href=\"$url\" />");
-		return $block;
-	} else {
-		return false;
-	}
+    global $xoopsConfig, $xoopsTpl;
+    require XOOPS_ROOT_PATH . '/modules/oledrion/include/common.php';
+    $categoryId = 0;
+    $start = 0;
+    $limit = $options[0];
+    $oledrion_shelf_parameters->resetDefaultValues()->setProductsType('recentlysold')->setStart($start)->setLimit($limit);
+    $products = $oledrion_shelf->getProducts($oledrion_shelf_parameters);
+    if (isset($products['lastTitle'])) {
+        unset($products['lastTitle']);
+    }
+    if (count($products) > 0) {
+        $url = OLEDRION_URL . 'include/oledrion.css';
+        $block = array();
+        $block['nostock_msg'] = oledrion_utils::getModuleOption('nostock_msg');
+        $block['block_products'] = $products;
+        $xoopsTpl->assign("xoops_module_header", "<link rel=\"stylesheet\" type=\"text/css\" href=\"$url\" />");
+        return $block;
+    } else {
+        return false;
+    }
 }
 
 /**
  * Edition des paramètres du blocs
  *
- * @param array $options	[0] = Nombre maximum de produits à voir
+ * @param array $options    [0] = Nombre maximum de produits à voir
  * @return string
  */
 function b_oledrion_recentlysold_edit($options)
 {
-	require XOOPS_ROOT_PATH.'/modules/oledrion/include/common.php';
-	$form = '';
-	$form .= "<table border='0'>";
-	$form .= '<tr><td>'._MB_OLEDRION_PRODUCTS_CNT . "</td><td><input type='text' name='options[]' id='options' value='".$options[0]."' /></td></tr>";
-	$form .= '</table>';
-	return $form;
+    require XOOPS_ROOT_PATH . '/modules/oledrion/include/common.php';
+    $form = '';
+    $form .= "<table border='0'>";
+    $form .= '<tr><td>' . _MB_OLEDRION_PRODUCTS_CNT . "</td><td><input type='text' name='options[]' id='options' value='" . $options[0] . "' /></td></tr>";
+    $form .= '</table>';
+    return $form;
 }
 
 /**
@@ -70,11 +70,12 @@ function b_oledrion_recentlysold_edit($options)
  */
 function b_oledrion_recentlysold_duplicatable($options)
 {
-	$options = explode('|',$options);
-	$block = & b_oledrion_bestsales_show($options);
+    $options = explode('|', $options);
+    $block = & b_oledrion_bestsales_show($options);
 
-	$tpl = new XoopsTpl();
-	$tpl->assign('block', $block);
-	$tpl->display('db:oledrion_block_recentlysold.html');
+    $tpl = new XoopsTpl();
+    $tpl->assign('block', $block);
+    $tpl->display('db:oledrion_block_recentlysold.html');
 }
+
 ?>

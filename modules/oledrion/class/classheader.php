@@ -17,16 +17,16 @@
  * @author      Hervé Thouzard (http://www.herve-thouzard.com/)
  * @version     $Id$
  */
- 
+
 /**
  * Entête pour les classes d'ORM
  */
 if (!defined('XOOPS_ROOT_PATH')) {
-	die("XOOPS root path not defined");
+    die("XOOPS root path not defined");
 }
 
-include_once XOOPS_ROOT_PATH.'/kernel/object.php';
+include_once XOOPS_ROOT_PATH . '/kernel/object.php';
 if (!class_exists('Oledrion_XoopsPersistableObjectHandler')) {
-	include_once XOOPS_ROOT_PATH.'/modules/oledrion/class/PersistableObjectHandler.php';
+    include_once XOOPS_ROOT_PATH . '/modules/oledrion/class/PersistableObjectHandler.php';
 }
 ?>

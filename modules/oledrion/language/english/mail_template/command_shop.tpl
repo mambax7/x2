@@ -6,13 +6,13 @@ The user's IP was {IP}.
 - Order number : {NUM_COMMANDE}
 
 - Details on the client :
-		First name and last name : {NOM} {PRENOM}
-		Address : {ADRESSE}
-		Post code and town : {CP} {VILLE}
-		country : {PAYS}
-		Telephone : {TELEPHONE}
-		Email : {EMAIL}
-		Invoice wanted : {FACTURE}
+First name and last name : {NOM} {PRENOM}
+Address : {ADRESSE}
+Post code and town : {CP} {VILLE}
+country : {PAYS}
+Telephone : {TELEPHONE}
+Email : {EMAIL}
+Invoice wanted : {FACTURE}
 
 
 - Order details :

@@ -22,61 +22,63 @@ require 'classheader.php';
 
 class oledrion_location extends Oledrion_Object
 {
-	function __construct()
-	{
-		$this->initVar('location_id',XOBJ_DTYPE_INT,null,false);
-		$this->initVar('location_pid',XOBJ_DTYPE_INT,null,false);
-		$this->initVar('location_title',XOBJ_DTYPE_TXTBOX,null,false);
-		$this->initVar('location_online',XOBJ_DTYPE_INT,null,false);
-		$this->initVar('location_type',XOBJ_DTYPE_TXTBOX,null,false);
-	}	
-	
-		/**
-	 * Retourne les éléments du produits formatés pour affichage
-	 *
-	 * @param string $format
-	 * @return array
-	 */
-	function toArray($format = 's')
+    function __construct()
     {
-		$ret = array();
-		$ret = parent::toArray($format);
-		return $ret;
+        $this->initVar('location_id', XOBJ_DTYPE_INT, null, false);
+        $this->initVar('location_pid', XOBJ_DTYPE_INT, null, false);
+        $this->initVar('location_title', XOBJ_DTYPE_TXTBOX, null, false);
+        $this->initVar('location_online', XOBJ_DTYPE_INT, null, false);
+        $this->initVar('location_type', XOBJ_DTYPE_TXTBOX, null, false);
+    }
+
+    /**
+     * Retourne les éléments du produits formatés pour affichage
+     *
+     * @param string $format
+     * @return array
+     */
+    function toArray($format = 's')
+    {
+        $ret = array();
+        $ret = parent::toArray($format);
+        return $ret;
     }
 }
 
 
 class OledrionOledrion_locationHandler extends Oledrion_XoopsPersistableObjectHandler
 {
-	function __construct($db)
-	{	//							            Table					Classe				Id
-		parent::__construct($db, 'oledrion_location', 'oledrion_location', 'location_id');
-	}	
-	
-	function getAllLocation(oledrion_parameters $parameters)
-	{
-		$parameters = $parameters->extend(new oledrion_parameters(array('start' => 0, 'limit' => 0, 'sort' => 'location_id', 'order' => 'ASC')));
-		$critere = new Criteria('location_id', 0 ,'<>');
-		$critere->setLimit($parameters['limit']);
-		$critere->setStart($parameters['start']);
-		$critere->setSort($parameters['sort']);
-		$critere->setOrder($parameters['order']);
-		$location = array();
-		$location = $this->getObjects($critere);
-		return $location;
-	}
-	
-	function getAllPid(oledrion_parameters $parameters) {
-		$parameters = $parameters->extend(new oledrion_parameters(array('start' => 0, 'limit' => 0, 'sort' => 'location_id', 'order' => 'ASC')));
-		$critere = new CriteriaCompo();
-		$critere->add(new Criteria('location_type', 'parent'));
-		$critere->setLimit($parameters['limit']);
-		$critere->setStart($parameters['start']);
-		$critere->setSort($parameters['sort']);
-		$critere->setOrder($parameters['order']);
-		$pid = array();
-		$pid = $this->getObjects($critere);
-		return $pid;
-	}	
+    function __construct($db)
+    { //							            Table					Classe				Id
+        parent::__construct($db, 'oledrion_location', 'oledrion_location', 'location_id');
+    }
+
+    function getAllLocation(oledrion_parameters $parameters)
+    {
+        $parameters = $parameters->extend(new oledrion_parameters(array('start' => 0, 'limit' => 0, 'sort' => 'location_id', 'order' => 'ASC')));
+        $critere = new Criteria('location_id', 0, '<>');
+        $critere->setLimit($parameters['limit']);
+        $critere->setStart($parameters['start']);
+        $critere->setSort($parameters['sort']);
+        $critere->setOrder($parameters['order']);
+        $location = array();
+        $location = $this->getObjects($critere);
+        return $location;
+    }
+
+    function getAllPid(oledrion_parameters $parameters)
+    {
+        $parameters = $parameters->extend(new oledrion_parameters(array('start' => 0, 'limit' => 0, 'sort' => 'location_id', 'order' => 'ASC')));
+        $critere = new CriteriaCompo();
+        $critere->add(new Criteria('location_type', 'parent'));
+        $critere->setLimit($parameters['limit']);
+        $critere->setStart($parameters['start']);
+        $critere->setSort($parameters['sort']);
+        $critere->setOrder($parameters['order']);
+        $pid = array();
+        $pid = $this->getObjects($critere);
+        return $pid;
+    }
 }
+
 ?>

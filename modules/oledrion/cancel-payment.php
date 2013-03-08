@@ -24,32 +24,32 @@
 require 'header.php';
 $GLOBALS['current_category'] = -1;
 $xoopsOption['template_main'] = 'oledrion_cancelpurchase.html';
-require_once XOOPS_ROOT_PATH.'/header.php';
+require_once XOOPS_ROOT_PATH . '/header.php';
 
 // On donne la possibilité à la passerelle d'annuler la commande
 $gateway = null;
 $gateway = oledrion_gateways::getGatewayObject();
-if(is_object($gateway) && method_exists($gateway, 'cancelOrder')) {
-    if(!file_exists(OLEDRION_GATEWAY_LOG_PATH)) {
+if (is_object($gateway) && method_exists($gateway, 'cancelOrder')) {
+    if (!file_exists(OLEDRION_GATEWAY_LOG_PATH)) {
         file_put_contents(OLEDRION_GATEWAY_LOG_PATH, '<?php exit(); ?>');
     }
     $gateway->cancelOrder(OLEDRION_GATEWAY_LOG_PATH);
     unset($gateway);
-} elseif(isset($_GET['id'])) {
-	$order = null;
-	$order = $h_oledrion_commands->getOrderFromCancelPassword($_GET['id']);
-	if(is_object($order)) {
-		$h_oledrion_commands->setOrderCanceled($order);
-	}
+} elseif (isset($_GET['id'])) {
+    $order = null;
+    $order = $h_oledrion_commands->getOrderFromCancelPassword($_GET['id']);
+    if (is_object($order)) {
+        $h_oledrion_commands->setOrderCanceled($order);
+    }
 }
 $h_oledrion_caddy->emptyCart();
 
 $xoopsTpl->assign('global_advert', oledrion_utils::getModuleOption('advertisement'));
-$xoopsTpl->assign('breadcrumb', oledrion_utils::breadcrumb(array(OLEDRION_URL.basename(__FILE__) => _OLEDRION_ORDER_CANCELED)));
+$xoopsTpl->assign('breadcrumb', oledrion_utils::breadcrumb(array(OLEDRION_URL . basename(__FILE__) => _OLEDRION_ORDER_CANCELED)));
 
-$title = _OLEDRION_ORDER_CANCELED.' - '.oledrion_utils::getModuleName();
+$title = _OLEDRION_ORDER_CANCELED . ' - ' . oledrion_utils::getModuleName();
 oledrion_utils::setMetas($title, $title);
 oledrion_utils::setCSS();
 oledrion_utils::setLocalCSS($xoopsConfig['language']);
-require_once(XOOPS_ROOT_PATH.'/footer.php');
+require_once(XOOPS_ROOT_PATH . '/footer.php');
 ?>

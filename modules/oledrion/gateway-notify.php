@@ -30,8 +30,8 @@ require 'header.php';
 $gateway = oledrion_gateways::getCurrentGateway();
 $temporaryGateway = null;
 $temporaryGateway = oledrion_gateways::getGatewayObject();
-if(is_object($temporaryGateway)) {
-    if(!file_exists(OLEDRION_GATEWAY_LOG_PATH)) {
+if (is_object($temporaryGateway)) {
+    if (!file_exists(OLEDRION_GATEWAY_LOG_PATH)) {
         file_put_contents(OLEDRION_GATEWAY_LOG_PATH, '<?php exit(); ?>');
     }
     $user_log = $temporaryGateway->gatewayNotify(OLEDRION_GATEWAY_LOG_PATH);

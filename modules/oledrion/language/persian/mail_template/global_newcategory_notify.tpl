@@ -19,6 +19,6 @@
 
 -----------
 
-{X_SITENAME} ({X_SITEURL}) 
+{X_SITENAME} ({X_SITEURL})
 وب مستر
 {X_ADMINMAIL}

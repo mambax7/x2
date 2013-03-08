@@ -17,9 +17,9 @@
  * @author      Hervé Thouzard (http://www.herve-thouzard.com/)
  * @version     $Id$
  */
-define("_OLEDRION_PAYPAL_PARAMETERS","Parameters");
-define('_OLEDRION_PAYPAL_EMAIL',"Paypal Email address");
-define('_OLEDRION_PAYPAL_EMAILDSC',"Address to use for payments and orders notifications.");
-define('_OLEDRION_PAYPAL_TEST',"Use Paypal sandbox ?");
-define('_OLEDRION_PAYPAL_MONEY_P',"Select Paypal currency code");
+define("_OLEDRION_PAYPAL_PARAMETERS", "Parameters");
+define('_OLEDRION_PAYPAL_EMAIL', "Paypal Email address");
+define('_OLEDRION_PAYPAL_EMAILDSC', "Address to use for payments and orders notifications.");
+define('_OLEDRION_PAYPAL_TEST', "Use Paypal sandbox ?");
+define('_OLEDRION_PAYPAL_MONEY_P', "Select Paypal currency code");
 ?>

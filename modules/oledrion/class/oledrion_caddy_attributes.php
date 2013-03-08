@@ -25,65 +25,65 @@ require 'classheader.php';
 
 class oledrion_caddy_attributes extends Oledrion_Object
 {
-	function __construct()
-	{
-		$this->initVar('ca_id', XOBJ_DTYPE_INT, null, false);
-		$this->initVar('ca_cmd_id', XOBJ_DTYPE_INT, null, false);
-		$this->initVar('ca_caddy_id', XOBJ_DTYPE_INT, null, false);
+    function __construct()
+    {
+        $this->initVar('ca_id', XOBJ_DTYPE_INT, null, false);
+        $this->initVar('ca_cmd_id', XOBJ_DTYPE_INT, null, false);
+        $this->initVar('ca_caddy_id', XOBJ_DTYPE_INT, null, false);
         $this->initVar('ca_attribute_id', XOBJ_DTYPE_INT, null, false);
-        $this->initVar('ca_attribute_values',XOBJ_DTYPE_TXTAREA, null, false);
-        $this->initVar('ca_attribute_names',XOBJ_DTYPE_TXTAREA, null, false);
-        $this->initVar('ca_attribute_prices',XOBJ_DTYPE_TXTAREA, null, false);
-	}
+        $this->initVar('ca_attribute_values', XOBJ_DTYPE_TXTAREA, null, false);
+        $this->initVar('ca_attribute_names', XOBJ_DTYPE_TXTAREA, null, false);
+        $this->initVar('ca_attribute_prices', XOBJ_DTYPE_TXTAREA, null, false);
+    }
 
-	/**
-	 * Retourne une option de l'attribut
-	 *
-	 * @param string $valueToGet
-	 * @param string $format
-	 * @return array
-	 * @since 2.3.2009.03.11
-	 */
-	function getOption($valueToGet, $format = 'e')
-	{
-	    $names = array();
-	    if(xoops_trim($this->getVar($valueToGet, $format)) != '') {
-	        $names = explode(OLEDRION_ATTRIBUTE_SEPARATOR, $this->getVar($valueToGet, $format));
-	    }
-	    return $names;
-	}
+    /**
+     * Retourne une option de l'attribut
+     *
+     * @param string $valueToGet
+     * @param string $format
+     * @return array
+     * @since 2.3.2009.03.11
+     */
+    function getOption($valueToGet, $format = 'e')
+    {
+        $names = array();
+        if (xoops_trim($this->getVar($valueToGet, $format)) != '') {
+            $names = explode(OLEDRION_ATTRIBUTE_SEPARATOR, $this->getVar($valueToGet, $format));
+        }
+        return $names;
+    }
 
 
-	/**
-	 * Ajout d'une option à l'attribut (soit une option vide soit une option valorisée)
-	 *
-	 * @param string $name
-	 * @param string $value
-	 * @param string $price
-	 * @return boolean
-	 * @since 2.3.2009.03.16
-	 */
-	private function appendOption($name, $value, $price = '')
-	{
-	    $names = $values = $prices = array();
+    /**
+     * Ajout d'une option à l'attribut (soit une option vide soit une option valorisée)
+     *
+     * @param string $name
+     * @param string $value
+     * @param string $price
+     * @return boolean
+     * @since 2.3.2009.03.16
+     */
+    private function appendOption($name, $value, $price = '')
+    {
+        $names = $values = $prices = array();
         $format = 'e';
         $names = $this->getOption('ca_attribute_names', $format);
         $values = $this->getOption('ca_attribute_values', $format);
-        if(oledrion_utils::getModuleOption('use_price')) {
+        if (oledrion_utils::getModuleOption('use_price')) {
             $prices = $this->getOption('ca_attribute_prices', $format);
         }
         $names[] = $name;
         $values[] = $value;
-        if(oledrion_utils::getModuleOption('use_price')) {
+        if (oledrion_utils::getModuleOption('use_price')) {
             $prices[] = $price;
         }
         $this->setVar('ca_attribute_names', implode(OLEDRION_ATTRIBUTE_SEPARATOR, $names));
         $this->setVar('ca_attribute_values', implode(OLEDRION_ATTRIBUTE_SEPARATOR, $values));
-        if(oledrion_utils::getModuleOption('use_price')) {
+        if (oledrion_utils::getModuleOption('use_price')) {
             $this->setVar('ca_attribute_prices', implode(OLEDRION_ATTRIBUTE_SEPARATOR, $prices));
         }
         return true;
-	}
+    }
 
 
     /**
@@ -95,33 +95,33 @@ class oledrion_caddy_attributes extends Oledrion_Object
      * @return boolean
      * @since 2.3.2009.03.16
      */
-	function addOption($name, $value, $price = '')
-	{
+    function addOption($name, $value, $price = '')
+    {
         return $this->appendOption($name, $value, $price);
-	}
+    }
 
 
-	/**
-	 * Retourne les informations formatées de l'attribut pour affichage dans la facture
-	 *
-	 * @param oledrion_products $product	Le produit concerné par l'attribut
-	 * @return array
-	 * @since 2.3.2009.03.23
-	 */
-	function renderForInvoice(oledrion_products $product, $format = 's')
-	{
-	    $names = $prices = $ret = array();
+    /**
+     * Retourne les informations formatées de l'attribut pour affichage dans la facture
+     *
+     * @param oledrion_products $product    Le produit concerné par l'attribut
+     * @return array
+     * @since 2.3.2009.03.23
+     */
+    function renderForInvoice(oledrion_products $product, $format = 's')
+    {
+        $names = $prices = $ret = array();
         $names = $this->getOption('ca_attribute_names', $format);
-        if(oledrion_utils::getModuleOption('use_price')) {
+        if (oledrion_utils::getModuleOption('use_price')) {
             $prices = $this->getOption('ca_attribute_prices', $format);
         }
 
         $oledrion_Currency = oledrion_Currency::getInstance();
         $counter = 0;
-        foreach($names as $name) {
+        foreach ($names as $name) {
             $price = 0;
-            if(oledrion_utils::getModuleOption('use_price')) {
-                if(isset($prices[$counter])) {
+            if (oledrion_utils::getModuleOption('use_price')) {
+                if (isset($prices[$counter])) {
                     $price = oledrion_utils::getAmountWithVat(floatval($prices[$counter]), $product->getVar('product_vat_id'));
                     $price = $oledrion_Currency->amountForDisplay($price);
                 }
@@ -130,69 +130,69 @@ class oledrion_caddy_attributes extends Oledrion_Object
             $counter++;
         }
         return $ret;
-	}
+    }
 }
 
 
 class OledrionOledrion_caddy_attributesHandler extends Oledrion_XoopsPersistableObjectHandler
 {
-	function __construct($db)
-	{	//							    Table			        Classe		    	        Id
-		parent::__construct($db, 'oledrion_caddy_attributes', 'oledrion_caddy_attributes', 'ca_id');
-	}
+    function __construct($db)
+    { //							    Table			        Classe		    	        Id
+        parent::__construct($db, 'oledrion_caddy_attributes', 'oledrion_caddy_attributes', 'ca_id');
+    }
 
     /**
      * Retourne le nombre d'attributs liés à un caddy
      *
-     * @param integer $ca_caddy_id	L'ID du caddy concerné
+     * @param integer $ca_caddy_id    L'ID du caddy concerné
      * @return integer
      * @since 2.3.2009.03.23
      */
-	function getAttributesCountForCaddy($ca_caddy_id)
-	{
+    function getAttributesCountForCaddy($ca_caddy_id)
+    {
         return $this->getCount(new Criteria('ca_caddy_id', $ca_caddy_id, '='));
-	}
+    }
 
-	/**
-	 * Retourne la liste formatée des attributs liés à un caddy
-	 *
-	 * @param integer $ca_caddy_id	L'identifiant de caddy
-	 * @param object $product		Le produit concerné par le caddy
-	 * @return array
-	 * @since 2.3.2009.03.23
-	 */
-	function getFormatedAttributesForCaddy($ca_caddy_id, oledrion_products $product)
-	{
-	    $handlers = oledrion_handler::getInstance();
+    /**
+     * Retourne la liste formatée des attributs liés à un caddy
+     *
+     * @param integer $ca_caddy_id    L'identifiant de caddy
+     * @param object $product        Le produit concerné par le caddy
+     * @return array
+     * @since 2.3.2009.03.23
+     */
+    function getFormatedAttributesForCaddy($ca_caddy_id, oledrion_products $product)
+    {
+        $handlers = oledrion_handler::getInstance();
         $attributes = $ret = array();
         $attributes = $this->getObjects(new Criteria('ca_caddy_id', $ca_caddy_id, '='));
-        if(count($attributes) == 0) {
+        if (count($attributes) == 0) {
             return $ret;
         }
-        foreach($attributes as $caddyAttribute) {
+        foreach ($attributes as $caddyAttribute) {
             $data = array();
             $attribute = null;
             $attribute = $handlers->h_oledrion_attributes->get($caddyAttribute->getVar('ca_attribute_id'));
-            if(is_object($attribute)) {
+            if (is_object($attribute)) {
                 $data = $attribute->toArray();
             }
             $data['attribute_options'] = $caddyAttribute->renderForInvoice($product);
             $ret[] = $data;
         }
         return $ret;
-	}
+    }
 
     /**
      * Retourne le nombre de caddy attributs liés à un attribut
      *
-     * @param integer $ca_attribute_id	L'Identifiant de l'attribut concerné
+     * @param integer $ca_attribute_id    L'Identifiant de l'attribut concerné
      * @return integer
      * @since 2.3.2009.03.23
      */
-	function getCaddyCountFromAttributeId($ca_attribute_id)
-	{
-	    return $this->getCount(new Criteria('ca_attribute_id', $ca_attribute_id, '='));
-	}
+    function getCaddyCountFromAttributeId($ca_attribute_id)
+    {
+        return $this->getCount(new Criteria('ca_attribute_id', $ca_attribute_id, '='));
+    }
 
     /**
      * Retourne la liste des numéros de commandes "liés" à un attribut
@@ -200,27 +200,28 @@ class OledrionOledrion_caddy_attributesHandler extends Oledrion_XoopsPersistable
      * @param integer $ca_attribute_id
      * @return array
      */
-	function getCommandIdFromAttribute($ca_attribute_id)
-	{
-		$ret = $ordersIds = array();
-		$criteria = new Criteria('ca_attribute_id', $ca_attribute_id, '=');
-		$ordersIds = $this->getObjects($criteria, false, true, 'ca_cmd_id', false);
-		foreach($ordersIds as $order) {
-		    $ret[] = $order->ca_cmd_id;
-		}
+    function getCommandIdFromAttribute($ca_attribute_id)
+    {
+        $ret = $ordersIds = array();
+        $criteria = new Criteria('ca_attribute_id', $ca_attribute_id, '=');
+        $ordersIds = $this->getObjects($criteria, false, true, 'ca_cmd_id', false);
+        foreach ($ordersIds as $order) {
+            $ret[] = $order->ca_cmd_id;
+        }
         return $ret;
-	}
+    }
 
-	/**
-	 * Supprime les caddies associés à une commande
-	 *
-	 * @param integer $caddy_cmd_id
-	 * @return boolean
-	 */
-	function removeCartsFromOrderId($ca_cmd_id)
-	{
-		$ca_cmd_id = intval($ca_cmd_id);
-		return $this->deleteAll(new criteria('ca_cmd_id', $ca_cmd_id, '='));
-	}
+    /**
+     * Supprime les caddies associés à une commande
+     *
+     * @param integer $caddy_cmd_id
+     * @return boolean
+     */
+    function removeCartsFromOrderId($ca_cmd_id)
+    {
+        $ca_cmd_id = intval($ca_cmd_id);
+        return $this->deleteAll(new criteria('ca_cmd_id', $ca_cmd_id, '='));
+    }
 }
+
 ?>

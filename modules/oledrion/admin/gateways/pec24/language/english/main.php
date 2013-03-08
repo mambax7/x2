@@ -17,7 +17,7 @@
  * @author      Hervé Thouzard (http://www.herve-thouzard.com/)
  * @version     $Id$
  */
-define("_OLEDRION_SAMAN_PARAMETERS","Parameters");
+define("_OLEDRION_SAMAN_PARAMETERS", "Parameters");
 define('_OLEDRION_SAMAN_MID', "Merchant ID");
 define('_OLEDRION_SAMAN_MIDDSC', "Select Saman Merchant ID get from saman bank");
 ?>

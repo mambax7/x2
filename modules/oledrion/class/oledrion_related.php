@@ -25,47 +25,48 @@ require 'classheader.php';
 
 class oledrion_related extends Oledrion_Object
 {
-	function __construct()
-	{
-		$this->initVar('related_id',XOBJ_DTYPE_INT,null,false);
-		$this->initVar('related_product_id',XOBJ_DTYPE_INT,null,false);
-		$this->initVar('related_product_related',XOBJ_DTYPE_INT,null,false);
-	}
+    function __construct()
+    {
+        $this->initVar('related_id', XOBJ_DTYPE_INT, null, false);
+        $this->initVar('related_product_id', XOBJ_DTYPE_INT, null, false);
+        $this->initVar('related_product_related', XOBJ_DTYPE_INT, null, false);
+    }
 }
 
 
 class OledrionOledrion_relatedHandler extends Oledrion_XoopsPersistableObjectHandler
 {
-	function __construct($db)
-	{	//							Table				Classe					 Id
-		parent::__construct($db, 'oledrion_related', 'oledrion_related', 'related_id');
-	}
+    function __construct($db)
+    { //							Table				Classe					 Id
+        parent::__construct($db, 'oledrion_related', 'oledrion_related', 'related_id');
+    }
 
-	/**
-	 * Supprime les produits relatifs rattachés à un produit
-	 *
-	 * @param integer $related_product_id	L'identifiant du produit pour lequel il faut faire la suppression
-	 */
-	function deleteProductRelatedProducts($related_product_id)
-	{
-		$criteria = new Criteria('related_product_id', $related_product_id, '=');
-		$this->deleteAll($criteria);
-	}
+    /**
+     * Supprime les produits relatifs rattachés à un produit
+     *
+     * @param integer $related_product_id    L'identifiant du produit pour lequel il faut faire la suppression
+     */
+    function deleteProductRelatedProducts($related_product_id)
+    {
+        $criteria = new Criteria('related_product_id', $related_product_id, '=');
+        $this->deleteAll($criteria);
+    }
 
-	/**
-	 * Retourne la liste des produits relatifs d'une liste de produits
-	 *
-	 * @param array $ids	Les ID des produits dont on recherche les produits relatifs
-	 * @return array	Objets de type oledrion_related
-	 */
-	function getRelatedProductsFromProductsIds($ids)
-	{
-		$ret = array();
-		if(is_array($ids)) {
-			$criteria = new Criteria('related_product_id', '('.implode(',', $ids).')', 'IN');
-			$ret = $this->getObjects($criteria, true, true, '*', false);
-		}
-		return $ret;
-	}
+    /**
+     * Retourne la liste des produits relatifs d'une liste de produits
+     *
+     * @param array $ids    Les ID des produits dont on recherche les produits relatifs
+     * @return array    Objets de type oledrion_related
+     */
+    function getRelatedProductsFromProductsIds($ids)
+    {
+        $ret = array();
+        if (is_array($ids)) {
+            $criteria = new Criteria('related_product_id', '(' . implode(',', $ids) . ')', 'IN');
+            $ret = $this->getObjects($criteria, true, true, '*', false);
+        }
+        return $ret;
+    }
 }
+
 ?>

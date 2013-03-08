@@ -56,7 +56,7 @@ class oledrion_pec24 extends oledrion_gateway
 
     function getAuthority($cmd_total, $cmd_id)
     {
-        
+
         $url = $this->getdialogURL();
         if (extension_loaded('soap')) {
             $soapclient = new SoapClient($url);
@@ -65,18 +65,18 @@ class oledrion_pec24 extends oledrion_gateway
             $soapclient = new soapclient($url, 'wsdl');
         }
 
-		  $params = array(
-				'pin' => $this->getParsianMid(),
-				'amount' => intval($this->formatAmount($cmd_total)),
-				'orderId' => intval($cmd_id),
-				'callbackUrl' => OLEDRION_URL . 'gateway-notify.php?cmd_id=' . intval($cmd_id) . '&cmd_total=' . intval($this->formatAmount($cmd_total)),
-				'authority' => 0,
-				'status' => 1
-			);
+        $params = array(
+            'pin' => $this->getParsianMid(),
+            'amount' => intval($this->formatAmount($cmd_total)),
+            'orderId' => intval($cmd_id),
+            'callbackUrl' => OLEDRION_URL . 'gateway-notify.php?cmd_id=' . intval($cmd_id) . '&cmd_total=' . intval($this->formatAmount($cmd_total)),
+            'authority' => 0,
+            'status' => 1
+        );
 
-		   $sendParams = array($params) ;
-		   $res = $soapclient->call('PinPaymentRequest', $sendParams);
-         return $res['authority'];
+        $sendParams = array($params);
+        $res = $soapclient->call('PinPaymentRequest', $sendParams);
+        return $res['authority'];
     }
 
     function getParsianMid()
@@ -121,9 +121,9 @@ class oledrion_pec24 extends oledrion_gateway
         // Get from bank
         $authority = $_GET['au'];
         $status = $_GET['rs'];
-		  $cmd_id = intval($_GET['cmd_id']);
-		  $cmd_total = intval($_GET['cmd_total']);
-        
+        $cmd_id = intval($_GET['cmd_id']);
+        $cmd_total = intval($_GET['cmd_total']);
+
         // Set soap
         $url = $this->getdialogURL();
         if (extension_loaded('soap')) {
@@ -133,79 +133,79 @@ class oledrion_pec24 extends oledrion_gateway
             $soapclient = new soapclient($url, 'wsdl');
         }
 
-		  // here we update our database
-		  $save_ok = 0;
-		  if($authority) {
-		     $save_ok = 1;
-		  }
+        // here we update our database
+        $save_ok = 0;
+        if ($authority) {
+            $save_ok = 1;
+        }
 
         // doing 
-        if(($status==0) && $save_ok) {
-				if((!$soapclient) || ($err = $soapclient->getError())) {
-		        // this is unsucccessfull connection
-		        $commande = null;
-              $commande = $this->handlers->h_oledrion_commands->get($cmd_id);
-              if (is_object($commande)) {
-            	  $this->handlers->h_oledrion_commands->setOrderFailed($commande);
-                 $user_log = 'خطا در پرداخت - خطا در ارتباط با بانک';
-              } else {
-	              $this->handlers->h_oledrion_commands->setFraudulentOrder($commande);
-	              $user_log = 'خطا در ارتباط با بانک - اطلاعات پرداخت شما نا معتبر است';
-	           }	
-				} else {
-					//$status = 1;
-					$params = array(
-						'pin' => $this->getParsianMid(),
-						'authority' => $authority,
-						'status' => $status,
-					);
+        if (($status == 0) && $save_ok) {
+            if ((!$soapclient) || ($err = $soapclient->getError())) {
+                // this is unsucccessfull connection
+                $commande = null;
+                $commande = $this->handlers->h_oledrion_commands->get($cmd_id);
+                if (is_object($commande)) {
+                    $this->handlers->h_oledrion_commands->setOrderFailed($commande);
+                    $user_log = 'خطا در پرداخت - خطا در ارتباط با بانک';
+                } else {
+                    $this->handlers->h_oledrion_commands->setFraudulentOrder($commande);
+                    $user_log = 'خطا در ارتباط با بانک - اطلاعات پرداخت شما نا معتبر است';
+                }
+            } else {
+                //$status = 1;
+                $params = array(
+                    'pin' => $this->getParsianMid(),
+                    'authority' => $authority,
+                    'status' => $status,
+                );
 
-					$sendParams = array($params) ;
-					$res = $soapclient->call('PinPaymentEnquiry', $sendParams);
-					$status = $res['status'];
-		         if ($status==0) {
-			         // this is a succcessfull payment
-			         // we update our DataBase
-	               $commande = null;
-	               $commande = $this->handlers->h_oledrion_commands->get($cmd_id);
-	               if (is_object($commande)) {
-	                   if ($cmd_total == intval($commande->getVar('cmd_total'))) {
-	                       $this->handlers->h_oledrion_commands->validateOrder($commande);
-	                       $user_log = 'پرداخت شما با موفقیت انجام شد. محصول برای شما ارسال می شود';
-	                   } else {
-	                       $this->handlers->h_oledrion_commands->setFraudulentOrder($commande);
-	                       $user_log = 'اطلاعات پرداخت شما نا معتبر است';
-	                   }
-	               }
-	               $log .= "VERIFIED\t";
-		         } else {
-			         // this is a UNsucccessfull payment
-			         // we update our DataBase
-                  $commande = null;
-                  $commande = $this->handlers->h_oledrion_commands->get($cmd_id);
-                  if (is_object($commande)) {
-                     $this->handlers->h_oledrion_commands->setOrderFailed($commande);
-                     $user_log = 'خطا در پرداخت - وضعیت این پرداخت صحیح نیست';
-                  } else {
-		               $this->handlers->h_oledrion_commands->setFraudulentOrder($commande);
-		               $user_log = 'وضعیت این پرداخت صحیح نیست - اطلاعات پرداخت شما نا معتبر است';
-	               }
-                  $log .= "$status\n";
-		         }
-				}   
+                $sendParams = array($params);
+                $res = $soapclient->call('PinPaymentEnquiry', $sendParams);
+                $status = $res['status'];
+                if ($status == 0) {
+                    // this is a succcessfull payment
+                    // we update our DataBase
+                    $commande = null;
+                    $commande = $this->handlers->h_oledrion_commands->get($cmd_id);
+                    if (is_object($commande)) {
+                        if ($cmd_total == intval($commande->getVar('cmd_total'))) {
+                            $this->handlers->h_oledrion_commands->validateOrder($commande);
+                            $user_log = 'پرداخت شما با موفقیت انجام شد. محصول برای شما ارسال می شود';
+                        } else {
+                            $this->handlers->h_oledrion_commands->setFraudulentOrder($commande);
+                            $user_log = 'اطلاعات پرداخت شما نا معتبر است';
+                        }
+                    }
+                    $log .= "VERIFIED\t";
+                } else {
+                    // this is a UNsucccessfull payment
+                    // we update our DataBase
+                    $commande = null;
+                    $commande = $this->handlers->h_oledrion_commands->get($cmd_id);
+                    if (is_object($commande)) {
+                        $this->handlers->h_oledrion_commands->setOrderFailed($commande);
+                        $user_log = 'خطا در پرداخت - وضعیت این پرداخت صحیح نیست';
+                    } else {
+                        $this->handlers->h_oledrion_commands->setFraudulentOrder($commande);
+                        $user_log = 'وضعیت این پرداخت صحیح نیست - اطلاعات پرداخت شما نا معتبر است';
+                    }
+                    $log .= "$status\n";
+                }
+            }
         } else {
-	         // this is a UNsucccessfull payment	
+            // this is a UNsucccessfull payment
             $commande = null;
             $commande = $this->handlers->h_oledrion_commands->get($cmd_id);
             if (is_object($commande)) {
-            	 $this->handlers->h_oledrion_commands->setOrderFailed($commande);
+                $this->handlers->h_oledrion_commands->setOrderFailed($commande);
                 $user_log = 'خطا در پرداخت - این پرداخت نا معتبر است';
             } else {
-	             $this->handlers->h_oledrion_commands->setFraudulentOrder($commande);
-	             $user_log = 'این پرداخت نا معتبر است - اطلاعات پرداخت شما نا معتبر است';
-	         }
+                $this->handlers->h_oledrion_commands->setFraudulentOrder($commande);
+                $user_log = 'این پرداخت نا معتبر است - اطلاعات پرداخت شما نا معتبر است';
+            }
             $log .= "$status\n";
-        }		 
+        }
 
         // Ecriture dans le fichier log
         $fp = fopen($gatewaysLogPath, 'a');
@@ -219,8 +219,9 @@ class oledrion_pec24 extends oledrion_gateway
             fwrite($fp, "Peyment note : " . $user_log . "\n");
             fclose($fp);
         }
-        
+
         return $user_log;
     }
 }
+
 ?>

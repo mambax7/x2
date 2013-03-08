@@ -22,54 +22,55 @@ require 'classheader.php';
 
 class oledrion_location_delivery extends Oledrion_Object
 {
-	function __construct()
-	{
-		$this->initVar('ld_id',XOBJ_DTYPE_INT,null,false);
-		$this->initVar('ld_location',XOBJ_DTYPE_INT,null,false);
-		$this->initVar('ld_delivery',XOBJ_DTYPE_INT,null,false);
-		$this->initVar('ld_price',XOBJ_DTYPE_INT,null,false);
-		$this->initVar('ld_delivery_time',XOBJ_DTYPE_INT,null,false);
-	}	
-	
-		/**
-	 * Retourne les éléments du produits formatés pour affichage
-	 *
-	 * @param string $format
-	 * @return array
-	 */
-	function toArray($format = 's')
+    function __construct()
     {
-		$ret = array();
-		$ret = parent::toArray($format);
-		return $ret;
+        $this->initVar('ld_id', XOBJ_DTYPE_INT, null, false);
+        $this->initVar('ld_location', XOBJ_DTYPE_INT, null, false);
+        $this->initVar('ld_delivery', XOBJ_DTYPE_INT, null, false);
+        $this->initVar('ld_price', XOBJ_DTYPE_INT, null, false);
+        $this->initVar('ld_delivery_time', XOBJ_DTYPE_INT, null, false);
+    }
+
+    /**
+     * Retourne les éléments du produits formatés pour affichage
+     *
+     * @param string $format
+     * @return array
+     */
+    function toArray($format = 's')
+    {
+        $ret = array();
+        $ret = parent::toArray($format);
+        return $ret;
     }
 }
 
 
 class OledrionOledrion_location_deliveryHandler extends Oledrion_XoopsPersistableObjectHandler
 {
-	function __construct($db)
-	{	//							              Table					           Classe				       Id
-		parent::__construct($db, 'oledrion_location_delivery', 'oledrion_location_delivery', 'ld_id');
-	}	
-	
-	function getLocationDeliveryId($parameters)
-	{
-		$ret = array();
-		if(!$parameters['location']) {
-			//return $ret;
-	   }
-		$critere = new CriteriaCompo ();
-		$critere->add(new Criteria('ld_location', $parameters['location']));
-		$obj = $this->getObjects($critere);
-		if ($obj) {	
-		   foreach ($obj as $root) {
-				$tab = array();
-				$tab = $root->toArray();
-				$ret[$root->getVar('ld_delivery')] = $tab;
-			}
-		}
-		return $ret;
-	}
+    function __construct($db)
+    { //							              Table					           Classe				       Id
+        parent::__construct($db, 'oledrion_location_delivery', 'oledrion_location_delivery', 'ld_id');
+    }
+
+    function getLocationDeliveryId($parameters)
+    {
+        $ret = array();
+        if (!$parameters['location']) {
+            //return $ret;
+        }
+        $critere = new CriteriaCompo ();
+        $critere->add(new Criteria('ld_location', $parameters['location']));
+        $obj = $this->getObjects($critere);
+        if ($obj) {
+            foreach ($obj as $root) {
+                $tab = array();
+                $tab = $root->toArray();
+                $ret[$root->getVar('ld_delivery')] = $tab;
+            }
+        }
+        return $ret;
+    }
 }
+
 ?>

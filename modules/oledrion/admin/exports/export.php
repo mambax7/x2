@@ -22,16 +22,16 @@
  * Every export script must extend this class
  */
 if (!defined('XOOPS_ROOT_PATH')) {
-	die("XOOPS root path not defined");
+    die("XOOPS root path not defined");
 }
 
 abstract class oledrion_export
 {
-    protected $separator;        // Fields separator
-    protected $filename;         // Filename of the exported file
-    protected $folder;           // Folder's path (where to create the file) WITHOUT TRAILING SLASH
-    protected $url;              // Folder's URL (where to download the file) WITHOUT TRAILING SLASH
-    protected $orderType;        // Type of order to treat
+    protected $separator; // Fields separator
+    protected $filename; // Filename of the exported file
+    protected $folder; // Folder's path (where to create the file) WITHOUT TRAILING SLASH
+    protected $url; // Folder's URL (where to download the file) WITHOUT TRAILING SLASH
+    protected $orderType; // Type of order to treat
     protected $h_oledrion_commands;
     protected $h_oledrion_caddy;
     protected $success = false;
@@ -39,7 +39,7 @@ abstract class oledrion_export
 
     function __construct($parameters = '')
     {
-        if(is_array($parameters)) {
+        if (is_array($parameters)) {
             $this->separator = $parameters['separator'];
             $this->filename = $parameters['filename'];
             $this->folder = $parameters['folder'];
@@ -51,7 +51,7 @@ abstract class oledrion_export
 
     private function getHandlers()
     {
-		$this->handlers = oledrion_handler::getInstance();
+        $this->handlers = oledrion_handler::getInstance();
     }
 
     function setSeparator($separator)
@@ -80,7 +80,10 @@ abstract class oledrion_export
      *
      */
     abstract function export();
+
     abstract function getDownloadUrl();
+
     abstract function getDownloadPath();
 }
+
 ?>
