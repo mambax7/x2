@@ -248,10 +248,5 @@ define('_AM_OLEDRION_SELECT',"Select");
 define('_AM_OLEDRION_CLOSE_WINDOW',"Close this window");
 define('_AM_OLEDRION_REPLACE',"Replace");
 
-define('_AM_OLEDRION_PRODUCT_PROPERTY1',"Property 1");
-define('_AM_OLEDRION_PRODUCT_PROPERTY2',"Property 2");
-define('_AM_OLEDRION_PRODUCT_PROPERTY3',"Property 3");
-define('_AM_OLEDRION_PRODUCT_PROPERTY4',"Property 4");
-define('_AM_OLEDRION_PRODUCT_PROPERTY5',"Property 5");
 define('_AM_OLEDRION_PRODUCT_PROPERTY_DESC',"Separated by a <span class='red'>|</span>");
 define('_AM_OLEDRION_PRODUCT_PROPERTY_TITLE',"Title");

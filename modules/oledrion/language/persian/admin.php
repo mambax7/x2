@@ -249,14 +249,11 @@ define('_AM_OLEDRION_CLOSE_WINDOW', "بستن این پنجره");
 define('_AM_OLEDRION_REPLACE', "جایگزینی");
 
 define('_AM_OLEDRION_PRODUCT_PROPERTY1', "ویژگی ۱");
-define('_AM_OLEDRION_PRODUCT_PROPERTY1_DESC', "گزینه های مختلف را با <span class='red'>|</span> از هم جدا کنید");
 define('_AM_OLEDRION_PRODUCT_PROPERTY2', "ویژگی ۲");
-define('_AM_OLEDRION_PRODUCT_PROPERTY2_DESC', "گزینه های مختلف را با <span class='red'>|</span> از هم جدا کنید");
 define('_AM_OLEDRION_PRODUCT_PROPERTY3', "ویژگی ۳");
-define('_AM_OLEDRION_PRODUCT_PROPERTY3_DESC', "گزینه های مختلف را با <span class='red'>|</span> از هم جدا کنید");
 define('_AM_OLEDRION_PRODUCT_PROPERTY4', "ویژگی ۴");
-define('_AM_OLEDRION_PRODUCT_PROPERTY4_DESC', "گزینه های مختلف را با <span class='red'>|</span> از هم جدا کنید");
 define('_AM_OLEDRION_PRODUCT_PROPERTY5', "ویژگی ۵");
-define('_AM_OLEDRION_PRODUCT_PROPERTY5_DESC', "گزینه های مختلف را با <span class='red'>|</span> از هم جدا کنید");
+define('_AM_OLEDRION_PRODUCT_PROPERTY_DESC', "گزینه های مختلف را با <span class='red'>|</span> از هم جدا کنید");
+define('_AM_OLEDRION_PRODUCT_PROPERTY_TITLE',"عنوان");
 
 ?>

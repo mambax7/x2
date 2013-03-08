@@ -27,7 +27,6 @@ switch($action) {
 	case 'default':	// Gestion des TVA
 	// ****************************************************************************************************************
         xoops_cp_header();
-        oledrion_adminMenu(2);
 		$start = isset($_GET['start']) ? intval($_GET['start']) : 0;
 		$vats = array();
 		$form = "<form method='post' action='$baseurl' name='frmaddvat' id='frmaddvat'><input type='hidden' name='op' id='op' value='vat' /><input type='hidden' name='action' id='action' value='add' /><input type='hidden' name='action' id='action' value='add' /><input type='submit' name='btngo' id='btngo' value='"._AM_OLEDRION_ADD_ITEM."' /></form>";
@@ -49,7 +48,7 @@ switch($action) {
 		}
 		$class = ($class == 'even') ? 'odd' : 'even';
 		echo "<tr class='".$class."'>\n";
-		echo "<td colspan='3' align='center'>".$form."</td>\n";
+		echo "<td colspan='4' align='center'>".$form."</td>\n";
 		echo "</tr>\n";
 		echo '</table>';
         include_once OLEDRION_ADMIN_PATH . 'admin_footer.php';

@@ -29,7 +29,6 @@ switch($action) {
     case 'default':	// Gestion des fichiers attachés
     // ****************************************************************************************************************
         xoops_cp_header();
-    	oledrion_adminMenu(11);
 		$start = isset($_GET['start']) ? intval($_GET['start']) : 0;
 		$form = "<form method='post' action='$baseurl' name='frmadd' id='frmadd'><input type='hidden' name='op' id='op' value='files' /><input type='hidden' name='action' id='action' value='add' /><input type='submit' name='btngo' id='btngo' value='"._AM_OLEDRION_ADD_ITEM."' /></form>";
 		echo $form;
@@ -80,7 +79,6 @@ switch($action) {
 	case 'edit':	// Edition d'un fichier
 	// ****************************************************************************************************************
         xoops_cp_header();
-        oledrion_adminMenu(11);
 		if($action == 'edit') {
 			$title = _AM_OLEDRION_EDIT_FILE;
 			$id = isset($_GET['id']) ? intval($_GET['id']) : 0;

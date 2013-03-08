@@ -43,7 +43,7 @@ switch($action) {
     case 'default':	// Liste des attributs produits
     // ****************************************************************************************************************
         xoops_cp_header();
-    	oledrion_adminMenu(13);
+
     	global $xoopsConfig;
     	$productsIds = $products = $productsIdsForList = $productsForList = array();
         $class = '';
@@ -226,7 +226,6 @@ switch($action) {
     			oledrion_utils::redirect(_AM_OLEDRION_SAVE_PB, $baseurl.'?op='.$operation, 5);
 		    }
 		} else {
-            oledrion_adminMenu(13);
             oledrion_utils::htitle(_AM_OLEDRION_SORRY_NOREMOVE2, 4);
             $tblTmp = $oledrion_handlers->h_oledrion_caddy_attributes->getCommandIdFromAttribute($id);
 			$tblTmp2 = $h_oledrion_commands->getObjects(new Criteria('cmd_id', '('.implode(',', $tblTmp).')', 'IN'), true);
@@ -250,7 +249,6 @@ switch($action) {
 	case 'edit':	// Edition d'un attribut
 	// ****************************************************************************************************************
         xoops_cp_header();
-        oledrion_adminMenu(13);
         removeAttributInSession();
 
         if($action == 'edit') {

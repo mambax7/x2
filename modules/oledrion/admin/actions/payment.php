@@ -88,17 +88,10 @@ switch($action) {
 		$sform->addElement(new XoopsFormHidden('action', 'save'));
 		$sform->addElement(new XoopsFormHidden('payment_id', $item->getVar('payment_id')));
 		$sform->addElement(new XoopsFormText(_OLEDRION_PAYMENT_TITLE,'payment_title',50,150, $item->getVar('payment_title','e')), true);
-		
-		
-		
 			$product_type = new XoopsFormSelect(_OLEDRION_PAYMENT_TYPE, 'payment_type', $item->getVar('payment_type'));
          $product_type->addOption('offline', _OLEDRION_PAYMENT_TYPE_OFFLINE);
          $product_type->addOption('online', _OLEDRION_PAYMENT_TYPE_ONLINE);
          $sform->addElement($product_type, true);
-         
-         
-         
-         
          $payment_gateway = new XoopsFormSelect(_OLEDRION_PAYMENT_GATEWAY, 'payment_gateway', $item->getVar('payment_gateway'));
          $payment_gateway->addOption('offline', _OLEDRION_PAYMENT_GATEWAY_OFFLINE);
          $payment_gateway_list = oledrion_gateways::getInstalledGatewaysList();
@@ -106,9 +99,6 @@ switch($action) {
              $payment_gateway->addOption($payment_gateway_item);
          }
          $sform->addElement($payment_gateway, true);
-		
-		
-		
       if( $action == 'edit' && $item->pictureExists() ) {
 			$pictureTray = new XoopsFormElementTray(_AM_OLEDRION_CURRENT_PICTURE ,'<br />');
 			$pictureTray->addElement(new XoopsFormLabel('', "<img src='".$item->getPictureUrl()."' alt='' border='0' />"));

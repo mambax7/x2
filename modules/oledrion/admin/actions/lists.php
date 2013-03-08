@@ -32,7 +32,6 @@ switch($action) {
     case 'default':	// Liste des listes
     // ****************************************************************************************************************
         xoops_cp_header();
-    	oledrion_adminMenu(15);
     	global $xoopsConfig;
     	$items = $usersList = array();
         $class = '';

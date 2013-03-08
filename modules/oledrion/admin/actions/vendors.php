@@ -27,7 +27,6 @@ switch($action) {
 	case 'default':	// Gestion des vendeurs
 	// ****************************************************************************************************************
         xoops_cp_header();
-        oledrion_adminMenu(1);
 		$start = isset($_GET['start']) ? intval($_GET['start']) : 0;
 		$vendors = array();
 		$form = "<form method='post' action='$baseurl' name='frmaddvendor' id='frmaddvendor'><input type='hidden' name='op' id='op' value='vendors' /><input type='hidden' name='action' id='action' value='add' /><input type='submit' name='btngo' id='btngo' value='"._AM_OLEDRION_ADD_ITEM."' /></form>";
@@ -60,7 +59,6 @@ switch($action) {
 	case 'edit':		// Edition d'un vendeur
 	// ****************************************************************************************************************
         xoops_cp_header();
-        oledrion_adminMenu(1);
 		if($action == 'edit') {
 			$title = _AM_OLEDRION_EDIT_VENDOR;
 			$id = isset($_GET['id']) ? intval($_GET['id']) : 0;

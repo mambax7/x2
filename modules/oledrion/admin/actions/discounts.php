@@ -29,7 +29,6 @@ switch($action) {
 	case 'default':	// Gestion des réductions
 	// ****************************************************************************************************************
         xoops_cp_header();
-        //oledrion_adminMenu(7);
         $form = "<form method='post' action='$baseurl' name='frmadddiscount' id='frmadddiscount'><input type='hidden' name='op' id='op' value='discounts' /><input type='hidden' name='action' id='action' value='add' /><input type='submit' name='btngo' id='btngo' value='"._AM_OLEDRION_ADD_ITEM."' /></form>";
 		echo $form;
 		oledrion_utils::htitle(_MI_OLEDRION_ADMENU6, 4);

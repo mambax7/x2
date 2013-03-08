@@ -27,7 +27,6 @@ switch($action) {
 	case 'default':		// Liste des fabricants
 	// ****************************************************************************************************************
         xoops_cp_header();
-        oledrion_adminMenu(4);
 		$vats = array();
 		$form = "<form method='post' action='$baseurl' name='frmaddmanufacturer' id='frmaddmanufacturer'><input type='hidden' name='op' id='op' value='manufacturers' /><input type='hidden' name='action' id='action' value='add' /><input type='submit' name='btngo' id='btngo' value='"._AM_OLEDRION_ADD_ITEM."' /></form>";
 		echo $form;
@@ -80,8 +79,6 @@ switch($action) {
 	case 'edit':	// Edition d'un fabricant
 	// ****************************************************************************************************************
         xoops_cp_header();
-        oledrion_adminMenu(4);
-
         if($action == 'edit') {
 			$title = _AM_OLEDRION_EDIT_MANUFACTURER;
 			$id = isset($_GET['id']) ? intval($_GET['id']) : 0;

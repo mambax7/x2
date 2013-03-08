@@ -27,7 +27,6 @@ switch($action) {
 	case 'default':	// Gestion des textes
 	// ****************************************************************************************************************
         xoops_cp_header();
-        oledrion_adminMenu(9);
 		require_once OLEDRION_PATH.'class/registryfile.php';
 		$registry = new oledrion_registryfile();
 

@@ -53,30 +53,17 @@ class OledrionOledrion_locationHandler extends Oledrion_XoopsPersistableObjectHa
 		parent::__construct($db, 'oledrion_location', 'oledrion_location', 'location_id');
 	}	
 	
-	function getAllLocation(oledrion_parameters $parameters)
+		function getAllPayment(oledrion_parameters $parameters)
 	{
-		$parameters = $parameters->extend(new oledrion_parameters(array('start' => 0, 'limit' => 0, 'sort' => 'location_id', 'order' => 'ASC')));
+		$parameters = $parameters->extend(new oledrion_parameters(array('start' => 0, 'limit' => 0, 'sort' => 'payment_id', 'order' => 'ASC')));
 		$critere = new Criteria('location_id', 0 ,'<>');
 		$critere->setLimit($parameters['limit']);
 		$critere->setStart($parameters['start']);
 		$critere->setSort($parameters['sort']);
 		$critere->setOrder($parameters['order']);
-		$location = array();
-		$location = $this->getObjects($critere);
-		return $location;
+		$categories = array();
+		$categories = $this->getObjects($critere);
+		return $categories;
 	}
-	
-	function getAllPid(oledrion_parameters $parameters) {
-		$parameters = $parameters->extend(new oledrion_parameters(array('start' => 0, 'limit' => 0, 'sort' => 'location_id', 'order' => 'ASC')));
-		$critere = new CriteriaCompo();
-		$critere->add(new Criteria('location_type', 'parent'));
-		$critere->setLimit($parameters['limit']);
-		$critere->setStart($parameters['start']);
-		$critere->setSort($parameters['sort']);
-		$critere->setOrder($parameters['order']);
-		$pid = array();
-		$pid = $this->getObjects($critere);
-		return $pid;
-	}	
 }
 ?>

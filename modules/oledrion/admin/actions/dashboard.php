@@ -27,7 +27,6 @@ switch($action) {
 	case 'default':	// Affichage du dashboard
 	// ****************************************************************************************************************
 		xoops_cp_header();
-      oledrion_adminMenu(0);
 		oledrion_utils::htitle(_MI_OLEDRION_ADMENU10, 4);
 		$indexAdmin = new ModuleAdmin();
 		$indexAdmin->addConfigBoxLine(OLEDRION_UPLOAD_PATH, 'folder');

@@ -30,7 +30,6 @@ switch($action) {
     case 'default':	// Liste des passerelles de paiement installés
     // ****************************************************************************************************************
         xoops_cp_header();
-    	oledrion_adminMenu(12);
     	global $xoopsConfig;
     	oledrion_utils::htitle(_AM_OLEDRION_INSTALLED_GATEWAYS, 4);
     	if(file_exists(OLEDRION_GATEWAY_LOG_PATH)) {
@@ -99,7 +98,6 @@ switch($action) {
     case 'seelog':    // Voir le contenu du fichier log
     // ****************************************************************************************************************
         xoops_cp_header();
-    	oledrion_adminMenu(12);
     	global $xoopsConfig;
     	oledrion_utils::htitle(_AM_OLEDRION_INSTALLED_GATEWAYS, 4);
     	$opRedirect = '?op=gateways';

@@ -27,7 +27,6 @@ switch($action) {
 	case 'default':	// Création de la newsletter
 	// ****************************************************************************************************************
         xoops_cp_header();
-        oledrion_adminMenu(8);
 		oledrion_utils::htitle(_MI_OLEDRION_ADMENU7, 4);
 		require_once OLEDRION_PATH.'class/tree.php';
 		$sform = new XoopsThemeForm(_MI_OLEDRION_ADMENU7, 'frmnewsletter', $baseurl);
@@ -64,7 +63,6 @@ switch($action) {
 	case 'launch':	// Création effective de la newsletter
 	// ****************************************************************************************************************
         xoops_cp_header();
-        oledrion_adminMenu(8);
 		oledrion_utils::htitle(_MI_OLEDRION_ADMENU7, 4);
 
 		$newsletterTemplate = '';

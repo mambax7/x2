@@ -26,7 +26,6 @@ switch($action) {
 	case 'default':	// Gestion des commandes
 	// ****************************************************************************************************************
         xoops_cp_header();
-        oledrion_adminMenu(6);
 		oledrion_utils::htitle(_MI_OLEDRION_ADMENU5, 4);
 
 		$start = isset($_GET['start']) ? intval($_GET['start']) : 0;
@@ -102,7 +101,6 @@ switch($action) {
 	case 'delete':	// Suppression d'une commande
 	// ****************************************************************************************************************
 		xoops_cp_header();
-		oledrion_adminMenu(6);
 		$id = isset($_GET['id']) ? intval($_GET['id']) : 0;
 		if($id == 0) {
 			oledrion_utils::redirect(_AM_OLEDRION_ERROR_1, $baseurl, 5);
@@ -162,7 +160,6 @@ switch($action) {
 	case 'export':	// Export des commandes au format CSV
 	// ****************************************************************************************************************
       xoops_cp_header();
-      oledrion_adminMenu(6);
 		oledrion_utils::htitle(_MI_OLEDRION_ADMENU5, 4);
 		$orderType = intval($_POST['cmdtype']);
 		$exportFilter = $_POST['exportfilter'];

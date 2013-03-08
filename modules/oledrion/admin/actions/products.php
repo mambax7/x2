@@ -28,7 +28,6 @@ switch($action) {
 	case 'default':	// Gestion des produits
 	// ****************************************************************************************************************
         xoops_cp_header();
-        oledrion_adminMenu(5);
 		$products = $categories = array();
 
 		// Récupération des données uniques
@@ -255,7 +254,6 @@ switch($action) {
 	case 'edit':		// Edition d'un produit
 	// ****************************************************************************************************************
         xoops_cp_header();
-        oledrion_adminMenu(5);
         global $xoopsUser;
 
         if($action == 'edit') {
@@ -698,7 +696,6 @@ switch($action) {
 	case 'confdelete':	// Confirmation de la suppression d'un produit
 	// ****************************************************************************************************************
         xoops_cp_header();
-        oledrion_adminMenu(5);
 
 		$id = isset($_GET['id']) ? intval($_GET['id']) : 0;
 		if($id == 0) {
@@ -739,7 +736,6 @@ switch($action) {
 				oledrion_utils::redirect(_AM_OLEDRION_NOT_FOUND, $baseurl.'?op='.$opRedirect, 5);
 			}
 		} else {
-        	oledrion_adminMenu(5);
 			oledrion_utils::htitle(_AM_OLEDRION_SORRY_NOREMOVE, 4);
 			$tblTmp2 = array();
 			$tblTmp2 = $h_oledrion_commands->getObjects(new Criteria('cmd_id', '('.implode(',', $tblTmp).')', 'IN'), true);

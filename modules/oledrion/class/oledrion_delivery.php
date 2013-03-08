@@ -102,5 +102,36 @@ class OledrionOledrion_deliveryHandler extends Oledrion_XoopsPersistableObjectHa
 		$categories = $this->getObjects($critere);
 		return $categories;
 	}
+	
+	function getLocationDelivery(oledrion_parameters $parameters)
+	{
+		global $h_oledrion_location_delivery;
+
+		$parameters = $parameters->extend(new oledrion_parameters(array('start' => 0, 'limit' => 0, 'sort' => 'delivery_id', 'order' => 'ASC', 'location' => '')));
+		$location_delivery = $h_oledrion_location_delivery->getLocationDeliveryId($parameters);
+
+		$critere = new CriteriaCompo ();
+		$critere->setLimit($parameters['limit']);
+		$critere->setStart($parameters['start']);
+		$critere->setSort($parameters['sort']);
+		$critere->setOrder($parameters['order']);
+		$obj = $this->getObjects($critere);
+		if ($obj) {	
+		   foreach ($obj as $root) {
+				$tab = array();
+				$tab = $root->toArray();
+				if(isset($location_delivery[$root->getVar('delivery_id')]['ld_delivery']) && $location_delivery[$root->getVar('delivery_id')]['ld_delivery'] == $root->getVar('delivery_id')) {
+					$tab['ld_id']['delivery_select'] = 1;
+					$tab['ld_id']['ld_id'] = $location_delivery[$root->getVar('delivery_id')]['ld_id'];
+					$tab['ld_id']['ld_location'] = $location_delivery[$root->getVar('delivery_id')]['ld_location'];
+					$tab['ld_id']['ld_delivery'] = $location_delivery[$root->getVar('delivery_id')]['ld_delivery'];
+					$tab['ld_id']['ld_price'] = $location_delivery[$root->getVar('delivery_id')]['ld_price'];
+					$tab['ld_id']['ld_delivery_time'] = $location_delivery[$root->getVar('delivery_id')]['ld_delivery_time'];
+				}	
+				$ret[] = $tab;
+			}
+		}
+		return $ret;
+	}
 }
 ?>

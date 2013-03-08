@@ -28,7 +28,6 @@ switch($action) {
     case 'default':		// Liste des catégories
     // ****************************************************************************************************************
         xoops_cp_header();
-        oledrion_adminMenu(3);
 
 		// Display categories **********************************************************************
 		$categories = array();
@@ -100,7 +99,6 @@ switch($action) {
 	case 'edit':	// Edition d'une catégorie
 	// ****************************************************************************************************************
         xoops_cp_header();
-        oledrion_adminMenu(3);
 
         if($action == 'edit') {
 			$title = _AM_OLEDRION_EDIT_CATEG;

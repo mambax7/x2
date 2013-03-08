@@ -27,7 +27,6 @@ switch($action) {
 	case 'default':	// Stock bas
 	// ****************************************************************************************************************
         xoops_cp_header();
-        oledrion_adminMenu(10);
 		oledrion_utils::htitle(_MI_OLEDRION_ADMENU9, 4);
 		$start = isset($_GET['start']) ? intval($_GET['start']) : 0;
 		$criteria = new CriteriaCompo();
