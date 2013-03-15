@@ -138,7 +138,7 @@ class oledrion_plugins
      * Chargement des plugins (actions et filtres)
      * @return void
      */
-    function loadPlugins()
+    public function loadPlugins()
     {
         $this->loadPluginsFiles(OLEDRION_PLUGINS_PATH . $this->pluginsTypesFolder[self::PLUGIN_ACTION], self::PLUGIN_ACTION);
         $this->loadPluginsFiles(OLEDRION_PLUGINS_PATH . $this->pluginsTypesFolder[self::PLUGIN_FILTER], self::PLUGIN_FILTER);
@@ -197,7 +197,7 @@ class oledrion_plugins
      * @param object $parameters    Les paramètres à passer à chaque plugin
      * @return object                L'objet lui même pour chaîner
      */
-    function fireAction($eventToFire, oledrion_parameters $parameters = null)
+    public function fireAction($eventToFire, oledrion_parameters $parameters = null)
     {
         if (!isset($this->events[self::PLUGIN_ACTION][$eventToFire])) {
             trigger_error(sprintf(_OLEDRION_PLUGINS_ERROR_1, $eventToFire));
@@ -230,7 +230,7 @@ class oledrion_plugins
      * @param object $parameters    Les paramètres à passer à chaque plugin
      * @return object                Le contenu de l'objet passé en paramètre
      */
-    function fireFilter($eventToFire, oledrion_parameters &$parameters)
+    public function fireFilter($eventToFire, oledrion_parameters &$parameters)
     {
         if (!isset($this->events[self::PLUGIN_FILTER][$eventToFire])) {
             trigger_error(sprintf(_OLEDRION_PLUGINS_ERROR_1, $eventToFire));
@@ -269,7 +269,7 @@ class oledrion_plugins
      * @param string $method
      * @return boolean
      */
-    function isUnplug($eventType, $eventToFire, $fullPathName, $className, $method)
+    public function isUnplug($eventType, $eventToFire, $fullPathName, $className, $method)
     {
         $unplug = array();
         if (isset($_SESSION[self::PLUGIN_UNPLUG_SESSION_NAME])) {
@@ -290,7 +290,7 @@ class oledrion_plugins
      * @param string $method
      * @return void
      */
-    function unplugFromEvent($eventType, $eventToFire, $fullPathName, $className, $method)
+    public function unplugFromEvent($eventType, $eventToFire, $fullPathName, $className, $method)
     {
         $unplug = array();
         if (isset($_SESSION[self::PLUGIN_UNPLUG_SESSION_NAME])) {

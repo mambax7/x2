@@ -206,7 +206,7 @@ switch ($action) {
 
         // Groupes
         $xoopsTpl->assign('disc_groups_selected', $item->getVar('disc_group'));
-        $member_handler =& xoops_gethandler('member');
+        $member_handler = xoops_gethandler('member');
         $groups = array();
         $groups = $member_handler->getGroupList();
         $groups[0] = _ALL;

@@ -25,7 +25,7 @@ require 'classheader.php';
 
 class oledrion_manufacturer extends Oledrion_Object
 {
-    function __construct()
+    public function __construct()
     {
         $this->initVar('manu_id', XOBJ_DTYPE_INT, null, false);
         $this->initVar('manu_name', XOBJ_DTYPE_TXTBOX, null, false);
@@ -48,7 +48,7 @@ class oledrion_manufacturer extends Oledrion_Object
      * @param integer    $pictureNumber    Le numéro (de 1 à 5) de l'image que l'on souhaite récupérer
      * @return mixed    L'URL    Soit l'url de l'image soit False si l'indice passé en paramètre n'est pas correct
      */
-    function getPictureUrl($pictureNumber)
+    public function getPictureUrl($pictureNumber)
     {
         $pictureNumber = intval($pictureNumber);
         if ($pictureNumber > 0 && $pictureNumber < 6) {
@@ -64,7 +64,7 @@ class oledrion_manufacturer extends Oledrion_Object
      * @param integer    $pictureNumber    Le numéro (de 1 à 5) de l'image que l'on souhaite récupérer
      * @return string    Le chemin
      */
-    function getPicturePath($pictureNumber)
+    public function getPicturePath($pictureNumber)
     {
         $pictureNumber = intval($pictureNumber);
         if ($pictureNumber > 0 && $pictureNumber < 6) {
@@ -80,7 +80,7 @@ class oledrion_manufacturer extends Oledrion_Object
      * @param integer    $pictureNumber    Le numéro (de 1 à 5) de l'image que l'on souhaite récupérer
      * @return boolean    Vrai si l'image existe sinon faux
      */
-    function pictureExists($pictureNumber)
+    public function pictureExists($pictureNumber)
     {
         $pictureNumber = intval($pictureNumber);
         $return = false;
@@ -98,7 +98,7 @@ class oledrion_manufacturer extends Oledrion_Object
      * @param integer    $pictureNumber    Le numéro (de 1 à 5) de l'image que l'on souhaite récupérer
      * @return void
      */
-    function deletePicture($pictureNumber)
+    public function deletePicture($pictureNumber)
     {
         $pictureNumber = intval($pictureNumber);
         if ($pictureNumber > 0 && $pictureNumber < 6) {
@@ -113,7 +113,7 @@ class oledrion_manufacturer extends Oledrion_Object
      * Supprime toutes les images du fabricant (raccourcis)
      * @return void
      */
-    function deletePictures()
+    public function deletePictures()
     {
         for ($i = 1; $i <= 5; $i++) {
             $this->deletePicture($i);
@@ -125,7 +125,7 @@ class oledrion_manufacturer extends Oledrion_Object
      *
      * @return string
      */
-    function getLink()
+    public function getLink()
     {
         $url = '';
         if (oledrion_utils::getModuleOption('urlrewriting') == 1) { // On utilise l'url rewriting
@@ -141,7 +141,7 @@ class oledrion_manufacturer extends Oledrion_Object
      *
      * @return string
      */
-    function getHrefTitle()
+    public function getHrefTitle()
     {
         return oledrion_utils::makeHrefTitle($this->getVar('manu_commercialname') . ' ' . $this->getVar('manu_name'));
     }
@@ -150,7 +150,7 @@ class oledrion_manufacturer extends Oledrion_Object
      * Retourne l'initiale du fabricant (à modifier selon le sens de l'écriture !)
      * @return string    L'initiale
      */
-    function getInitial()
+    public function getInitial()
     {
         return strtoupper(substr($this->getVar('manu_name'), 0, 1));
     }
@@ -161,7 +161,7 @@ class oledrion_manufacturer extends Oledrion_Object
      * @param string $format    Le format à utiliser
      * @return array    Les informations formatées
      */
-    function toArray($format = 's')
+    public function toArray($format = 's')
     {
         $ret = array();
         $ret = parent::toArray($format);
@@ -179,7 +179,7 @@ class oledrion_manufacturer extends Oledrion_Object
 
 class OledrionOledrion_manufacturerHandler extends Oledrion_XoopsPersistableObjectHandler
 {
-    function __construct($db)
+    public function __construct($db)
     { //							Table					Classe				 Id            Identifiant
         parent::__construct($db, 'oledrion_manufacturer', 'oledrion_manufacturer', 'manu_id', 'manu_commercialname');
     }
@@ -189,7 +189,7 @@ class OledrionOledrion_manufacturerHandler extends Oledrion_XoopsPersistableObje
      *
      * @return array l'alphabet des lettres utilisées !
      */
-    function getAlphabet()
+    public function getAlphabet()
     {
         global $myts;
         $ret = array();
@@ -210,7 +210,7 @@ class OledrionOledrion_manufacturerHandler extends Oledrion_XoopsPersistableObje
      * @param oledrion_manufacturer $manufacturer
      * @return boolean    Le résultat de la suppression
      */
-    function deleteManufacturer(oledrion_manufacturer $manufacturer)
+    public function deleteManufacturer(oledrion_manufacturer $manufacturer)
     {
         $manufacturer->deletePictures();
         return $this->delete($manufacturer, true);
@@ -222,7 +222,7 @@ class OledrionOledrion_manufacturerHandler extends Oledrion_XoopsPersistableObje
      * @param integer $manu_id    L'identifiant du fabricant
      * @return integer    Le nombre de produis associés à un fabricant
      */
-    function getManufacturerProductsCount($manu_id)
+    public function getManufacturerProductsCount($manu_id)
     {
         global $h_oledrion_productsmanu;
         return $h_oledrion_productsmanu->getManufacturerProductsCount($manu_id);
@@ -234,7 +234,7 @@ class OledrionOledrion_manufacturerHandler extends Oledrion_XoopsPersistableObje
      * @param array $ids    Les identifiants des produits
      * @return array    Tableau d'objets de type oledrion_productsmanu
      */
-    function getManufacturersFromIds($ids)
+    public function getManufacturersFromIds($ids)
     {
         $ret = array();
         if (is_array($ids) && count($ids) > 0) {
@@ -252,7 +252,7 @@ class OledrionOledrion_manufacturerHandler extends Oledrion_XoopsPersistableObje
      * @param integer    $limit        Nombre maximum d'enregistrements à renvoyer
      * @return array    Objects de type oledrion_products
      */
-    function getManufacturerProducts($manu_id, $start = 0, $limit = 0)
+    public function getManufacturerProducts($manu_id, $start = 0, $limit = 0)
     {
         $ret = $productsIds = array();
         global $h_oledrion_productsmanu, $h_oledrion_products;

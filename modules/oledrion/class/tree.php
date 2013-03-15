@@ -64,9 +64,9 @@ class Oledrion_XoopsObjectTree
      * @param   string     $parentId   field name of parent object ID
      * @param   string     $rootId     field name of root object ID
      **/
-    function __construct(&$objectArr, $myId, $parentId, $rootId = null)
+    public function __construct($objectArr, $myId, $parentId, $rootId = null)
     {
-        $this->_objects =& $objectArr;
+        $this->_objects = $objectArr;
         $this->_myId = $myId;
         $this->_parentId = $parentId;
         if (isset($rootId)) {
@@ -84,7 +84,7 @@ class Oledrion_XoopsObjectTree
     {
         foreach (array_keys($this->_objects) as $i) {
             $key1 = $this->_objects[$i]->getVar($this->_myId);
-            $this->_tree[$key1]['obj'] =& $this->_objects[$i];
+            $this->_tree[$key1]['obj'] = $this->_objects[$i];
             $key2 = $this->_objects[$i]->getVar($this->_parentId);
             $this->_tree[$key1]['parent'] = $key2;
             $this->_tree[$key2]['child'][] = $key1;
@@ -99,7 +99,7 @@ class Oledrion_XoopsObjectTree
      *
      * @return  array   Associative array comprising the tree
      **/
-    function &getTree()
+    public function getTree()
     {
         return $this->_tree;
     }
@@ -110,7 +110,7 @@ class Oledrion_XoopsObjectTree
      * @param   string  $key    ID of the object to retrieve
      * @return  object  Object within the tree
      **/
-    function &getByKey($key)
+    public function getByKey($key)
     {
         return $this->_tree[$key]['obj'];
     }
@@ -121,12 +121,12 @@ class Oledrion_XoopsObjectTree
      * @param   string  $key    ID of the parent object
      * @return  array   Array of children of the parent
      **/
-    function getFirstChild($key)
+    public function getFirstChild($key)
     {
         $ret = array();
         if (isset($this->_tree[$key]['child'])) {
             foreach ($this->_tree[$key]['child'] as $childkey) {
-                $ret[$childkey] =& $this->_tree[$childkey]['obj'];
+                $ret[$childkey] = $this->_tree[$childkey]['obj'];
             }
         }
         return $ret;
@@ -139,14 +139,14 @@ class Oledrion_XoopsObjectTree
      * @param   array   $ret    (Empty when called from client) Array of children from previous recursions.
      * @return  array   Array of child nodes.
      **/
-    function getAllChild($key, $ret = array())
+    public function getAllChild($key, $ret = array())
     {
         if (isset($this->_tree[$key]['child'])) {
             foreach ($this->_tree[$key]['child'] as $childkey) {
-                $ret[$childkey] =& $this->_tree[$childkey]['obj'];
-                $children =& $this->getAllChild($childkey, $ret);
+                $ret[$childkey] = $this->_tree[$childkey]['obj'];
+                $children = $this->getAllChild($childkey, $ret);
                 foreach (array_keys($children) as $newkey) {
-                    $ret[$newkey] =& $children[$newkey];
+                    $ret[$newkey] = $children[$newkey];
                 }
             }
         }
@@ -162,13 +162,13 @@ class Oledrion_XoopsObjectTree
      * @param   int $uplevel (empty when called from outside) level of recursion
      * @return  array   Array of parent nodes.
      **/
-    function getAllParent($key, $ret = array(), $uplevel = 1)
+    public function getAllParent($key, $ret = array(), $uplevel = 1)
     {
         if (isset($this->_tree[$key]['parent']) && isset($this->_tree[$this->_tree[$key]['parent']]['obj'])) {
-            $ret[$uplevel] =& $this->_tree[$this->_tree[$key]['parent']]['obj'];
-            $parents =& $this->getAllParent($this->_tree[$key]['parent'], $ret, $uplevel + 1);
+            $ret[$uplevel] = $this->_tree[$this->_tree[$key]['parent']]['obj'];
+            $parents = $this->getAllParent($this->_tree[$key]['parent'], $ret, $uplevel + 1);
             foreach (array_keys($parents) as $newkey) {
-                $ret[$newkey] =& $parents[$newkey];
+                $ret[$newkey] = $parents[$newkey];
             }
         }
         return $ret;
@@ -188,7 +188,7 @@ class Oledrion_XoopsObjectTree
      *
      * @access    private
      **/
-    function _makeSelBoxOptions($fieldName, $selected, $key, &$ret, $prefix_orig, $prefix_curr = '')
+    public function _makeSelBoxOptions($fieldName, $selected, $key, $ret, $prefix_orig, $prefix_curr = '')
     {
         if ($key > 0) {
             $value = $this->_tree[$key]['obj']->getVar($this->_myId);
@@ -217,7 +217,7 @@ class Oledrion_XoopsObjectTree
      * @param   integer $key             ID of the object to display as the root of select options
      * @return  string  HTML select box
      **/
-    function makeSelBox($name, $fieldName, $prefix = '-', $selected = '', $addEmptyOption = '', $key = 0, $additional = '')
+    public function makeSelBox($name, $fieldName, $prefix = '-', $selected = '', $addEmptyOption = '', $key = 0, $additional = '')
     {
         $ret = "<select id='" . $name . "' name='" . $name . "'";
         if ($additional != '') {
@@ -238,7 +238,7 @@ class Oledrion_XoopsObjectTree
     /**
      * Internal function used by makeTreeAsArray
      */
-    function _recursiveMakeTreeAsArray($fieldName, $key, &$ret, $prefix_orig, $prefix_curr = '')
+    public function _recursiveMakeTreeAsArray($fieldName, $key, $ret, $prefix_orig, $prefix_curr = '')
     {
         if ($key > 0) {
             $value = $this->_tree[$key]['obj']->getVar($this->_myId);
@@ -260,7 +260,7 @@ class Oledrion_XoopsObjectTree
      * @param   integer $key             ID of the object to display as the root of select options
      * @return array    key = object ID, value = $fieldName
      */
-    function makeTreeAsArray($fieldName, $prefix = '-', $key = 0, $empty = null)
+    public function makeTreeAsArray($fieldName, $prefix = '-', $key = 0, $empty = null)
     {
         $ret = array();
         if ($empty != null) {

@@ -22,7 +22,7 @@ require 'classheader.php';
 
 class oledrion_delivery extends Oledrion_Object
 {
-    function __construct()
+    public function __construct()
     {
         $this->initVar('delivery_id', XOBJ_DTYPE_INT, null, false);
         $this->initVar('delivery_title', XOBJ_DTYPE_TXTBOX, null, false);
@@ -37,7 +37,7 @@ class oledrion_delivery extends Oledrion_Object
      * Retourne l'URL de l'image de la catégorie courante
      * @return string    L'URL
      */
-    function getPictureUrl()
+    public function getPictureUrl()
     {
         return OLEDRION_PICTURES_URL . '/' . $this->getVar('delivery_image');
     }
@@ -47,7 +47,7 @@ class oledrion_delivery extends Oledrion_Object
      *
      * @return boolean    Vrai si l'image existe sinon faux
      */
-    function pictureExists()
+    public function pictureExists()
     {
         $return = false;
         if (xoops_trim($this->getVar('delivery_image')) != '' && file_exists(OLEDRION_PICTURES_PATH . DIRECTORY_SEPARATOR . $this->getVar('delivery_image'))) {
@@ -60,7 +60,7 @@ class oledrion_delivery extends Oledrion_Object
      * Supprime l'image associée à une catégorie
      * @return void
      */
-    function deletePicture()
+    public function deletePicture()
     {
         if ($this->pictureExists()) {
             @unlink(OLEDRION_PICTURES_PATH . DIRECTORY_SEPARATOR . $this->getVar('delivery_image'));
@@ -74,7 +74,7 @@ class oledrion_delivery extends Oledrion_Object
      * @param string $format
      * @return array
      */
-    function toArray($format = 's')
+    public function toArray($format = 's')
     {
         $ret = array();
         $ret = parent::toArray($format);
@@ -85,12 +85,12 @@ class oledrion_delivery extends Oledrion_Object
 
 class OledrionOledrion_deliveryHandler extends Oledrion_XoopsPersistableObjectHandler
 {
-    function __construct($db)
+    public function __construct($db)
     { //							            Table					Classe				Id
         parent::__construct($db, 'oledrion_delivery', 'oledrion_delivery', 'delivery_id');
     }
 
-    function getAllDelivery(oledrion_parameters $parameters)
+    public function getAllDelivery(oledrion_parameters $parameters)
     {
         $parameters = $parameters->extend(new oledrion_parameters(array('start' => 0, 'limit' => 0, 'sort' => 'delivery_id', 'order' => 'ASC')));
         $critere = new Criteria('delivery_id', 0, '<>');
@@ -103,7 +103,7 @@ class OledrionOledrion_deliveryHandler extends Oledrion_XoopsPersistableObjectHa
         return $categories;
     }
 
-    function getLocationDelivery(oledrion_parameters $parameters)
+    public function getLocationDelivery(oledrion_parameters $parameters)
     {
         global $h_oledrion_location_delivery;
         $ret = array();

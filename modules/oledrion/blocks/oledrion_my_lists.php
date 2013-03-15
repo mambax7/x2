@@ -69,7 +69,7 @@ function b_oledrion_my_lists_edit($options)
 function b_oledrion_my_lists_duplicatable($options)
 {
     $options = explode('|', $options);
-    $block = & b_oledrion_my_lists_show($options);
+    $block = b_oledrion_my_lists_show($options);
 
     $tpl = new XoopsTpl();
     $tpl->assign('block', $block);

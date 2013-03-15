@@ -26,7 +26,7 @@ require 'classheader.php';
 
 class oledrion_files extends Oledrion_Object
 {
-    function __construct()
+    public function __construct()
     {
         $this->initVar('file_id', XOBJ_DTYPE_INT, null, false);
         $this->initVar('file_product_id', XOBJ_DTYPE_INT, null, false);
@@ -38,7 +38,7 @@ class oledrion_files extends Oledrion_Object
     /**
      * Supprime un fichier
      */
-    function deleteAttachedFile()
+    public function deleteAttachedFile()
     {
         if (!defined("OLEDRION_ATTACHED_FILES_PATH")) {
             include OLEDRION_PATH . 'config.php';
@@ -50,7 +50,7 @@ class oledrion_files extends Oledrion_Object
      * Indique si le fichier courant est un fichier MP3
      * @return boolean
      */
-    function isMP3()
+    public function isMP3()
     {
         return strtolower($this->getVar('file_mimetype')) == 'audio/mpeg' ? true : false;
     }
@@ -59,7 +59,7 @@ class oledrion_files extends Oledrion_Object
      * Indique si le fichier attaché existe physiquement sur le site
      * @return boolean
      */
-    function fileExists()
+    public function fileExists()
     {
         if (!defined("OLEDRION_ATTACHED_FILES_PATH")) {
             include OLEDRION_PATH . 'config.php';
@@ -71,7 +71,7 @@ class oledrion_files extends Oledrion_Object
      * Retourne l'url pour accéder au fichier
      * @return string
      */
-    function getURL()
+    public function getURL()
     {
         if (!defined("OLEDRION_ATTACHED_FILES_URL")) {
             include OLEDRION_PATH . 'config.php';
@@ -83,7 +83,7 @@ class oledrion_files extends Oledrion_Object
      * Retourne le chemin physique pour accéder au fichier
      * @return string
      */
-    function getPath()
+    public function getPath()
     {
         if (!defined("OLEDRION_ATTACHED_FILES_URL")) {
             include OLEDRION_PATH . 'config.php';
@@ -91,7 +91,7 @@ class oledrion_files extends Oledrion_Object
         return OLEDRION_ATTACHED_FILES_PATH . DIRECTORY_SEPARATOR . $this->getVar('file_filename');
     }
 
-    function toArray($format = 's')
+    public function toArray($format = 's')
     {
         $ret = parent::toArray($format);
         $ret['file_is_mp3'] = $this->isMP3();
@@ -103,7 +103,7 @@ class oledrion_files extends Oledrion_Object
 
 class OledrionOledrion_filesHandler extends Oledrion_XoopsPersistableObjectHandler
 {
-    function __construct($db)
+    public function __construct($db)
     { //							Table			Classe		 	Id			Libellé
         parent::__construct($db, 'oledrion_files', 'oledrion_files', 'file_id', 'file_filename');
     }
@@ -114,7 +114,7 @@ class OledrionOledrion_filesHandler extends Oledrion_XoopsPersistableObjectHandl
      * @param oledrion_files $file
      * @return boolean    Le résultat de la suppression
      */
-    function deleteAttachedFile(oledrion_files $file)
+    public function deleteAttachedFile(oledrion_files $file)
     {
         if ($file->fileExists()) {
             $file->deleteAttachedFile();
@@ -130,7 +130,7 @@ class OledrionOledrion_filesHandler extends Oledrion_XoopsPersistableObjectHandl
      * @param integer $limit    Nombre maxi de produits à retourner
      * @return array    tableau d'objets de type oledrion_files
      */
-    function getProductFiles($file_product_id, $start = 0, $limit = 0)
+    public function getProductFiles($file_product_id, $start = 0, $limit = 0)
     {
         $criteria = new Criteria('file_product_id', $file_product_id, '=');
         $criteria->setStart($start);
@@ -144,7 +144,7 @@ class OledrionOledrion_filesHandler extends Oledrion_XoopsPersistableObjectHandl
      * @param integer $file_product_id    L'Id du produit
      * @return integer    le nombre de fichiers MP3
      */
-    function getProductMP3Count($file_product_id)
+    public function getProductMP3Count($file_product_id)
     {
         $criteria = new CriteriaCompo();
         $criteria->add(new Criteria('file_product_id', $file_product_id, '='));
@@ -158,7 +158,7 @@ class OledrionOledrion_filesHandler extends Oledrion_XoopsPersistableObjectHandl
      * @param integer $file_product_id    L'Id du produit
      * @return integer    le nombre de fichiers
      */
-    function getProductFilesCount($file_product_id)
+    public function getProductFilesCount($file_product_id)
     {
         $criteria = new Criteria('file_product_id', $file_product_id, '=');
         return $this->getCount($criteria);
@@ -170,7 +170,7 @@ class OledrionOledrion_filesHandler extends Oledrion_XoopsPersistableObjectHandl
      * @param integer $file_product_id    L'Id du produit
      * @return void
      */
-    function deleteProductFiles($file_product_id)
+    public function deleteProductFiles($file_product_id)
     {
         $files = array();
         $criteria = new Criteria('file_product_id', $file_product_id, '=');

@@ -76,7 +76,7 @@ function listCart()
     $goOn = '';
     $reductions = new oledrion_reductions();
     $reductions->computeCart($cartForTemplate, $emptyCart, $shippingAmount, $commandAmount, $vatAmount, $goOn, $commandAmountTTC, $discountsDescription, $discountsCount, $ecotaxeAmount, $discountAmount, $totalSavings);
-    $oledrion_Currency = & oledrion_Currency::getInstance();
+    $oledrion_Currency = oledrion_Currency::getInstance();
     $xoopsTpl->assign('emptyCart', $emptyCart); // Caddy Vide ?
     $xoopsTpl->assign('caddieProducts', $cartForTemplate); // Produits dans le caddy
     $xoopsTpl->assign('shippingAmount', $oledrion_Currency->amountForDisplay($shippingAmount)); // Montant des frais de port

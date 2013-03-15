@@ -34,7 +34,7 @@ require_once OLEDRION_PATH . 'class/tree.php';
 $limit = oledrion_utils::getModuleOption('items_count'); // Nombre maximum d'�l�ments � afficher dans l'admin
 $baseurl = OLEDRION_URL . 'admin/' . basename(__FILE__); // URL de ce script
 $conf_msg = oledrion_utils::javascriptLinkConfirm(_AM_OLEDRION_CONF_DELITEM);
-$oledrion_Currency = & oledrion_Currency::getInstance();
+$oledrion_Currency = oledrion_Currency::getInstance();
 $manual_meta = oledrion_utils::getModuleOption('manual_meta');
 
 oledrion_utils::loadLanguageFile('modinfo.php');

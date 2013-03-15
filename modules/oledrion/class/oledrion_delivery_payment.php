@@ -22,7 +22,7 @@ require 'classheader.php';
 
 class oledrion_delivery_payment extends Oledrion_Object
 {
-    function __construct()
+    public function __construct()
     {
         $this->initVar('dp_id', XOBJ_DTYPE_INT, null, false);
         $this->initVar('dp_delivery', XOBJ_DTYPE_INT, null, false);
@@ -33,7 +33,7 @@ class oledrion_delivery_payment extends Oledrion_Object
 
 class OledrionOledrion_delivery_paymentHandler extends Oledrion_XoopsPersistableObjectHandler
 {
-    function __construct($db)
+    public function __construct($db)
     { //							              Table					          Classe				    Id
         parent::__construct($db, 'oledrion_delivery_payment', 'oledrion_delivery_payment', 'dp_id');
     }

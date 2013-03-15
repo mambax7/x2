@@ -62,7 +62,7 @@ class oledrion_parameters extends ArrayObject
      * @param mixed $value    La valeur à lui attribuer
      * @return object
      */
-    function __set($key, $value)
+    public function __set($key, $value)
     {
         parent::offsetSet($key, $value);
         return $this;
@@ -77,7 +77,7 @@ class oledrion_parameters extends ArrayObject
      * @param mixed $args
      * @return object
      */
-    function __call($method, $args)
+    public function __call($method, $args)
     {
         if (substr($method, 0, 3) == 'set') {
             parent::offsetSet(strtolower(substr($method, 3, 1)) . substr($method, 4), $args[0]);
@@ -96,7 +96,7 @@ class oledrion_parameters extends ArrayObject
      * @param oledrion_parameters $defaultValues
      * @return oledrion_parameters
      */
-    function extend(self $defaultValues)
+    public function extend(self $defaultValues)
     {
         $result = new self;
         $result = $this;

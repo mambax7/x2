@@ -33,7 +33,7 @@ if (!oledrion_utils::isAdmin()) {
     exit;
 }
 $xoopsTpl = new XoopsTpl();
-$ts =& MyTextSanitizer::getInstance();
+$ts = MyTextSanitizer::getInstance();
 $limit = oledrion_utils::getModuleOption('items_count'); // Nombre maximum d'éléments à afficher dans l'admin
 
 $oledrion_handlers = oledrion_handler::getInstance();

@@ -107,7 +107,7 @@ function b_oledrion_category_edit($options)
 function b_oledrion_category_duplicatable($options)
 {
     $options = explode('|', $options);
-    $block = & b_oledrion_category($options);
+    $block = b_oledrion_category($options);
 
     $tpl = new XoopsTpl();
     $tpl->assign('block', $block);

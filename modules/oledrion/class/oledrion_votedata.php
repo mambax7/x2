@@ -25,7 +25,7 @@ require 'classheader.php';
 
 class oledrion_votedata extends Oledrion_Object
 {
-    function __construct()
+    public function __construct()
     {
         $this->initVar('vote_ratingid', XOBJ_DTYPE_INT, null, false);
         $this->initVar('vote_product_id', XOBJ_DTYPE_INT, null, false);
@@ -39,7 +39,7 @@ class oledrion_votedata extends Oledrion_Object
 
 class OledrionOledrion_votedataHandler extends Oledrion_XoopsPersistableObjectHandler
 {
-    function __construct($db)
+    public function __construct($db)
     { //								Table					Classe			 Id
         parent::__construct($db, 'oledrion_votedata', 'oledrion_votedata', 'vote_ratingid');
     }
@@ -53,7 +53,7 @@ class OledrionOledrion_votedataHandler extends Oledrion_XoopsPersistableObjectHa
      * @param integer $sumRating Variable passée par référence et devant contenir le cumul des votes
      * @return none Rien
      */
-    function getCountRecordSumRating($product_id, &$totalVotes, &$sumRating)
+    public function getCountRecordSumRating($product_id, $totalVotes, $sumRating)
     {
         $sql = "SELECT count( * ) AS cpt, sum( vote_rating ) AS sum_rating FROM " . $this->table . " WHERE vote_product_id = " . intval($product_id);
         $result = $this->db->query($sql);
@@ -73,7 +73,7 @@ class OledrionOledrion_votedataHandler extends Oledrion_XoopsPersistableObjectHa
      * @param integer $limit count of items to return
      * @return array Array of votedata objects
      */
-    function getLastVotes($start = 0, $limit = 0)
+    public function getLastVotes($start = 0, $limit = 0)
     {
         $tbl_datas = array();
         $criteria = new Criteria('vote_ratingid', 0, '<>');
@@ -91,7 +91,7 @@ class OledrionOledrion_votedataHandler extends Oledrion_XoopsPersistableObjectHa
      * @param integer $vote_product_id    L'identifiant du produit
      * @return le résultat de la suppression
      */
-    function deleteProductRatings($vote_product_id)
+    public function deleteProductRatings($vote_product_id)
     {
         $criteria = new Criteria('vote_product_id', $vote_product_id, '=');
         return $this->deleteAll($criteria);
@@ -104,7 +104,7 @@ class OledrionOledrion_votedataHandler extends Oledrion_XoopsPersistableObjectHa
      * @param integer $vote_product_id    Le numéro du produit
      * @return boolean    True s'il a déjà voté sinon False
      */
-    function hasUserAlreadyVoted($vote_uid, $vote_product_id)
+    public function hasUserAlreadyVoted($vote_uid, $vote_product_id)
     {
         if ($vote_uid == 0) {
             $vote_uid = oledrion_utils::getCurrentUserID();
@@ -127,7 +127,7 @@ class OledrionOledrion_votedataHandler extends Oledrion_XoopsPersistableObjectHa
      * @param integer $vote_product_id    Ld'identifiant du produit
      * @return boolean
      */
-    function hasAnonymousAlreadyVoted($ip = '', $vote_product_id = 0)
+    public function hasAnonymousAlreadyVoted($ip = '', $vote_product_id = 0)
     {
         if ($ip == '') {
             $ip = oledrion_utils::IP();
@@ -155,7 +155,7 @@ class OledrionOledrion_votedataHandler extends Oledrion_XoopsPersistableObjectHa
      * @param integer $vote_rating    Le vote
      * @return le résultat de la création du vote
      */
-    function createRating($vote_product_id, $vote_uid, $vote_rating)
+    public function createRating($vote_product_id, $vote_uid, $vote_rating)
     {
         $product = $this->create(true);
         $product->setVar('vote_product_id', $vote_product_id);

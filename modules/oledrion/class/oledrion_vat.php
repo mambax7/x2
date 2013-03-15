@@ -25,14 +25,14 @@ require 'classheader.php';
 
 class oledrion_vat extends Oledrion_Object
 {
-    function __construct()
+    public function __construct()
     {
         $this->initVar('vat_id', XOBJ_DTYPE_INT, null, false);
         $this->initVar('vat_rate', XOBJ_DTYPE_TXTBOX, null, false);
         $this->initVar('vat_country', XOBJ_DTYPE_TXTBOX, null, false);
     }
 
-    function toArray($format = 's')
+    public function toArray($format = 's')
     {
         $ret = array();
         $ret = parent::toArray($format);
@@ -45,7 +45,7 @@ class oledrion_vat extends Oledrion_Object
 
 class OledrionOledrion_vatHandler extends Oledrion_XoopsPersistableObjectHandler
 {
-    function __construct($db)
+    public function __construct($db)
     { //						Table			Classe		 	Id
         parent::__construct($db, 'oledrion_vat', 'oledrion_vat', 'vat_id');
     }
@@ -60,7 +60,7 @@ class OledrionOledrion_vatHandler extends Oledrion_XoopsPersistableObjectHandler
      * @param boolean $idaskey Indique si le tableau renvoyé doit avoir pour clé l'identifiant unique de l'enregistrement
      * @return array tableau d'objets de type TVA
      */
-    function getAllVats(oledrion_parameters $parameters)
+    public function getAllVats(oledrion_parameters $parameters)
     {
         $parameters = $parameters->extend(new oledrion_parameters(array('start' => 0, 'limit' => 0, 'sort' => 'vat_id', 'order' => 'ASC', 'idaskey' => true)));
         $critere = new Criteria('vat_id', 0, '<>');
@@ -84,7 +84,7 @@ class OledrionOledrion_vatHandler extends Oledrion_XoopsPersistableObjectHandler
      * @param boolean $idaskey Indique si le tableau renvoyé doit avoir pour clé l'identifiant unique de l'enregistrement
      * @return array tableau d'objets de type TVA
      */
-    function getCountryVats($country)
+    public function getCountryVats($country)
     {
         $parameters = new oledrion_parameters(array('start' => 0, 'limit' => 0, 'sort' => 'vat_id', 'order' => 'ASC', 'idaskey' => true));
         $critere = new Criteria('vat_country', $country, 'LIKE');
@@ -103,7 +103,7 @@ class OledrionOledrion_vatHandler extends Oledrion_XoopsPersistableObjectHandler
      * @param oledrion_vat $vat
      * @return boolean    Le résultat de la suppressin
      */
-    function deleteVat(oledrion_vat $vat)
+    public function deleteVat(oledrion_vat $vat)
     {
         return $this->delete($vat, true);
     }
@@ -114,7 +114,7 @@ class OledrionOledrion_vatHandler extends Oledrion_XoopsPersistableObjectHandler
      * @param integer $vat_id    L'ID de la TVA
      * @return integer    Le nombre de produits
      */
-    function getVatProductsCount($vat_id)
+    public function getVatProductsCount($vat_id)
     {
         global $h_oledrion_products;
         return $h_oledrion_products->getVatProductsCount($vat_id);

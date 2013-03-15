@@ -36,7 +36,7 @@ $tbl_related_products = array();
 $start = isset($_GET['start']) ? intval($_GET['start']) : 0;
 $limit = oledrion_utils::getModuleOption('perpage');
 $baseurl = OLEDRION_URL . basename(__FILE__); // URL de ce script (sans son nom)
-$oledrion_Currency = & oledrion_Currency::getInstance();
+$oledrion_Currency = oledrion_Currency::getInstance();
 
 $registry = new oledrion_registryfile();
 

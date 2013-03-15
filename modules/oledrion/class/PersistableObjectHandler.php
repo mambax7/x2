@@ -97,7 +97,7 @@ class Oledrion_XoopsPersistableObjectHandler extends XoopsObjectHandler
      *
      * @return void
      */
-    function __construct(&$db, $tablename, $classname, $keyname, $idenfierName = '', $cacheOptions = null)
+    function __construct($db, $tablename, $classname, $keyname, $idenfierName = '', $cacheOptions = null)
     {
         //include_once '../include/common.php';
         include_once XOOPS_ROOT_PATH . '/modules/oledrion/include/common.php';
@@ -142,7 +142,7 @@ class Oledrion_XoopsPersistableObjectHandler extends XoopsObjectHandler
      *
      * @return object
      */
-    function &create($isNew = true)
+    function create($isNew = true)
     {
         $obj = new $this->className();
         if ($isNew === true) {
@@ -158,7 +158,7 @@ class Oledrion_XoopsPersistableObjectHandler extends XoopsObjectHandler
      * @param bool $as_object whether to return an object or an array
      * @return mixed reference to the object, FALSE if failed
      */
-    function &get($id, $as_object = true)
+    function get($id, $as_object = true)
     {
         if (is_array($this->keyName)) {
             $criteria = new CriteriaCompo();
@@ -174,7 +174,7 @@ class Oledrion_XoopsPersistableObjectHandler extends XoopsObjectHandler
         if (count($obj_array) != 1) {
             $ret = null;
         } else {
-            $ret =& $obj_array[0];
+            $ret = $obj_array[0];
         }
         return $ret;
     }
@@ -188,7 +188,7 @@ class Oledrion_XoopsPersistableObjectHandler extends XoopsObjectHandler
      *
      * @return array
      */
-    function &getObjects($criteria = null, $id_as_key = false, $as_object = true, $fields = '*', $autoSort = true)
+    function getObjects($criteria = null, $id_as_key = false, $as_object = true, $fields = '*', $autoSort = true)
     {
         //require_once 'lite.php';
         $ret = array();
@@ -238,11 +238,11 @@ class Oledrion_XoopsPersistableObjectHandler extends XoopsObjectHandler
     {
         $ret = array();
         while ($myrow = $this->db->fetchArray($result)) {
-            $obj =& $this->create(false);
+            $obj = $this->create(false);
             $obj->assignVars($myrow);
             if (!$id_as_key) {
                 if ($as_object) {
-                    $ret[] =& $obj;
+                    $ret[] = $obj;
                 } else {
                     $row = array();
                     $vars = $obj->getVars();
@@ -255,9 +255,9 @@ class Oledrion_XoopsPersistableObjectHandler extends XoopsObjectHandler
             } else {
                 if ($as_object) {
                     if ($fields == '*') {
-                        $ret[$myrow[$this->keyName]] =& $obj;
+                        $ret[$myrow[$this->keyName]] = $obj;
                     } else {
-                        $ret[] =& $obj;
+                        $ret[] = $obj;
                     }
                 } else {
                     $row = array();
@@ -360,7 +360,7 @@ class Oledrion_XoopsPersistableObjectHandler extends XoopsObjectHandler
             return $ret;
         }
 
-        $myts =& MyTextSanitizer::getInstance();
+        $myts = MyTextSanitizer::getInstance();
         while ($myrow = $this->db->fetchArray($result)) {
             // identifiers should be textboxes, so sanitize them like that
             $ret[$myrow[$this->keyName]] = empty($this->identifierName) ? 1 : $myts->htmlSpecialChars($myrow[$this->identifierName]);
@@ -491,7 +491,7 @@ class Oledrion_XoopsPersistableObjectHandler extends XoopsObjectHandler
      * @param bool $force
      * @return bool FALSE if failed.
      */
-    function delete(&$obj, $force = false)
+    function delete($obj, $force = false)
     {
         if (is_array($this->keyName)) {
             $clause = array();
@@ -548,7 +548,7 @@ class Oledrion_XoopsPersistableObjectHandler extends XoopsObjectHandler
      * @return bool FALSE if failed, TRUE if already present and unchanged or successful
      */
 
-    function insert(&$obj, $force = false, $checkObject = true)
+    function insert($obj, $force = false, $checkObject = true)
     {
         if ($checkObject != false) {
             if (!is_object($obj)) {
@@ -676,7 +676,7 @@ class Oledrion_XoopsPersistableObjectHandler extends XoopsObjectHandler
     }
 
 //	check if target object is attempting to use duplicated info
-    function isDuplicated(&$obj, $field = '', $error = '')
+    function isDuplicated($obj, $field = '', $error = '')
     {
         if (empty($field)) {
             return false;

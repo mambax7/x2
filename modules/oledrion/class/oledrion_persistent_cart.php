@@ -29,7 +29,7 @@ require 'classheader.php';
 
 class oledrion_persistent_cart extends Oledrion_Object
 {
-    function __construct()
+    public function __construct()
     {
         $this->initVar('persistent_id', XOBJ_DTYPE_INT, null, false);
         $this->initVar('persistent_product_id', XOBJ_DTYPE_INT, null, false);
@@ -42,7 +42,7 @@ class oledrion_persistent_cart extends Oledrion_Object
 
 class OledrionOledrion_persistent_cartHandler extends Oledrion_XoopsPersistableObjectHandler
 {
-    function __construct($db)
+    public function __construct($db)
     { //						  Table						Classe		 				  Id
         parent::__construct($db, 'oledrion_persistent_cart', 'oledrion_persistent_cart', 'persistent_id');
     }
@@ -53,7 +53,7 @@ class OledrionOledrion_persistent_cartHandler extends Oledrion_XoopsPersistableO
      * @param mixed $persistent_product_id    L'ID du produit à supprimer ou un tableau d'identifiants à supprimer
      * @return boolean
      */
-    function deleteProductForAllCarts($persistent_product_id)
+    public function deleteProductForAllCarts($persistent_product_id)
     {
         if (oledrion_utils::getModuleOption('persistent_cart') == 0) {
             return true;
@@ -72,7 +72,7 @@ class OledrionOledrion_persistent_cartHandler extends Oledrion_XoopsPersistableO
      * @param integer $persistent_uid    L'identifiant de l'utilisateur
      * @return boolean    Le résultat de la suppression
      */
-    function deleteAllUserProducts($persistent_uid = 0)
+    public function deleteAllUserProducts($persistent_uid = 0)
     {
         if (oledrion_utils::getModuleOption('persistent_cart') == 0) {
             return true;
@@ -90,7 +90,7 @@ class OledrionOledrion_persistent_cartHandler extends Oledrion_XoopsPersistableO
      * @param integer $persistent_uid    L'identifiant de l'utilisateur
      * @return boolean    Le résultat de la suppression
      */
-    function deleteUserProduct($persistent_product_id, $persistent_uid = 0)
+    public function deleteUserProduct($persistent_product_id, $persistent_uid = 0)
     {
         if (oledrion_utils::getModuleOption('persistent_cart') == 0) {
             return true;
@@ -110,7 +110,7 @@ class OledrionOledrion_persistent_cartHandler extends Oledrion_XoopsPersistableO
      * @param integer $persistent_uid    L'ID de l'utilisateur
      * @return boolean    Le résultat de l'ajout du produit
      */
-    function addUserProduct($persistent_product_id, $persistent_qty, $persistent_uid = 0)
+    public function addUserProduct($persistent_product_id, $persistent_qty, $persistent_uid = 0)
     {
         if (oledrion_utils::getModuleOption('persistent_cart') == 0) {
             return true;
@@ -132,7 +132,7 @@ class OledrionOledrion_persistent_cartHandler extends Oledrion_XoopsPersistableO
      * @param integer $persistent_uid    L'ID de l'utilisateur
      * @return boolean    Le résultat de la mise à jour
      */
-    function updateUserProductQuantity($persistent_product_id, $persistent_qty, $persistent_uid = 0)
+    public function updateUserProductQuantity($persistent_product_id, $persistent_qty, $persistent_uid = 0)
     {
         if (oledrion_utils::getModuleOption('persistent_cart') == 0) {
             return true;
@@ -150,7 +150,7 @@ class OledrionOledrion_persistent_cartHandler extends Oledrion_XoopsPersistableO
      * @param integer $persistent_uid    L'id de l'utilisateur
      * @return boolean
      */
-    function isCartExists($persistent_uid = 0)
+    public function isCartExists($persistent_uid = 0)
     {
         if (oledrion_utils::getModuleOption('persistent_cart') == 0) {
             return false;
@@ -166,7 +166,7 @@ class OledrionOledrion_persistent_cartHandler extends Oledrion_XoopsPersistableO
      * @param integer $persistent_uid    L'ID de l'utilisateur
      * @return array    Tableaux d'objets de type oledrion_persistent_cart
      */
-    function getUserProducts($persistent_uid = 0)
+    public function getUserProducts($persistent_uid = 0)
     {
         if (oledrion_utils::getModuleOption('persistent_cart') == 0) {
             return false;

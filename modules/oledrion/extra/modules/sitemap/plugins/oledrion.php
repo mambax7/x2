@@ -22,7 +22,7 @@ function b_sitemap_oledrion()
 {
     require '../oledrion/header.php';
     global $sitemap_configs;
-    $xoopsDB =& XoopsDatabaseFactory::getDatabaseConnection();
+    $xoopsDB = XoopsDatabaseFactory::getDatabaseConnection();
     $table = $xoopsDB->prefix('oledrion_cat');
     $id_name = 'cat_cid';
     $pid_name = 'cat_pid';
@@ -32,10 +32,10 @@ function b_sitemap_oledrion()
 
     include_once XOOPS_ROOT_PATH . '/class/xoopstree.php';
     $mytree = new XoopsTree($table, $id_name, $pid_name);
-    $xoopsDB =& XoopsDatabaseFactory::getDatabaseConnection();
+    $xoopsDB = XoopsDatabaseFactory::getDatabaseConnection();
 
     $sitemap = array();
-    $myts =& MyTextSanitizer::getInstance();
+    $myts = MyTextSanitizer::getInstance();
 
     $i = 0;
     $sql = "SELECT `$id_name`,`$title_name` FROM `$table` WHERE `$pid_name`=0";

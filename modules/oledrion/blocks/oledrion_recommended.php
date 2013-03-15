@@ -80,7 +80,7 @@ function b_oledrion_recomm_edit($options)
 function b_oledrion_recomm_show_duplicatable($options)
 {
     $options = explode('|', $options);
-    $block = & b_oledrion_recomm_show($options);
+    $block = b_oledrion_recomm_show($options);
 
     $tpl = new XoopsTpl();
     $tpl->assign('block', $block);

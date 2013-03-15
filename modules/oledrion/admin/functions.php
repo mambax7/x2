@@ -39,7 +39,7 @@ function oledrion_get_mid()
 function oledrion_get_config_handler()
 {
     $config_handler = null;
-    $config_handler =& xoops_gethandler('config');
+    $config_handler = xoops_gethandler('config');
     if (!is_object($config_handler)) {
         trigger_error("Error, unable to get and handler on the Config object");
         exit;

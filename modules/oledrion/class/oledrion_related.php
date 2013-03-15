@@ -25,7 +25,7 @@ require 'classheader.php';
 
 class oledrion_related extends Oledrion_Object
 {
-    function __construct()
+    public function __construct()
     {
         $this->initVar('related_id', XOBJ_DTYPE_INT, null, false);
         $this->initVar('related_product_id', XOBJ_DTYPE_INT, null, false);
@@ -36,7 +36,7 @@ class oledrion_related extends Oledrion_Object
 
 class OledrionOledrion_relatedHandler extends Oledrion_XoopsPersistableObjectHandler
 {
-    function __construct($db)
+    public function __construct($db)
     { //							Table				Classe					 Id
         parent::__construct($db, 'oledrion_related', 'oledrion_related', 'related_id');
     }
@@ -46,7 +46,7 @@ class OledrionOledrion_relatedHandler extends Oledrion_XoopsPersistableObjectHan
      *
      * @param integer $related_product_id    L'identifiant du produit pour lequel il faut faire la suppression
      */
-    function deleteProductRelatedProducts($related_product_id)
+    public function deleteProductRelatedProducts($related_product_id)
     {
         $criteria = new Criteria('related_product_id', $related_product_id, '=');
         $this->deleteAll($criteria);
@@ -58,7 +58,7 @@ class OledrionOledrion_relatedHandler extends Oledrion_XoopsPersistableObjectHan
      * @param array $ids    Les ID des produits dont on recherche les produits relatifs
      * @return array    Objets de type oledrion_related
      */
-    function getRelatedProductsFromProductsIds($ids)
+    public function getRelatedProductsFromProductsIds($ids)
     {
         $ret = array();
         if (is_array($ids)) {

@@ -44,7 +44,7 @@ define("OLEDRION_ATTRIBUTE_SELECT_MULTIPLE", false); // Valeur par défaut, sél
 
 class oledrion_attributes extends Oledrion_Object
 {
-    function __construct()
+    public function __construct()
     {
         $this->initVar('attribute_id', XOBJ_DTYPE_INT, null, false);
         $this->initVar('attribute_weight', XOBJ_DTYPE_INT, null, false);
@@ -68,7 +68,7 @@ class oledrion_attributes extends Oledrion_Object
      * @return boolean
      * @since 2.3.2009.03.20
      */
-    function hasDefaultValue()
+    public function hasDefaultValue()
     {
         if (xoops_trim($this->getVar('attribute_default_value')) != '') {
             return true;
@@ -82,7 +82,7 @@ class oledrion_attributes extends Oledrion_Object
      *
      * @return string
      */
-    function getAttributeNameInForm()
+    public function getAttributeNameInForm()
     {
         return $this->getVar('attribute_name') . '_' . $this->getVar('attribute_id');
     }
@@ -95,7 +95,7 @@ class oledrion_attributes extends Oledrion_Object
      * @return array
      * @since 2.3.2009.03.11
      */
-    function getOption($valueToGet, $format = 'e')
+    public function getOption($valueToGet, $format = 'e')
     {
         $names = array();
         if (xoops_trim($this->getVar($valueToGet, $format)) != '') {
@@ -110,7 +110,7 @@ class oledrion_attributes extends Oledrion_Object
      * @return integer
      * @since 2.3.2009.03.12
      */
-    function getOptionsCount()
+    public function getOptionsCount()
     {
         $names = explode(OLEDRION_ATTRIBUTE_SEPARATOR, $this->getVar('attribute_names', 's'));
         return count($names);
@@ -163,7 +163,7 @@ class oledrion_attributes extends Oledrion_Object
      * @return boolean
      * @since 2.3.2009.03.12
      */
-    function addEmptyOption()
+    public function addEmptyOption()
     {
         return $this->appendOption(_AM_OLEDRION_ATTRIBUTE_DEF_VALUE, _AM_OLEDRION_ATTRIBUTE_DEF_VALUE, _AM_OLEDRION_ATTRIBUTE_DEF_AMOUNT, _AM_OLEDRION_ATTRIBUTE_DEF_AMOUNT);
     }
@@ -178,7 +178,7 @@ class oledrion_attributes extends Oledrion_Object
      * @return boolean
      * @since 2.3.2009.03.16
      */
-    function addOption($name, $value, $price = '', $stock = '')
+    public function addOption($name, $value, $price = '', $stock = '')
     {
         return $this->appendOption($name, $value, $price, $stock);
     }
@@ -189,7 +189,7 @@ class oledrion_attributes extends Oledrion_Object
      * @return boolean    True
      * @since 2.3.2009.03.10
      */
-    function resetOptions()
+    public function resetOptions()
     {
         $this->setVar('attribute_names', OLEDRION_EMPTY_OPTION);
         $this->setVar('attribute_values', OLEDRION_EMPTY_OPTION);
@@ -213,7 +213,7 @@ class oledrion_attributes extends Oledrion_Object
      * @return boolean                True si la mise à jour s'est faite sinon false
      * @since 2.3.2009.03.10
      */
-    function setOptionValue($optionNumber, $name, $value, $price = '', $stock = '')
+    public function setOptionValue($optionNumber, $name, $value, $price = '', $stock = '')
     {
         $optionNumber = intval($optionNumber);
         if ($optionNumber < 0 || $optionNumber > $this->getOptionsCount()) {
@@ -265,7 +265,7 @@ class oledrion_attributes extends Oledrion_Object
      * @return void
      * @since 2.3.2009.03.10
      */
-    private function swapValues(&$array, $from, $to)
+    private function swapValues($array, $from, $to)
     {
         $tempValue = $array[$to];
         $array[$to] = $array[$from];
@@ -334,7 +334,7 @@ class oledrion_attributes extends Oledrion_Object
      * @return boolean
      * @since 2.3.2009.03.10
      */
-    function moveOptionUp($optionNumber)
+    public function moveOptionUp($optionNumber)
     {
         return $this->moveOption($optionNumber, 1);
     }
@@ -346,7 +346,7 @@ class oledrion_attributes extends Oledrion_Object
      * @return boolean
      * @since 2.3.2009.03.10
      */
-    function moveOptionDown($optionNumber)
+    public function moveOptionDown($optionNumber)
     {
         return $this->moveOption($optionNumber, 2);
     }
@@ -358,7 +358,7 @@ class oledrion_attributes extends Oledrion_Object
      * @return boolean    false si l'indice est hors borne sinon true
      * @since 2.3.2009.03.12
      */
-    function deleteOption($optionNumber)
+    public function deleteOption($optionNumber)
     {
         $optionNumber = intval($optionNumber);
         if ($optionNumber < 0 || $optionNumber > $this->getOptionsCount()) {
@@ -406,7 +406,7 @@ class oledrion_attributes extends Oledrion_Object
      * @return float
      * @since 2.3.2009.03.19
      */
-    function getDefaultAttributePrice($format = 'e')
+    public function getDefaultAttributePrice($format = 'e')
     {
         $defaultValue = xoops_trim($this->getVar('attribute_default_value', 'e'));
         if ($defaultValue != '') { // Il y a une option par défaut donc un prix
@@ -436,7 +436,7 @@ class oledrion_attributes extends Oledrion_Object
      * @return string
      * @since 2.3.2009.03.20
      */
-    function getAttributeDefaultValue($format = 'e')
+    public function getAttributeDefaultValue($format = 'e')
     {
         return xoops_trim($this->getVar('attribute_default_value', $format));
     }
@@ -451,7 +451,7 @@ class oledrion_attributes extends Oledrion_Object
      * @return array
      * @since 2.3.2009.03.11
      */
-    function getAttributeOptions($format = 's', $withFormatedPrices = false, oledrion_products $product = null)
+    public function getAttributeOptions($format = 's', $withFormatedPrices = false, oledrion_products $product = null)
     {
         $ret = array();
         $counter = 0;
@@ -512,7 +512,7 @@ class oledrion_attributes extends Oledrion_Object
      * @return array
      * @since 2.3.2009.03.10
      */
-    function getTypesList()
+    public function getTypesList()
     {
         $attributeTypeName = array(OLEDRION_ATTRIBUTE_RADIO => _AM_OLEDRION_TYPE_RADIO,
             OLEDRION_ATTRIBUTE_CHECKBOX => _AM_OLEDRION_TYPE_CHECKBOX,
@@ -526,7 +526,7 @@ class oledrion_attributes extends Oledrion_Object
      * @return mixed    Soit le type de l'attribut soit null;
      * @since 2.3.2009.03.10
      */
-    function getTypeName()
+    public function getTypeName()
     {
         $attributeTypeName = $this->getTypesList();
         if (isset($attributeTypeName[$this->getVar('attribute_type')])) {
@@ -542,7 +542,7 @@ class oledrion_attributes extends Oledrion_Object
      * @param string $optionName
      * @return float
      */
-    function getOptionPriceFromValue($optionName)
+    public function getOptionPriceFromValue($optionName)
     {
         $ret = 0;
         $format = 's';
@@ -566,7 +566,7 @@ class oledrion_attributes extends Oledrion_Object
      * @param string $optionName
      * @return string
      */
-    function getOptionNameFromValue($optionName)
+    public function getOptionNameFromValue($optionName)
     {
         $ret = '';
         $format = 's';
@@ -599,7 +599,7 @@ class oledrion_attributes extends Oledrion_Object
      * @return string    Le contenu html
      * @since 2.3.2009.03.16
      */
-    function render(oledrion_products $product)
+    public function render(oledrion_products $product)
     {
         include_once XOOPS_ROOT_PATH . '/class/template.php';
         $template = new XoopsTpl();
@@ -690,7 +690,7 @@ class oledrion_attributes extends Oledrion_Object
 
 class OledrionOledrion_attributesHandler extends Oledrion_XoopsPersistableObjectHandler
 {
-    function __construct($db)
+    public function __construct($db)
     { //							    Table			    Classe			        Id
         parent::__construct($db, 'oledrion_attributes', 'oledrion_attributes', 'attribute_id');
     }
@@ -702,7 +702,7 @@ class OledrionOledrion_attributesHandler extends Oledrion_XoopsPersistableObject
      * @return boolean    Le résultat de la suppression
      * @since 2.3.2009.03.16
      */
-    function deleteProductAttributes($attribute_product_id)
+    public function deleteProductAttributes($attribute_product_id)
     {
         $attribute_product_id = intval($attribute_product_id);
         return $this->deleteAll(new Criteria('attribute_product_id', $attribute_product_id, '='));
@@ -715,7 +715,7 @@ class OledrionOledrion_attributesHandler extends Oledrion_XoopsPersistableObject
      * @return integer
      * @since 2.3.2009.03.16
      */
-    function getProductAttributesCount($attribute_product_id)
+    public function getProductAttributesCount($attribute_product_id)
     {
         return $this->getCount(new Criteria('attribute_product_id', $attribute_product_id, '='));
     }
@@ -726,7 +726,7 @@ class OledrionOledrion_attributesHandler extends Oledrion_XoopsPersistableObject
      * @param integer $product_id    Le produit concerné
      * @return array
      */
-    function getProductsAttributesList($product_id, $attributesIds = null)
+    public function getProductsAttributesList($product_id, $attributesIds = null)
     {
         $ret = array();
         $criteria = new CriteriaCompo();
@@ -751,7 +751,7 @@ class OledrionOledrion_attributesHandler extends Oledrion_XoopsPersistableObject
      * @return array    Les options construites en html
      * @since 2.3.2009.03.16
      */
-    function constructHtmlProductAttributes(oledrion_products $product, &$mandatoryFieldsCount = 0)
+    public function constructHtmlProductAttributes(oledrion_products $product, $mandatoryFieldsCount = 0)
     {
         $attributes = $ret = array();
         $attributes = $this->getProductsAttributesList($product->getVar('product_id'));
@@ -773,7 +773,7 @@ class OledrionOledrion_attributesHandler extends Oledrion_XoopsPersistableObject
      * @param oledrion_products $product
      * @return float
      */
-    function getInitialOptionsPrice(oledrion_products $product)
+    public function getInitialOptionsPrice(oledrion_products $product)
     {
         $ret = 0;
         $attributes = array();
@@ -791,7 +791,7 @@ class OledrionOledrion_attributesHandler extends Oledrion_XoopsPersistableObject
      * @return mixed    Soit le nouvel attribut si tout a bien marché sinon false
      * @since 2.3.2009.03.16
      */
-    function cloneAttribute(oledrion_attributes $originalAttribute)
+    public function cloneAttribute(oledrion_attributes $originalAttribute)
     {
         $newAttribute = $originalAttribute->xoopsClone();
         if (OLEDRION_DUPLICATED_PLACE == 'right') {
@@ -816,7 +816,7 @@ class OledrionOledrion_attributesHandler extends Oledrion_XoopsPersistableObject
      * @return array    Value = id produits (uniques)
      * @since 2.3.2009.03.16
      */
-    function getDistinctsProductsIds()
+    public function getDistinctsProductsIds()
     {
         $ret = array();
         $ret = $this->getDistincts('attribute_product_id');
@@ -833,7 +833,7 @@ class OledrionOledrion_attributesHandler extends Oledrion_XoopsPersistableObject
      * @return boolean
      * @since 2.3.2009.03.17
      */
-    function deleteAttribute(oledrion_attributes $attribute)
+    public function deleteAttribute(oledrion_attributes $attribute)
     {
         return $this->delete($attribute, true);
         // TODO: Supprimer dans les attributs paniers
@@ -846,7 +846,7 @@ class OledrionOledrion_attributesHandler extends Oledrion_XoopsPersistableObject
      * @return integer
      * @since 2.3.2009.03.20
      */
-    function getProductMandatoryAttributesCount(oledrion_products $product)
+    public function getProductMandatoryAttributesCount(oledrion_products $product)
     {
         $criteria = new CriteriaCompo();
         $criteria->add(new Criteria('attribute_product_id', $product->getVar('attribute_product_id'), '='));
@@ -860,7 +860,7 @@ class OledrionOledrion_attributesHandler extends Oledrion_XoopsPersistableObject
      * @param oledrion_products $product
      * @return array    objets des type oledrion_attributes
      */
-    function getProductMandatoryFieldsList(oledrion_products $product)
+    public function getProductMandatoryFieldsList(oledrion_products $product)
     {
         $criteria = new CriteriaCompo();
         $criteria->add(new Criteria('attribute_product_id', $product->getVar('attribute_product_id'), '='));
@@ -877,7 +877,7 @@ class OledrionOledrion_attributesHandler extends Oledrion_XoopsPersistableObject
      * @return float
      * @since 2.3.2009.03.21
      */
-    function getProductOptionsPrice($choosenAttributes, $product_vat_id, &$descriptions = null)
+    public function getProductOptionsPrice($choosenAttributes, $product_vat_id, $descriptions = null)
     {
         static $vats = array();
         if (is_array($vats) && isset($vats[$product_vat_id])) {

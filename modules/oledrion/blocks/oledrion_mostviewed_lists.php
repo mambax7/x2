@@ -69,7 +69,7 @@ function b_oledrion__mostviewed_lists_edit($options)
 function b_oledrion_mostviewed_lists_duplicatable($options)
 {
     $options = explode('|', $options);
-    $block = & b_oledrion_mostviewed_lists_show($options);
+    $block = b_oledrion_mostviewed_lists_show($options);
 
     $tpl = new XoopsTpl();
     $tpl->assign('block', $block);

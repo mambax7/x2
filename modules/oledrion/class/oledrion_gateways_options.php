@@ -25,7 +25,7 @@ require 'classheader.php';
 
 class oledrion_gateways_options extends Oledrion_Object
 {
-    function __construct()
+    public function __construct()
     {
         $this->initVar('option_id', XOBJ_DTYPE_INT, null, false);
         $this->initVar('option_gateway', XOBJ_DTYPE_TXTBOX, null, false);
@@ -37,7 +37,7 @@ class oledrion_gateways_options extends Oledrion_Object
 
 class OledrionOledrion_gateways_optionsHandler extends Oledrion_XoopsPersistableObjectHandler
 {
-    function __construct($db)
+    public function __construct($db)
     { //							    Table					    Classe				        Id
         parent::__construct($db, 'oledrion_gateways_options', 'oledrion_gateways_options', 'option_id');
     }
@@ -48,7 +48,7 @@ class OledrionOledrion_gateways_optionsHandler extends Oledrion_XoopsPersistable
      * @param string $option_gateway    Le nom de la passerelle de paiement
      * @return array    Tableau d'objets de type oledrion_gateways_options
      */
-    function getGatewayOptions($option_gateway)
+    public function getGatewayOptions($option_gateway)
     {
         $criteria = new Criteria('option_gateway', $option_gateway, '=');
         return $this->getObjects($criteria);
@@ -60,7 +60,7 @@ class OledrionOledrion_gateways_optionsHandler extends Oledrion_XoopsPersistable
      * @param string $option_gateway
      * @return boolean    Le résultat de la suppression des options
      */
-    function deleteGatewayOptions($option_gateway)
+    public function deleteGatewayOptions($option_gateway)
     {
         $criteria = new Criteria('option_gateway', $option_gateway, '=');
         return $this->deleteAll($criteria);
@@ -73,7 +73,7 @@ class OledrionOledrion_gateways_optionsHandler extends Oledrion_XoopsPersistable
      * @param string $option_name        L'option que l'on souhaite récupérer
      * @return object    Objet de type oledrion_gateways_options
      */
-    function getGatewayOption($option_gateway, $option_name)
+    public function getGatewayOption($option_gateway, $option_name)
     {
         $criteria = new CriteriaCompo();
         $criteria->add(new Criteria('option_gateway', $option_gateway, '='));
@@ -90,7 +90,7 @@ class OledrionOledrion_gateways_optionsHandler extends Oledrion_XoopsPersistable
      * @param boolean $unserialize        Indique s'il faut désérialiser la valeur de retour
      * @return mixed    La valeur de l'option ou null si l'option ne peut pas être trouvée
      */
-    function getGatewayOptionValue($option_gateway, $option_name, $format = 'N', $unserialize = false)
+    public function getGatewayOptionValue($option_gateway, $option_name, $format = 'N', $unserialize = false)
     {
         $ret = array();
         $criteria = new CriteriaCompo();
@@ -117,7 +117,7 @@ class OledrionOledrion_gateways_optionsHandler extends Oledrion_XoopsPersistable
      * @param boolean $serialize        Indique s'il faut sérialiser la valeur avant de l'enregistrer
      * @return boolean                    Le résultat de la mise à jour (vrai si la mise à jour s'est faite sinon faux)
      */
-    function setGatewayOptionValue($option_gateway, $option_name, $option_value, $serialize = false)
+    public function setGatewayOptionValue($option_gateway, $option_name, $option_value, $serialize = false)
     {
         $ret = array();
         $criteria = new CriteriaCompo();

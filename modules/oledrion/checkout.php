@@ -58,7 +58,7 @@ function listCart()
     $reductions->computeCart($cartForTemplate, $emptyCart, $shippingAmount, $commandAmount, $vatAmount, $goOn, $commandAmountTTC, $discountsDescription, $discountsCount);
 }
 
-$oledrion_Currency = & oledrion_Currency::getInstance();
+$oledrion_Currency = oledrion_Currency::getInstance();
 
 $gateway = null;
 $gateway = oledrion_gateways::getGatewayObject();

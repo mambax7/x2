@@ -27,7 +27,7 @@ require 'classheader.php';
 
 class oledrion_products_list extends Oledrion_Object
 {
-    function __construct()
+    public function __construct()
     {
         $this->initVar('productlist_id', XOBJ_DTYPE_INT, null, false);
         $this->initVar('productlist_list_id', XOBJ_DTYPE_INT, null, false);
@@ -39,7 +39,7 @@ class oledrion_products_list extends Oledrion_Object
 
 class OledrionOledrion_products_listHandler extends Oledrion_XoopsPersistableObjectHandler
 {
-    function __construct($db)
+    public function __construct($db)
     { //							Table						Classe				 	Id
         parent::__construct($db, 'oledrion_products_list', 'oledrion_products_list', 'productlist_id');
     }
@@ -50,7 +50,7 @@ class OledrionOledrion_products_listHandler extends Oledrion_XoopsPersistableObj
      * @param oledrion_lists $list
      * @return boolean
      */
-    function deleteListProducts(oledrion_lists $list)
+    public function deleteListProducts(oledrion_lists $list)
     {
         return $this->deleteAll(new Criteria('productlist_list_id', $list->list_id, '='));
     }
@@ -61,7 +61,7 @@ class OledrionOledrion_products_listHandler extends Oledrion_XoopsPersistableObj
      * @param integer $productlist_product_id
      * @return booelan
      */
-    function deleteProductFromLists($productlist_product_id)
+    public function deleteProductFromLists($productlist_product_id)
     {
         return $this->deleteAll(new Criteria('productlist_product_id', $productlist_product_id, '='));
     }
@@ -72,7 +72,7 @@ class OledrionOledrion_products_listHandler extends Oledrion_XoopsPersistableObj
      * @param oledrion_lists $list
      * @return array
      */
-    function getProductsFromList(oledrion_lists $list)
+    public function getProductsFromList(oledrion_lists $list)
     {
         return $this->getObjects(new criteria('productlist_list_id', $list->getVar('list_id'), '='));
     }
@@ -83,7 +83,7 @@ class OledrionOledrion_products_listHandler extends Oledrion_XoopsPersistableObj
      * @param integer $productlist_list_id
      * @param integer $productlist_product_id
      */
-    function deleteProductFromList($productlist_list_id, $productlist_product_id)
+    public function deleteProductFromList($productlist_list_id, $productlist_product_id)
     {
         $criteria = new CriteriaCompo();
         $criteria->add(new Criteria('productlist_list_id', $productlist_list_id, '='));
@@ -98,7 +98,7 @@ class OledrionOledrion_products_listHandler extends Oledrion_XoopsPersistableObj
      * @param integer $productlist_product_id    Id du produit
      * @return boolean
      */
-    function addProductToUserList($productlist_list_id, $productlist_product_id)
+    public function addProductToUserList($productlist_list_id, $productlist_product_id)
     {
         $product_list = $this->create(true);
         $product_list->setVar('productlist_list_id', intval($productlist_list_id));
@@ -113,7 +113,7 @@ class OledrionOledrion_products_listHandler extends Oledrion_XoopsPersistableObj
      * @param integer $productlist_list_id
      * @param integer $productlist_product_id
      */
-    function isProductAlreadyInList($productlist_list_id, $productlist_product_id)
+    public function isProductAlreadyInList($productlist_list_id, $productlist_product_id)
     {
         $criteria = new CriteriaCompo();
         $criteria->add(new Criteria('productlist_list_id', $productlist_list_id, '='));

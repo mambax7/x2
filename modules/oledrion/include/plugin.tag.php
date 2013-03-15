@@ -30,7 +30,7 @@ function oledrion_tag_iteminfo(&$items)
 
     foreach (array_keys($items) as $cat_id) {
         foreach (array_keys($items[$cat_id]) as $item_id) {
-            $item_obj =& $items_obj[$item_id];
+            $item_obj = $items_obj[$item_id];
             $items[$cat_id][$item_id] = array(
                 'title' => $item_obj->getVar('product_title'),
                 'uid' => $item_obj->getVar('product_submitter'),
@@ -50,7 +50,7 @@ function oledrion_tag_synchronization($mid)
     global $xoopsDB;
     $item_handler_keyName = 'product_id';
     $item_handler_table = $xoopsDB->prefix('oledrion_products');
-    $link_handler =& xoops_getmodulehandler('link', 'tag');
+    $link_handler = xoops_getmodulehandler('link', 'tag');
     $where = "1=1";
     $where1 = "1=1";
 

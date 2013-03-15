@@ -36,7 +36,7 @@ class oledrion_shelf_parameters
      */
     private $parameters = array();
 
-    function __construct()
+    public function __construct()
     {
         $this->resetDefaultValues();
     }
@@ -46,7 +46,7 @@ class oledrion_shelf_parameters
      *
      * @return object
      */
-    function resetDefaultValues()
+    public function resetDefaultValues()
     {
         $this->parameters['start'] = 0;
         $this->parameters['limit'] = 0;
@@ -67,7 +67,7 @@ class oledrion_shelf_parameters
      *
      * @return array
      */
-    function getParameters()
+    public function getParameters()
     {
         return $this->parameters;
     }
@@ -78,7 +78,7 @@ class oledrion_shelf_parameters
      * @param integer $value
      * @return object
      */
-    function setStart($value)
+    public function setStart($value)
     {
         $this->parameters['start'] = intval($value);
         return $this;
@@ -90,7 +90,7 @@ class oledrion_shelf_parameters
      * @param integer $value
      * @return object
      */
-    function setLimit($value)
+    public function setLimit($value)
     {
         $this->parameters['limit'] = intval($value);
         return $this;
@@ -102,7 +102,7 @@ class oledrion_shelf_parameters
      * @param integer $value
      * @return object
      */
-    function setCategory($value)
+    public function setCategory($value)
     {
         $this->parameters['category'] = $value;
         return $this;
@@ -114,7 +114,7 @@ class oledrion_shelf_parameters
      * @param string $value
      * @return object
      */
-    function setSort($value)
+    public function setSort($value)
     {
         $this->parameters['sort'] = $value;
         return $this;
@@ -126,7 +126,7 @@ class oledrion_shelf_parameters
      * @param string $value
      * @return array
      */
-    function setOrder($value)
+    public function setOrder($value)
     {
         $this->parameters['order'] = $value;
         return $this;
@@ -138,7 +138,7 @@ class oledrion_shelf_parameters
      * @param mixed $value
      * @return string
      */
-    function setExcluded($value)
+    public function setExcluded($value)
     {
         $this->parameters['excluded'] = $value;
         return $this;
@@ -150,7 +150,7 @@ class oledrion_shelf_parameters
      * @param boolean $value
      * @return object
      */
-    function setWithXoopsUser($value)
+    public function setWithXoopsUser($value)
     {
         $this->parameters['withXoopsUser'] = $value;
         return $this;
@@ -162,7 +162,7 @@ class oledrion_shelf_parameters
      * @param boolean $value
      * @return object
      */
-    function setWithRelatedProducts($value)
+    public function setWithRelatedProducts($value)
     {
         $this->parameters['withRelatedProducts'] = $value;
         return $this;
@@ -174,7 +174,7 @@ class oledrion_shelf_parameters
      * @param boolean $value
      * @return object
      */
-    function setWithQuantity($value)
+    public function setWithQuantity($value)
     {
         $this->parameters['withQuantity'] = $value;
         return $this;
@@ -186,7 +186,7 @@ class oledrion_shelf_parameters
      * @param string $value
      * @return object
      */
-    function setProductsType($value)
+    public function setProductsType($value)
     {
         $this->parameters['productsType'] = $value;
         return $this;
@@ -198,7 +198,7 @@ class oledrion_shelf_parameters
      * @param boolean $value
      * @return object
      */
-    function setThisMonthOnly($value)
+    public function setThisMonthOnly($value)
     {
         $this->parameters['thisMonthOnly'] = $value;
         return $this;

@@ -82,7 +82,7 @@ function b_oledrion_random_edit($options)
 function b_oledrion_random_show_duplicatable($options)
 {
     $options = explode('|', $options);
-    $block = & b_oledrion_random_show($options);
+    $block = b_oledrion_random_show($options);
 
     $tpl = new XoopsTpl();
     $tpl->assign('block', $block);

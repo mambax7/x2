@@ -115,7 +115,7 @@ class oledrion_reductions
     /**
      * Chargement des handlers et des règles actives
      */
-    function __construct()
+    public function __construct()
     {
         $this->initHandlers();
         $this->loadAllActiveRules();
@@ -133,7 +133,7 @@ class oledrion_reductions
     /**
      * Chargement de toutes les règles actives de réductions (sans date définie ou avec une période correspondante à aujourd'hui)
      */
-    function loadAllActiveRules()
+    public function loadAllActiveRules()
     {
         $critere = new CriteriaCompo();
         $critere1 = new CriteriaCompo();
@@ -156,7 +156,7 @@ class oledrion_reductions
      * @param oledrion_products $product
      * @param integer $quantity
      */
-    function computePerCategories(oledrion_products $product, $quantity)
+    public function computePerCategories(oledrion_products $product, $quantity)
     {
         // Nombre de produits par catégories
         if (isset($this->categoriesProductsCount[$product->product_cid])) {
@@ -277,7 +277,7 @@ class oledrion_reductions
     /**
      * Recherche les fabricants, catégories et vendeurs associés à chaque produit
      */
-    function loadElementsAssociatedToProducts()
+    public function loadElementsAssociatedToProducts()
     {
         $this->loadAssociatedManufacturers();
         $this->loadAssociatedVendors();
@@ -287,7 +287,7 @@ class oledrion_reductions
     /**
      * Recherche les (objets) produits associés à chaque produit du panier (et lance le calcul des quantités)
      */
-    function loadProductsAssociatedToCart()
+    public function loadProductsAssociatedToCart()
     {
         $newCart = array();
         foreach ($this->cart as $cartProduct) {
@@ -382,7 +382,7 @@ class oledrion_reductions
      *
      * TODO: Passer les paramètres sous forme d'objet
      */
-    function computeCart(&$cartForTemplate, &$emptyCart, &$shippingAmount, &$commandAmount, &$vatAmount, &$goOn, &$commandAmountTTC, &$discountsDescription, &$discountsCount)
+    public function computeCart($cartForTemplate, $emptyCart, $shippingAmount, $commandAmount, $vatAmount, $goOn, $commandAmountTTC, $discountsDescription, $discountsCount)
     {
         $emptyCart = false;
         $goOn = '';
@@ -402,7 +402,7 @@ class oledrion_reductions
         $this->loadProductsAssociatedToCart();
         // Chargement des TVA
         $vats = $this->handlers->h_oledrion_vat->getCountryVats($_POST['cmd_country']);
-        $oledrion_Currency = & oledrion_Currency::getInstance();
+        $oledrion_Currency = oledrion_Currency::getInstance();
         $caddyCount = count($this->cart);
 
         // Initialisation des totaux généraux (ht, tva et frais de port)

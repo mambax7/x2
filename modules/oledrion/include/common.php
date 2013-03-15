@@ -67,7 +67,7 @@ require OLEDRION_PATH . 'config.php';
 
 $oledrion_handlers = oledrion_handler::getInstance();
 
-$myts = &MyTextSanitizer::getInstance();
+$myts =MyTextSanitizer::getInstance();
 
 // Chargement des handlers
 $h_oledrion_manufacturer = $oledrion_handlers->h_oledrion_manufacturer;

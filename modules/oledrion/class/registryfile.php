@@ -33,7 +33,7 @@ class oledrion_registryfile
      * @static
      * @staticvar   object
      */
-    function &getInstance()
+    public function getInstance()
     {
         static $instance;
         if (!isset($instance)) {
@@ -43,19 +43,19 @@ class oledrion_registryfile
     }
 
 
-    function __construct($fichier = null)
+    public function __construct($fichier = null)
     {
         $this->setfile($fichier);
     }
 
-    function setfile($fichier = null)
+    public function setfile($fichier = null)
     {
         if ($fichier) {
             $this->filename = XOOPS_UPLOAD_PATH . DIRECTORY_SEPARATOR . $fichier;
         }
     }
 
-    function getfile($fichier = null)
+    public function getfile($fichier = null)
     {
         $fw = '';
         if (!$fichier) {
@@ -70,7 +70,7 @@ class oledrion_registryfile
         }
     }
 
-    function savefile($content, $fichier = null)
+    public function savefile($content, $fichier = null)
     {
         $fw = '';
         if (!$fichier) {

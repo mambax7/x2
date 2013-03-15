@@ -25,7 +25,7 @@ require 'classheader.php';
 
 class oledrion_productsmanu extends Oledrion_Object
 {
-    function __construct()
+    public function __construct()
     {
         $this->initVar('pm_id', XOBJ_DTYPE_INT, null, false);
         $this->initVar('pm_product_id', XOBJ_DTYPE_INT, null, false);
@@ -38,7 +38,7 @@ class oledrion_productsmanu extends Oledrion_Object
 
 class OledrionOledrion_productsmanuHandler extends Oledrion_XoopsPersistableObjectHandler
 {
-    function __construct($db)
+    public function __construct($db)
     { //							Table					Classe				Id
         parent::__construct($db, 'oledrion_productsmanu', 'oledrion_productsmanu', 'pm_id');
     }
@@ -49,7 +49,7 @@ class OledrionOledrion_productsmanuHandler extends Oledrion_XoopsPersistableObje
      * @param integer $pm_manu_id    L'identifiant du fabricant
      * @return integer    Le nombre de fabricants
      */
-    function getManufacturerProductsCount($pm_manu_id)
+    public function getManufacturerProductsCount($pm_manu_id)
     {
         $criteria = new Criteria('pm_manu_id', $pm_manu_id, '=');
         return $this->getCount($criteria);
@@ -61,7 +61,7 @@ class OledrionOledrion_productsmanuHandler extends Oledrion_XoopsPersistableObje
      * @param array $ids    Les identifiants des produits
      * @return array    Tableau d'objets de type oledrion_productsmanu
      */
-    function getFromProductsIds($ids)
+    public function getFromProductsIds($ids)
     {
         $ret = array();
         if (is_array($ids)) {
@@ -77,7 +77,7 @@ class OledrionOledrion_productsmanuHandler extends Oledrion_XoopsPersistableObje
      * @param intege $pm_manu_id    L'identifiant du fabricant
      * @return array    Les ID des produits
      */
-    function getProductsIdsFromManufacturer($pm_manu_id, $start = 0, $limit = 0)
+    public function getProductsIdsFromManufacturer($pm_manu_id, $start = 0, $limit = 0)
     {
         $ret = array();
         $criteria = new Criteria('pm_manu_id', $pm_manu_id, '=');
@@ -98,7 +98,7 @@ class OledrionOledrion_productsmanuHandler extends Oledrion_XoopsPersistableObje
      * @param integer $pm_product_id
      * @return boolean
      */
-    function removeManufacturerProduct($pm_product_id)
+    public function removeManufacturerProduct($pm_product_id)
     {
         $pm_product_id = intval($pm_product_id);
         return $this->deleteAll(new criteria('pm_product_id', $pm_product_id, '='));

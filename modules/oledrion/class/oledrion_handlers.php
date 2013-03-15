@@ -54,7 +54,7 @@ class oledrion_handler
      * @param string $name
      * @return mixed    Null si on échoue, sinon l'objet demandé
      */
-    function __get($name)
+    public function __get($name)
     {
         if (substr($name, 0, 2) != 'h_') {
             return null;

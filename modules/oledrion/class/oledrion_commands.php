@@ -32,7 +32,7 @@ define("OLEDRION_STATE_FRAUD", 5); // Fraude
 
 class oledrion_commands extends Oledrion_Object
 {
-    function __construct()
+    public function __construct()
     {
         $this->initVar('cmd_id', XOBJ_DTYPE_INT, null, false);
         $this->initVar('cmd_uid', XOBJ_DTYPE_INT, null, false);
@@ -74,7 +74,7 @@ class oledrion_commands extends Oledrion_Object
      * @param string $format    Le format à utiliser
      * @return array    Les informations formatées
      */
-    function toArray($format = 's')
+    public function toArray($format = 's')
     {
         $ret = array();
         $ret = parent::toArray($format);
@@ -95,7 +95,7 @@ class oledrion_commands extends Oledrion_Object
 
 class OledrionOledrion_commandsHandler extends Oledrion_XoopsPersistableObjectHandler
 {
-    function __construct($db)
+    public function __construct($db)
     { //						Table					Classe			 Id
         parent::__construct($db, 'oledrion_commands', 'oledrion_commands', 'cmd_id');
     }
@@ -106,7 +106,7 @@ class OledrionOledrion_commandsHandler extends Oledrion_XoopsPersistableObjectHa
      * @param integer $uid Identifiant de l'utilisateur
      * @return boolean Indique si c'est le cas ou pas
      */
-    function isFirstCommand($uid = 0)
+    public function isFirstCommand($uid = 0)
     {
         if ($uid == 0) {
             $uid = oledrion_utils::getCurrentUserID();
@@ -126,7 +126,7 @@ class OledrionOledrion_commandsHandler extends Oledrion_XoopsPersistableObjectHa
      * @param integer $productId Identifiant du produit
      * @return boolean Indique si c'est le cas ou pas
      */
-    function productAlreadyBought($uid = 0, $productId = 0)
+    public function productAlreadyBought($uid = 0, $productId = 0)
     {
         if ($uid == 0) {
             $uid = oledrion_utils::getCurrentUserID();
@@ -151,7 +151,7 @@ class OledrionOledrion_commandsHandler extends Oledrion_XoopsPersistableObjectHa
      * @param object $order La commande à traiter
      * @return void
      */
-    function updateStocks($order)
+    public function updateStocks($order)
     {
         global $h_oledrion_caddy, $h_oledrion_products, $h_oledrion_persistent_cart;
         $orderId = $order->getVar('cmd_id');
@@ -182,7 +182,7 @@ class OledrionOledrion_commandsHandler extends Oledrion_XoopsPersistableObjectHa
      * @param object $order    La commande en question
      * @return array    Les URL
      */
-    function getOrderUrls(oledrion_commands $order)
+    public function getOrderUrls(oledrion_commands $order)
     {
         global $h_oledrion_caddy, $h_oledrion_products;
         $retval = array();
@@ -216,7 +216,7 @@ class OledrionOledrion_commandsHandler extends Oledrion_XoopsPersistableObjectHa
      * @param string $comment    Optionel, un commentaire pour le webmaster
      * @return void
      */
-    function notifyOrderValidated(oledrion_commands $order, $comment = '')
+    public function notifyOrderValidated(oledrion_commands $order, $comment = '')
     {
         global $xoopsConfig;
         $msg = array();
@@ -240,7 +240,7 @@ class OledrionOledrion_commandsHandler extends Oledrion_XoopsPersistableObjectHa
      * @param string $comment    Optionel, un commentaire pour le mail envoyé au webmaster
      * @return boolean Indique si la validation de la commande s'est bien faite ou pas
      */
-    function validateOrder(oledrion_commands $order, $comment = '')
+    public function validateOrder(oledrion_commands $order, $comment = '')
     {
         $retval = false;
         $order->setVar('cmd_state', OLEDRION_STATE_VALIDATED);
@@ -260,7 +260,7 @@ class OledrionOledrion_commandsHandler extends Oledrion_XoopsPersistableObjectHa
      * @param string $comment    Optionel, un commentaire pour le mail envoyé au webmaster
      * @return void
      */
-    function notifyOrderFraudulent(oledrion_commands $order, $comment = '')
+    public function notifyOrderFraudulent(oledrion_commands $order, $comment = '')
     {
         $msg = array();
         $msg['NUM_COMMANDE'] = $order->getVar('cmd_id');
@@ -275,7 +275,7 @@ class OledrionOledrion_commandsHandler extends Oledrion_XoopsPersistableObjectHa
      * @param string $comment    Optionel, un commentaire pour le mail envoyé au webmaster
      * @return void
      */
-    function setFraudulentOrder(oledrion_commands $order, $comment = '')
+    public function setFraudulentOrder(oledrion_commands $order, $comment = '')
     {
         $order->setVar('cmd_state', OLEDRION_STATE_FRAUD);
         $order->setVar('cmd_comment', $comment);
@@ -290,7 +290,7 @@ class OledrionOledrion_commandsHandler extends Oledrion_XoopsPersistableObjectHa
      * @param string $comment    Optionel, un commentaire pour le mail envoyé au webmaster
      * @return void
      */
-    function notifyOrderPending(oledrion_commands $order, $comment = '')
+    public function notifyOrderPending(oledrion_commands $order, $comment = '')
     {
         $msg = array();
         $msg['NUM_COMMANDE'] = $order->getVar('cmd_id');
@@ -305,7 +305,7 @@ class OledrionOledrion_commandsHandler extends Oledrion_XoopsPersistableObjectHa
      * @param string $comment    Optionel, un commentaire pour le mail envoyé au webmaster
      * @return void
      */
-    function setOrderPending(oledrion_commands $order, $comment = '')
+    public function setOrderPending(oledrion_commands $order, $comment = '')
     {
         $order->setVar('cmd_state', OLEDRION_STATE_PENDING); // En attente
         $order->setVar('cmd_comment', $comment);
@@ -320,7 +320,7 @@ class OledrionOledrion_commandsHandler extends Oledrion_XoopsPersistableObjectHa
      * @param string $comment    Optionel, un commentaire pour le mail envoyé au webmaster
      * @return void
      */
-    function notifyOrderFailed(oledrion_commands $order, $comment = '')
+    public function notifyOrderFailed(oledrion_commands $order, $comment = '')
     {
         $msg = array();
         $msg['NUM_COMMANDE'] = $order->getVar('cmd_id');
@@ -335,7 +335,7 @@ class OledrionOledrion_commandsHandler extends Oledrion_XoopsPersistableObjectHa
      * @param string $comment    Optionel, un commentaire pour le mail envoyé au webmaster
      * @return void
      */
-    function setOrderFailed(oledrion_commands $order, $comment = '')
+    public function setOrderFailed(oledrion_commands $order, $comment = '')
     {
         $order->setVar('cmd_state', OLEDRION_STATE_FAILED); // Echec
         $order->setVar('cmd_comment', $comment);
@@ -350,7 +350,7 @@ class OledrionOledrion_commandsHandler extends Oledrion_XoopsPersistableObjectHa
      * @param string $comment    Optionel, un commentaire pour le mail envoyé au webmaster
      * @return void
      */
-    function notifyOrderCanceled(oledrion_commands $order, $comment = '')
+    public function notifyOrderCanceled(oledrion_commands $order, $comment = '')
     {
         $msg = array();
         $msg['NUM_COMMANDE'] = $order->getVar('cmd_id');
@@ -367,7 +367,7 @@ class OledrionOledrion_commandsHandler extends Oledrion_XoopsPersistableObjectHa
      * @param string $comment    Optionel, un commentaire pour le mail envoyé au webmaster
      * @return void
      */
-    function setOrderCanceled(oledrion_commands $order, $comment = '')
+    public function setOrderCanceled(oledrion_commands $order, $comment = '')
     {
         $order->setVar('cmd_state', OLEDRION_STATE_CANCELED); // Annulée
         $order->setVar('cmd_comment', $comment);
@@ -381,7 +381,7 @@ class OledrionOledrion_commandsHandler extends Oledrion_XoopsPersistableObjectHa
      * @param string $cmd_cancel    Le mot de passe d'annulation
      * @return mixed    Soit un objet soit null
      */
-    function getOrderFromCancelPassword($cmd_cancel)
+    public function getOrderFromCancelPassword($cmd_cancel)
     {
         $critere = new Criteria('cmd_cancel', $cmd_cancel, '=');
         if ($this->getCount($critere) > 0) {
@@ -399,7 +399,7 @@ class OledrionOledrion_commandsHandler extends Oledrion_XoopsPersistableObjectHa
      *
      * @param integer $uid    Identifiant de la commande
      */
-    function getLastUserOrder($uid)
+    public function getLastUserOrder($uid)
     {
         $order = null;
         $orders = array();
@@ -420,7 +420,7 @@ class OledrionOledrion_commandsHandler extends Oledrion_XoopsPersistableObjectHa
      * @param oledrion_commands $order
      * @return boolean
      */
-    function removeOrder(oledrion_commands $order)
+    public function removeOrder(oledrion_commands $order)
     {
         $handlers = oledrion_handler::getInstance();
         $cmd_id = $order->getVar('cmd_id');

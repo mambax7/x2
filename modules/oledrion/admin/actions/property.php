@@ -23,7 +23,7 @@
  */
 if (!defined("OLEDRION_ADMIN")) exit();
 
-$configHandler =& xoops_gethandler('config');
+$configHandler = xoops_gethandler('config');
 $moduleIdCriteria = new Criteria('conf_modid', $xoopsModule->getVar('mid'));
 
 switch ($action) {

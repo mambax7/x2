@@ -148,7 +148,7 @@ if (!is_object($product_vat) && oledrion_utils::getModuleOption('use_price')) {
 
 // Recherche de l'utilisateur qui a soumit ce produit
 $product_user = null;
-$user_handler = $member_handler =& xoops_gethandler('user');
+$user_handler = $member_handler = xoops_gethandler('user');
 $product_user = $user_handler->get($product->getVar('product_submitter'), true);
 $xoopsTpl->assign('product_submitter', $product_user);
 

@@ -45,7 +45,7 @@ class oledrion_utils
      * @static
      * @staticvar   object
      */
-    function &getInstance()
+    public function getInstance()
     {
         static $instance;
         if (!isset($instance)) {
@@ -62,7 +62,7 @@ class oledrion_utils
      * @param boolean $withCache    Do we have to use some cache ?
      * @return mixed option's value
      */
-    function getModuleOption($option, $withCache = true)
+    public function getModuleOption($option, $withCache = true)
     {
         global $xoopsModuleConfig, $xoopsModule;
         $repmodule = self::MODULE_NAME;
@@ -77,11 +77,11 @@ class oledrion_utils
                 $retval = $xoopsModuleConfig[$option];
             }
         } else {
-            $module_handler =& xoops_gethandler('module');
-            $module =& $module_handler->getByDirname($repmodule);
-            $config_handler =& xoops_gethandler('config');
+            $module_handler = xoops_gethandler('module');
+            $module = $module_handler->getByDirname($repmodule);
+            $config_handler = xoops_gethandler('config');
             if ($module) {
-                $moduleConfig =& $config_handler->getConfigsByCat(0, $module->getVar('mid'));
+                $moduleConfig = $config_handler->getConfigsByCat(0, $module->getVar('mid'));
                 if (isset($moduleConfig[$option])) {
                     $retval = $moduleConfig[$option];
                 }
@@ -97,7 +97,7 @@ class oledrion_utils
      *
      * @return boolean
      */
-    function isX23()
+    public function isX23()
     {
         $x23 = false;
         $xv = str_replace('XOOPS ', '', XOOPS_VERSION);
@@ -112,7 +112,7 @@ class oledrion_utils
      *
      * @return boolean
      */
-    function isX20()
+    public function isX20()
     {
         $x20 = false;
         $xv = str_replace('XOOPS ', '', XOOPS_VERSION);
@@ -133,7 +133,7 @@ class oledrion_utils
      * @param string $height Editor's height
      * @return object The editor to use
      */
-    function &getWysiwygForm($caption, $name, $value = '', $width = '100%', $height = '400px', $supplemental = '')
+    public function getWysiwygForm($caption, $name, $value = '', $width = '100%', $height = '400px', $supplemental = '')
     {
         $editor = false;
         $editor_configs = array();
@@ -201,7 +201,7 @@ class oledrion_utils
      * @param boolean $form    Is this a confirmation for a form ?
      * @return string the javascript code to insert in the link (or in the form)
      */
-    function javascriptLinkConfirm($message, $form = false)
+    public function javascriptLinkConfirm($message, $form = false)
     {
         if (!$form) {
             return "onclick=\"javascript:return confirm('" . str_replace("'", " ", $message) . "')\"";
@@ -216,7 +216,7 @@ class oledrion_utils
      *
      * @return string IP address (format Ipv4)
      */
-    function IP()
+    public function IP()
     {
         $proxy_ip = '';
         if (!empty($_SERVER['HTTP_X_FORWARDED_FOR'])) {
@@ -253,7 +253,7 @@ class oledrion_utils
      * @param string $metaKeywords    Page's meta keywords
      * @return void
      */
-    function setMetas($pageTitle = '', $metaDescription = '', $metaKeywords = '')
+    public function setMetas($pageTitle = '', $metaDescription = '', $metaKeywords = '')
     {
         global $xoTheme, $xoTheme, $xoopsTpl;
         $xoopsTpl->assign('xoops_pagetitle', $pageTitle);
@@ -284,7 +284,7 @@ class oledrion_utils
      * @param array $variables    Varirables to give to the template
      * @return boolean Result of the send
      */
-    function sendEmailFromTpl($tplName, $recipients, $subject, $variables)
+    public function sendEmailFromTpl($tplName, $recipients, $subject, $variables)
     {
         global $xoopsConfig;
         require_once XOOPS_ROOT_PATH . '/class/xoopsmailer.php';
@@ -298,9 +298,9 @@ class oledrion_utils
             }
         }
         if (function_exists('xoops_getMailer')) {
-            $xoopsMailer =& xoops_getMailer();
+            $xoopsMailer = xoops_getMailer();
         } else {
-            $xoopsMailer =& getMailer();
+            $xoopsMailer = getMailer();
         }
 
         $xoopsMailer->useMail();
@@ -350,14 +350,14 @@ class oledrion_utils
     /**
      * Remove module's cache
      */
-    function updateCache()
+    public function updateCache()
     {
         global $xoopsModule;
         $folder = $xoopsModule->getVar('dirname');
         $tpllist = array();
         require_once XOOPS_ROOT_PATH . '/class/xoopsblock.php';
         require_once XOOPS_ROOT_PATH . '/class/template.php';
-        $tplfile_handler =& xoops_gethandler('tplfile');
+        $tplfile_handler = xoops_gethandler('tplfile');
         $tpllist = $tplfile_handler->find(null, null, null, $folder);
         xoops_template_clear_module_cache($xoopsModule->getVar('mid')); // Clear module's blocks cache
 
@@ -384,7 +384,7 @@ class oledrion_utils
      * @param string $url The place where to go
      * @param integer timeout Time to wait before to redirect
      */
-    function redirect($message = '', $url = 'index.php', $time = 2)
+    public function redirect($message = '', $url = 'index.php', $time = 2)
     {
         redirect_header($url, $time, $message);
         exit();
@@ -402,9 +402,9 @@ class oledrion_utils
         if (!isset($mymodule)) {
             global $xoopsModule;
             if (isset($xoopsModule) && is_object($xoopsModule) && $xoopsModule->getVar('dirname') == OLEDRION_DIRNAME) {
-                $mymodule =& $xoopsModule;
+                $mymodule = $xoopsModule;
             } else {
-                $hModule = &xoops_gethandler('module');
+                $hModule =xoops_gethandler('module');
                 $mymodule = $hModule->getByDirname(OLEDRION_DIRNAME);
             }
         }
@@ -415,7 +415,7 @@ class oledrion_utils
      * Returns the module's name (as defined by the user in the module manager) with cache
      * @return string Module's name
      */
-    function getModuleName()
+    public function getModuleName()
     {
         static $moduleName;
         if (!isset($moduleName)) {
@@ -432,7 +432,7 @@ class oledrion_utils
      * @param string $title Text to use
      * @return string Formated text
      */
-    function makeHrefTitle($title)
+    public function makeHrefTitle($title)
     {
         $s = "\"'";
         $r = '  ';
@@ -446,10 +446,10 @@ class oledrion_utils
      * @param int $groupId    Searched group
      * @return array Array of XoopsUsers
      */
-    function getUsersFromGroup($groupId)
+    public function getUsersFromGroup($groupId)
     {
         $users = array();
-        $member_handler =& xoops_gethandler('member');
+        $member_handler = xoops_gethandler('member');
         $users = $member_handler->getUsersByGroup($groupId, true);
         return $users;
     }
@@ -461,7 +461,7 @@ class oledrion_utils
      * @param int $group_id    Group's number
      * @return array Emails list
      */
-    function getEmailsFromGroup($groupId)
+    public function getEmailsFromGroup($groupId)
     {
         $ret = array();
         $users = self::getUsersFromGroup($groupId);
@@ -477,7 +477,7 @@ class oledrion_utils
      *
      * @return booleean Admin or not
      */
-    function isAdmin()
+    public function isAdmin()
     {
         global $xoopsUser, $xoopsModule;
         if (is_object($xoopsUser)) {
@@ -496,12 +496,12 @@ class oledrion_utils
      *
      * @return string Date in the Mysql format
      */
-    function getCurrentSQLDate()
+    public function getCurrentSQLDate()
     {
         return date('Y-m-d'); // 2007-05-02
     }
 
-    function getCurrentSQLDateTime()
+    public function getCurrentSQLDateTime()
     {
         return date('Y-m-d H:i:s'); // 2007-05-02
     }
@@ -512,7 +512,7 @@ class oledrion_utils
      * @param string $date The date to convert
      * @return string The date in a human form
      */
-    function SQLDateToHuman($date, $format = 'l')
+    public function SQLDateToHuman($date, $format = 'l')
     {
         if ($date != '0000-00-00' && xoops_trim($date) != '') {
             return formatTimestamp(strtotime($date), $format);
@@ -527,7 +527,7 @@ class oledrion_utils
      * @param integer $timestamp The timestamp to use
      * @return string The date in the Mysql format
      */
-    function timestampToMysqlDate($timestamp)
+    public function timestampToMysqlDate($timestamp)
     {
         return date('Y-m-d', intval($timestamp));
     }
@@ -535,7 +535,7 @@ class oledrion_utils
     /**
      * Conversion d'un dateTime Mysql en date lisible en français
      */
-    function sqlDateTimeToFrench($dateTime)
+    public function sqlDateTimeToFrench($dateTime)
     {
         return date('d/m/Y H:i:s', strtotime($dateTime));
     }
@@ -545,7 +545,7 @@ class oledrion_utils
      * @param integer $timestamp The timestamp to use
      * @return string The date and time in the Mysql format
      */
-    function timestampToMysqlDateTime($timestamp)
+    public function timestampToMysqlDateTime($timestamp)
     {
         return date('Y-m-d H:i:s', $timestamp);
     }
@@ -556,7 +556,7 @@ class oledrion_utils
      *
      * @return boolean Yes = we need to add them, false = no
      */
-    function needsAsterisk()
+    public function needsAsterisk()
     {
         if (self::isX23()) {
             return false;
@@ -580,7 +580,7 @@ class oledrion_utils
      * @param string $caracter The character to use to mark fields
      * @return object The modified form
      */
-    function &formMarkRequiredFields(&$sform)
+    public function formMarkRequiredFields($sform)
     {
         if (self::needsAsterisk()) {
             $required = array();
@@ -588,7 +588,7 @@ class oledrion_utils
                 $required[] = $item->_name;
             }
             $elements = array();
-            $elements = & $sform->getElements();
+            $elements = $sform->getElements();
             $cnt = count($elements);
             for ($i = 0; $i < $cnt; $i++) {
                 if (is_object($elements[$i]) && in_array($elements[$i]->_name, $required)
@@ -608,7 +608,7 @@ class oledrion_utils
      * @param integer $level Level to return
      * @return string The heading
      */
-    function htitle($title = '', $level = 1)
+    public function htitle($title = '', $level = 1)
     {
         printf("<h%01d>%s</h%01d>", $level, $title, $level);
     }
@@ -621,7 +621,7 @@ class oledrion_utils
      * @param boolean $trimName Do we need to create a "short" unique name ?
      * @return string The unique filename to use (with its extension)
      */
-    function createUploadName($folder, $fileName, $trimName = false)
+    public function createUploadName($folder, $fileName, $trimName = false)
     {
         $workingfolder = $folder;
         if (xoops_substr($workingfolder, strlen($workingfolder) - 1, 1) != '/') {
@@ -655,7 +655,7 @@ class oledrion_utils
      * @param string $chaine The string undecode
      * @return string The undecoded string
      */
-    function unhtml($chaine)
+    public function unhtml($chaine)
     {
         $search = $replace = array();
         $chaine = html_entity_decode($chaine);
@@ -927,7 +927,7 @@ class oledrion_utils
      * @return string Le texte à utiliser pour l'url
      * Note, some parts are from Solo's code
      */
-    function makeSeoUrl($content, $urw = 1)
+    public function makeSeoUrl($content, $urw = 1)
     {
         $s = "ÀÁÂÃÄÅÒÓÔÕÖØÈÉÊËÇÌÍÎÏÙÚÛÜÑàáâãäåòóôõöøèéêëçìíîïùúûüÿñ '()";
         $r = "AAAAAAOOOOOOEEEECIIIIUUUUYNaaaaaaooooooeeeeciiiiuuuuyn----";
@@ -974,7 +974,7 @@ class oledrion_utils
      * @param string $content Content from which we have to create metakeywords
      * @return string The list of meta keywords
      */
-    function createMetaKeywords($content)
+    public function createMetaKeywords($content)
     {
         $keywordscount = self::getModuleOption('metagen_maxwords');
         $keywordsorder = self::getModuleOption('metagen_order');
@@ -984,12 +984,12 @@ class oledrion_utils
         if (isset($_SESSION['oledrion_keywords_limit'])) {
             $limit = $_SESSION['oledrion_keywords_limit'];
         } else {
-            $config_handler =& xoops_gethandler('config');
-            $xoopsConfigSearch =& $config_handler->getConfigsByCat(XOOPS_CONF_SEARCH);
+            $config_handler = xoops_gethandler('config');
+            $xoopsConfigSearch = $config_handler->getConfigsByCat(XOOPS_CONF_SEARCH);
             $limit = $xoopsConfigSearch['keyword_min'];
             $_SESSION['oledrion_keywords_limit'] = $limit;
         }
-        $myts =& MyTextSanitizer::getInstance();
+        $myts = MyTextSanitizer::getInstance();
         $content = str_replace("<br />", " ", $content);
         $content = $myts->undoHtmlSpecialChars($content);
         $content = strip_tags($content);
@@ -1031,9 +1031,9 @@ class oledrion_utils
             return implode(',', $tmp);
         } else {
             if (!isset($config_handler) || !is_object($config_handler)) {
-                $config_handler =& xoops_gethandler('config');
+                $config_handler = xoops_gethandler('config');
             }
-            $xoopsConfigMetaFooter =& $config_handler->getConfigsByCat(XOOPS_CONF_METAFOOTER);
+            $xoopsConfigMetaFooter = $config_handler->getConfigsByCat(XOOPS_CONF_METAFOOTER);
             if (isset($xoopsConfigMetaFooter['meta_keywords'])) {
                 return $xoopsConfigMetaFooter['meta_keywords'];
             } else {
@@ -1048,7 +1048,7 @@ class oledrion_utils
      * @param integer $indice L'indice du fichier à télécharger
      * @return mixed True si l'upload s'est bien déroulé sinon le message d'erreur correspondant
      */
-    function uploadFile($indice, $dstpath = XOOPS_UPLOAD_PATH, $mimeTypes = null, $uploadMaxSize = null, $maxWidth = null, $maxHeight = null)
+    public function uploadFile($indice, $dstpath = XOOPS_UPLOAD_PATH, $mimeTypes = null, $uploadMaxSize = null, $maxWidth = null, $maxHeight = null)
     {
         require_once XOOPS_ROOT_PATH . '/class/uploader.php';
         global $destname;
@@ -1100,7 +1100,7 @@ class oledrion_utils
      * @param boolean $keep_original    Do we have to keep the original picture ?
      * @param string $fit    Resize mode (see the wideImage library for more information)
      */
-    function resizePicture($src_path, $dst_path, $param_width, $param_height, $keep_original = false, $fit = 'inside')
+    public function resizePicture($src_path, $dst_path, $param_width, $param_height, $keep_original = false, $fit = 'inside')
     {
         require_once OLEDRION_PATH . 'class/wideimage/WideImage.inc.php';
         $resize = true;
@@ -1139,9 +1139,9 @@ class oledrion_utils
      * @param unknown_type $event    L'évènement qui est déclencé
      * @param unknown_type $tags    Les variables à passer au template
      */
-    function notify($category, $itemId, $event, $tags)
+    public function notify($category, $itemId, $event, $tags)
     {
-        $notification_handler =& xoops_gethandler('notification');
+        $notification_handler = xoops_gethandler('notification');
         $tags['X_MODULE_URL'] = OLEDRION_URL;
         $notification_handler->triggerEvent($category, $itemId, $event, $tags);
     }
@@ -1152,7 +1152,7 @@ class oledrion_utils
      * @param integer $durations    Durée en jours
      * @param integer $startingDate    Date de départ (timestamp)
      */
-    function addDaysToDate($duration = 1, $startingDate = 0)
+    public function addDaysToDate($duration = 1, $startingDate = 0)
     {
         if ($startingDate == 0) {
             $startingDate = time();
@@ -1168,7 +1168,7 @@ class oledrion_utils
      * @param string $raquo    Le séparateur par défaut à utiliser
      * @return string le breadcrumb
      */
-    function breadcrumb($path, $raquo = ' &raquo; ')
+    public function breadcrumb($path, $raquo = ' &raquo; ')
     {
         $breadcrumb = '';
         $workingBreadcrumb = array();
@@ -1189,7 +1189,7 @@ class oledrion_utils
         return $breadcrumb;
     }
 
-    function close_tags($string)
+    public function close_tags($string)
     {
         // match opened tags
         if (preg_match_all('/<([a-z\:\-]+)[^\/]>/', $string, $start_tags)) {
@@ -1220,7 +1220,7 @@ class oledrion_utils
         return $string;
     }
 
-    function truncate_tagsafe($string, $length = 80, $etc = '...', $break_words = false)
+    public function truncate_tagsafe($string, $length = 80, $etc = '...', $break_words = false)
     {
         if ($length == 0) return '';
 
@@ -1241,12 +1241,12 @@ class oledrion_utils
     /**
      * Create an infotip
      */
-    function makeInfotips($text)
+    public function makeInfotips($text)
     {
         $ret = '';
         $infotips = self::getModuleOption('infotips');
         if ($infotips > 0) {
-            $myts =& MyTextSanitizer::getInstance();
+            $myts = MyTextSanitizer::getInstance();
             $ret = $myts->htmlSpecialChars(xoops_substr(strip_tags($text), 0, $infotips));
         }
         return $ret;
@@ -1256,7 +1256,7 @@ class oledrion_utils
     /**
      * Mise en place de l'appel à la feuille de style du module dans le template
      */
-    function setCSS($url = '')
+    public function setCSS($url = '')
     {
         global $xoopsTpl, $xoTheme;
         if ($url == '') {
@@ -1273,7 +1273,7 @@ class oledrion_utils
     /**
      * Mise en place de l'appel à la feuille de style du module dans le template
      */
-    function setLocalCSS($language = 'english')
+    public function setLocalCSS($language = 'english')
     {
         global $xoopsTpl, $xoTheme;
 
@@ -1295,9 +1295,9 @@ class oledrion_utils
      * @param string $format    Format d'affichage du résultat (long ou court)
      * @return mixed    Soit une chaine soit un flottant
      */
-    function getTTC($ht, $vat, $edit = false, $format = 's')
+    public function getTTC($ht, $vat, $edit = false, $format = 's')
     {
-        $oledrion_Currency = & oledrion_Currency::getInstance();
+        $oledrion_Currency = oledrion_Currency::getInstance();
         $ttc = $ht * (1 + ($vat / 100));
         if (!$edit) {
             return $oledrion_Currency->amountForDisplay($ttc, $format);
@@ -1309,7 +1309,7 @@ class oledrion_utils
     /**
      * Renvoie le montant de la tva à partir du montant HT
      */
-    function getVAT($ht, $vat)
+    public function getVAT($ht, $vat)
     {
         return floatval(($ht * $vat) / 100);
     }
@@ -1321,7 +1321,7 @@ class oledrion_utils
      * @param integer $vat_id            Le numéro de TVA
      * @return floatval                    Le montant TTC si on a trouvé sa TVA sinon
      */
-    function getAmountWithVat($product_price, $vat_id)
+    public function getAmountWithVat($product_price, $vat_id)
     {
         static $vats = array();
         $vat_rate = null;
@@ -1344,7 +1344,7 @@ class oledrion_utils
         }
     }
 
-    function postIt($datastream, $url)
+    public function postIt($datastream, $url)
     {
         $url = preg_replace("@^http://@i", "", $url);
         $host = substr($url, 0, strpos($url, "/"));
@@ -1369,7 +1369,7 @@ class oledrion_utils
      * @param string $filename    Le fichier (avec son chemin d'accès complet) dont on veut connaître le type mime
      * @return string
      */
-    function getMimeType($filename)
+    public function getMimeType($filename)
     {
         if (function_exists('finfo_open')) {
             $pathToMagic = OLEDRION_PATH . 'mime/magic';
@@ -1392,7 +1392,7 @@ class oledrion_utils
      *
      * @return object
      */
-    function getThisMonthCriteria()
+    public function getThisMonthCriteria()
     {
         $start = mktime(0, 1, 0, date('n'), date('j'), date('Y'));
         $end = mktime(0, 0, 0, date('n'), date('t'), date('Y'));
@@ -1408,14 +1408,14 @@ class oledrion_utils
      * @param array $xoopsUsersIDs    La liste des ID
      * @return array    Les objets XoopsUsers
      */
-    function getUsersFromIds($xoopsUsersIDs)
+    public function getUsersFromIds($xoopsUsersIDs)
     {
         $users = array();
         if (is_array($xoopsUsersIDs) && count($xoopsUsersIDs) > 0) {
             $xoopsUsersIDs = array_unique($xoopsUsersIDs);
             sort($xoopsUsersIDs);
             if (count($xoopsUsersIDs) > 0) {
-                $member_handler =& xoops_gethandler('user');
+                $member_handler = xoops_gethandler('user');
                 $criteria = new Criteria('uid', '(' . implode(',', $xoopsUsersIDs) . ')', 'IN');
                 $criteria->setSort('uid');
                 $users = $member_handler->getObjects($criteria, true);
@@ -1429,7 +1429,7 @@ class oledrion_utils
      * Retourne l'ID de l'utilisateur courant (s'il est connecté)
      * @return integer    L'uid ou 0
      */
-    function getCurrentUserID()
+    public function getCurrentUserID()
     {
         global $xoopsUser;
         $uid = is_object($xoopsUser) ? $xoopsUser->getVar('uid') : 0;
@@ -1441,7 +1441,7 @@ class oledrion_utils
      * Retourne la liste des groupes de l'utilisateur courant (avec cache)
      * @return array    Les ID des groupes auquel l'utilisateur courant appartient
      */
-    function getMemberGroups($uid = 0)
+    public function getMemberGroups($uid = 0)
     {
         static $buffer = array();
         if ($uid == 0) {
@@ -1452,7 +1452,7 @@ class oledrion_utils
             return $buffer[$uid];
         } else {
             if ($uid > 0) {
-                $member_handler =& xoops_gethandler('member');
+                $member_handler = xoops_gethandler('member');
                 $buffer[$uid] = $member_handler->getGroupsByUser($uid, false); // Renvoie un tableau d'ID (de groupes)
             } else {
                 $buffer[$uid] = array(XOOPS_GROUP_ANONYMOUS);
@@ -1467,7 +1467,7 @@ class oledrion_utils
      * @param integer $group Groupe recherché
      * @return boolean vrai si l'utilisateur fait partie du groupe, faux sinon
      */
-    function isMemberOfGroup($group = 0, $uid = 0)
+    public function isMemberOfGroup($group = 0, $uid = 0)
     {
         static $buffer = array();
         $retval = false;
@@ -1477,7 +1477,7 @@ class oledrion_utils
         if (is_array($buffer) && array_key_exists($group, $buffer)) {
             $retval = $buffer[$group];
         } else {
-            $member_handler =& xoops_gethandler('member');
+            $member_handler = xoops_gethandler('member');
             $groups = $member_handler->getGroupsByUser($uid, false); // Renvoie un tableau d'ID (de groupes)
             $retval = in_array($group, $groups);
             $buffer[$group] = $retval;
@@ -1491,7 +1491,7 @@ class oledrion_utils
      * @param string $folder    Le chemin complet du répertoire à vérifier
      * @return void
      */
-    function prepareFolder($folder)
+    public function prepareFolder($folder)
     {
         if (!is_dir($folder)) {
             mkdir($folder, 0777);
@@ -1507,7 +1507,7 @@ class oledrion_utils
      * @return mixed    If the copy succeed, the new filename else false
      * @since 2.1
      */
-    function duplicateFile($path, $filename)
+    public function duplicateFile($path, $filename)
     {
         $newName = self::createUploadName($path, $filename);
         if (copy($path . DIRECTORY_SEPARATOR . $filename, $path . DIRECTORY_SEPARATOR . $newName)) {
@@ -1524,7 +1524,7 @@ class oledrion_utils
      * @param string $defaultExtension    Default extension to use
      * @since 2.2.2009.02.13
      */
-    function loadLanguageFile($languageFile, $defaultExtension = '.php')
+    public function loadLanguageFile($languageFile, $defaultExtension = '.php')
     {
         global $xoopsConfig;
         $root = OLEDRION_PATH;
@@ -1545,7 +1545,7 @@ class oledrion_utils
      * @return string le montant formaté
      * @since 2.2.2009.02.25
      */
-    function formatFloatForDB($amount)
+    public function formatFloatForDB($amount)
     {
         return number_format($amount, 2, '.', '');
     }
@@ -1563,7 +1563,7 @@ class oledrion_utils
      * @return void
      * @since 2.3.2009.03.14
      */
-    function callJavascriptFile($javascriptFile, $inLanguageFolder = false, $oldWay = false)
+    public function callJavascriptFile($javascriptFile, $inLanguageFolder = false, $oldWay = false)
     {
         global $xoopsConfig, $xoTheme;
         $fileToCall = $javascriptFile;
@@ -1591,7 +1591,7 @@ class oledrion_utils
      * @return string
      * @since 2.3.2009.03.13
      */
-    function htmlSelectOptions($array, $default = 0, $withNull = true)
+    public function htmlSelectOptions($array, $default = 0, $withNull = true)
     {
         $ret = array();
         $selected = '';
@@ -1622,7 +1622,7 @@ class oledrion_utils
      * @return string
      * @since 2.3.2009.03.13
      */
-    function htmlSelect($selectName, $array, $default, $withNull = true)
+    public function htmlSelect($selectName, $array, $default, $withNull = true)
     {
         $ret = '';
         $ret .= "<select name='" . $selectName . "' id='" . $selectName . "'>\n";
@@ -1639,7 +1639,7 @@ class oledrion_utils
      * @param string $separator    Le séparateur
      * @return string
      */
-    function getId($string, $separator = '_')
+    public function getId($string, $separator = '_')
     {
         $pos = strrpos($string, $separator);
         if ($pos === false) {
@@ -1657,7 +1657,7 @@ class oledrion_utils
      * @param string $separator    Le séparateur
      * @return string
      */
-    function getName($string, $separator = '_')
+    public function getName($string, $separator = '_')
     {
         $pos = strrpos($string, $separator);
         if ($pos === false) {
@@ -1673,7 +1673,7 @@ class oledrion_utils
      * @param float $amount
      * @return float
      */
-    function doNotAcceptNegativeAmounts(&$amount)
+    public function doNotAcceptNegativeAmounts($amount)
     {
         if ($amount < 0) {
             $amount = 0;
@@ -1687,7 +1687,7 @@ class oledrion_utils
      * @param mixed $defaultValue    Default value to return if the parameter is not set in the request
      * @return mixed
      */
-    function getFromRequest($valueName, $defaultValue = '')
+    public function getFromRequest($valueName, $defaultValue = '')
     {
         return isset($_REQUEST[$valueName]) ? $_REQUEST[$valueName] : $defaultValue;
     }
@@ -1699,7 +1699,7 @@ class oledrion_utils
      * @author Instant Zero (http://xoops.instant-zero.com)
      * @copyright (c) Instant Zero
      */
-    function tableExists($tablename)
+    public function tableExists($tablename)
     {
         global $xoopsDB;
         $result = $xoopsDB->queryF("SHOW TABLES LIKE '$tablename'");
@@ -1713,7 +1713,7 @@ class oledrion_utils
      * @author Instant Zero (http://xoops.instant-zero.com)
      * @copyright (c) Instant Zero
      */
-    function fieldExists($fieldname, $table)
+    public function fieldExists($fieldname, $table)
     {
         global $xoopsDB;
         $result = $xoopsDB->queryF("SHOW COLUMNS FROM $table LIKE '$fieldname'");
@@ -1727,7 +1727,7 @@ class oledrion_utils
      * @param string $table
      * @return array
      */
-    function getFieldDefinition($fieldname, $table)
+    public function getFieldDefinition($fieldname, $table)
     {
         global $xoopsDB;
         $result = $xoopsDB->queryF("SHOW COLUMNS FROM $table LIKE '$fieldname'");
@@ -1744,7 +1744,7 @@ class oledrion_utils
      * @author Instant Zero (http://xoops.instant-zero.com)
      * @copyright (c) Instant Zero
      */
-    function addField($field, $table)
+    public function addField($field, $table)
     {
         global $xoopsDB;
         $result = $xoopsDB->queryF("ALTER TABLE $table ADD $field;");

@@ -68,7 +68,7 @@ function b_oledrion_recent_lists_edit($options)
 function b_oledrion_recent_lists_duplicatable($options)
 {
     $options = explode('|', $options);
-    $block = & b_oledrion_recent_lists_show($options);
+    $block = b_oledrion_recent_lists_show($options);
 
     $tpl = new XoopsTpl();
     $tpl->assign('block', $block);

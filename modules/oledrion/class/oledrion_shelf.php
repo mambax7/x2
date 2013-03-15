@@ -29,7 +29,7 @@ class oledrion_shelf
 {
     private $handlers;
 
-    function __construct()
+    public function __construct()
     {
         $this->initHandlers();
     }
@@ -47,7 +47,7 @@ class oledrion_shelf
      *
      * @param string $type    Le type de produits dont on veut récupérer le nombre
      */
-    function getProductsCount($type = 'recent', $category = 0, $excluded = 0)
+    public function getProductsCount($type = 'recent', $category = 0, $excluded = 0)
     {
         switch (strtolower($type)) {
             case 'recent':
@@ -61,7 +61,7 @@ class oledrion_shelf
      * Supprime un produit (et tout ce qui lui est relatif)
      * @param oledrion_products $product
      */
-    function deleteProduct(oledrion_products $product)
+    public function deleteProduct(oledrion_products $product)
     {
         global $xoopsModule;
         $id = $product->getVar('product_id');
@@ -143,7 +143,7 @@ class oledrion_shelf
      * @param oledrion_shelf_parameters $parameters    Les paramètres de filtrage
      * @return array    Tableau prêt à être utilisé dans les templates
      */
-    function getProducts(oledrion_shelf_parameters $parameters)
+    public function getProducts(oledrion_shelf_parameters $parameters)
     {
         global $vatArray;
         $parametersValues = $parameters->getParameters();

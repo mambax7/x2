@@ -33,7 +33,7 @@ class RssfitOledrion
 
     function loadModule()
     {
-        $mod =& $GLOBALS['module_handler']->getByDirname($this->dirname);
+        $mod = $GLOBALS['module_handler']->getByDirname($this->dirname);
         if (!$mod || !$mod->getVar('isactive')) {
             return false;
         }
@@ -41,7 +41,7 @@ class RssfitOledrion
         return $mod;
     }
 
-    function &grabEntries(&$obj)
+    function grabEntries(&$obj)
     {
         $ret = false;
         include XOOPS_ROOT_PATH . '/modules/oledrion/include/common.php';

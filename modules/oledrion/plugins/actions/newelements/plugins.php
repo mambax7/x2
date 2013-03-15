@@ -63,7 +63,7 @@ class newelementsAction extends oledrion_action
         $product = $parameters['product'];
         if (intval($product->getVar('product_online')) == 1) {
             $tags = array();
-            $notification_handler =& xoops_gethandler('notification');
+            $notification_handler = xoops_gethandler('notification');
             $tags['PRODUCT_NAME'] = $product->getVar('product_title');
             $tags['PRODUCT_SUMMARY'] = strip_tags($product->getVar('product_summary'));
             $tags['PRODUCT_URL'] = $product->getLink();
@@ -80,7 +80,7 @@ class newelementsAction extends oledrion_action
     public function fireNewCategory($parameters)
     {
         $category = $parameters['category'];
-        $notification_handler =& xoops_gethandler('notification');
+        $notification_handler = xoops_gethandler('notification');
         $tags = array();
         $tags['CATEGORY_NAME'] = $category->getVar('cat_title');
         $tags['CATEGORY_URL'] = $category->getLink(); // OLEDRION_URL.'category.php?cat_cid=' . $category->getVar('cat_cid');

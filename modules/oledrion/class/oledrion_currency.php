@@ -37,7 +37,7 @@ class oledrion_Currency
     protected $_moneyShort;
     protected $_monnaiePlace;
 
-    function __construct()
+    public function __construct()
     {
         // Get the module's preferences
         $this->_decimalsCount = oledrion_utils::getModuleOption('decimals_count');
@@ -59,7 +59,7 @@ class oledrion_Currency
      * @staticvar   object
      */
 
-    function &getInstance()
+    public function getInstance()
     {
         static $instance;
         if (!isset($instance)) {
@@ -74,7 +74,7 @@ class oledrion_Currency
      * @param float $amount The amount to work on
      * @return string The amount formated according to the currency
      */
-    function amountInCurrency($amount = 0)
+    public function amountInCurrency($amount = 0)
     {
         return number_format($amount, $this->_decimalsCount, $this->_decimalSep, $this->_thousandsSep);
     }
@@ -87,7 +87,7 @@ class oledrion_Currency
      * @param string $format Format to use, 's' for Short and 'l' for Long
      * @return string The amount formated
      */
-    function amountForDisplay($originalAmount, $format = 's')
+    public function amountForDisplay($originalAmount, $format = 's')
     {
         $amount = $this->amountInCurrency($originalAmount);
 

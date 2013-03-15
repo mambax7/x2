@@ -22,7 +22,7 @@ require 'classheader.php';
 
 class oledrion_location_delivery extends Oledrion_Object
 {
-    function __construct()
+    public function __construct()
     {
         $this->initVar('ld_id', XOBJ_DTYPE_INT, null, false);
         $this->initVar('ld_location', XOBJ_DTYPE_INT, null, false);
@@ -37,7 +37,7 @@ class oledrion_location_delivery extends Oledrion_Object
      * @param string $format
      * @return array
      */
-    function toArray($format = 's')
+    public function toArray($format = 's')
     {
         $ret = array();
         $ret = parent::toArray($format);
@@ -48,12 +48,12 @@ class oledrion_location_delivery extends Oledrion_Object
 
 class OledrionOledrion_location_deliveryHandler extends Oledrion_XoopsPersistableObjectHandler
 {
-    function __construct($db)
+    public function __construct($db)
     { //							              Table					           Classe				       Id
         parent::__construct($db, 'oledrion_location_delivery', 'oledrion_location_delivery', 'ld_id');
     }
 
-    function getLocationDeliveryId($parameters)
+    public function getLocationDeliveryId($parameters)
     {
         $ret = array();
         if (!$parameters['location']) {

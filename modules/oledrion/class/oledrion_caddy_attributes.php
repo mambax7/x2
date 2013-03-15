@@ -25,7 +25,7 @@ require 'classheader.php';
 
 class oledrion_caddy_attributes extends Oledrion_Object
 {
-    function __construct()
+    public function __construct()
     {
         $this->initVar('ca_id', XOBJ_DTYPE_INT, null, false);
         $this->initVar('ca_cmd_id', XOBJ_DTYPE_INT, null, false);
@@ -44,7 +44,7 @@ class oledrion_caddy_attributes extends Oledrion_Object
      * @return array
      * @since 2.3.2009.03.11
      */
-    function getOption($valueToGet, $format = 'e')
+    public function getOption($valueToGet, $format = 'e')
     {
         $names = array();
         if (xoops_trim($this->getVar($valueToGet, $format)) != '') {
@@ -95,7 +95,7 @@ class oledrion_caddy_attributes extends Oledrion_Object
      * @return boolean
      * @since 2.3.2009.03.16
      */
-    function addOption($name, $value, $price = '')
+    public function addOption($name, $value, $price = '')
     {
         return $this->appendOption($name, $value, $price);
     }
@@ -108,7 +108,7 @@ class oledrion_caddy_attributes extends Oledrion_Object
      * @return array
      * @since 2.3.2009.03.23
      */
-    function renderForInvoice(oledrion_products $product, $format = 's')
+    public function renderForInvoice(oledrion_products $product, $format = 's')
     {
         $names = $prices = $ret = array();
         $names = $this->getOption('ca_attribute_names', $format);
@@ -136,7 +136,7 @@ class oledrion_caddy_attributes extends Oledrion_Object
 
 class OledrionOledrion_caddy_attributesHandler extends Oledrion_XoopsPersistableObjectHandler
 {
-    function __construct($db)
+    public function __construct($db)
     { //							    Table			        Classe		    	        Id
         parent::__construct($db, 'oledrion_caddy_attributes', 'oledrion_caddy_attributes', 'ca_id');
     }
@@ -148,7 +148,7 @@ class OledrionOledrion_caddy_attributesHandler extends Oledrion_XoopsPersistable
      * @return integer
      * @since 2.3.2009.03.23
      */
-    function getAttributesCountForCaddy($ca_caddy_id)
+    public function getAttributesCountForCaddy($ca_caddy_id)
     {
         return $this->getCount(new Criteria('ca_caddy_id', $ca_caddy_id, '='));
     }
@@ -161,7 +161,7 @@ class OledrionOledrion_caddy_attributesHandler extends Oledrion_XoopsPersistable
      * @return array
      * @since 2.3.2009.03.23
      */
-    function getFormatedAttributesForCaddy($ca_caddy_id, oledrion_products $product)
+    public function getFormatedAttributesForCaddy($ca_caddy_id, oledrion_products $product)
     {
         $handlers = oledrion_handler::getInstance();
         $attributes = $ret = array();
@@ -189,7 +189,7 @@ class OledrionOledrion_caddy_attributesHandler extends Oledrion_XoopsPersistable
      * @return integer
      * @since 2.3.2009.03.23
      */
-    function getCaddyCountFromAttributeId($ca_attribute_id)
+    public function getCaddyCountFromAttributeId($ca_attribute_id)
     {
         return $this->getCount(new Criteria('ca_attribute_id', $ca_attribute_id, '='));
     }
@@ -200,7 +200,7 @@ class OledrionOledrion_caddy_attributesHandler extends Oledrion_XoopsPersistable
      * @param integer $ca_attribute_id
      * @return array
      */
-    function getCommandIdFromAttribute($ca_attribute_id)
+    public function getCommandIdFromAttribute($ca_attribute_id)
     {
         $ret = $ordersIds = array();
         $criteria = new Criteria('ca_attribute_id', $ca_attribute_id, '=');
@@ -217,7 +217,7 @@ class OledrionOledrion_caddy_attributesHandler extends Oledrion_XoopsPersistable
      * @param integer $caddy_cmd_id
      * @return boolean
      */
-    function removeCartsFromOrderId($ca_cmd_id)
+    public function removeCartsFromOrderId($ca_cmd_id)
     {
         $ca_cmd_id = intval($ca_cmd_id);
         return $this->deleteAll(new criteria('ca_cmd_id', $ca_cmd_id, '='));

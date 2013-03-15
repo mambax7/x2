@@ -22,7 +22,7 @@ require 'classheader.php';
 
 class oledrion_payment_log extends Oledrion_Object
 {
-    function __construct()
+    public function __construct()
     {
         $this->initVar('log_id', XOBJ_DTYPE_INT, null, false);
         $this->initVar('log_create', XOBJ_DTYPE_INT, null, false);
@@ -41,7 +41,7 @@ class oledrion_payment_log extends Oledrion_Object
 
 class OledrionOledrion_payment_logHandler extends Oledrion_XoopsPersistableObjectHandler
 {
-    function __construct($db)
+    public function __construct($db)
     { //							           Table					     Classe				     Id
         parent::__construct($db, 'oledrion_payment_log', 'oledrion_payment_log', 'log_id');
     }

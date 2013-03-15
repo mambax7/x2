@@ -22,7 +22,7 @@ require 'classheader.php';
 
 class oledrion_packing extends Oledrion_Object
 {
-    function __construct()
+    public function __construct()
     {
         $this->initVar('packing_id', XOBJ_DTYPE_INT, null, false);
         $this->initVar('packing_title', XOBJ_DTYPE_TXTBOX, null, false);
@@ -39,7 +39,7 @@ class oledrion_packing extends Oledrion_Object
      * Retourne l'URL de l'image de la catégorie courante
      * @return string    L'URL
      */
-    function getPictureUrl()
+    public function getPictureUrl()
     {
         return OLEDRION_PICTURES_URL . '/' . $this->getVar('packing_image');
     }
@@ -49,7 +49,7 @@ class oledrion_packing extends Oledrion_Object
      *
      * @return boolean    Vrai si l'image existe sinon faux
      */
-    function pictureExists()
+    public function pictureExists()
     {
         $return = false;
         if (xoops_trim($this->getVar('packing_image')) != '' && file_exists(OLEDRION_PICTURES_PATH . DIRECTORY_SEPARATOR . $this->getVar('packing_image'))) {
@@ -62,7 +62,7 @@ class oledrion_packing extends Oledrion_Object
      * Supprime l'image associée à une catégorie
      * @return void
      */
-    function deletePicture()
+    public function deletePicture()
     {
         if ($this->pictureExists()) {
             @unlink(OLEDRION_PICTURES_PATH . DIRECTORY_SEPARATOR . $this->getVar('packing_image'));
@@ -76,7 +76,7 @@ class oledrion_packing extends Oledrion_Object
      * @param string $format
      * @return array
      */
-    function toArray($format = 's')
+    public function toArray($format = 's')
     {
         $ret = array();
         $ret = parent::toArray($format);
@@ -87,12 +87,12 @@ class oledrion_packing extends Oledrion_Object
 
 class OledrionOledrion_packingHandler extends Oledrion_XoopsPersistableObjectHandler
 {
-    function __construct($db)
+    public function __construct($db)
     { //							           Table					Classe				Id
         parent::__construct($db, 'oledrion_packing', 'oledrion_packing', 'packing_id');
     }
 
-    function getAllPacking(oledrion_parameters $parameters)
+    public function getAllPacking(oledrion_parameters $parameters)
     {
         $parameters = $parameters->extend(new oledrion_parameters(array('start' => 0, 'limit' => 0, 'sort' => 'packing_id', 'order' => 'ASC')));
         $critere = new Criteria('packing_id', 0, '<>');

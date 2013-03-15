@@ -75,7 +75,7 @@ function b_oledrion_top_edit($options)
 function b_oledrion_top_show_duplicatable($options)
 {
     $options = explode('|', $options);
-    $block = & b_oledrion_top_show($options);
+    $block = b_oledrion_top_show($options);
 
     $tpl = new XoopsTpl();
     $tpl->assign('block', $block);

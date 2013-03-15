@@ -24,14 +24,14 @@ function oledrion_notify_iteminfo($category, $item_id)
     $item_id = intval($item_id);
 
     if (empty($xoopsModule) || $xoopsModule->getVar('dirname') != 'oledrion') {
-        $module_handler =& xoops_gethandler('module');
-        $module =& $module_handler->getByDirname('oledrion');
-        $config_handler =& xoops_gethandler('config');
-        $config =& $config_handler->getConfigsByCat(0, $module->getVar('mid'));
+        $module_handler = xoops_gethandler('module');
+        $module = $module_handler->getByDirname('oledrion');
+        $config_handler = xoops_gethandler('config');
+        $config = $config_handler->getConfigsByCat(0, $module->getVar('mid'));
     } else {
-        $module =& $xoopsModule;
+        $module = $xoopsModule;
         // TODO: Jamais utilisé !!!
-        $config =& $xoopsModuleConfig;
+        $config = $xoopsModuleConfig;
     }
 
     if ($category == 'global') {

@@ -22,7 +22,7 @@ require 'classheader.php';
 
 class oledrion_location extends Oledrion_Object
 {
-    function __construct()
+    public function __construct()
     {
         $this->initVar('location_id', XOBJ_DTYPE_INT, null, false);
         $this->initVar('location_pid', XOBJ_DTYPE_INT, null, false);
@@ -37,7 +37,7 @@ class oledrion_location extends Oledrion_Object
      * @param string $format
      * @return array
      */
-    function toArray($format = 's')
+    public function toArray($format = 's')
     {
         $ret = array();
         $ret = parent::toArray($format);
@@ -48,12 +48,12 @@ class oledrion_location extends Oledrion_Object
 
 class OledrionOledrion_locationHandler extends Oledrion_XoopsPersistableObjectHandler
 {
-    function __construct($db)
+    public function __construct($db)
     { //							            Table					Classe				Id
         parent::__construct($db, 'oledrion_location', 'oledrion_location', 'location_id');
     }
 
-    function getAllLocation(oledrion_parameters $parameters)
+    public function getAllLocation(oledrion_parameters $parameters)
     {
         $parameters = $parameters->extend(new oledrion_parameters(array('start' => 0, 'limit' => 0, 'sort' => 'location_id', 'order' => 'ASC')));
         $critere = new Criteria('location_id', 0, '<>');
@@ -66,7 +66,7 @@ class OledrionOledrion_locationHandler extends Oledrion_XoopsPersistableObjectHa
         return $location;
     }
 
-    function getAllPid(oledrion_parameters $parameters)
+    public function getAllPid(oledrion_parameters $parameters)
     {
         $parameters = $parameters->extend(new oledrion_parameters(array('start' => 0, 'limit' => 0, 'sort' => 'location_id', 'order' => 'ASC')));
         $critere = new CriteriaCompo();

@@ -26,7 +26,7 @@ require 'classheader.php';
 
 class oledrion_cat extends Oledrion_Object
 {
-    function __construct()
+    public function __construct()
     {
         $this->initVar('cat_cid', XOBJ_DTYPE_INT, null, false);
         $this->initVar('cat_pid', XOBJ_DTYPE_INT, null, false);
@@ -46,7 +46,7 @@ class oledrion_cat extends Oledrion_Object
      * Retourne l'URL de l'image de la catégorie courante
      * @return string    L'URL
      */
-    function getPictureUrl()
+    public function getPictureUrl()
     {
         return OLEDRION_PICTURES_URL . '/' . $this->getVar('cat_imgurl');
     }
@@ -55,7 +55,7 @@ class oledrion_cat extends Oledrion_Object
      * Retourne le chemin de l'image de la catégorie courante
      * @return string    Le chemin
      */
-    function getPicturePath()
+    public function getPicturePath()
     {
         return OLEDRION_PICTURES_PATH . DIRECTORY_SEPARATOR . $this->getVar('cat_imgurl');
     }
@@ -65,7 +65,7 @@ class oledrion_cat extends Oledrion_Object
      *
      * @return boolean    Vrai si l'image existe sinon faux
      */
-    function pictureExists()
+    public function pictureExists()
     {
         $return = false;
         if (xoops_trim($this->getVar('cat_imgurl')) != '' && file_exists(OLEDRION_PICTURES_PATH . DIRECTORY_SEPARATOR . $this->getVar('cat_imgurl'))) {
@@ -78,7 +78,7 @@ class oledrion_cat extends Oledrion_Object
      * Supprime l'image associée à une catégorie
      * @return void
      */
-    function deletePicture()
+    public function deletePicture()
     {
         if ($this->pictureExists()) {
             @unlink(OLEDRION_PICTURES_PATH . DIRECTORY_SEPARATOR . $this->getVar('cat_imgurl'));
@@ -91,7 +91,7 @@ class oledrion_cat extends Oledrion_Object
      *
      * @return string    L'url à utiliser
      */
-    function getLink()
+    public function getLink()
     {
         include_once XOOPS_ROOT_PATH . '/modules/oledrion/include/common.php';
         $url = '';
@@ -108,7 +108,7 @@ class oledrion_cat extends Oledrion_Object
      *
      * @return string
      */
-    function getHrefTitle()
+    public function getHrefTitle()
     {
         return oledrion_utils::makeHrefTitle($this->getVar('cat_title'));
     }
@@ -120,7 +120,7 @@ class oledrion_cat extends Oledrion_Object
      * @param string $format
      * @return array
      */
-    function toArray($format = 's')
+    public function toArray($format = 's')
     {
         $ret = array();
         $ret = parent::toArray($format);
@@ -134,7 +134,7 @@ class oledrion_cat extends Oledrion_Object
 
 class OledrionOledrion_catHandler extends Oledrion_XoopsPersistableObjectHandler
 {
-    function __construct($db)
+    public function __construct($db)
     { //						Table				Classe		 Id		  Libellé
         parent::__construct($db, 'oledrion_cat', 'oledrion_cat', 'cat_cid', 'cat_title');
     }
@@ -149,7 +149,7 @@ class OledrionOledrion_catHandler extends Oledrion_XoopsPersistableObjectHandler
      * @param boolean $idaskey Indique s'il faut renvoyer un tableau dont la clé est l'identifiant de l'enregistrement
      * @return array Taleau d'objets (catégories)
      */
-    function getAllCategories(oledrion_parameters $parameters)
+    public function getAllCategories(oledrion_parameters $parameters)
     {
         $parameters = $parameters->extend(new oledrion_parameters(array('start' => 0, 'limit' => 0, 'sort' => 'cat_title', 'order' => 'ASC', 'idaskey' => true)));
         $critere = new Criteria('cat_cid', 0, '<>');
@@ -171,7 +171,7 @@ class OledrionOledrion_catHandler extends Oledrion_XoopsPersistableObjectHandler
      * @param object $tree
      * @return string
      */
-    private function _makeLi($fieldName, $key, &$ret, $tree)
+    private function _makeLi($fieldName, $key, $ret, $tree)
     {
         if ($key > 0) {
             $ret .= '<li><a href="';
@@ -194,7 +194,7 @@ class OledrionOledrion_catHandler extends Oledrion_XoopsPersistableObjectHandler
      * @param   integer $key             ID of the object to display as the root of select options
      * @return  string  HTML select box
      */
-    function getUlMenu($fieldName, $key = 0)
+    public function getUlMenu($fieldName, $key = 0)
     {
         include_once XOOPS_ROOT_PATH . '/class/tree.php';
         $items = $this->getAllCategories(new oledrion_parameters());
@@ -215,7 +215,7 @@ class OledrionOledrion_catHandler extends Oledrion_XoopsPersistableObjectHandler
      * @param oledrion_cat $category
      * @return boolean    Le résultat de la suppression
      */
-    function deleteCategory(oledrion_cat $category)
+    public function deleteCategory(oledrion_cat $category)
     {
         global $xoopsModule;
         $category->deletePicture();
@@ -230,7 +230,7 @@ class OledrionOledrion_catHandler extends Oledrion_XoopsPersistableObjectHandler
      * @param boolean    $withNested    Faut il inclure les sous-catégories ?
      * @return integer    Le nombre de produits
      */
-    function getCategoryProductsCount($cat_cid, $withNested = true)
+    public function getCategoryProductsCount($cat_cid, $withNested = true)
     {
         global $h_oledrion_products;
         $childsIDs = array();
@@ -257,7 +257,7 @@ class OledrionOledrion_catHandler extends Oledrion_XoopsPersistableObjectHandler
      * @param array $ids    Les ID des catégories à retrouver
      * @return array    Objets de type oledrion_cat
      */
-    function getCategoriesFromIds($ids)
+    public function getCategoriesFromIds($ids)
     {
         $ret = array();
         if (is_array($ids) && count($ids) > 0) {
@@ -272,7 +272,7 @@ class OledrionOledrion_catHandler extends Oledrion_XoopsPersistableObjectHandler
      *
      * @return array    Objets de type oledrion_cat
      */
-    function getMotherCategories()
+    public function getMotherCategories()
     {
         $ret = array();
         $criteria = new Criteria('cat_pid', 0, '=');

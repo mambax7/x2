@@ -58,7 +58,7 @@ define('OLEDRION_DISCOUNT_SHIPPING_TYPE4', 4); // Les frais de port sont dégres
 
 class oledrion_discounts extends Oledrion_Object
 {
-    function __construct()
+    public function __construct()
     {
         $this->initVar('disc_id', XOBJ_DTYPE_INT, null, false);
         $this->initVar('disc_title', XOBJ_DTYPE_TXTBOX, null, false);
@@ -119,7 +119,7 @@ class oledrion_discounts extends Oledrion_Object
 
 class OledrionOledrion_discountsHandler extends Oledrion_XoopsPersistableObjectHandler
 {
-    function __construct($db)
+    public function __construct($db)
     { //						Table					Classe	 			Id		  Libellé
         parent::__construct($db, 'oledrion_discounts', 'oledrion_discounts', 'disc_id', 'disc_title');
     }
@@ -134,7 +134,7 @@ class OledrionOledrion_discountsHandler extends Oledrion_XoopsPersistableObjectH
      * @param void
      * @return array objets de type oledrion_discounts
      */
-    function getRulesForThisPeriod()
+    public function getRulesForThisPeriod()
     {
         static $buffer = array();
         if (is_array($buffer) && count($buffer) > 0) {
@@ -166,7 +166,7 @@ class OledrionOledrion_discountsHandler extends Oledrion_XoopsPersistableObjectH
      *
      * @return array Tableau d'objets de type Discounts
      */
-    function getRulesOnEachProduct()
+    public function getRulesOnEachProduct()
     {
         static $buffer = array();
         if (is_array($buffer) && count($buffer) > 0) {
@@ -189,7 +189,7 @@ class OledrionOledrion_discountsHandler extends Oledrion_XoopsPersistableObjectH
      *
      * @return array Tableau d'objets de type Discounts
      */
-    function getRulesOnAllProducts()
+    public function getRulesOnAllProducts()
     {
         static $buffer = array();
         if (is_array($buffer) && count($buffer) > 0) {
@@ -210,7 +210,7 @@ class OledrionOledrion_discountsHandler extends Oledrion_XoopsPersistableObjectH
      *
      * @return array Tableau d'objets de type Discounts
      */
-    function getRulesOnShipping()
+    public function getRulesOnShipping()
     {
         static $buffer = array();
         if (is_array($buffer) && count($buffer) > 0) {
@@ -231,7 +231,7 @@ class OledrionOledrion_discountsHandler extends Oledrion_XoopsPersistableObjectH
      *
      * @return array Tableau d'objets de type Discounts
      */
-    function getRulesOnShipping2()
+    public function getRulesOnShipping2()
     {
         static $buffer = array();
         if (is_array($buffer) && count($buffer) > 0) {
@@ -253,7 +253,7 @@ class OledrionOledrion_discountsHandler extends Oledrion_XoopsPersistableObjectH
      *
      * @return array Tableau d'objets de type Discounts
      */
-    function getRulesOnCommand()
+    public function getRulesOnCommand()
     {
         static $buffer = array();
         if (is_array($buffer) && count($buffer) > 0) {
@@ -276,7 +276,7 @@ class OledrionOledrion_discountsHandler extends Oledrion_XoopsPersistableObjectH
      * @param float $commandAmount            Le montant total de la commande
      * @param array $discountsDescription     Descriptions des réductions appliquées
      */
-    function applyDiscountOnShipping2(&$montantShipping, $commandAmount, &$discountsDescription)
+    public function applyDiscountOnShipping2($montantShipping, $commandAmount, $discountsDescription)
     {
         $tblRules = array();
         $tblRules = $this->getRulesOnShipping2(); // Renvoie des objets Discounts
@@ -297,7 +297,7 @@ class OledrionOledrion_discountsHandler extends Oledrion_XoopsPersistableObjectH
      * @param float $montantHT                 Montant HT des produits
      * @param array $discountsDescription     Descriptions des réductions appliquées
      */
-    function applyDiscountOnCommand(&$montantHT, &$discountsDescription)
+    public function applyDiscountOnCommand($montantHT, $discountsDescription)
     {
         global $h_oledrion_commands;
         $tblRules = array();
@@ -349,7 +349,7 @@ class OledrionOledrion_discountsHandler extends Oledrion_XoopsPersistableObjectH
      * @param array $discountsDescription     Descriptions des réductions appliquées
      * @param integer $productQty             Quantité commandée du produit
      */
-    function applyDiscountOnShipping(&$montantHT, &$discountsDescription, $productQty)
+    public function applyDiscountOnShipping($montantHT, $discountsDescription, $productQty)
     {
         global $h_oledrion_commands;
         $tblRules = array();
@@ -452,7 +452,7 @@ class OledrionOledrion_discountsHandler extends Oledrion_XoopsPersistableObjectH
      * @param array $discountsDescription     Descriptions des réductions appliquées
      * @param integer $productQty             Quantité commandée du produit
      */
-    function applyDiscountOnAllProducts(&$montantHT, &$discountsDescription, $productQty)
+    public function applyDiscountOnAllProducts($montantHT, $discountsDescription, $productQty)
     {
         global $h_oledrion_commands;
         $tblRules = array();
@@ -556,7 +556,7 @@ class OledrionOledrion_discountsHandler extends Oledrion_XoopsPersistableObjectH
      * @param array $discountsDescription     Descriptions des réductions appliquées
      * @param integer $productQty             Quantité commandée du produit
      */
-    function applyDiscountOnEachProduct($productId, &$prixHT, &$discountsDescription, $productQty)
+    public function applyDiscountOnEachProduct($productId, $prixHT, $discountsDescription, $productQty)
     {
         global $h_oledrion_commands;
         $rules = array();
@@ -674,7 +674,7 @@ class OledrionOledrion_discountsHandler extends Oledrion_XoopsPersistableObjectH
      * @param integer $disc_product_id
      * @return boolean
      */
-    function removeProductFromDiscounts($disc_product_id)
+    public function removeProductFromDiscounts($disc_product_id)
     {
         $disc_product_id = intval($disc_product_id);
         return $this->deleteAll(new Criteria('disc_product_id', $disc_product_id, '='));
