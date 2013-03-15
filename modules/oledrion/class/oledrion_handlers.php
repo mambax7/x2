@@ -33,7 +33,7 @@ class oledrion_handler
      *
      * @var array
      */
-    private $handlersNames = array('oledrion_manufacturer', 'oledrion_products', 'oledrion_productsmanu', 'oledrion_caddy', 'oledrion_cat', 'oledrion_commands', 'oledrion_related', 'oledrion_vat', 'oledrion_votedata', 'oledrion_discounts', 'oledrion_vendors', 'oledrion_files', 'oledrion_persistent_cart', 'oledrion_gateways_options', 'oledrion_attributes', 'oledrion_caddy_attributes', 'oledrion_products_list', 'oledrion_lists', 'oledrion_delivery', 'oledrion_location', 'oledrion_packing', 'oledrion_payment', 'oledrion_location_delivery', 'oledrion_delivery_payment');
+    private $handlersNames = array('oledrion_manufacturer', 'oledrion_products', 'oledrion_productsmanu', 'oledrion_caddy', 'oledrion_cat', 'oledrion_commands', 'oledrion_related', 'oledrion_vat', 'oledrion_votedata', 'oledrion_discounts', 'oledrion_vendors', 'oledrion_files', 'oledrion_persistent_cart', 'oledrion_gateways_options', 'oledrion_attributes', 'oledrion_caddy_attributes', 'oledrion_products_list', 'oledrion_lists', 'oledrion_delivery', 'oledrion_location', 'oledrion_packing', 'oledrion_payment', 'oledrion_location_delivery', 'oledrion_delivery_payment', 'oledrion_payment_log');
 
     /**
      * Contient l'unique instance de l'objet

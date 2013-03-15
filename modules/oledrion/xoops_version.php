@@ -44,8 +44,8 @@ $modversion['icons32'] = '../../Frameworks/moduleclasses/icons/32';
 $modversion['release_date'] = '2012/12/21';
 $modversion["module_website_url"] = "www.xoops.org";
 $modversion["module_website_name"] = "XOOPS";
-$modversion["module_status"] = "Beta 3";
-$modversion['min_php'] = '5.2';
+$modversion["module_status"] = "Beta 4";
+$modversion['min_php'] = '5.3';
 $modversion['min_xoops'] = "2.5.5";
 $modversion['min_admin'] = '1.1';
 $modversion['min_db'] = array(
@@ -72,6 +72,13 @@ $modversion['tables'][14] = 'oledrion_lists';
 $modversion['tables'][15] = 'oledrion_products_list';
 $modversion['tables'][16] = 'oledrion_attributes';
 $modversion['tables'][17] = 'oledrion_caddy_attributes';
+$modversion['tables'][18] = 'oledrion_packing';
+$modversion['tables'][19] = 'oledrion_location';
+$modversion['tables'][20] = 'oledrion_delivery';
+$modversion['tables'][21] = 'oledrion_payment';
+$modversion['tables'][22] = 'oledrion_location_delivery';
+$modversion['tables'][23] = 'oledrion_delivery_payment';
+$modversion['tables'][24] = 'oledrion_payment_log';
 
 $modversion['hasAdmin'] = 1;
 $modversion['system_menu'] = 1;
@@ -523,17 +530,6 @@ $modversion['config'][$cpto]['valuetype'] = 'int';
 $modversion['config'][$cpto]['default'] = 10;
 
 /**
- * Enable offline payment ?
- */
-$cpto++;
-$modversion['config'][$cpto]['name'] = 'offline_payment';
-$modversion['config'][$cpto]['title'] = '_MI_OLEDRION_OFFLINE_PAYMENT';
-$modversion['config'][$cpto]['description'] = '_MI_OLEDRION_OFF_PAY_DSC';
-$modversion['config'][$cpto]['formtype'] = 'yesno';
-$modversion['config'][$cpto]['valuetype'] = 'int';
-$modversion['config'][$cpto]['default'] = 1;
-
-/**
  * Money, full label
  */
 $cpto++;
@@ -936,18 +932,6 @@ $modversion['config'][$cpto]['valuetype'] = 'int';
 $modversion['config'][$cpto]['default'] = 0;
 
 /**
- * Ask for VAT number ?
- * @since 2.3.2009.03.09
- */
-$cpto++;
-$modversion['config'][$cpto]['name'] = 'ask_vatnumber';
-$modversion['config'][$cpto]['title'] = '_MI_OLEDRION_ASK_VAT_NUMBER';
-$modversion['config'][$cpto]['description'] = '';
-$modversion['config'][$cpto]['formtype'] = 'yesno';
-$modversion['config'][$cpto]['valuetype'] = 'int';
-$modversion['config'][$cpto]['default'] = 0;
-
-/**
  * Use stocks in products attributes ?
  * @since 2.3.2009.03.11
  */
@@ -1157,6 +1141,54 @@ $modversion['config'][$cpto]['description'] = '';
 $modversion['config'][$cpto]['formtype'] = 'yesno';
 $modversion['config'][$cpto]['valuetype'] = 'int';
 $modversion['config'][$cpto]['default'] = 1;
+
+$cpto++;
+$modversion['config'][$cpto]['name'] = 'break' . $cpto;
+$modversion['config'][$cpto]['title'] = '_MI_OLEDRION_BREAK_CHECKOUT';
+$modversion['config'][$cpto]['description'] = '';
+$modversion['config'][$cpto]['formtype'] = 'line_break';
+$modversion['config'][$cpto]['valuetype'] = 'textbox';
+$modversion['config'][$cpto]['default'] = 'head';
+
+/**
+ * Enable offline payment ?
+ */
+$cpto++;
+$modversion['config'][$cpto]['name'] = 'offline_payment';
+$modversion['config'][$cpto]['title'] = '_MI_OLEDRION_OFFLINE_PAYMENT';
+$modversion['config'][$cpto]['description'] = '_MI_OLEDRION_OFF_PAY_DSC';
+$modversion['config'][$cpto]['formtype'] = 'yesno';
+$modversion['config'][$cpto]['valuetype'] = 'int';
+$modversion['config'][$cpto]['default'] = 1;
+
+$cpto++;
+$modversion['config'][$cpto]['name'] = 'checkout_country';
+$modversion['config'][$cpto]['title'] = '_MI_OLEDRION_CHECKOUT_COUNTRY';
+$modversion['config'][$cpto]['description'] = '_MI_OLEDRION_CHECKOUT_COUNTRY_DSC';
+$modversion['config'][$cpto]['formtype'] = 'yesno';
+$modversion['config'][$cpto]['valuetype'] = 'int';
+$modversion['config'][$cpto]['default'] = 1;
+
+$cpto++;
+$modversion['config'][$cpto]['name'] = 'checkout_shipping';
+$modversion['config'][$cpto]['title'] = '_MI_OLEDRION_CHECKOUT_SHIPPING';
+$modversion['config'][$cpto]['description'] = '';
+$modversion['config'][$cpto]['formtype'] = 'select';
+$modversion['config'][$cpto]['valuetype'] = 'int';
+$modversion['config'][$cpto]['default'] = 1;
+$modversion['config'][$cpto]['options'] = array('_MI_OLEDRION_CHECKOUT_SHIPPING_1' => 1, '_MI_OLEDRION_CHECKOUT_SHIPPING_2' => 2, '_MI_OLEDRION_CHECKOUT_SHIPPING_3' => 3, '_MI_OLEDRION_CHECKOUT_SHIPPING_4' => 4);
+
+/**
+ * Ask for VAT number ?
+ * @since 2.3.2009.03.09
+ */
+$cpto++;
+$modversion['config'][$cpto]['name'] = 'ask_vatnumber';
+$modversion['config'][$cpto]['title'] = '_MI_OLEDRION_ASK_VAT_NUMBER';
+$modversion['config'][$cpto]['description'] = '';
+$modversion['config'][$cpto]['formtype'] = 'yesno';
+$modversion['config'][$cpto]['valuetype'] = 'int';
+$modversion['config'][$cpto]['default'] = 0;
 
 $cpto++;
 $modversion['config'][$cpto]['name'] = 'break' . $cpto;

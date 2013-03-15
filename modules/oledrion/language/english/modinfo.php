@@ -42,6 +42,23 @@ define('_MI_OLEDRION_BNAME14', 'Random lists');
 define('_MI_OLEDRION_BNAME15', 'Most viewed lists');
 define('_MI_OLEDRION_BNAME16', 'Ajax search');
 
+define('_MI_OLEDRION_BNAME1_DESC', 'Shows recently added products titles');
+define('_MI_OLEDRION_BNAME2_DESC', 'Shows most viewed products titles');
+define('_MI_OLEDRION_BNAME3_DESC', 'Show categories in relation with the category page');
+define('_MI_OLEDRION_BNAME4_DESC', 'Show most sold products');
+define('_MI_OLEDRION_BNAME5_DESC', 'Shows best rated product');
+define('_MI_OLEDRION_BNAME6_DESC', 'Shows a random product');
+define('_MI_OLEDRION_BNAME7_DESC', 'Shows products in promotion');
+define('_MI_OLEDRION_BNAME8_DESC', 'Shows cart');
+define('_MI_OLEDRION_BNAME9_DESC', 'Shows last recommended products');
+define('_MI_OLEDRION_BNAME10_DESC', 'Shows Recently Sold products');
+define('_MI_OLEDRION_BNAME11_DESC', 'Shows recent public lists');
+define('_MI_OLEDRION_BNAME12_DESC', 'Shows user lists');
+define('_MI_OLEDRION_BNAME13_DESC', 'Shows recent public lists according to the current category');
+define('_MI_OLEDRION_BNAME14_DESC', 'Shows random lists');
+define('_MI_OLEDRION_BNAME15_DESC', 'Shows most viewed lists');
+define('_MI_OLEDRION_BNAME16_DESC', 'Shows ajax search form');
+
 // Sub menu titles
 define('_MI_OLEDRION_SMNAME1', 'Shopping cart');
 define('_MI_OLEDRION_SMNAME2', 'Index');
@@ -216,25 +233,6 @@ define('_MI_OLEDRION_PRODUCT_PROPERTY3', 'Product Property 3');
 define('_MI_OLEDRION_PRODUCT_PROPERTY4', 'Product Property 4');
 define('_MI_OLEDRION_PRODUCT_PROPERTY5', 'Product Property 5');
 define('_MI_OLEDRION_PRODUCT_PROPERTY_TITLE', 'Title');
-define('_MI_OLEDRION_GATEWAY', 'Gateway used by the module');
-
-
-define('_MI_OLEDRION_BNAME1_DESC', 'Shows recently added products titles');
-define('_MI_OLEDRION_BNAME2_DESC', 'Shows most viewed products titles');
-define('_MI_OLEDRION_BNAME3_DESC', 'Show categories in relation with the category page');
-define('_MI_OLEDRION_BNAME4_DESC', 'Show most sold products');
-define('_MI_OLEDRION_BNAME5_DESC', 'Shows best rated product');
-define('_MI_OLEDRION_BNAME6_DESC', 'Shows a random product');
-define('_MI_OLEDRION_BNAME7_DESC', 'Shows products in promotion');
-define('_MI_OLEDRION_BNAME8_DESC', 'Shows cart');
-define('_MI_OLEDRION_BNAME9_DESC', 'Shows last recommended products');
-define('_MI_OLEDRION_BNAME10_DESC', 'Shows Recently Sold products');
-define('_MI_OLEDRION_BNAME11_DESC', 'Shows recent public lists');
-define('_MI_OLEDRION_BNAME12_DESC', 'Shows user lists');
-define('_MI_OLEDRION_BNAME13_DESC', 'Shows recent public lists according to the current category');
-define('_MI_OLEDRION_BNAME14_DESC', 'Shows random lists');
-define('_MI_OLEDRION_BNAME15_DESC', 'Shows most viewed lists');
-define('_MI_OLEDRION_BNAME16_DESC', 'Shows ajax search form');
 
 define('_MI_OLEDRION_SEARCH_CATEGORY', 'Show category');
 define('_MI_OLEDRION_SEARCH_MANUFACTURERS', 'Show Manufacturers');
@@ -247,7 +245,19 @@ define('_MI_OLEDRION_SEARCH_PROPERTY3', 'Show property 3');
 define('_MI_OLEDRION_SEARCH_PROPERTY4', 'Show property 4');
 define('_MI_OLEDRION_SEARCH_PROPERTY5', 'Show property 5');
 
+define('_MI_OLEDRION_CHECKOUT_COUNTRY', 'Show select country');
+define('_MI_OLEDRION_CHECKOUT_COUNTRY_DSC', 'if not show, use default selected country on config.php file');
+define('_MI_OLEDRION_CHECKOUT_SHIPPING', 'Shipping price type');
+define('_MI_OLEDRION_CHECKOUT_SHIPPING_1', 'Product shipping price + Location delivery price');
+define('_MI_OLEDRION_CHECKOUT_SHIPPING_2', 'Product shipping price');
+define('_MI_OLEDRION_CHECKOUT_SHIPPING_3', 'Location delivery price');
+define('_MI_OLEDRION_CHECKOUT_SHIPPING_4', 'Free');
+
+define('_MI_OLEDRION_GATEWAY', 'Gateway used by the module');
+
 define('_MI_OLEDRION_BREAK_COMMENT_NOTIFICATION', 'Comments and Notifications');
 define('_MI_OLEDRION_BREAK_SEARCH', 'Search');
 define('_MI_OLEDRION_BREAK_IMAGE', 'Image');
+define('_MI_OLEDRION_BREAK_CHECKOUT', 'Checkout');
+
 ?>

@@ -37,6 +37,7 @@ class oledrion_commands extends Oledrion_Object
         $this->initVar('cmd_id', XOBJ_DTYPE_INT, null, false);
         $this->initVar('cmd_uid', XOBJ_DTYPE_INT, null, false);
         $this->initVar('cmd_date', XOBJ_DTYPE_TXTBOX, null, false);
+        $this->initVar('cmd_create', XOBJ_DTYPE_INT, null, false);
         $this->initVar('cmd_state', XOBJ_DTYPE_INT, null, false);
         $this->initVar('cmd_ip', XOBJ_DTYPE_TXTBOX, null, false);
         $this->initVar('cmd_lastname', XOBJ_DTYPE_TXTBOX, null, false);
@@ -56,6 +57,14 @@ class oledrion_commands extends Oledrion_Object
         $this->initVar('cmd_cancel', XOBJ_DTYPE_TXTBOX, null, false);
         $this->initVar('cmd_comment', XOBJ_DTYPE_TXTAREA, null, false);
         $this->initVar('cmd_vat_number', XOBJ_DTYPE_TXTAREA, null, false);
+        $this->initVar('cmd_packing', XOBJ_DTYPE_TXTBOX, null, false);
+        $this->initVar('cmd_packing_id', XOBJ_DTYPE_INT, null, false);
+        $this->initVar('cmd_location', XOBJ_DTYPE_TXTBOX, null, false);
+        $this->initVar('cmd_location_id', XOBJ_DTYPE_INT, null, false);
+        $this->initVar('cmd_delivery', XOBJ_DTYPE_TXTBOX, null, false);
+        $this->initVar('cmd_delivery_id', XOBJ_DTYPE_INT, null, false);
+        $this->initVar('cmd_payment', XOBJ_DTYPE_TXTBOX, null, false);
+        $this->initVar('cmd_payment_id', XOBJ_DTYPE_INT, null, false);
     }
 
 

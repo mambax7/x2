@@ -95,7 +95,7 @@ $h_oledrion_packing = $oledrion_handlers->h_oledrion_packing;
 $h_oledrion_payment = $oledrion_handlers->h_oledrion_payment;
 $h_oledrion_location_delivery = $oledrion_handlers->h_oledrion_location_delivery;
 $h_oledrion_delivery_payment = $oledrion_handlers->h_oledrion_delivery_payment;
-
+$h_oledrion_payment_log = $oledrion_handlers->h_oledrion_payment_log;
 
 $oledrion_shelf = new oledrion_shelf(); // Façade
 $oledrion_shelf_parameters = new oledrion_shelf_parameters(); // Les paramètres de la façade

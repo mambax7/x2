@@ -43,11 +43,11 @@ function xoops_module_update_oledrion($module, $version)
     // Nouveau champ cmd_comment dans oledrion_commands
     $tableName = $xoopsDB->prefix('oledrion_commands');
     if (!oledrion_utils::fieldExists('cmd_comment', $tableName)) {
-        oledrion_utils::addField('cmd_comment TEXT NOT NULL', $tableName);
+        oledrion_utils::addField('`cmd_comment` TEXT NOT NULL', $tableName);
     }
 
     if (!oledrion_utils::fieldExists('cmd_vat_number', $tableName)) {
-        oledrion_utils::addField('cmd_vat_number VARCHAR( 255 ) NOT NULL', $tableName);
+        oledrion_utils::addField('`cmd_vat_number` VARCHAR( 255 ) NOT NULL', $tableName);
     }
 
     /**
@@ -168,32 +168,32 @@ function xoops_module_update_oledrion($module, $version)
 
     /**
      * Add product_property
-     * @since 2.3.2011.08.03
+     * @since 2.3.2012.08.03
      */
     $tableName = $xoopsDB->prefix('oledrion_products');
     if (!oledrion_utils::fieldExists('product_property1', $tableName)) {
-        oledrion_utils::addField('product_property1 varchar(255) NOT NULL', $tableName);
+        oledrion_utils::addField('`product_property1` varchar(255) NOT NULL', $tableName);
     }
 
     if (!oledrion_utils::fieldExists('product_property2', $tableName)) {
-        oledrion_utils::addField('product_property2 varchar(255) NOT NULL', $tableName);
+        oledrion_utils::addField('`product_property2` varchar(255) NOT NULL', $tableName);
     }
 
     if (!oledrion_utils::fieldExists('product_property3', $tableName)) {
-        oledrion_utils::addField('product_property3 varchar(255) NOT NULL', $tableName);
+        oledrion_utils::addField('`product_property3` varchar(255) NOT NULL', $tableName);
     }
 
     if (!oledrion_utils::fieldExists('product_property4', $tableName)) {
-        oledrion_utils::addField('product_property4 varchar(255) NOT NULL', $tableName);
+        oledrion_utils::addField('`product_property4` varchar(255) NOT NULL', $tableName);
     }
 
     if (!oledrion_utils::fieldExists('product_property5', $tableName)) {
-        oledrion_utils::addField('product_property5 varchar(255) NOT NULL', $tableName);
+        oledrion_utils::addField('`product_property5` varchar(255) NOT NULL', $tableName);
     }
 
     /**
      * Nouvelle table oledrion_packing
-     * @since 2.3.4 2013.03.10
+     * @since 2.3.4 2013.03.5
      */
     $tableName = $xoopsDB->prefix('oledrion_packing');
     if (!oledrion_utils::tableExists($tableName)) {
@@ -217,7 +217,7 @@ function xoops_module_update_oledrion($module, $version)
 
     /**
      * Nouvelle table oledrion_location
-     * @since 2.3.4 2013.03.10
+     * @since 2.3.4 2013.03.5
      */
     $tableName = $xoopsDB->prefix('oledrion_location');
     if (!oledrion_utils::tableExists($tableName)) {
@@ -237,7 +237,7 @@ function xoops_module_update_oledrion($module, $version)
 
     /**
      * Nouvelle table oledrion_delivery
-     * @since 2.3.4 2013.03.10
+     * @since 2.3.4 2013.03.5
      */
     $tableName = $xoopsDB->prefix('oledrion_delivery');
     if (!oledrion_utils::tableExists($tableName)) {
@@ -256,7 +256,7 @@ function xoops_module_update_oledrion($module, $version)
 
     /**
      * Nouvelle table oledrion_payment
-     * @since 2.3.4 2013.03.10
+     * @since 2.3.4 2013.03.5
      */
     $tableName = $xoopsDB->prefix('oledrion_payment');
     if (!oledrion_utils::tableExists($tableName)) {
@@ -279,7 +279,7 @@ function xoops_module_update_oledrion($module, $version)
 
     /**
      * Nouvelle table oledrion_location_delivery
-     * @since 2.3.4 2013.03.10
+     * @since 2.3.4 2013.03.5
      */
     $tableName = $xoopsDB->prefix('oledrion_location_delivery');
     if (!oledrion_utils::tableExists($tableName)) {
@@ -298,7 +298,7 @@ function xoops_module_update_oledrion($module, $version)
 
     /**
      * Nouvelle table oledrion_delivery_payment
-     * @since 2.3.4 2013.03.10
+     * @since 2.3.4 2013.03.5
      */
 
     $tableName = $xoopsDB->prefix('oledrion_delivery_payment');
@@ -313,6 +313,74 @@ function xoops_module_update_oledrion($module, $version)
 			) ENGINE=InnoDB;";
         $xoopsDB->queryF($sql);
     }
-}
+    
+    /**
+     * Nouvelle table oledrion_delivery_payment
+     * @since 2.3.4 2013.03.15
+     */
 
+    $tableName = $xoopsDB->prefix('oledrion_payment_log');
+    if (!oledrion_utils::tableExists($tableName)) {
+        $sql = "CREATE TABLE `$tableName` (
+			  	  `log_id` int(10) unsigned NOT NULL auto_increment,
+				  `log_create` int(10) unsigned NOT NULL,
+				  `log_status` tinyint(1) unsigned NOT NULL,
+				  `log_ip` varchar(32) NOT NULL,
+				  `log_type` enum('online','offline') NOT NULL,
+				  `log_payment` int(10) unsigned NOT NULL,
+				  `log_gateway` varchar(64) NOT NULL default '',
+				  `log_uid` int(10) unsigned NOT NULL,
+				  `log_command` int(10) unsigned NOT NULL,
+				  `log_amount` double(16,2) NOT NULL,
+				  `log_authority` varchar(255) NOT NULL,
+				  PRIMARY KEY  (`log_id`),
+				  KEY `log_uid` (`log_uid`),
+				  KEY `log_command` (`log_command`),
+				  KEY `log_status` (`log_status`)
+				) ENGINE=InnoDB;";
+        $xoopsDB->queryF($sql);
+    }	
+
+    /**
+     * Add New fields to oledrion_commands
+     * @since 2.3.2013.03.15
+     */
+    $tableName = $xoopsDB->prefix('oledrion_commands');
+    if (!oledrion_utils::fieldExists('cmd_create', $tableName)) {
+        oledrion_utils::addField('`cmd_create` int(10) unsigned NOT NULL', $tableName);
+    }
+    
+    if (!oledrion_utils::fieldExists('cmd_packing', $tableName)) {
+        oledrion_utils::addField('`cmd_packing` varchar(255) NOT NULL', $tableName);
+    }
+    
+    if (!oledrion_utils::fieldExists('cmd_packing_id', $tableName)) {
+        oledrion_utils::addField('`cmd_packing_id` int(5) unsigned NOT NULL', $tableName);
+    }
+    
+    if (!oledrion_utils::fieldExists('cmd_location', $tableName)) {
+        oledrion_utils::addField('`cmd_location` varchar(255) NOT NULL', $tableName);
+    }
+    
+    if (!oledrion_utils::fieldExists('cmd_location_id', $tableName)) {
+        oledrion_utils::addField('`cmd_location_id` int(5) unsigned NOT NULL', $tableName);
+    }
+    
+    if (!oledrion_utils::fieldExists('cmd_delivery', $tableName)) {
+        oledrion_utils::addField('`cmd_delivery` varchar(255) NOT NULL', $tableName);
+    }
+    
+    if (!oledrion_utils::fieldExists('cmd_delivery_id', $tableName)) {
+        oledrion_utils::addField('`cmd_delivery_id` int(5) unsigned NOT NULL', $tableName);
+    }
+    
+    if (!oledrion_utils::fieldExists('cmd_payment', $tableName)) {
+        oledrion_utils::addField('`cmd_payment` varchar(255) NOT NULL', $tableName);
+    }
+    
+    if (!oledrion_utils::fieldExists('cmd_payment_id', $tableName)) {
+        oledrion_utils::addField('`cmd_payment_id` int(5) unsigned NOT NULL', $tableName);
+    }
+
+}
 ?>

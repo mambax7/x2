@@ -119,6 +119,7 @@ CREATE TABLE `oledrion_commands` (
   `cmd_id` int(10) unsigned NOT NULL auto_increment,
   `cmd_uid` int(10) unsigned NOT NULL,
   `cmd_date` date NOT NULL,
+  `cmd_create` int(10) unsigned NOT NULL,
   `cmd_state` tinyint(1) unsigned NOT NULL,
   `cmd_ip` varchar(32) NOT NULL,
   `cmd_lastname` varchar(255) NOT NULL,
@@ -138,6 +139,14 @@ CREATE TABLE `oledrion_commands` (
   `cmd_cancel` varchar(32) NOT NULL,
   `cmd_comment` text,
   `cmd_vat_number` varchar(255) NOT NULL,
+  `cmd_packing` varchar(255) NOT NULL,
+  `cmd_packing_id` int(5) unsigned NOT NULL,
+  `cmd_location` varchar(255) NOT NULL,
+  `cmd_location_id` int(5) unsigned NOT NULL,
+  `cmd_delivery` varchar(255) NOT NULL,
+  `cmd_delivery_id` int(5) unsigned NOT NULL,
+  `cmd_payment` varchar(255) NOT NULL,
+  `cmd_payment_id` int(5) unsigned NOT NULL,
   PRIMARY KEY  (`cmd_id`),
   KEY `cmd_date` (`cmd_date`),
   KEY `cmd_state` (`cmd_state`),
@@ -407,4 +416,22 @@ CREATE TABLE `oledrion_delivery_payment` (
   PRIMARY KEY  (`dp_id`),
   KEY `dp_delivery` (`dp_delivery`),
   KEY `dp_payment` (`dp_payment`)
+) ENGINE=InnoDB;
+
+CREATE TABLE `oledrion_payment_log` (
+  `log_id` int(10) unsigned NOT NULL auto_increment,
+  `log_create` int(10) unsigned NOT NULL,
+  `log_status` tinyint(1) unsigned NOT NULL,
+  `log_ip` varchar(32) NOT NULL,
+  `log_type` enum('online','offline') NOT NULL,
+  `log_payment` int(10) unsigned NOT NULL,
+  `log_gateway` varchar(64) NOT NULL default '',
+  `log_uid` int(10) unsigned NOT NULL,
+  `log_command` int(10) unsigned NOT NULL,
+  `log_amount` double(16,2) NOT NULL,
+  `log_authority` varchar(255) NOT NULL,
+  PRIMARY KEY  (`log_id`),
+  KEY `log_uid` (`log_uid`),
+  KEY `log_command` (`log_command`),
+  KEY `log_status` (`log_status`)
 ) ENGINE=InnoDB;
