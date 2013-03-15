@@ -51,7 +51,7 @@ class oledrion_registryfile
     public function setfile($fichier = null)
     {
         if ($fichier) {
-            $this->filename = XOOPS_UPLOAD_PATH . DIRECTORY_SEPARATOR . $fichier;
+            $this->filename = OLEDRION_TEXT_PATH . $fichier;
         }
     }
 
@@ -61,8 +61,9 @@ class oledrion_registryfile
         if (!$fichier) {
             $fw = $this->filename;
         } else {
-            $fw = XOOPS_UPLOAD_PATH . DIRECTORY_SEPARATOR . $fichier;
+            $fw = OLEDRION_TEXT_PATH . $fichier;
         }
+        
         if (file_exists($fw)) {
             return file_get_contents($fw);
         } else {
@@ -76,7 +77,7 @@ class oledrion_registryfile
         if (!$fichier) {
             $fw = $this->filename;
         } else {
-            $fw = XOOPS_UPLOAD_PATH . DIRECTORY_SEPARATOR . $fichier;
+            $fw = OLEDRION_TEXT_PATH . $fichier;
         }
         if (file_exists($fw)) {
             @unlink($fw);

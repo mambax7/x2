@@ -22,30 +22,9 @@ if (!defined("XOOPS_ROOT_PATH")) {
     die("XOOPS root path not defined");
 }
 
-if (!defined("OLEDRION_DIRNAME")) {
-    define("OLEDRION_DIRNAME", 'oledrion');
-    define("OLEDRION_URL", XOOPS_URL . '/modules/' . OLEDRION_DIRNAME . '/');
-    define("OLEDRION_PATH", XOOPS_ROOT_PATH . '/modules/' . OLEDRION_DIRNAME . DIRECTORY_SEPARATOR);
-    define("OLEDRION_IMAGES_URL", OLEDRION_URL . 'images/');
-    define("OLEDRION_JS_URL", OLEDRION_URL . 'js/');
-    define("OLEDRION_CLASS_PATH", OLEDRION_PATH . 'class/');
+// Load config file
+require XOOPS_ROOT_PATH . '/modules/oledrion/config.php';
 
-    define("OLEDRION_ADMIN_URL", OLEDRION_URL . 'admin/');
-    define("OLEDRION_ADMIN_PATH", OLEDRION_PATH . 'admin' . DIRECTORY_SEPARATOR);
-
-    define("OLEDRION_GATEWAY_PATH", OLEDRION_ADMIN_PATH . 'gateways' . DIRECTORY_SEPARATOR);
-    define("OLEDRION_PLUGINS_PATH", OLEDRION_PATH . 'plugins/');
-    define("OLEDRION_PLUGINS_URL", OLEDRION_URL . 'plugins/');
-
-    define("OLEDRION_TEXTFILE1", 'oledrion_index.txt');
-    define("OLEDRION_TEXTFILE2", 'oledrion_cgv.txt');
-    define("OLEDRION_TEXTFILE3", 'oledrion_recomm.txt');
-    define("OLEDRION_TEXTFILE4", 'oledrion_offlinepayment.txt');
-    define("OLEDRION_TEXTFILE5", 'oledrion_restrictorders.txt');
-    define("OLEDRION_TEXTFILE6", 'oledrion_checkout1.txt');
-    define("OLEDRION_TEXTFILE7", 'oledrion_checkout2.txt');
-    define("OLEDRION_CACHE_PATH", XOOPS_UPLOAD_PATH . DIRECTORY_SEPARATOR . OLEDRION_DIRNAME . DIRECTORY_SEPARATOR . 'cache' . DIRECTORY_SEPARATOR);
-}
 // Les classes pour les plugins
 require_once OLEDRION_CLASS_PATH . 'oledrion_plugins.php'; // Classe principale
 require_once OLEDRION_PLUGINS_PATH . 'models' . DIRECTORY_SEPARATOR . 'oledrion_action.php'; // modèle
@@ -63,7 +42,7 @@ require_once OLEDRION_CLASS_PATH . 'oledrion_gateways.php';
 require_once OLEDRION_ADMIN_PATH . 'gateways/gateway.php'; // La classe abstraite
 require_once OLEDRION_CLASS_PATH . 'oledrion_lists.php';
 
-require OLEDRION_PATH . 'config.php';
+
 
 $oledrion_handlers = oledrion_handler::getInstance();
 
