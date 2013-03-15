@@ -77,6 +77,7 @@ define('_AM_OLEDRION_ERROR_12', 'Error, unknown Action');
 define('_AM_OLEDRION_NOT_FOUND', 'Error, item not found');
 define('_AM_OLEDRION_CONF_DEL_CATEG', 'Are you sure to delete this category and its sub-categories ?<br />%s');
 define('_AM_OLEDRION_CONF_DEL_ITEM', 'Are you sure to delete this item and its sub-items ?<br />%s');
+define('_AM_OLEDRION_CONF_MAINTAIN', 'Are you sure to maintain all tables in your DB ?');
 
 define('_AM_OLEDRION_MODIFY', 'Modify');
 define('_AM_OLEDRION_ADD', 'Add');

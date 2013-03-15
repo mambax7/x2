@@ -30,21 +30,6 @@ require_once XOOPS_ROOT_PATH . '/class/xoopsformloader.php';
 require_once XOOPS_ROOT_PATH . '/class/xoopslists.php';
 require_once OLEDRION_PATH . 'class/tree.php';
 
-$op = 'dashboard';
-if (isset($_POST['op'])) {
-    $op = $_POST['op'];
-} elseif (isset($_GET['op'])) {
-    $op = $_GET['op'];
-}
-
-$action = 'default';
-if (isset($_POST['action'])) {
-    $action = $_POST['action'];
-} elseif (isset($_GET['action'])) {
-    $action = $_GET['action'];
-}
-
-
 // Lecture de certains param�tres de l'application ********************************************************************
 $limit = oledrion_utils::getModuleOption('items_count'); // Nombre maximum d'�l�ments � afficher dans l'admin
 $baseurl = OLEDRION_URL . 'admin/' . basename(__FILE__); // URL de ce script
@@ -67,9 +52,23 @@ if (!is_writable(OLEDRION_CACHE_PATH)) {
     exit("Your cache folder, " . OLEDRION_CACHE_PATH . " is not writable !");
 }
 
-// ********************************************************************************************************************
+// ************************************************************************************************
 $destname = '';
 define("OLEDRION_ADMIN", true);
+
+$op = 'dashboard';
+if (isset($_POST['op'])) {
+    $op = $_POST['op'];
+} elseif (isset($_GET['op'])) {
+    $op = $_GET['op'];
+}
+
+$action = 'default';
+if (isset($_POST['action'])) {
+    $action = $_POST['action'];
+} elseif (isset($_GET['action'])) {
+    $action = $_GET['action'];
+}
 
 $op = str_replace('..', '', $op);
 $controler = OLEDRION_ADMIN_PATH . 'actions/' . $op . '.php';
@@ -77,33 +76,6 @@ if (file_exists($controler)) {
     require $controler;
 }
 
-
-// ******************************************************************************************************************************************
-// **** Main ********************************************************************************************************************************
-// ******************************************************************************************************************************************
-switch ($op) {
-
-    // ****************************************************************************************************************
-    case 'maintain': // Maintenance des tables
-        // ****************************************************************************************************************
-        xoops_cp_header();
-
-        require '../xoops_version.php';
-        $tables = array();
-        foreach ($modversion['tables'] as $table) {
-            $tables[] = $xoopsDB->prefix($table);
-        }
-        if (count($tables) > 0) {
-            $list = implode(',', $tables);
-            $xoopsDB->queryF('CHECK TABLE ' . $list);
-            $xoopsDB->queryF('ANALYZE TABLE ' . $list);
-            $xoopsDB->queryF('OPTIMIZE TABLE ' . $list);
-        }
-        oledrion_utils::updateCache();
-        $h_oledrion_products->forceCacheClean();
-        oledrion_utils::redirect(_AM_OLEDRION_SAVE_OK, $baseurl, 2);
-        break;
-}
 //xoops_cp_footer();
 include_once 'admin_footer.php';
 ?>

@@ -77,6 +77,7 @@ define('_AM_OLEDRION_ERROR_12', 'خطا, رفتار ناشناس');
 define('_AM_OLEDRION_NOT_FOUND', 'خطا، هیچ موردی پیدا نشد');
 define('_AM_OLEDRION_CONF_DEL_CATEG', 'آیا شما واقعا می‌خواهید این شاخه و زیر شاخه‌های آن را حذف کنید؟<br />%s');
 define('_AM_OLEDRION_CONF_DEL_ITEM', 'آیا شما واقعا می‌خواهید این مورد و موارد وابسته با آن را حذف کنید؟<br />%s');
+define('_AM_OLEDRION_CONF_MAINTAIN', 'Are you sure to maintain all tables in your DB ?');
 
 define('_AM_OLEDRION_MODIFY', 'ویرایش');
 define('_AM_OLEDRION_ADD', 'اضافه');
