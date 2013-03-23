@@ -87,7 +87,10 @@ class OledrionOledrion_vatHandler extends Oledrion_XoopsPersistableObjectHandler
     public function getCountryVats($country)
     {
         $parameters = new oledrion_parameters(array('start' => 0, 'limit' => 0, 'sort' => 'vat_id', 'order' => 'ASC', 'idaskey' => true));
-        $critere = new Criteria('vat_country', $country, 'LIKE');
+        $critere = new CriteriaCompo ();
+        if(!empty($country)) {
+	        $critere->add(new Criteria('vat_country', $country, 'LIKE'));
+        }
         $critere->setLimit($parameters['limit']);
         $critere->setStart($parameters['start']);
         $critere->setSort($parameters['sort']);

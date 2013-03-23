@@ -401,7 +401,8 @@ class oledrion_reductions
         // Chargement des objets produits associés aux produits du panier et calcul des quantités par catégorie
         $this->loadProductsAssociatedToCart();
         // Chargement des TVA
-        $vats = $this->handlers->h_oledrion_vat->getCountryVats($_POST['cmd_country']);
+        $country = (isset($_POST['cmd_country'])) ? $_POST['cmd_country'] : '';
+        $vats = $this->handlers->h_oledrion_vat->getCountryVats($country);
         $oledrion_Currency = oledrion_Currency::getInstance();
         $caddyCount = count($this->cart);
 
@@ -691,7 +692,21 @@ class oledrion_reductions
         $commandAmountTTC = $totalHT + $totalVAT + $totalShipping;
 
         $cartForTemplate = $this->cartForTemplate;
-        return true;
+        
+        $return = array();
+        $return['cartForTemplate'] = $cartForTemplate;
+        $return['emptyCart'] = $emptyCart;
+        $return['shippingAmount'] = $shippingAmount;
+        $return['commandAmount'] = $commandAmount;
+        $return['vatAmount'] = $vatAmount;
+        $return['goOn'] = $goOn;
+        $return['commandAmountTTC'] = $commandAmountTTC;
+        $return['discountsDescription'] = $discountsDescription;
+        $return['discountsCount'] = $discountsCount;
+        $return['ecotaxeAmount'] = $ecotaxeAmount;
+        $return['discountAmount'] = $discountAmount;
+        $return['totalSavings'] = $totalSavings;
+        return $return;
     }
 }
 

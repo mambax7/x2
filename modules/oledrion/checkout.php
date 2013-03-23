@@ -55,7 +55,17 @@ function listCart()
 {
     global $cartForTemplate, $emptyCart, $shippingAmount, $commandAmount, $vatAmount, $goOn, $commandAmountTTC, $discountsDescription;
     $reductions = new oledrion_reductions();
-    $reductions->computeCart($cartForTemplate, $emptyCart, $shippingAmount, $commandAmount, $vatAmount, $goOn, $commandAmountTTC, $discountsDescription, $discountsCount);
+    $reductions_return = $reductions->computeCart($cartForTemplate, $emptyCart, $shippingAmount, $commandAmount, $vatAmount, $goOn, $commandAmountTTC, $discountsDescription, $discountsCount);
+
+    $cartForTemplate = $reductions_return['cartForTemplate'];
+    $emptyCart = $reductions_return['emptyCart'];
+    $shippingAmount = $reductions_return['shippingAmount'];
+    $commandAmount = $reductions_return['commandAmount'];
+    $vatAmount = $reductions_return['vatAmount'];
+    $goOn = $reductions_return['goOn'];
+    $commandAmountTTC = $reductions_return['commandAmountTTC'];
+    $discountsDescription = $reductions_return['discountsDescription'];
+    $discountsCount = $reductions_return['discountsCount'];
 }
 
 $oledrion_Currency = oledrion_Currency::getInstance();
@@ -98,7 +108,7 @@ switch ($op) {
         $xoopsTpl->assign('text', xoops_trim($text));
 
         $sform = new XoopsThemeForm(_OLEDRION_PLEASE_ENTER, "informationfrm", OLEDRION_URL . 'checkout.php', 'post');
-        $sform->addElement(new XoopsFormHidden('op', 'finish'));
+        $sform->addElement(new XoopsFormHidden('op', 'confirm'));
         $sform->addElement(new XoopsFormLabel(_OLEDRION_LABLE, _OLEDRION_LABLE_INFO));
         $sform->addElement(new XoopsFormLabel(_OLEDRION_TOTAL, $oledrion_Currency->amountForDisplay($commandAmountTTC)));
         // By voltan
@@ -162,7 +172,7 @@ switch ($op) {
         break;
     
     // ****************************************************************************************************************
-    case 'finish': // Validation finale avant envoi sur la passerelle de paiement (ou arrêt)
+    case 'confirm': // Validation finale avant envoi sur la passerelle de paiement (ou arrêt)
         // ****************************************************************************************************************
         if ($h_oledrion_caddy->isCartEmpty()) {
             oledrion_utils::redirect(_OLEDRION_CART_IS_EMPTY, OLEDRION_URL, 4);
@@ -275,7 +285,7 @@ switch ($op) {
         $xoopsTpl->assign('text', xoops_trim($text));
 
         if ((oledrion_utils::getModuleOption('offline_payment') == 1 && isset($_POST['offline_payment']) && intval($_POST['offline_payment']) == 0) || $commandAmountTTC == 0) {
-            $payURL = XOOPS_URL;
+            $payURL = OLEDRION_URL.'invoice.php?id='.$commande->getVar('cmd_id').'&pass='.$password;
             $text = $registry->getfile(OLEDRION_TEXTFILE4);
             $xoopsTpl->append('text', "<br />" . xoops_trim($text));
             $sform = new XoopsThemeForm(_OLEDRION_FINISH, 'payform', $payURL, 'post');
@@ -284,7 +294,7 @@ switch ($op) {
             if (is_object($gateway)) {
                 $payURL = $gateway->getRedirectURL($commande->getVar('cmd_total'), $commande->getVar('cmd_id'));
             } else {
-                $payURL = XOOPS_URL;
+                $payURL = OLEDRION_URL.'invoice.php?id='.$commande->getVar('cmd_id').'&pass='.$password;
             }
             $sform = new XoopsThemeForm(_OLEDRION_PAY_GATEWAY, 'payform', $payURL, 'post');
             $elements = array();
