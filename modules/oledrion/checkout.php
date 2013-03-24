@@ -135,6 +135,7 @@ switch ($op) {
 		        $commande->setVar('cmd_password', $password);
 		        $commande->setVar('cmd_cancel', $passwordCancel);
 		        $commande->setVar('cmd_text', implode("\n", $discountsDescription));
+		        $commande->setVar('cmd_status', 2);
 		        $res = $h_oledrion_commands->insert($commande, true);
 		        if (!$res) {
 		            oledrion_utils::redirect(_OLEDRION_ERROR10, OLEDRION_URL, 6);
@@ -155,6 +156,7 @@ switch ($op) {
 		        $commande->setVar('cmd_total', oledrion_utils::formatFloatForDB($commandAmountTTC));
 		        $commande->setVar('cmd_shipping', oledrion_utils::formatFloatForDB($shippingAmount));
 		        $commande->setVar('cmd_text', implode("\n", $discountsDescription));
+		        $commande->setVar('cmd_status', 2);
 		        $res = $h_oledrion_commands->insert($commande, true);
 		        if (!$res) {
 		            oledrion_utils::redirect(_OLEDRION_ERROR10, OLEDRION_URL, 6);
@@ -329,12 +331,10 @@ switch ($op) {
         }
         // By voltan
         $sform->addElement(new XoopsFormHidden('offline_payment', '0'));
-
         $button_tray = new XoopsFormElementTray('', '');
         $submit_btn = new XoopsFormButton('', 'post', _OLEDRION_SAVE, 'submit');
         $button_tray->addElement($submit_btn);
         $sform->addElement($button_tray);
-
         $sform = oledrion_utils::formMarkRequiredFields($sform);
         $xoopsTpl->assign('form', $sform->render());
         break;
@@ -444,14 +444,32 @@ switch ($op) {
         if ($h_oledrion_caddy->isCartEmpty()) {
             oledrion_utils::redirect(_OLEDRION_CART_IS_EMPTY, OLEDRION_URL, 4);
         }
+        if($commend_id == 0) {
+           	oledrion_utils::redirect(_OLEDRION_ERROR20, OLEDRION_URL, 4);
+        }
         listCart();
         
+        $commandAmountTTC = $commandAmountTTC + $commandAmountVAT;
         
-        
-        
-        
-        
-        
+        $commande = $h_oledrion_commands->get($commend_id);
+        if($commande->getVar('cmd_status') == 1) {
+	        	oledrion_utils::redirect(_OLEDRION_ERROR10, OLEDRION_URL.'invoice.php?id='.$commande->getVar('cmd_id').'&pass='.$commande->getVar('cmd_password'), 6);
+        }
+		  $commande->setVar('cmd_create', time());
+		  $commande->setVar('cmd_date',date("Y-m-d"));
+		  $commande->setVar('cmd_state',OLEDRION_STATE_NOINFORMATION);
+		  $commande->setVar('cmd_ip', oledrion_utils::IP());
+		  $commande->setVar('cmd_articles_count', count($cartForTemplate));
+		  $commande->setVar('cmd_total', oledrion_utils::formatFloatForDB($commandAmountTTC));
+		  $commande->setVar('cmd_shipping', oledrion_utils::formatFloatForDB($shippingAmount));
+        $commande->setVar('cmd_status', 1);
+        $res = $h_oledrion_commands->insert($commande, true);
+        if (!$res) {
+            oledrion_utils::redirect(_OLEDRION_ERROR10, OLEDRION_URL, 6);
+        }
+		     
+		  // Save command and empty cart   
+		  $h_oledrion_caddy->emptyCart();
 
         // Enregistrement du panier
         $msgCommande = '';
@@ -464,12 +482,9 @@ switch ($op) {
             $panier->setVar('caddy_cmd_id', $commande->getVar('cmd_id'));
             $panier->setVar('caddy_shipping', oledrion_utils::formatFloatForDB($line['discountedShipping']));
             $panier->setVar('caddy_pass', md5(xoops_makepass())); // Pour le téléchargement
-
-
-            // Start Edit by voltan
-            // Get cat title
-            $cat = $h_oledrion_cat->get($line['product_cid'])->toArray();
+            $res = $h_oledrion_caddy->insert($panier, true);
             // Make msg
+            $cat = $h_oledrion_cat->get($line['product_cid'])->toArray();
             $msgCommande .= str_pad($line['product_id'], 5, ' ') . ' ';
             $msgCommande .= str_pad($cat['cat_title'], 10, ' ', STR_PAD_LEFT) . ' ';
             $msgCommande .= str_pad($line['product_title'], 19, ' ', STR_PAD_LEFT) . ' ';
@@ -477,8 +492,6 @@ switch ($op) {
             $msgCommande .= str_pad($oledrion_Currency->amountForDisplay($line['product_price']), 15, ' ', STR_PAD_LEFT) . ' ';
             //$msgCommande .= str_pad($line['totalPriceFormated'],10,' ', STR_PAD_LEFT) . ' ';
             $msgCommande .= "\n";
-
-            $res = $h_oledrion_caddy->insert($panier, true);
             // Attributs
             if ($res && is_array($line['attributes']) && count($line['attributes']) > 0) {
                 // Enregistrement des attributs pour ce produit
@@ -497,6 +510,7 @@ switch ($op) {
                 }
             }
         }
+        
         // Totaux généraux
         //$msgCommande .= "\n\n"._OLEDRION_SHIPPING_PRICE.' '.$oledrion_Currency->amountForDisplay($shippingAmount)."\n";
         $msgCommande .= "\n\n" . _OLEDRION_TOTAL . " " . $oledrion_Currency->amountForDisplay($commandAmountTTC) . "\n";
@@ -505,7 +519,6 @@ switch ($op) {
             $msgCommande .= implode("\n", $discountsDescription);
             $msgCommande .= "\n";
         }
-        // End Edit by voltan
 
         $msg = array();
         $msg['COMMANDE'] = $msgCommande;
@@ -526,9 +539,9 @@ switch ($op) {
             $msg['FACTURE'] = _NO;
         }
         // Envoi du mail au client
-        oledrion_utils::sendEmailFromTpl('command_client.tpl', $commande->getVar('cmd_email'), sprintf(_OLEDRION_THANKYOU_CMD, $xoopsConfig['sitename']), $msg);
+        //oledrion_utils::sendEmailFromTpl('command_client.tpl', $commande->getVar('cmd_email'), sprintf(_OLEDRION_THANKYOU_CMD, $xoopsConfig['sitename']), $msg);
         // Envoi du mail au groupe de personne devant recevoir le mail
-        oledrion_utils::sendEmailFromTpl('command_shop.tpl', oledrion_utils::getEmailsFromGroup(oledrion_utils::getModuleOption('grp_sold')), _OLEDRION_NEW_COMMAND, $msg);
+        //oledrion_utils::sendEmailFromTpl('command_shop.tpl', oledrion_utils::getEmailsFromGroup(oledrion_utils::getModuleOption('grp_sold')), _OLEDRION_NEW_COMMAND, $msg);
 
         // Présentation du formulaire pour envoi à la passerelle de paiement
         // Présentation finale avec panier en variables cachées ******************************
@@ -537,16 +550,17 @@ switch ($op) {
         $xoopsTpl->assign('text', xoops_trim($text));
 
         if ((oledrion_utils::getModuleOption('offline_payment') == 1 && isset($_POST['offline_payment']) && intval($_POST['offline_payment']) == 0) || $commandAmountTTC == 0) {
-            $payURL = OLEDRION_URL.'invoice.php?id='.$commande->getVar('cmd_id').'&pass='.$password;
+            $payURL = OLEDRION_URL.'invoice.php?id='.$commande->getVar('cmd_id').'&pass='.$commande->getVar('cmd_password');
             $text = $registry->getfile(OLEDRION_TEXTFILE4);
             $xoopsTpl->append('text', "<br />" . xoops_trim($text));
             $sform = new XoopsThemeForm(_OLEDRION_FINISH, 'payform', $payURL, 'post');
             $h_oledrion_caddy->emptyCart();
         } else {
             if (is_object($gateway)) {
-                $payURL = $gateway->getRedirectURL($commande->getVar('cmd_total'), $commande->getVar('cmd_id'));
+                //$payURL = $gateway->getRedirectURL($commande->getVar('cmd_total'), $commande->getVar('cmd_id'));
+                $payURL = OLEDRION_URL.'invoice.php?id='.$commande->getVar('cmd_id').'&pass='.$commande->getVar('cmd_password');
             } else {
-                $payURL = OLEDRION_URL.'invoice.php?id='.$commande->getVar('cmd_id').'&pass='.$password;
+                $payURL = OLEDRION_URL.'invoice.php?id='.$commande->getVar('cmd_id').'&pass='.$commande->getVar('cmd_password');
             }
             $sform = new XoopsThemeForm(_OLEDRION_PAY_GATEWAY, 'payform', $payURL, 'post');
             $elements = array();
@@ -558,7 +572,7 @@ switch ($op) {
             }
         }
         $sform->addElement(new XoopsFormLabel(_OLEDRION_TOTAL, $oledrion_Currency->amountForDisplay($commandAmountTTC)));
-        $sform->addElement(new XoopsFormLabel(_OLEDRION_SHIPPING_PRICE, $oledrion_Currency->amountForDisplay($shippingAmount)));
+        $sform->addElement(new XoopsFormLabel(_OLEDRION_SHIPPING_PRICE, $oledrion_Currency->amountForDisplay($commande->getVar('cmd_shipping'))));
         $sform->addElement(new XoopsFormLabel(_OLEDRION_LASTNAME, $commande->getVar('cmd_lastname')));
         $sform->addElement(new XoopsFormLabel(_OLEDRION_FIRSTNAME, $commande->getVar('cmd_firstname')));
         $sform->addElement(new XoopsFormLabel(_OLEDRION_STREET, $commande->getVar('cmd_adress')));

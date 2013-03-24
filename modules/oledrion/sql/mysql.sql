@@ -147,9 +147,10 @@ CREATE TABLE `oledrion_commands` (
   `cmd_delivery_id` int(5) unsigned NOT NULL,
   `cmd_payment` varchar(255) NOT NULL,
   `cmd_payment_id` int(5) unsigned NOT NULL,
+  `cmd_status` tinyint(1) unsigned NOT NULL default '1',
   PRIMARY KEY  (`cmd_id`),
   KEY `cmd_date` (`cmd_date`),
-  KEY `cmd_state` (`cmd_state`),
+  KEY `cmd_status` (`cmd_status`),
   KEY `cmd_uid` (`cmd_uid`)
 ) ENGINE=InnoDB ;
 

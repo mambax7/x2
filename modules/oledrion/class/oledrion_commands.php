@@ -65,6 +65,7 @@ class oledrion_commands extends Oledrion_Object
         $this->initVar('cmd_delivery_id', XOBJ_DTYPE_INT, null, false);
         $this->initVar('cmd_payment', XOBJ_DTYPE_TXTBOX, null, false);
         $this->initVar('cmd_payment_id', XOBJ_DTYPE_INT, null, false);
+        $this->initVar('cmd_status', XOBJ_DTYPE_INT, null, false);
     }
 
 
@@ -403,7 +404,9 @@ class OledrionOledrion_commandsHandler extends Oledrion_XoopsPersistableObjectHa
     {
         $order = null;
         $orders = array();
-        $criteria = new Criteria('cmd_uid', $uid, '=');
+        $criteria = new CriteriaCompo();
+        $criteria->add(new Criteria('cmd_uid', $uid));
+        $criteria->add(new Criteria('cmd_status', 2));
         $criteria->setSort('cmd_date');
         $criteria->setOrder('DESC');
         $criteria->setLimit(1);
