@@ -291,4 +291,6 @@ define('_OLEDRION_QUANTITYS', 'موجودی');
 define('_OLEDRION_QUANTITYALL', 'همه موارد');
 define('_OLEDRION_QUANTITY1', 'موجود');
 define('_OLEDRION_QUANTITY2', 'نا موجود');
+define('_OLEDRION_SELECT_PACKING', 'Select packing');
+define('_OLEDRION_PACKING_FORM', 'Select packing form');
 ?>

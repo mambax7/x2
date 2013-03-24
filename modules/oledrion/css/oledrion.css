@@ -588,3 +588,15 @@ background-position: left top;
 .tablefix {
     border-spacing: 0px !important;
 }
+
+.oledrion_htmlform {
+	height: 130px;
+}
+
+.oledrion_htmlimage {
+	float: right;
+	width: 120px;
+	height: 120px;
+	padding: 1px;
+	margin: 1px;
+}

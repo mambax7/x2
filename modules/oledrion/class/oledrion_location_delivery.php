@@ -57,7 +57,7 @@ class OledrionOledrion_location_deliveryHandler extends Oledrion_XoopsPersistabl
     {
         $ret = array();
         if (!$parameters['location']) {
-            //return $ret;
+            return $ret;
         }
         $critere = new CriteriaCompo ();
         $critere->add(new Criteria('ld_location', $parameters['location']));
@@ -67,6 +67,23 @@ class OledrionOledrion_location_deliveryHandler extends Oledrion_XoopsPersistabl
                 $tab = array();
                 $tab = $root->toArray();
                 $ret[$root->getVar('ld_delivery')] = $tab;
+            }
+        }
+        return $ret;
+    }
+    
+    public function getDelivery($ld_delivery, $ld_location)
+    {
+        $ret = array();
+        $critere = new CriteriaCompo ();
+        $critere->add(new Criteria('ld_delivery', $ld_delivery));
+        $critere->add(new Criteria('ld_location', $ld_location));
+        $critere->setLimit(1);
+        $obj = $this->getObjects($critere);
+        if ($obj) {
+            foreach ($obj as $root) {
+                $tab = array();
+                $ret = $root->toArray();
             }
         }
         return $ret;

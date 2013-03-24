@@ -76,6 +76,7 @@ class oledrion_delivery extends Oledrion_Object
      */
     public function toArray($format = 's')
     {
+        global $h_oledrion_location_delivery;
         $ret = array();
         $ret = parent::toArray($format);
         return $ret;
@@ -132,6 +133,45 @@ class OledrionOledrion_deliveryHandler extends Oledrion_XoopsPersistableObjectHa
             }
         }
         return $ret;
+    }
+    
+    public function getThisLocationDelivery($location_id)
+    {
+        global $h_oledrion_location_delivery;
+        $ret = array();
+        $parameters = array('location' => $location_id);
+        $location_delivery = $h_oledrion_location_delivery->getLocationDeliveryId($parameters);
+        foreach($location_delivery as $location) {
+	        	$id[] = $location['ld_delivery'];
+        }
+        
+        $critere = new CriteriaCompo ();
+        $critere->add(new Criteria('delivery_id', '(' . implode( ',', $id ) . ')', 'IN'));
+        $critere->add(new Criteria('delivery_online', 1));
+        $obj = $this->getObjects($critere);
+        if ($obj) {
+            foreach ($obj as $root) {
+                $tab = array();
+                $tab = $root->toArray();
+                $tab['delivery_price'] = $location_delivery[$root->getVar('delivery_id')]['ld_price'];
+                $tab['delivery_time'] = $location_delivery[$root->getVar('delivery_id')]['ld_delivery_time'];
+                $tab['delivery_image_url'] = 'http://localhost/local/project/liliume/uploads/oledrion/images/000000a07fc0ad.png';
+                $ret[] = $tab;
+            }
+        }
+        return $ret;
+    }
+    
+    public function getThisLocationThisDelivery($location_id, $delivery_id)
+    {
+        global $h_oledrion_location_delivery;
+        $location_delivery = $h_oledrion_location_delivery->getDelivery($location_id, $delivery_id);
+        $ret = array();
+	     $obj = $this->get($location_id);
+	     $ret = $obj->toArray();
+	     $ret['delivery_price'] = $location_delivery['ld_price'];
+	     $ret['delivery_time'] = $location_delivery['ld_delivery_time'];
+	     return $ret;	
     }
 }
 

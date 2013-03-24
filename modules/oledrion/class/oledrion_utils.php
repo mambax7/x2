@@ -1750,6 +1750,41 @@ class oledrion_utils
         $result = $xoopsDB->queryF("ALTER TABLE $table ADD $field;");
         return $result;
     }
+    
+    public function packingHtmlSelect($info)
+    {
+    	     $ret = '';
+        	  $ret .= '<div class="oledrion_htmlform">';
+        	  $ret .= '<img class="oledrion_htmlimage" src="' . $info['packing_image_url'] . '" alt="' .$info['packing_title'] . '" />';
+        	  $ret .= '<h3>' .$info['packing_title'] . '</h3>';
+        	  $ret .= '<p>' . $info['packing_description'] . '</p>';
+        	  $ret .= '</div>';
+        	  return $ret;
+    }
+    	
+    public function deliveryHtmlSelect($info)
+    {
+        	  $ret = '';
+        	  $ret .= '<div class="oledrion_htmlform">';
+        	  $ret .= '<img class="oledrion_htmlimage" src="' . $info['delivery_image_url'] . '" alt="' . $info['delivery_title'] . '" />';
+        	  $ret .= '<h3>' . $info['delivery_title'] . '</h3>';
+        	  $ret .= '<p><span class="bold">' . _OLEDRION_DELIVERY_PRICE . '</span> : ' . $info['delivery_price'] . '</p>';
+        	  $ret .= '<p><span class="bold">' . _OLEDRION_DELIVERY_TIME . '</span> : ' . $info['delivery_time'] . _OLEDRION_DELIVERY_DAY . '</p>';
+        	  $ret .= '<p>' . $info['delivery_description'] . '</p>';
+        	  $ret .= '</div>';
+        	  return $ret;
+    }	
+    
+    public function paymentHtmlSelect($info)
+    {
+        	  $ret = '';
+        	  $ret .= '<div class="oledrion_htmlform">';
+        	  $ret .= '<img class="oledrion_htmlimage" src="' . $info['payment_image_url'] . '" alt="' . $info['payment_title'] . '" />';
+        	  $ret .= '<h3>' . $info['payment_title'] . '</h3>';
+        	  $ret .= '<p>' . $info['payment_description'] . '</p>';
+        	  $ret .= '</div>';
+        	  return $ret;
+    }	
 
 }
 

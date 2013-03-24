@@ -100,9 +100,24 @@ class OledrionOledrion_packingHandler extends Oledrion_XoopsPersistableObjectHan
         $critere->setStart($parameters['start']);
         $critere->setSort($parameters['sort']);
         $critere->setOrder($parameters['order']);
-        $categories = array();
-        $categories = $this->getObjects($critere);
-        return $categories;
+        $packings = array();
+        $packings = $this->getObjects($critere);
+        return $packings;
+    }
+    
+    public function getPacking()
+    {
+        $ret = array();
+        $critere = new CriteriaCompo();
+        $critere->add(new Criteria('packing_online', '1'));
+        $packings = $this->getObjects($critere);
+        foreach($packings as $root) {
+	        	$tab = array();
+				$tab = $root->toArray();
+				$tab['packing_image_url'] = 'http://localhost/local/project/liliume/uploads/oledrion/images/000000a07fc0ad.png';
+				$ret[] = $tab;
+        }	
+        return $ret;
     }
 }
 

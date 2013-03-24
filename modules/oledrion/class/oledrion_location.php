@@ -79,6 +79,15 @@ class OledrionOledrion_locationHandler extends Oledrion_XoopsPersistableObjectHa
         $pid = $this->getObjects($critere);
         return $pid;
     }
+    
+    public function getLocation()
+    {
+        $critere = new CriteriaCompo();
+        $critere->add(new Criteria('location_online', 1));
+        $location = array();
+        $location = $this->getObjects($critere);
+        return $location;
+    }
 }
 
 ?>

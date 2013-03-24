@@ -17,7 +17,6 @@
 - Update all files to utf-8 (voltan)
 - Update codes to support php 5.4.12 and mysql 5.5.30 (voltan)
 - Update language files (voltan)
-- Update computeCart function (voltan)
 - Fix errors in admin and user side (voltan)
 - Remove Cache Lite Support(voltan)
 - Remove class/lite.php class/PEAR.php class/PEAR5.php admin/main.php files (voltan)

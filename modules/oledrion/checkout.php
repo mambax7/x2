@@ -27,6 +27,7 @@ $xoopsOption['template_main'] = 'oledrion_command.html';
 require_once XOOPS_ROOT_PATH . '/header.php';
 require_once XOOPS_ROOT_PATH . '/class/xoopsformloader.php';
 require_once XOOPS_ROOT_PATH . '/class/xoopslists.php';
+require_once XOOPS_ROOT_PATH . '/class/tree.php';
 require_once OLEDRION_PATH . 'class/registryfile.php';
 
 $uid = oledrion_utils::getCurrentUserID();
@@ -41,7 +42,34 @@ if (oledrion_utils::getModuleOption('restrict_orders', false) == 1 && $uid == 0)
 $op = 'default';
 if (isset($_POST['op'])) {
     $op = $_POST['op'];
-}
+} elseif(isset($_GET['op'])) {
+    $op = $_GET['op'];
+}    
+
+$action = 'default';
+if (isset($_POST['action'])) {
+    $action = $_POST['action'];
+} elseif(isset($_GET['action'])) {
+    $action = $_GET['action'];
+}   
+
+$commend_id = 0;
+if(isset($_POST['commend_id'])) {
+    $commend_id = intval($_POST['commend_id']);
+} elseif(isset($_GET['commend_id'])) {
+    $commend_id = intval($_GET['commend_id']);
+}			
+
+echo '<pre>';
+print_r($op);
+echo '<br>';
+print_r($action);
+echo '<br>';
+print_r($commend_id);
+echo '<br>';
+print_r($_POST);
+print_r($_GET);
+echo '</pre>';
 
 $xoopsTpl->assign('op', $op);
 $cartForTemplate = array();
@@ -80,6 +108,156 @@ if (is_object($gateway)) {
 
 
 switch ($op) {
+    case 'save':
+        if(empty($_POST)) {
+            oledrion_utils::redirect(_OLEDRION_ERROR20, OLEDRION_URL, 4);
+        }
+        if($h_oledrion_caddy->isCartEmpty()) {
+            oledrion_utils::redirect(_OLEDRION_CART_IS_EMPTY, OLEDRION_URL, 4);
+        }
+        listCart();
+
+        switch($action) {
+	        case 'make':
+		        $commandAmountTTC = $commandAmountTTC + $commandAmountVAT;
+		        $password = md5(xoops_makepass());
+		        $passwordCancel = md5(xoops_makepass());
+		        $commande = $h_oledrion_commands->create(true);
+		        $commande->setVars($_POST);
+		        $commande->setVar('cmd_uid', $uid);
+		        $commande->setVar('cmd_date', date("Y-m-d"));
+		        $commande->setVar('cmd_create', time());
+		        $commande->setVar('cmd_state', OLEDRION_STATE_NOINFORMATION);
+		        $commande->setVar('cmd_ip', oledrion_utils::IP());
+		        $commande->setVar('cmd_articles_count', count($cartForTemplate));
+		        $commande->setVar('cmd_total', oledrion_utils::formatFloatForDB($commandAmountTTC));
+		        $commande->setVar('cmd_shipping', oledrion_utils::formatFloatForDB($shippingAmount));
+		        $commande->setVar('cmd_password', $password);
+		        $commande->setVar('cmd_cancel', $passwordCancel);
+		        $commande->setVar('cmd_text', implode("\n", $discountsDescription));
+		        $res = $h_oledrion_commands->insert($commande, true);
+		        if (!$res) {
+		            oledrion_utils::redirect(_OLEDRION_ERROR10, OLEDRION_URL, 6);
+		        }
+		        oledrion_utils::redirect(_OLEDRION_SELECT_PACKING, OLEDRION_URL . 'checkout.php?op=packing&commend_id=' . $commande->getVar('cmd_id'), 1);
+		        break;
+		        
+	        case 'find':
+	           if($commend_id == 0) {
+		           	oledrion_utils::redirect(_OLEDRION_ERROR20, OLEDRION_URL, 4);
+	           }
+	           $commandAmountTTC = $commandAmountTTC + $commandAmountVAT;
+	           $commande = $h_oledrion_commands->get($commend_id);
+	           $commande->setVars($_POST);
+		        $commande->setVar('cmd_state', OLEDRION_STATE_NOINFORMATION);
+		        $commande->setVar('cmd_ip', oledrion_utils::IP());
+		        $commande->setVar('cmd_articles_count', count($cartForTemplate));
+		        $commande->setVar('cmd_total', oledrion_utils::formatFloatForDB($commandAmountTTC));
+		        $commande->setVar('cmd_shipping', oledrion_utils::formatFloatForDB($shippingAmount));
+		        $commande->setVar('cmd_text', implode("\n", $discountsDescription));
+		        $res = $h_oledrion_commands->insert($commande, true);
+		        if (!$res) {
+		            oledrion_utils::redirect(_OLEDRION_ERROR10, OLEDRION_URL, 6);
+		        }
+		        oledrion_utils::redirect(_OLEDRION_SELECT_PACKING, OLEDRION_URL . 'checkout.php?op=packing&commend_id=' . $commande->getVar('cmd_id'), 1);
+		        break;
+		        
+	        case 'packing': 
+	           $packing_id = 0;
+				  if(isset($_POST['packing_id'])) {
+					   $packing_id = intval($_POST['packing_id']);
+				  }
+	           if($packing_id == 0) {
+		           	oledrion_utils::redirect(_OLEDRION_ERROR20, OLEDRION_URL, 4);
+	           }
+	           if($commend_id == 0) {
+		           	oledrion_utils::redirect(_OLEDRION_ERROR20, OLEDRION_URL, 4);
+	           }
+
+	           $packing = $h_oledrion_packing->get($packing_id);
+	           if(!$packing->getVar('packing_id')) {
+		           	oledrion_utils::redirect(_OLEDRION_ERROR20, OLEDRION_URL, 4);
+	           }
+	           $commande = $h_oledrion_commands->get($commend_id);
+	           $commande->setVar('cmd_packing', $packing->getVar('packing_title'));
+	           $commande->setVar('cmd_packing_id', $packing->getVar('packing_id'));
+	           $res = $h_oledrion_commands->insert($commande, true);
+		        if (!$res) {
+		            oledrion_utils::redirect(_OLEDRION_ERROR10, OLEDRION_URL, 6);
+		        }
+		        oledrion_utils::redirect(_OLEDRION_SELECT_PACKING, OLEDRION_URL . 'checkout.php?op=location&commend_id=' . $commande->getVar('cmd_id'), 1);
+		        break;
+		        
+	        case 'location': 
+	           $location_id = 0;
+				  if(isset($_POST['location_id'])) {
+					   $location_id = intval($_POST['location_id']);
+				  }
+	           if($location_id == 0) {
+		           	oledrion_utils::redirect(_OLEDRION_ERROR20, OLEDRION_URL, 4);
+	           }
+	           if($commend_id == 0) {
+		           	oledrion_utils::redirect(_OLEDRION_ERROR20, OLEDRION_URL, 4);
+	           }
+	           $location = $h_oledrion_location->get($location_id);
+	           $commande = $h_oledrion_commands->get($commend_id);
+	           $commande->setVar('cmd_location', $location->getVar('location_title'));
+	           $commande->setVar('cmd_location_id', $location->getVar('location_id'));
+	           $res = $h_oledrion_commands->insert($commande, true);
+		        if (!$res) {
+		            oledrion_utils::redirect(_OLEDRION_ERROR10, OLEDRION_URL, 6);
+		        }
+		        oledrion_utils::redirect(_OLEDRION_SELECT_PACKING, OLEDRION_URL . 'checkout.php?op=delivery&commend_id=' . $commande->getVar('cmd_id'), 1);
+		        break;
+
+	        case 'delivery': 
+	           $delivery_id = 0;
+				  if(isset($_POST['delivery_id'])) {
+					   $delivery_id = intval($_POST['delivery_id']);
+				  }
+	           if($delivery_id == 0) {
+		           	oledrion_utils::redirect(_OLEDRION_ERROR20, OLEDRION_URL, 4);
+	           }
+	           if($commend_id == 0) {
+		           	oledrion_utils::redirect(_OLEDRION_ERROR20, OLEDRION_URL, 4);
+	           }
+              $commande = $h_oledrion_commands->get($commend_id);
+	           $delivery = $h_oledrion_delivery->getThisLocationThisDelivery($delivery_id, $commande->getVar('cmd_location_id'));
+	           $commande->setVar('cmd_delivery', $delivery['delivery_title']);
+	           $commande->setVar('cmd_delivery_id', $delivery['delivery_id']);
+	           $commande->setVar('cmd_shipping', $delivery['delivery_price']);
+	           $res = $h_oledrion_commands->insert($commande, true);
+		        if (!$res) {
+		            oledrion_utils::redirect(_OLEDRION_ERROR10, OLEDRION_URL, 6);
+		        }
+		        oledrion_utils::redirect(_OLEDRION_SELECT_PACKING, OLEDRION_URL . 'checkout.php?op=payment&commend_id=' . $commande->getVar('cmd_id'), 1);
+		        break;
+		        
+	        case 'payment': 
+	           $payment_id = 0;
+				  if(isset($_POST['payment_id'])) {
+					   $payment_id = intval($_POST['payment_id']);
+				  }
+	           if($payment_id == 0) {
+		           	oledrion_utils::redirect(_OLEDRION_ERROR20, OLEDRION_URL, 4);
+	           }
+	           if($commend_id == 0) {
+		           	oledrion_utils::redirect(_OLEDRION_ERROR20, OLEDRION_URL, 4);
+	           }
+	           $payment = $h_oledrion_payment->get($payment_id);
+	           $commande = $h_oledrion_commands->get($commend_id);
+	           $commande->setVar('cmd_payment', $payment->getVar('payment_title'));
+	           $commande->setVar('cmd_payment_id', $payment->getVar('payment_id'));
+	           $res = $h_oledrion_commands->insert($commande, true);
+		        if (!$res) {
+		            oledrion_utils::redirect(_OLEDRION_ERROR10, OLEDRION_URL, 6);
+		        }
+		        oledrion_utils::redirect(_OLEDRION_SELECT_PACKING, OLEDRION_URL . 'checkout.php?op=confirm&commend_id=' . $commande->getVar('cmd_id'), 1);
+		        break;
+        }
+        
+        break;
+        
     // ****************************************************************************************************************
     case 'default': // Présentation du formulaire
         // ****************************************************************************************************************
@@ -108,7 +286,13 @@ switch ($op) {
         $xoopsTpl->assign('text', xoops_trim($text));
 
         $sform = new XoopsThemeForm(_OLEDRION_PLEASE_ENTER, "informationfrm", OLEDRION_URL . 'checkout.php', 'post');
-        $sform->addElement(new XoopsFormHidden('op', 'confirm'));
+        $sform->addElement(new XoopsFormHidden('op', 'save'));
+        if($commande->getVar('cmd_id') && $commande->getVar('cmd_id') > 0) {
+	        $sform->addElement(new XoopsFormHidden('action', 'find'));
+           $sform->addElement(new XoopsFormHidden('commend_id', $commande->getVar('cmd_id')));
+        } else {
+	        $sform->addElement(new XoopsFormHidden('action', 'make'));	
+        }	
         $sform->addElement(new XoopsFormLabel(_OLEDRION_LABLE, _OLEDRION_LABLE_INFO));
         $sform->addElement(new XoopsFormLabel(_OLEDRION_TOTAL, $oledrion_Currency->amountForDisplay($commandAmountTTC)));
         // By voltan
@@ -156,19 +340,102 @@ switch ($op) {
         break;
     
     case 'packing':
-    
+        if ($h_oledrion_caddy->isCartEmpty()) {
+            oledrion_utils::redirect(_OLEDRION_CART_IS_EMPTY, OLEDRION_URL, 4);
+        }
+        if($commend_id == 0) {
+           	oledrion_utils::redirect(_OLEDRION_ERROR20, OLEDRION_URL, 4);
+        }
+        listCart();
+        $packings = $h_oledrion_packing->getPacking();
+
+        $sform = new XoopsThemeForm(_OLEDRION_PACKING_FORM, "informationfrm", OLEDRION_URL . 'checkout.php', 'post');
+        $sform->addElement(new XoopsFormHidden('op', 'save'));
+        $sform->addElement(new XoopsFormHidden('action', 'packing'));
+        $sform->addElement(new XoopsFormHidden('commend_id', $commend_id));
+        $packingSelect = new XoopsFormRadio(_OLEDRION_SELECT_PACKING, 'packing_id', '');
+        foreach($packings as $packing) {
+	        $packingSelect->addOption($packing['packing_id'], oledrion_utils::packingHtmlSelect($packing));	
+        }
+        $sform->addElement($packingSelect);
+        $sform->addElement(new XoopsFormButton('', 'post', _OLEDRION_SAVE, 'submit'));
+        $sform = oledrion_utils::formMarkRequiredFields($sform);
+        $xoopsTpl->assign('form', $sform->render());
         break;
 
     case 'location':
-    
+        if ($h_oledrion_caddy->isCartEmpty()) {
+            oledrion_utils::redirect(_OLEDRION_CART_IS_EMPTY, OLEDRION_URL, 4);
+        }
+        if($commend_id == 0) {
+           	oledrion_utils::redirect(_OLEDRION_ERROR20, OLEDRION_URL, 4);
+        }
+        listCart();
+        $sform = new XoopsThemeForm(_OLEDRION_LOCATION_FORM, "informationfrm", OLEDRION_URL . 'checkout.php', 'post');
+        $sform->addElement(new XoopsFormHidden('op', 'save'));
+        $sform->addElement(new XoopsFormHidden('action', 'location'));
+        $sform->addElement(new XoopsFormHidden('commend_id', $commend_id));
+        $location = $h_oledrion_location->getLocation();
+		  $locationTree = new XoopsObjectTree($location, 'location_id', 'location_pid');
+		  $locationList = $locationTree->makeSelBox('location_id', 'location_title', '--');
+		  $locationSelect = new XoopsFormLabel(_OLEDRION_LOCATION_SELECT, $locationList);
+		  $sform->addElement ($locationSelect);
+        $sform->addElement(new XoopsFormButton('', 'post', _OLEDRION_SAVE, 'submit'));
+        $sform = oledrion_utils::formMarkRequiredFields($sform);
+        $xoopsTpl->assign('form', $sform->render());
         break;
         
     case 'delivery':
-    
+        if ($h_oledrion_caddy->isCartEmpty()) {
+            oledrion_utils::redirect(_OLEDRION_CART_IS_EMPTY, OLEDRION_URL, 4);
+        }
+        if($commend_id == 0) {
+           	oledrion_utils::redirect(_OLEDRION_ERROR20, OLEDRION_URL, 4);
+        }
+        listCart();
+        $commande = $h_oledrion_commands->get($commend_id);
+        $location_id = $commande->getVar('cmd_location_id');
+        $deliveres = $h_oledrion_delivery->getThisLocationDelivery($location_id);
+
+        $sform = new XoopsThemeForm(_OLEDRION_DELIVERY_FORM, "informationfrm", OLEDRION_URL . 'checkout.php', 'post');
+        $sform->addElement(new XoopsFormHidden('op', 'save'));
+        $sform->addElement(new XoopsFormHidden('action', 'delivery'));
+        $sform->addElement(new XoopsFormHidden('commend_id', $commend_id));
+        $delivery_options = new XoopsFormRadio(_OLEDRION_SELECT_DELIVERY, 'delivery_id');
+        foreach ($deliveres as $delivery) {
+	        $delivery_options->addOption($delivery['delivery_id'], oledrion_utils::deliveryHtmlSelect($delivery));	
+        }
+        $sform->addElement($delivery_options);
+        $sform->addElement(new XoopsFormButton('', 'post', _OLEDRION_SAVE, 'submit'));
+        $sform = oledrion_utils::formMarkRequiredFields($sform);
+        $xoopsTpl->assign('form', $sform->render());
         break;
         
-    case 'gateway':
-    
+    case 'payment':
+        if ($h_oledrion_caddy->isCartEmpty()) {
+            oledrion_utils::redirect(_OLEDRION_CART_IS_EMPTY, OLEDRION_URL, 4);
+        }
+        if($commend_id == 0) {
+           	oledrion_utils::redirect(_OLEDRION_ERROR20, OLEDRION_URL, 4);
+        }
+        listCart();
+        $commande = $h_oledrion_commands->get($commend_id);
+        $delivery_id = $commande->getVar('cmd_delivery_id');
+        $payments = $h_oledrion_payment->getThisDeliveryPayment($delivery_id);
+        
+        
+        $sform = new XoopsThemeForm(_OLEDRION_PAYMENT_FORM, "informationfrm", OLEDRION_URL . 'checkout.php', 'post');
+        $sform->addElement(new XoopsFormHidden('op', 'save'));
+        $sform->addElement(new XoopsFormHidden('action', 'payment'));
+        $sform->addElement(new XoopsFormHidden('commend_id', $commend_id));
+        $payment_options = new XoopsFormRadio(_OLEDRION_SELECT_PAYMENT, 'payment_id');
+        foreach ($payments as $payment) {
+	        $payment_options->addOption($payment['payment_id'], oledrion_utils::paymentHtmlSelect($payment));	
+        }
+        $sform->addElement($payment_options);
+        $sform->addElement(new XoopsFormButton('', 'post', _OLEDRION_SAVE, 'submit'));
+        $sform = oledrion_utils::formMarkRequiredFields($sform);
+        $xoopsTpl->assign('form', $sform->render());
         break;
     
     // ****************************************************************************************************************
@@ -178,28 +445,13 @@ switch ($op) {
             oledrion_utils::redirect(_OLEDRION_CART_IS_EMPTY, OLEDRION_URL, 4);
         }
         listCart();
-
-        $commandAmountTTC = $commandAmountTTC + $commandAmountVAT;
-
-        $password = md5(xoops_makepass());
-        $passwordCancel = md5(xoops_makepass());
-
-        $commande = $h_oledrion_commands->create(true);
-        $commande->setVars($_POST);
-        $commande->setVar('cmd_uid', $uid);
-        $commande->setVar('cmd_date', date("Y-m-d"));
-        $commande->setVar('cmd_state', OLEDRION_STATE_NOINFORMATION);
-        $commande->setVar('cmd_ip', oledrion_utils::IP());
-        $commande->setVar('cmd_articles_count', count($cartForTemplate));
-        $commande->setVar('cmd_total', oledrion_utils::formatFloatForDB($commandAmountTTC));
-        $commande->setVar('cmd_shipping', oledrion_utils::formatFloatForDB($shippingAmount));
-        $commande->setVar('cmd_password', $password);
-        $commande->setVar('cmd_cancel', $passwordCancel);
-        $commande->setVar('cmd_text', implode("\n", $discountsDescription));
-        $res = $h_oledrion_commands->insert($commande, true);
-        if (!$res) {
-            oledrion_utils::redirect(_OLEDRION_ERROR10, OLEDRION_URL, 6);
-        }
+        
+        
+        
+        
+        
+        
+        
 
         // Enregistrement du panier
         $msgCommande = '';

@@ -28,6 +28,19 @@ class oledrion_delivery_payment extends Oledrion_Object
         $this->initVar('dp_delivery', XOBJ_DTYPE_INT, null, false);
         $this->initVar('dp_payment', XOBJ_DTYPE_INT, null, false);
     }
+    
+    /**
+     * Retourne les éléments du produits formatés pour affichage
+     *
+     * @param string $format
+     * @return array
+     */
+    public function toArray($format = 's')
+    {
+        $ret = array();
+        $ret = parent::toArray($format);
+        return $ret;
+    }
 }
 
 
@@ -36,6 +49,25 @@ class OledrionOledrion_delivery_paymentHandler extends Oledrion_XoopsPersistable
     public function __construct($db)
     { //							              Table					          Classe				    Id
         parent::__construct($db, 'oledrion_delivery_payment', 'oledrion_delivery_payment', 'dp_id');
+    }
+    
+    public function getDeliveryPaymantId($parameters)
+    {
+        $ret = array();
+        if (!$parameters['delivery']) {
+            return $ret;
+        }
+        $critere = new CriteriaCompo ();
+        $critere->add(new Criteria('dp_delivery', $parameters['delivery']));
+        $obj = $this->getObjects($critere);
+        if ($obj) {
+            foreach ($obj as $root) {
+                $tab = array();
+                $tab = $root->toArray();
+                $ret[$root->getVar('dp_payment')] = $tab;
+            }
+        }
+        return $ret;
     }
 }
 

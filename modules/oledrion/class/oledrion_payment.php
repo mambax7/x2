@@ -102,6 +102,31 @@ class OledrionOledrion_paymentHandler extends Oledrion_XoopsPersistableObjectHan
         $categories = $this->getObjects($critere);
         return $categories;
     }
+    
+    public function getThisDeliveryPayment($delivery_id)
+    {
+        global $h_oledrion_delivery_payment;
+        $ret = array();
+        $parameters = array('delivery' => $delivery_id);
+        $delivery_payment = $h_oledrion_delivery_payment->getDeliveryPaymantId($parameters);
+        foreach($delivery_payment as $payment) {
+	        	$id[] = $payment['dp_payment'];
+        }
+        
+        $critere = new CriteriaCompo ();
+        $critere->add(new Criteria('payment_id', '(' . implode( ',', $id ) . ')', 'IN'));
+        $critere->add(new Criteria('payment_online', 1));
+        $obj = $this->getObjects($critere);
+        if ($obj) {
+            foreach ($obj as $root) {
+                $tab = array();
+                $tab = $root->toArray();
+                $tab['payment_image_url'] = 'http://localhost/local/project/liliume/uploads/oledrion/images/000000a07fc0ad.png';
+                $ret[] = $tab;
+            }
+        }
+        return $ret;
+    }
 }
 
 ?>
