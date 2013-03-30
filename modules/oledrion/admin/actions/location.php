@@ -149,7 +149,7 @@ switch ($action) {
         $location_delivery = array();
         $deliveres = $h_oledrion_delivery->getLocationDelivery(new oledrion_parameters(array('limit' => $limit, 'location' => $id)));
         foreach ($deliveres as $delivery) {
-            if (isset($post[$delivery['delivery_id'] . '_ld_select']) && $post['location_type'] == 'location') {
+            if (isset($post[$delivery['delivery_id'] . '_ld_select'])) {
                 $location_delivery[$delivery['delivery_id']]['ld_location'] = $id;
                 $location_delivery[$delivery['delivery_id']]['ld_delivery'] = intval($delivery['delivery_id']);
                 $location_delivery[$delivery['delivery_id']]['ld_price'] = intval($post[$delivery['delivery_id'] . '_ld_price']);
@@ -160,6 +160,9 @@ switch ($action) {
 
         $opRedirect = 'location';
         $item->setVars($post);
+        if($post['location_type'] == 'parent') {
+	        $item->setVar('location_pid', 0);
+        }	
         $res = $h_oledrion_location->insert($item);
             
         $location_id = $item->getVar('location_id');

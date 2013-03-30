@@ -384,6 +384,7 @@ class oledrion_reductions
      */
     public function computeCart($cartForTemplate, $emptyCart, $shippingAmount, $commandAmount, $vatAmount, $goOn, $commandAmountTTC, $discountsDescription, $discountsCount)
     {
+        $ecotaxeAmount = $discountAmount = $totalSavings = 0;
         $emptyCart = false;
         $goOn = '';
         $vats = array();

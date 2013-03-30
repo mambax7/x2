@@ -60,17 +60,6 @@ if(isset($_POST['commend_id'])) {
     $commend_id = intval($_GET['commend_id']);
 }			
 
-echo '<pre>';
-print_r($op);
-echo '<br>';
-print_r($action);
-echo '<br>';
-print_r($commend_id);
-echo '<br>';
-print_r($_POST);
-print_r($_GET);
-echo '</pre>';
-
 $xoopsTpl->assign('op', $op);
 $cartForTemplate = array();
 $emptyCart = false;
@@ -78,10 +67,9 @@ $shippingAmount = $commandAmount = $vatAmount = $commandAmountTTC = $discountsCo
 $goOn = '';
 $discountsDescription = array();
 
-
 function listCart()
 {
-    global $cartForTemplate, $emptyCart, $shippingAmount, $commandAmount, $vatAmount, $goOn, $commandAmountTTC, $discountsDescription;
+    global $cartForTemplate, $emptyCart, $shippingAmount, $commandAmount, $vatAmount, $goOn, $commandAmountTTC, $discountsDescription, $discountsCount, $commandAmountVAT;
     $reductions = new oledrion_reductions();
     $reductions_return = $reductions->computeCart($cartForTemplate, $emptyCart, $shippingAmount, $commandAmount, $vatAmount, $goOn, $commandAmountTTC, $discountsDescription, $discountsCount);
 
@@ -105,7 +93,6 @@ if (is_object($gateway)) {
 } else {
     die(_OLEDRION_ERROR20);
 }
-
 
 switch ($op) {
     case 'save':
@@ -187,7 +174,7 @@ switch ($op) {
 		        if (!$res) {
 		            oledrion_utils::redirect(_OLEDRION_ERROR10, OLEDRION_URL, 6);
 		        }
-		        oledrion_utils::redirect(_OLEDRION_SELECT_PACKING, OLEDRION_URL . 'checkout.php?op=location&commend_id=' . $commande->getVar('cmd_id'), 1);
+		        oledrion_utils::redirect(_OLEDRION_SELECT_LOCATION, OLEDRION_URL . 'checkout.php?op=location&commend_id=' . $commande->getVar('cmd_id'), 1);
 		        break;
 		        
 	        case 'location': 
@@ -209,7 +196,12 @@ switch ($op) {
 		        if (!$res) {
 		            oledrion_utils::redirect(_OLEDRION_ERROR10, OLEDRION_URL, 6);
 		        }
-		        oledrion_utils::redirect(_OLEDRION_SELECT_PACKING, OLEDRION_URL . 'checkout.php?op=delivery&commend_id=' . $commande->getVar('cmd_id'), 1);
+		        
+		        if($h_oledrion_location->haveChild($location->getVar('location_id'))) {
+		            oledrion_utils::redirect(_OLEDRION_SELECT_LOCATION, OLEDRION_URL . 'checkout.php?op=location&action=select&commend_id=' . $commande->getVar('cmd_id'), 1);
+		        } else {
+			         oledrion_utils::redirect(_OLEDRION_SELECT_DELIVERY, OLEDRION_URL . 'checkout.php?op=delivery&commend_id=' . $commande->getVar('cmd_id'), 1);
+		        }
 		        break;
 
 	        case 'delivery': 
@@ -232,7 +224,7 @@ switch ($op) {
 		        if (!$res) {
 		            oledrion_utils::redirect(_OLEDRION_ERROR10, OLEDRION_URL, 6);
 		        }
-		        oledrion_utils::redirect(_OLEDRION_SELECT_PACKING, OLEDRION_URL . 'checkout.php?op=payment&commend_id=' . $commande->getVar('cmd_id'), 1);
+		        oledrion_utils::redirect(_OLEDRION_SELECT_PAYMENT, OLEDRION_URL . 'checkout.php?op=payment&commend_id=' . $commande->getVar('cmd_id'), 1);
 		        break;
 		        
 	        case 'payment': 
@@ -254,7 +246,7 @@ switch ($op) {
 		        if (!$res) {
 		            oledrion_utils::redirect(_OLEDRION_ERROR10, OLEDRION_URL, 6);
 		        }
-		        oledrion_utils::redirect(_OLEDRION_SELECT_PACKING, OLEDRION_URL . 'checkout.php?op=confirm&commend_id=' . $commande->getVar('cmd_id'), 1);
+		        oledrion_utils::redirect(_OLEDRION_FINAL_CHECKOUT, OLEDRION_URL . 'checkout.php?op=confirm&commend_id=' . $commande->getVar('cmd_id'), 1);
 		        break;
         }
         
@@ -304,7 +296,6 @@ switch ($op) {
         $sform->addElement(new XoopsFormText(_OLEDRION_LASTNAME, 'cmd_lastname', 50, 255, $commande->getVar('cmd_lastname', 'e')), true);
         $sform->addElement(new XoopsFormText(_OLEDRION_FIRSTNAME, 'cmd_firstname', 50, 255, $commande->getVar('cmd_firstname', 'e')), false);
         $sform->addElement(new XoopsFormTextArea(_OLEDRION_STREET, 'cmd_adress', $commande->getVar('cmd_adress', 'e'), 3, 50), true);
-        $sform->addElement(new XoopsFormText(_OLEDRION_CP, 'cmd_zip', 5, 30, $commande->getVar('cmd_zip', 'e')), true);
         $sform->addElement(new XoopsFormText(_OLEDRION_CITY, 'cmd_town', 40, 255, $commande->getVar('cmd_town', 'e')), true);
         // By voltan
         if(oledrion_utils::getModuleOption('checkout_country')) {
@@ -313,7 +304,8 @@ switch ($op) {
 	        $sform->addElement($countriesList, true);
         } else {
 	        $sform->addElement(new XoopsFormHidden('cmd_country', OLEDRION_DEFAULT_COUNTRY));	
-        }		
+        }	
+        $sform->addElement(new XoopsFormText(_OLEDRION_CP, 'cmd_zip', 15, 30, $commande->getVar('cmd_zip', 'e')), true);	
         $sform->addElement(new XoopsFormText(_OLEDRION_PHONE, 'cmd_telephone', 15, 50, $commande->getVar('cmd_telephone', 'e')), false);
         if ($uid > 0) {
             $sform->addElement(new XoopsFormText(_OLEDRION_EMAIL, 'cmd_email', 50, 255, $xoopsUser->getVar('email', 'e')), true);
@@ -371,19 +363,42 @@ switch ($op) {
            	oledrion_utils::redirect(_OLEDRION_ERROR20, OLEDRION_URL, 4);
         }
         listCart();
-        $sform = new XoopsThemeForm(_OLEDRION_LOCATION_FORM, "informationfrm", OLEDRION_URL . 'checkout.php', 'post');
-        $sform->addElement(new XoopsFormHidden('op', 'save'));
-        $sform->addElement(new XoopsFormHidden('action', 'location'));
-        $sform->addElement(new XoopsFormHidden('commend_id', $commend_id));
-        $location = $h_oledrion_location->getLocation();
-		  $locationTree = new XoopsObjectTree($location, 'location_id', 'location_pid');
-		  $locationList = $locationTree->makeSelBox('location_id', 'location_title', '--');
-		  $locationSelect = new XoopsFormLabel(_OLEDRION_LOCATION_SELECT, $locationList);
-		  $sform->addElement ($locationSelect);
-        $sform->addElement(new XoopsFormButton('', 'post', _OLEDRION_SAVE, 'submit'));
-        $sform = oledrion_utils::formMarkRequiredFields($sform);
-        $xoopsTpl->assign('form', $sform->render());
-        break;
+        switch($action) {
+	        case 'default':	
+				  $sform = new XoopsThemeForm(_OLEDRION_LOCATION_FORM, "informationfrm", OLEDRION_URL . 'checkout.php', 'post');
+		        $sform->addElement(new XoopsFormHidden('op', 'save'));
+		        $sform->addElement(new XoopsFormHidden('action', 'location'));
+		        $sform->addElement(new XoopsFormHidden('commend_id', $commend_id));
+		        $pids = $h_oledrion_location->getAllPid(new oledrion_parameters());
+		        $location_pid = new XoopsFormRadio(_OLEDRION_SELECT_LOCATION, 'location_id');
+		        foreach ($pids as $pid) {
+			        $location_pid->addOption($pid->getVar('location_id'), $pid->getVar('location_title'));	
+		        }
+		        $sform->addElement($location_pid);
+		        $sform->addElement(new XoopsFormButton('', 'post', _OLEDRION_SAVE, 'submit'));
+		        $sform = oledrion_utils::formMarkRequiredFields($sform);
+		        $xoopsTpl->assign('form', $sform->render());
+		        break;
+	        
+	        case 'select':	
+		        $commande = $h_oledrion_commands->get($commend_id);
+		        
+		        $sform = new XoopsThemeForm(_OLEDRION_LOCATION_FORM, "informationfrm", OLEDRION_URL . 'checkout.php', 'post');
+		        $sform->addElement(new XoopsFormHidden('op', 'save'));
+		        $sform->addElement(new XoopsFormHidden('action', 'location'));
+		        $sform->addElement(new XoopsFormHidden('commend_id', $commend_id));
+		        $locations = $h_oledrion_location->getLocation($commande->getVar('cmd_packing_id'));
+				  $location_select = new XoopsFormSelect(_OLEDRION_SELECT_LOCATION, 'location_id', '');
+				  foreach ($locations as $location) {
+			        $location_select->addOption($location->getVar('location_id'), $location->getVar('location_title'));	
+		        }
+		        $sform->addElement($location_select, true);
+		        $sform->addElement(new XoopsFormButton('', 'post', _OLEDRION_SAVE, 'submit'));
+		        $sform = oledrion_utils::formMarkRequiredFields($sform);
+		        $xoopsTpl->assign('form', $sform->render());
+		        break;
+        }	
+        break; 
         
     case 'delivery':
         if ($h_oledrion_caddy->isCartEmpty()) {
@@ -531,7 +546,7 @@ switch ($op) {
         $msg['PAYS'] = $countries[$commande->getVar('cmd_country')];
         $msg['TELEPHONE'] = $commande->getVar('cmd_telephone');
         $msg['EMAIL'] = $commande->getVar('cmd_email');
-        $msg['URL_BILL'] = OLEDRION_URL . 'invoice.php?id=' . $commande->getVar('cmd_id') . '&pass=' . $password;
+        $msg['URL_BILL'] = OLEDRION_URL . 'invoice.php?id=' . $commande->getVar('cmd_id') . '&pass=' . $commande->getVar('cmd_password');
         $msg['IP'] = oledrion_utils::IP();
         if ($commande->getVar('cmd_bill') == 1) {
             $msg['FACTURE'] = _YES;
@@ -581,10 +596,13 @@ switch ($op) {
         $sform->addElement(new XoopsFormLabel(_OLEDRION_COUNTRY, $countries[$commande->getVar('cmd_country')]));
         $sform->addElement(new XoopsFormLabel(_OLEDRION_PHONE, $commande->getVar('cmd_telephone')));
         $sform->addElement(new XoopsFormLabel(_OLEDRION_EMAIL, $commande->getVar('cmd_email')));
+        $sform->addElement(new XoopsFormLabel(_OLEDRION_PACKING , $commande->getVar('cmd_packing')));
+        $sform->addElement(new XoopsFormLabel(_OLEDRION_LOCATION , $commande->getVar('cmd_location')));
+        $sform->addElement(new XoopsFormLabel(_OLEDRION_DELIVERY , $commande->getVar('cmd_delivery')));
+        $sform->addElement(new XoopsFormLabel(_OLEDRION_PAYMENT , $commande->getVar('cmd_payment')));
         if (oledrion_utils::getModuleOption('ask_vatnumber')) {
             $sform->addElement(new XoopsFormLabel(_OLEDRION_VAT_NUMBER, $commande->getVar('cmd_vat_number')));
         }
-
         if ($commande->getVar('cmd_bill') == 0) {
             $sform->addElement(new XoopsFormLabel(_OLEDRION_INVOICE, _NO));
         } else {
