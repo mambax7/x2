@@ -301,9 +301,12 @@ define('_OLEDRION_LOCATION_FORM', 'Select location form');
 define('_OLEDRION_PAYMENT_FORM', 'Select payment method form');
 define('_OLEDRION_DELIVERY_FORM', 'Select delivery method form');
 define('_OLEDRION_DELIVERY_DAY', 'Days');
-define('_OLEDRION_DELIVERY_PRICE', 'Price');
 define('_OLEDRION_PACKING', 'Packing');
 define('_OLEDRION_LOCATION', 'Location');
 define('_OLEDRION_DELIVERY', 'Delivery method');
 define('_OLEDRION_PAYMENT', 'Payment method');
+define('_OLEDRION_MOBILE', 'Mobile phone');
+define('_OLEDRION_FREE', 'Free');
+define('_OLEDRION_PACKING_PRICE', 'Packing price');
+define('_OLEDRION_AMOUNT_PRICE', 'Product price');
 ?>

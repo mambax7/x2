@@ -1757,6 +1757,11 @@ class oledrion_utils
         	  $ret .= '<div class="oledrion_htmlform">';
         	  $ret .= '<img class="oledrion_htmlimage" src="' . $info['packing_image_url'] . '" alt="' .$info['packing_title'] . '" />';
         	  $ret .= '<h3>' .$info['packing_title'] . '</h3>';
+        	  if($info['packing_price'] > 0) {
+	        	  $ret .= '<p><span class="bold">' . _OLEDRION_PRICE . '</span> : ' . $info['packing_price_fordisplay'] . '</p>';
+           } else {
+	           $ret .= '<p><span class="bold">' . _OLEDRION_PRICE . '</span> : ' . _OLEDRION_FREE . '</p>';	
+           }	
         	  $ret .= '<p>' . $info['packing_description'] . '</p>';
         	  $ret .= '</div>';
         	  return $ret;
@@ -1768,7 +1773,11 @@ class oledrion_utils
         	  $ret .= '<div class="oledrion_htmlform">';
         	  $ret .= '<img class="oledrion_htmlimage" src="' . $info['delivery_image_url'] . '" alt="' . $info['delivery_title'] . '" />';
         	  $ret .= '<h3>' . $info['delivery_title'] . '</h3>';
-        	  $ret .= '<p><span class="bold">' . _OLEDRION_DELIVERY_PRICE . '</span> : ' . $info['delivery_price'] . '</p>';
+        	  if($info['delivery_price'] > 0) {
+	        	  $ret .= '<p><span class="bold">' . _OLEDRION_PRICE . '</span> : ' . $info['delivery_price_fordisplay'] . '</p>';
+        	  } else {
+	           $ret .= '<p><span class="bold">' . _OLEDRION_PRICE . '</span> : ' . _OLEDRION_FREE . '</p>';	
+           }
         	  $ret .= '<p><span class="bold">' . _OLEDRION_DELIVERY_TIME . '</span> : ' . $info['delivery_time'] . _OLEDRION_DELIVERY_DAY . '</p>';
         	  $ret .= '<p>' . $info['delivery_description'] . '</p>';
         	  $ret .= '</div>';
@@ -1784,7 +1793,13 @@ class oledrion_utils
         	  $ret .= '<p>' . $info['payment_description'] . '</p>';
         	  $ret .= '</div>';
         	  return $ret;
-    }	
+    }	 
+    
+    public function getCountriesList()
+    {
+        require_once XOOPS_ROOT_PATH . '/class/xoopslists.php';
+        return XoopsLists::getCountryList();
+    }       	  
 
 }
 

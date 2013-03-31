@@ -78,8 +78,10 @@ class oledrion_packing extends Oledrion_Object
      */
     public function toArray($format = 's')
     {
+        $oledrion_Currency = oledrion_Currency::getInstance();        
         $ret = array();
         $ret = parent::toArray($format);
+        $ret['packing_price_fordisplay'] = $oledrion_Currency->amountForDisplay($this->getVar('packing_price'));
         return $ret;
     }
 }

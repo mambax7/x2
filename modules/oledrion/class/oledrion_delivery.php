@@ -138,6 +138,7 @@ class OledrionOledrion_deliveryHandler extends Oledrion_XoopsPersistableObjectHa
     public function getThisLocationDelivery($location_id)
     {
         global $h_oledrion_location_delivery;
+        $oledrion_Currency = oledrion_Currency::getInstance();
         $ret = array();
         $parameters = array('location' => $location_id);
         $location_delivery = $h_oledrion_location_delivery->getLocationDeliveryId($parameters);
@@ -154,6 +155,7 @@ class OledrionOledrion_deliveryHandler extends Oledrion_XoopsPersistableObjectHa
                 $tab = array();
                 $tab = $root->toArray();
                 $tab['delivery_price'] = $location_delivery[$root->getVar('delivery_id')]['ld_price'];
+                $tab['delivery_price_fordisplay'] = $oledrion_Currency->amountForDisplay($tab['delivery_price']);
                 $tab['delivery_time'] = $location_delivery[$root->getVar('delivery_id')]['ld_delivery_time'];
                 $tab['delivery_image_url'] = 'http://localhost/local/project/liliume/uploads/oledrion/images/000000a07fc0ad.png';
                 $ret[] = $tab;

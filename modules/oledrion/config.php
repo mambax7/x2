@@ -73,7 +73,7 @@ if (!defined("OLEDRION_ATTACHED_FILES_URL")) {
     define("OLEDRION_SUMMARY_MAXLENGTH", 150);
 
     // Used in checkout to select a default country
-    define("OLEDRION_DEFAULT_COUNTRY", 'EN');
+    define("OLEDRION_DEFAULT_COUNTRY", 'US');
 
     // RSS Feed cache duration (in minutes)
     define("OLEDRION_RSS_CACHE", 3600);

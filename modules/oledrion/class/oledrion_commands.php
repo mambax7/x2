@@ -47,10 +47,12 @@ class oledrion_commands extends Oledrion_Object
         $this->initVar('cmd_town', XOBJ_DTYPE_TXTBOX, null, false);
         $this->initVar('cmd_country', XOBJ_DTYPE_TXTBOX, null, false);
         $this->initVar('cmd_telephone', XOBJ_DTYPE_TXTBOX, null, false);
+        $this->initVar('cmd_mobile', XOBJ_DTYPE_TXTBOX, null, false);
         $this->initVar('cmd_email', XOBJ_DTYPE_TXTBOX, null, false);
         $this->initVar('cmd_articles_count', XOBJ_DTYPE_INT, null, false);
         $this->initVar('cmd_total', XOBJ_DTYPE_TXTBOX, null, false);
         $this->initVar('cmd_shipping', XOBJ_DTYPE_TXTBOX, null, false);
+        $this->initVar('cmd_packing_price', XOBJ_DTYPE_TXTBOX, null, false);
         $this->initVar('cmd_bill', XOBJ_DTYPE_INT, null, false);
         $this->initVar('cmd_password', XOBJ_DTYPE_TXTBOX, null, false);
         $this->initVar('cmd_text', XOBJ_DTYPE_TXTAREA, null, false);
@@ -85,6 +87,7 @@ class oledrion_commands extends Oledrion_Object
         $oledrion_Currency = oledrion_Currency::getInstance();
         $ret['cmd_total_fordisplay'] = $oledrion_Currency->amountForDisplay($this->getVar('cmd_total')); // Montant TTC de la commande
         $ret['cmd_shipping_fordisplay'] = $oledrion_Currency->amountForDisplay($this->getVar('cmd_shipping')); // Montant TTC des frais de port
+        $ret['cmd_packing_price_fordisplay'] = $oledrion_Currency->amountForDisplay($this->getVar('cmd_packing_price'));
         $ret['cmd_text_fordisplay'] = nl2br($this->getVar('cmd_text')); // Liste des réductions accordées
         if (isset($countries[$this->getVar('cmd_country')])) { // Libellé du pays de l'acheteur
             $ret['cmd_country_label'] = $countries[$this->getVar('cmd_country')];

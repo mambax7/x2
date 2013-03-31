@@ -56,7 +56,6 @@ class oledrion_pec24 extends oledrion_gateway
 
     function getAuthority($cmd_total, $cmd_id)
     {
-
         $url = $this->getdialogURL();
         if (extension_loaded('soap')) {
             $soapclient = new SoapClient($url);
@@ -64,7 +63,6 @@ class oledrion_pec24 extends oledrion_gateway
             require_once('nusoap.php');
             $soapclient = new soapclient($url, 'wsdl');
         }
-
         $params = array(
             'pin' => $this->getParsianMid(),
             'amount' => intval($this->formatAmount($cmd_total)),
@@ -73,10 +71,9 @@ class oledrion_pec24 extends oledrion_gateway
             'authority' => 0,
             'status' => 1
         );
-
         $sendParams = array($params);
-        $res = $soapclient->call('PinPaymentRequest', $sendParams);
-        return $res['authority'];
+        //$res = $soapclient->call('PinPaymentRequest', $sendParams);
+        //return $res['authority'];
     }
 
     function getParsianMid()
@@ -123,7 +120,6 @@ class oledrion_pec24 extends oledrion_gateway
         $status = $_GET['rs'];
         $cmd_id = intval($_GET['cmd_id']);
         $cmd_total = intval($_GET['cmd_total']);
-
         // Set soap
         $url = $this->getdialogURL();
         if (extension_loaded('soap')) {
@@ -132,13 +128,11 @@ class oledrion_pec24 extends oledrion_gateway
             require_once('nusoap.php');
             $soapclient = new soapclient($url, 'wsdl');
         }
-
         // here we update our database
         $save_ok = 0;
         if ($authority) {
             $save_ok = 1;
         }
-
         // doing 
         if (($status == 0) && $save_ok) {
             if ((!$soapclient) || ($err = $soapclient->getError())) {
@@ -159,7 +153,6 @@ class oledrion_pec24 extends oledrion_gateway
                     'authority' => $authority,
                     'status' => $status,
                 );
-
                 $sendParams = array($params);
                 $res = $soapclient->call('PinPaymentEnquiry', $sendParams);
                 $status = $res['status'];
@@ -219,7 +212,6 @@ class oledrion_pec24 extends oledrion_gateway
             fwrite($fp, "Peyment note : " . $user_log . "\n");
             fclose($fp);
         }
-
         return $user_log;
     }
 }

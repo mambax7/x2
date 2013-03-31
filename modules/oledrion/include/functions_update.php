@@ -385,6 +385,14 @@ function xoops_module_update_oledrion($module, $version)
     if (!oledrion_utils::fieldExists('cmd_status', $tableName)) {
         oledrion_utils::addField('`cmd_status` tinyint(1) unsigned NOT NULL default "1"', $tableName);
     }
+    
+    if (!oledrion_utils::fieldExists('cmd_mobile', $tableName)) {
+        oledrion_utils::addField('`cmd_mobile` varchar(30) NOT NULL', $tableName);
+    }
+    
+    if (!oledrion_utils::fieldExists('cmd_packing_price', $tableName)) {
+        oledrion_utils::addField('`cmd_packing_price` decimal(16,2) NOT NULL', $tableName);
+    }
 
 }
 ?>

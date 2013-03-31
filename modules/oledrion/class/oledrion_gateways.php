@@ -38,9 +38,14 @@ class oledrion_gateways
      *
      * @return string    Le nom de la  passerelle de paiement (en fait le nom de son répertoire)
      */
-    public function getCurrentGateway()
+    public function getCurrentGateway($gateway = null)
     {
-        $return = xoops_trim(oledrion_utils::getModuleOption('used_gateway'));
+        if($gateway) {
+           $return = $gateway;
+        } else {
+	        $return = xoops_trim(oledrion_utils::getModuleOption('used_gateway'));
+        }
+        
         if ($return == '') {
             $return = 'paypal'; // Valeur par défaut
         }
@@ -239,9 +244,9 @@ class oledrion_gateways
      * @return mixed    Soit l'objet gateway soit null
      *
      */
-    public function getGatewayObject()
+    public function getGatewayObject($gateway = null)
     {
-        $gateway = self::getCurrentGateway();
+        $gateway = self::getCurrentGateway($gateway);
         if (self::isInstalledGatewayName($gateway)) {
             if (self::gatewayClassFileExists($gateway)) {
                 if (self::loadGatewaysLanguageDefines($gateway)) {
