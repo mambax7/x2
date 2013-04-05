@@ -14,7 +14,7 @@
  *
  * @copyright   The XOOPS Project http://sourceforge.net/projects/xoops/
  * @license     http://www.fsf.org/copyleft/gpl.html GNU public license
- * @author      Andricq Nicolas (AKA MusS)
+ * @author      Hossein Azizabadi (AKA Voltan)
  * @version     $Id$
  */
 
@@ -52,6 +52,7 @@ define('_NEWS_AM_TOPIC_PID','والد');
 define('_NEWS_AM_TOPIC_DATE_CREATED','ساعة الإنشاء');
 define('_NEWS_AM_TOPIC_DATE_UPDATE','ساعة التحدیث');
 define('_NEWS_AM_TOPIC_SHOWTOPIC','عرض الفئة');
+define('_NEWS_AM_TOPIC_SHOWSUB','Display SubTopic list');
 define('_NEWS_AM_TOPIC_SHOWAUTHOR','عرض المحرر');
 define('_NEWS_AM_TOPIC_SHOWDATE','عرض التاریخ');
 define('_NEWS_AM_TOPIC_SHOWDPF','عرض PDF');
@@ -78,58 +79,59 @@ define('_NEWS_AM_TOPIC_SHOWTYPE_5','Spotlight');
 define('_NEWS_AM_TOPIC_STYLE','Topic Style');
 
 // Content page
-define('_NEWS_AM_CONTENT_FORM','إدارة المحتوى');
-define('_NEWS_AM_CONTENT_FORMTITLE','العنوان');
-define('_NEWS_AM_CONTENT_FORMTITLE_DISP','عرض عنوان الصفحة؟');
-define('_NEWS_AM_CONTENT_FORMAUTHOR','سازنده ( الإسم)');
-define('_NEWS_AM_CONTENT_FORMSOURCE','مصدر ( الرابط)');
-define('_NEWS_AM_CONTENT_FORMTEXT','النص');
-define('_NEWS_AM_CONTENT_FORMTEXT_DESC',' إنشاء أو تحرير صفحة');
-define('_NEWS_AM_CONTENT_FORMGROUP','المجموعات');
-define('_NEWS_AM_CONTENT_FORMALIAS','الإسم  المستعار');
-define('_NEWS_AM_CONTENT_FORMACTIF','نشیط');
-define('_NEWS_AM_CONTENT_IMPORTANT','عاجل');
-define('_NEWS_AM_CONTENT_FORMDEFAULT','الإفتراضي');
-define('_NEWS_AM_CONTENT_FORMPREV','السابقة');
-define('_NEWS_AM_CONTENT_FORMNEXT','اللاحقة');
-define('_NEWS_AM_CONTENT_DOHTML','العرض علی شکل Html');
-define('_NEWS_AM_CONTENT_BREAKS','تبدیل خط شکسته فعال');
-define('_NEWS_AM_CONTENT_DOIMAGE','عرض صورة النص');
-define('_NEWS_AM_CONTENT_DOXCODE','عرض کود النص');
-define('_NEWS_AM_CONTENT_DOSMILEY','عرض لبخند های محتوا');
-define('_NEWS_AM_CONTENT_SHORT','الملخص');
-define('_NEWS_AM_CONTENT_TITLE','العنوان');
-define('_NEWS_AM_CONTENT_MANAGER','إدارة المحتوی');
-define('_NEWS_AM_CONTENT_FILE','File');
-define('_NEWS_AM_CONTENT_ID','ID');
-define('_NEWS_AM_CONTENT_NUM','وزن');
-define('_NEWS_AM_CONTENT_PAGE','الصفحة');
-define('_NEWS_AM_CONTENT_TYPE','النوع');
-define('_NEWS_AM_CONTENT_OWNER','سازنده');
-define('_NEWS_AM_CONTENT_ACTIF','نشیط');
-define('_NEWS_AM_CONTENT_DEFAULT','المقترض');
-define('_NEWS_AM_CONTENT_ORDER','النظام');
-define('_NEWS_AM_CONTENT_ACTION','العامل');
-define('_NEWS_AM_CONTENT_VIEW','العرض');
-define('_NEWS_AM_CONTENT_EDIT','ویرایش');
-define('_NEWS_AM_CONTENT_DELETE','الغاء');
-define('_NEWS_AM_CONTENT_SHORTDESC','بیان الملخص');
-define('_NEWS_AM_CONTENT_TOPIC','فئة');
-define('_NEWS_AM_CONTENT_TOPIC_DESC','إذ لم یتم إختیار فئة معینة، ستکون صفحتک ثابتة');
-define('_NEWS_AM_CONTENT_STATIC','صفحة ثابتة');
-define('_NEWS_AM_CONTENT_STATICS','صفحات متغیرة');
-define('_NEWS_AM_CONTENT_ALL_ITEMS','جمیع الصفحات و الفهرسة من جمیع الفئات');
-define('_NEWS_AM_CONTENT_ALL_ITEMS_FROM','جمیع الصفحات و الفهرسة من فئة :');
-define('_NEWS_AM_CONTENT_FILE_DESC','For add more files you must use admin file system in admin side');
-define('_NEWS_AM_CONTENT_SUBTITLE','Subtitle');
-define('_NEWS_AM_CONTENT_ALL','All News');
-define('_NEWS_AM_CONTENT_OFFLINE','Offline news');
-define('_NEWS_AM_CONTENT_EXPIRE','Expire news');
-define('_NEWS_AM_CONTENT_PEDATE','Set publish and expiration date');
-define('_NEWS_AM_CONTENT_SETDATETIME','Set the date/time of publish');
-define('_NEWS_AM_CONTENT_SETEXPDATETIME','Set the date/time of expiration');
-define('_NEWS_AM_CONTENT_SLIDE','Set as slide');
-define('_NEWS_AM_CONTENT_MARQUE','Set sd margue');
+define('_NEWS_AM_STORY_FORM','إدارة المحتوى');
+define('_NEWS_AM_STORY_FORMTITLE','العنوان');
+define('_NEWS_AM_STORY_FORMTITLE_DISP','عرض عنوان الصفحة؟');
+define('_NEWS_AM_STORY_FORMAUTHOR','سازنده ( الإسم)');
+define('_NEWS_AM_STORY_FORMSOURCE','مصدر ( الرابط)');
+define('_NEWS_AM_STORY_FORMTEXT','النص');
+define('_NEWS_AM_STORY_FORMTEXT_DESC',' إنشاء أو تحرير صفحة');
+define('_NEWS_AM_STORY_FORMGROUP','المجموعات');
+define('_NEWS_AM_STORY_FORMALIAS','الإسم  المستعار');
+define('_NEWS_AM_STORY_FORMACTIF','نشیط');
+define('_NEWS_AM_STORY_IMPORTANT','عاجل');
+define('_NEWS_AM_STORY_FORMDEFAULT','الإفتراضي');
+define('_NEWS_AM_STORY_FORMPREV','السابقة');
+define('_NEWS_AM_STORY_FORMNEXT','اللاحقة');
+define('_NEWS_AM_STORY_DOHTML','العرض علی شکل Html');
+define('_NEWS_AM_STORY_BREAKS','تبدیل خط شکسته فعال');
+define('_NEWS_AM_STORY_DOIMAGE','عرض صورة النص');
+define('_NEWS_AM_STORY_DOXCODE','عرض کود النص');
+define('_NEWS_AM_STORY_DOSMILEY','عرض لبخند های محتوا');
+define('_NEWS_AM_STORY_SHORT','الملخص');
+define('_NEWS_AM_STORY_TITLE','العنوان');
+define('_NEWS_AM_STORY_MANAGER','إدارة المحتوی');
+define('_NEWS_AM_STORY_FILE','File');
+define('_NEWS_AM_STORY_ID','ID');
+define('_NEWS_AM_STORY_NUM','وزن');
+define('_NEWS_AM_STORY_PAGE','الصفحة');
+define('_NEWS_AM_STORY_TYPE','النوع');
+define('_NEWS_AM_STORY_OWNER','سازنده');
+define('_NEWS_AM_STORY_ACTIF','نشیط');
+define('_NEWS_AM_STORY_DEFAULT','المقترض');
+define('_NEWS_AM_STORY_ORDER','النظام');
+define('_NEWS_AM_STORY_ACTION','العامل');
+define('_NEWS_AM_STORY_VIEW','العرض');
+define('_NEWS_AM_STORY_EDIT','ویرایش');
+define('_NEWS_AM_STORY_DELETE','الغاء');
+define('_NEWS_AM_STORY_SHORTDESC','بیان الملخص');
+define('_NEWS_AM_STORY_TOPIC','فئة');
+define('_NEWS_AM_STORY_TOPIC_DESC','إذ لم یتم إختیار فئة معینة، ستکون صفحتک ثابتة');
+define('_NEWS_AM_STORY_STATIC','صفحة ثابتة');
+define('_NEWS_AM_STORY_STATICS','صفحات متغیرة');
+define('_NEWS_AM_STORY_ALL_ITEMS','جمیع الصفحات و الفهرسة من جمیع الفئات');
+define('_NEWS_AM_STORY_ALL_ITEMS_FROM','جمیع الصفحات و الفهرسة من فئة :');
+define('_NEWS_AM_STORY_FILE_DESC','For add more files you must use admin file system in admin side');
+define('_NEWS_AM_STORY_SUBTITLE','Subtitle');
+define('_NEWS_AM_STORY_ALL','All News');
+define('_NEWS_AM_STORY_OFFLINE','Offline news');
+define('_NEWS_AM_STORY_EXPIRE','Expire news');
+define('_NEWS_AM_STORY_PEDATE','Set publish and expiration date');
+define('_NEWS_AM_STORY_SETDATETIME','Set the date/time of publish');
+define('_NEWS_AM_STORY_SETEXPDATETIME','Set the date/time of expiration');
+define('_NEWS_AM_STORY_SLIDE','Set as slide');
+define('_NEWS_AM_STORY_MARQUE','Set sd margue');
+define('_NEWS_AM_STORY_OPTIONS','Options');
 // Tools page
 define('_NEWS_AM_TOOLS_FORMFOLDER_TITLE','استنساخ النسخ المتماثلة');
 define('_NEWS_AM_TOOLS_FORMFOLDER_NAME','اسم المجلد');

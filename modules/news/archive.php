@@ -14,38 +14,30 @@
  *
  * @copyright   The XOOPS Project http://sourceforge.net/projects/xoops/
  * @license     http://www.fsf.org/copyleft/gpl.html GNU public license
- * @author      Andricq Nicolas (AKA MusS)
+ * @author      Hossein Azizabadi (AKA Voltan)
  * @version     $Id$
  */
- 
+
+// Include module header
 require dirname(__FILE__) . '/header.php';
-if (!isset($NewsModule)) exit('Module not found'); 
- 
-include_once XOOPS_ROOT_PATH.'/language/'.$xoopsConfig['language'].'/calendar.php';
- include_once XOOPS_ROOT_PATH . "/class/pagenav.php";
-// Initialize content handler
-$story_handler = xoops_getmodulehandler ( 'story', 'news' );
-$topic_handler = xoops_getmodulehandler ( 'topic', 'news' );
-$file_handler = xoops_getmodulehandler('file', 'news');
- 
 // Include content template
 $xoopsOption ['template_main'] = 'news_archive.html'; 
-
 // include Xoops header
 include XOOPS_ROOT_PATH . '/header.php'; 
- 
 // Add Stylesheet
-$xoTheme->addStylesheet ( XOOPS_URL . '/modules/' . $NewsModule->getVar ( 'dirname' ) . '/css/style.css' );
+$xoTheme->addStylesheet ( XOOPS_URL . '/modules/news/css/style.css' );
+ 
+include_once XOOPS_ROOT_PATH.'/language/'.$xoopsConfig['language'].'/calendar.php'; 
  
 $lastyear = 0;
 $lastmonth = 0;
 
 $months_arr = array(1 => _CAL_JANUARY, 2 => _CAL_FEBRUARY, 3 => _CAL_MARCH, 4 => _CAL_APRIL, 5 => _CAL_MAY, 6 => _CAL_JUNE, 7 => _CAL_JULY, 8 => _CAL_AUGUST, 9 => _CAL_SEPTEMBER, 10 => _CAL_OCTOBER, 11 => _CAL_NOVEMBER, 12 => _CAL_DECEMBER);
 
-$fromyear = NewsUtils::News_CleanVars ( $_GET, 'year', 0, 'int' );
-$frommonth = NewsUtils::News_CleanVars ( $_GET, 'month', 0, 'int' );
-$start = NewsUtils::News_CleanVars ( $_GET, 'start', 0, 'int' );
-$limit = NewsUtils::News_CleanVars ( $_GET, 'limit', 50, 'int' );
+$fromyear = NewsUtils::News_UtilityCleanVars ( $_GET, 'year', 0, 'int' );
+$frommonth = NewsUtils::News_UtilityCleanVars ( $_GET, 'month', 0, 'int' );
+$start = NewsUtils::News_UtilityCleanVars ( $_GET, 'start', 0, 'int' );
+$limit = NewsUtils::News_UtilityCleanVars ( $_GET, 'limit', 50, 'int' );
 
 $pgtitle = '';
 if($fromyear && $frommonth) {
@@ -66,7 +58,7 @@ if(is_object($xoopsUser)) {
 	}
 }
  
-$result = $story_handler->News_GetArchiveMonth($NewsModule);
+$result = $story_handler->News_StoryArchiveMonth();
 $years = array();
 $months = array();
 $i = 0;
@@ -103,7 +95,7 @@ while (list($time) = $xoopsDB->fetchRow($result)) {
 	$years[$i]['number'] = $this_year;
 	$years[$i]['months'] = $months;
 	$xoopsTpl->assign('years', $years);
-	$xoopsTpl->assign('module', $NewsModule->getVar ( 'dirname' ));
+	$xoopsTpl->assign('module', 'news');
 
 
 if ($fromyear != 0 && $frommonth != 0) {
@@ -114,8 +106,8 @@ if ($fromyear != 0 && $frommonth != 0) {
 	$monthend = ($monthend > time()) ? time() : $monthend;
    
    $topics = $topic_handler->getall (); 
-	$archive = $story_handler->News_GetArchive($NewsModule , $monthstart, $monthend , $topics , $limit , $start);
-	$numrows = $story_handler->News_GetArchiveCount($NewsModule, $publish_start, $publish_end ,$topics);
+	$archive = $story_handler->News_StoryArchive($monthstart, $monthend , $topics , $limit , $start);
+	$numrows = $story_handler->News_StoryArchiveCount($monthstart, $monthend ,$topics);
   
 	if ($numrows > $limit) {
 		$pagenav = new XoopsPageNav ( $numrows, $limit, $start, 'start', 'limit=' . $limit . '&year=' . $fromyear . '&month=' . $frommonth );

@@ -14,37 +14,34 @@
  *
  * @copyright   The XOOPS Project http://sourceforge.net/projects/xoops/
  * @license     http://www.fsf.org/copyleft/gpl.html GNU public license
- * @author      Andricq Nicolas (AKA MusS)
+ * @author      Hossein Azizabadi (AKA Voltan)
  * @version     $Id$
  */
 
 require dirname(__FILE__) . '/header.php';
-if (!isset($NewsModule)) exit('Module not found');
+
 
 function news_page_show($options) {
     global $xoTheme, $xoopsTpl, $module_header;
-    // Create Module Instance
-    $module_handler =& xoops_gethandler('module');
-    $NewsModule =& $module_handler->getByDirname('news');
     // Initialize content handler
     $story_handler = xoops_getmodulehandler ( 'story', 'news' );
     $topic_handler = xoops_getmodulehandler ( 'topic', 'news' );
     // Get the content menu
-    $content = $story_handler->get($options[0]);
+    $story = $story_handler->get($options[0]);
     // Add block data
-    $block = $content->toArray();
+    $block = $story->toArray();
     $topic = $topic_handler->get($block['story_topic']);
     $topic = $topic->toArray();
     $block['topic_id'] = $topic['topic_id'];
     $block['topic_title'] = $topic['topic_title'];
     $block['topic_alias'] = $topic['topic_alias'];
-    $block['link'] = NewsUtils::News_Url( $NewsModule->getVar('dirname'), $block );
-    $block['imageurl'] = XOOPS_URL . xoops_getModuleOption('img_dir', $NewsModule->getVar('dirname')) . '/medium/';
-    $block['thumburl'] = XOOPS_URL . xoops_getModuleOption('img_dir', $NewsModule->getVar('dirname')) . '/thumb/';
-    $block['width'] = xoops_getModuleOption('imgwidth', $NewsModule->getVar('dirname'));
-    $block['float'] = xoops_getModuleOption('imgfloat', $NewsModule->getVar('dirname'));
+    $block['link'] = NewsUtils::News_UtilityStoryUrl( $block );
+    $block['imageurl'] = XOOPS_URL . xoops_getModuleOption ( 'img_dir', 'news' ) .' /medium/';
+    $block['thumburl'] = XOOPS_URL . xoops_getModuleOption ( 'img_dir', 'news' ) .' /thumb/';
+    $block['width'] = xoops_getModuleOption('imgwidth', 'news');
+    $block['float'] = xoops_getModuleOption('imgfloat', 'news');
     // Add styles
-    $xoTheme->addStylesheet(XOOPS_URL . '/modules/' . $NewsModule->getVar('dirname') . '/css/blocks.css', null);
+    $xoTheme->addStylesheet(XOOPS_URL . '/modules/news/css/blocks.css', null);
     // Return block array
     return $block;
 }
@@ -57,14 +54,14 @@ function news_page_edit($options) {
 
     $criteria = new CriteriaCompo();
     $criteria->add(new Criteria('story_status', '1'));
-    $content = $story_handler->getObjects($criteria);
+    $story = $story_handler->getObjects($criteria);
     $form = _NEWS_MB_SELECTPAGE . '<select name="options[]">';
-    foreach (array_keys($content) as $i) {
-        $form .= '<option value="' . $content[$i]->getVar('story_id') . '"';
-        if ($options[0] == $content[$i]->getVar('story_id')) {
+    foreach (array_keys($story) as $i) {
+        $form .= '<option value="' . $story[$i]->getVar('story_id') . '"';
+        if ($options[0] == $story[$i]->getVar('story_id')) {
             $form .= " selected='selected'";
         }
-        $form .= ">" . $content[$i]->getVar('story_title') . "</option>\n";
+        $form .= ">" . $story[$i]->getVar('story_title') . "</option>\n";
     }
     $form .= "</select>\n";
     //$form .= "<input type='hidden' value='" . $options[1] . "'>\n";

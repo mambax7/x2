@@ -14,8 +14,7 @@
  *
  * @copyright   The XOOPS Project http://sourceforge.net/projects/xoops/
  * @license     http://www.fsf.org/copyleft/gpl.html GNU public license
- * @author      Andricq Nicolas (AKA MusS)
- * @package     forcontent
+ * @author      Hossein Azizabadi (AKA Voltan)
  * @version     $Id$
  */
 
@@ -24,12 +23,15 @@ if (!defined('XOOPS_ROOT_PATH')) {
 }
 
 require_once XOOPS_ROOT_PATH . '/modules/news/include/functions.php';
-include_once XOOPS_ROOT_PATH . '/modules/news/class/perm.php';
+require_once XOOPS_ROOT_PATH . '/modules/news/class/perm.php';
 require_once XOOPS_ROOT_PATH . '/modules/news/class/utils.php';
 require_once XOOPS_ROOT_PATH . '/class/template.php';
+require_once XOOPS_ROOT_PATH . "/class/pagenav.php";
 
-$modsDirname = basename(dirname(__FILE__));
-
-$module_handler =& xoops_gethandler('module');
-$NewsModule =& $module_handler->getByDirname($modsDirname);
+// Initialize content handler
+$story_handler = xoops_getmodulehandler('story', 'news');
+$topic_handler = xoops_getmodulehandler('topic', 'news');
+$file_handler = xoops_getmodulehandler('file', 'news');
+$rate_handler = xoops_getmodulehandler('rate', 'news');
+$perm_handler = NewsPermission::getHandler();
 ?>

@@ -14,7 +14,7 @@
  *
  * @copyright   The XOOPS Project http://sourceforge.net/projects/xoops/
  * @license     http://www.fsf.org/copyleft/gpl.html GNU public license
- * @author      Andricq Nicolas (AKA MusS)
+ * @author      Hossein Azizabadi (AKA Voltan)
  * @version     $Id$
  */
 
@@ -32,6 +32,7 @@ define('_NEWS_MD_COM','Comment');
 define('_NEWS_MD_RELATED','Related articles');
 define("_NEWS_MD_HOME","Home");
 define("_NEWS_MD_IMPORTANT","Immediate ");
+define("_NEWS_MD_SUBTOPICS","SubTopics List");
 // Link
 define('_NEWS_MD_NEXT','Next page');
 define('_NEWS_MD_PREV','Previous page');
@@ -80,6 +81,8 @@ define("_NEWS_MD_BOOKMARK_TO_GOOLGEBUZZ","Bookmark to Google Buzz");
 define("_NEWS_MD_BOOKMARK_TO_GOOLGEREADER","Bookmark to Google Reader");
 define("_NEWS_MD_BOOKMARK_TO_GOOLGEBOOKMARKS","Bookmark to Google Bookmarks");
 // Topic 
+define("_NEWS_MD_TOPICS","Topics");
+define("_NEWS_MD_TOPIC_LIST","List of Topics");
 define("_NEWS_MD_TOPIC_ID","ID");
 define("_NEWS_MD_TOPIC_NAME","Title");
 define("_NEWS_MD_TOPIC_DESC","Description");
@@ -91,5 +94,6 @@ define("_NEWS_MD_ARCHIVE_VIEW","Hits");
 define("_NEWS_MD_ARCHIVE_DATE","Date");
 define("_NEWS_MD_ARCHIVE_TOPIC","Topic");
 define("_NEWS_MD_ARCHIVE_TOTAL","Total Stores");
-
+// Submit
+define("_NEWS_MD_SUBMIT","Submit story");
 ?>

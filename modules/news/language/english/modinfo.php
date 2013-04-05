@@ -14,7 +14,7 @@
  *
  * @copyright   The XOOPS Project http://sourceforge.net/projects/xoops/
  * @license     http://www.fsf.org/copyleft/gpl.html GNU public license
- * @author      Andricq Nicolas (AKA MusS)
+ * @author      Hossein Azizabadi (AKA Voltan)
  * @version     $Id$
  */
 
@@ -92,6 +92,9 @@ define('_NEWS_MI_DISPTITLE_DESC','');
 // Topic
 define('_NEWS_MI_DISPTOPIC','Display Topic title');
 define('_NEWS_MI_DISPTOPIC_DESC','');
+// SubTopic
+define('_NEWS_MI_DISPSUB','Display SubTopic list');
+define('_NEWS_MI_DISPSUB_DESC','');
 // Date
 define('_NEWS_MI_DISPDATE','Display Date');
 define('_NEWS_MI_DISPDATE_DESC','');
@@ -273,6 +276,7 @@ define('_NEWS_MI_BREAK_PRINT','Print');
 define('_NEWS_MI_BREAK_BREADCRUMB','Breadcrumb');
 define('_NEWS_MI_BREAK_COMNOTI','Comments and notifications');
 define('_NEWS_MI_BREAK_FILE','File');
+define('_NEWS_MI_BREAK_VOTE','Vote');
 //install/action
 define('_NEWS_MI_SQL_FOUND','SQL Database found');
 define('_NEWS_MI_CREATE_TABLES','Create Tables');
@@ -296,5 +300,7 @@ define('_NEWS_MI_RELATED','Related table');
 define('_NEWS_MI_RELATED_DESC','When you use this option, a summary containing links to all the recent published articles is visible at the bottom of each article');  
 define('_NEWS_MI_RELATED_LIMIT','Related limit');
 define('_NEWS_MI_RELATED_LIMIT_DESC','Number of articles for show in Related table');  	 
+// Vote
+define('_NEWS_MI_VOTE_ACTIVE','Active vote system');
 
 ?>

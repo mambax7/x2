@@ -15,29 +15,29 @@
  *
  * @copyright   The XOOPS Project http://sourceforge.net/projects/xoops/
  * @license     http://www.fsf.org/copyleft/gpl.html GNU public license
- * @author      Andricq Nicolas (AKA MusS)
+ * @author      Hossein Azizabadi (AKA Voltan)
  * @version     $Id$
  */
 
 require dirname(__FILE__) . '/header.php';
-if (!isset($NewsModule)) exit('Module not found');
+
 
 $modversion = array(
     // Main setting
-    'name' => $modsDirname,
+    'name' => _MI_NEWS_NAME,
     'description' => _MI_NEWS_DESC,
-    'version' => 1.82,
+    'version' => 1.83,
     'author' => '',
     'credits' => '',
     'license' => 'GNU GPL 2.0',
     'license_url' => 'www.gnu.org/licenses/gpl-2.0.html/',
     'image' => 'images/logo.png',
-    'dirname' => $modsDirname,
-    'release_date' => '2011/12/30',
+    'dirname' => 'news',
+    'release_date' => '2013/1/15',
     'module_website_url' => "",
     'module_website_name' => "",
     'help' => 'page=help',
-    'module_status' => "Final",
+    'module_status' => "Alpha2",
     // Admin things
     'system_menu' => 1,
     'hasAdmin' => 1,
@@ -46,7 +46,6 @@ $modversion = array(
     // Modules scripts
     'onInstall' => 'include/functions_install.php',
     'onUpdate' => 'include/functions_update.php',
-    'onUninstall' => 'include/functions_uninstall.php',
     // Main menu
     'hasMain' => 1,
     // Recherche
@@ -62,6 +61,13 @@ $modversion = array(
      'min_db' => array('mysql'=>'5.0.7', 'mysqli'=>'5.0.7'),
      'min_admin' => '1.1'
 );
+
+// SQL
+$modversion['sqlfile']['mysql'] = "sql/mysql.sql";
+$modversion['tables'][1] = "news_story";
+$modversion['tables'][2] = "news_topic";
+$modversion['tables'][3] = "news_file";
+$modversion['tables'][4] = "news_rate";
 
 //Recherche
 $modversion["search"]["file"] = "include/search.inc.php";
@@ -82,12 +88,15 @@ $modversion['templates'][] = array('file' => 'news_index_news.html', 'descriptio
 $modversion['templates'][] = array('file' => 'news_index_list.html', 'description' => '');
 $modversion['templates'][] = array('file' => 'news_index_table.html', 'description' => '');
 $modversion['templates'][] = array('file' => 'news_index_photo.html', 'description' => '');
+$modversion['templates'][] = array('file' => 'news_index_topic.html', 'description' => '');
 $modversion['templates'][] = array('file' => 'news_article.html', 'description' => '');
 $modversion['templates'][] = array('file' => 'news_rss.html', 'description' => '');
 $modversion['templates'][] = array('file' => 'news_bookmarkme.html', 'description' => '');
 $modversion['templates'][] = array('file' => 'news_header.html', 'description' => '');
 $modversion['templates'][] = array('file' => 'news_topic.html', 'description' => '');
+$modversion['templates'][] = array('file' => 'news_topic_list.html', 'description' => '');
 $modversion['templates'][] = array('file' => 'news_archive.html', 'description' => '');
+$modversion['templates'][] = array('file' => 'news_submit.html', 'description' => '');
 
 // Menu
 $modversion['sub'][] = array(
@@ -107,7 +116,7 @@ $modversion['blocks'][] = array(
     'description' => '',
     'show_func' => 'news_page_show',
     'edit_func' => 'news_page_edit',
-    'options' => '0|' . $modversion['dirname'],
+    'options' => '0|news',
     'template' => 'news_block_page.html');
 
 $modversion['blocks'][] = array(
@@ -116,7 +125,7 @@ $modversion['blocks'][] = array(
     'description' => '',
     'show_func' => 'news_list_show',
     'edit_func' => 'news_list_edit',
-    'options' => $modversion['dirname'] . '|news|10|100|1|1|1|story_publish|180|left|DESC|0|'. XOOPS_URL.'|0|0',
+    'options' => 'news|news|10|100|1|1|1|story_publish|180|left|DESC|0|'. XOOPS_URL.'|0|0',
     'template' => 'news_block_list.html');
 
 $modversion['blocks'][] = array(
@@ -125,7 +134,7 @@ $modversion['blocks'][] = array(
     'description' => '',
     'show_func' => 'news_topic_show',
     'edit_func' => 'news_topic_edit',
-    'options' => $modversion['dirname'] . '|list|0|0|0|left|DESC|topic_id',
+    'options' => 'news|list|0|0|0|left|DESC|topic_id',
     'template' => 'news_block_topic.html');
     
 $modversion['blocks'][] = array(
@@ -134,7 +143,7 @@ $modversion['blocks'][] = array(
     'description' => '',
     'show_func' => 'news_slide_show',
     'edit_func' => 'news_slide_edit',
-    'options' => $modversion['dirname'] . '|5|scrollable|50|200|400|200|180|180|0',
+    'options' => 'news|5|scrollable|50|200|400|200|180|180|0',
     'template' => 'news_block_slide.html');
     
 $modversion['blocks'][] = array(
@@ -143,7 +152,7 @@ $modversion['blocks'][] = array(
     'description' => '',
     'show_func' => 'news_marquee_show',
     'edit_func' => 'news_marquee_edit',
-    'options' => $modversion['dirname'] . '|5|50|1|0',
+    'options' => 'news|5|50|1|0',
     'template' => 'news_block_marquee.html');            
     
 // Settings
@@ -238,7 +247,7 @@ $modversion['config'][] = array(
     'formtype' => 'select',
     'valuetype' => 'text',
     'options' => array(_NEWS_MI_URL_STANDARD => 'none', _NEWS_MI_URL_REWRITE => 'rewrite' , _NEWS_MI_URL_SHORT => 'short' , _NEWS_MI_URL_ID => 'id' , _NEWS_MI_URL_TOPIC => 'topic'),
-    'default' => 'none');
+    'default' => 'id');
 
 $modversion['config'][] = array(
     'name' => 'rewrite_mode',
@@ -264,7 +273,7 @@ $modversion['config'][] = array(
     'description' => '_NEWS_MI_REWRITENAME_DESC',
     'formtype' => 'textbox',
     'valuetype' => 'text',
-    'default' => $modversion['dirname']);
+    'default' => 'news');
 
 $modversion['config'][] = array(
     'name' => 'rewrite_ext',
@@ -339,6 +348,14 @@ $modversion['config'][] = array(
     'formtype' => 'yesno',
     'valuetype' => 'int',
     'default' => 1);
+    
+$modversion['config'][] = array(
+    'name' => 'disp_sub',
+    'title' => '_NEWS_MI_DISPSUB',
+    'description' => '_NEWS_MI_DISPSUB_DESC',
+    'formtype' => 'yesno',
+    'valuetype' => 'int',
+    'default' => 1);    
 
 $modversion['config'][] = array(
     'name' => 'disp_author',
@@ -794,32 +811,6 @@ $modversion['config'][] = array(
     'default' => 'head');
 
 $modversion['config'][] = array(
-    'name' => 'admin_index_limit',
-    'title' => '_NEWS_MI_ADMIN_INDEX_LIMIT',
-    'description' => '_NEWS_MI_ADMIN_INDEX_LIMIT_DESC',
-    'formtype' => 'textbox',
-    'valuetype' => 'int',
-    'default' => 5);
-
-$modversion['config'][] = array(
-    'name' => 'admin_showorder',
-    'title' => '_NEWS_MI_ADMIN_SHOWORDER',
-    'description' => '_NEWS_MI_ADMIN_SHOWORDER_DESC',
-    'formtype' => 'select',
-    'valuetype' => 'text',
-    'options' => array(_NEWS_MI_DESC => 'DESC', _NEWS_MI_ASC => 'ASC'),
-    'default' => 1);
-
-$modversion['config'][] = array(
-    'name' => 'admin_showsort',
-    'title' => '_NEWS_MI_ADMIN_SHOWSORT',
-    'description' => '_NEWS_MI_ADMIN_SHOWSORT_DESC',
-    'formtype' => 'select',
-    'valuetype' => 'text',
-    'options' => array(_NEWS_MI_SHOWSORT_1 => 'story_id', _NEWS_MI_SHOWSORT_2 => 'story_publish', _NEWS_MI_SHOWSORT_3 => 'story_update', _NEWS_MI_SHOWSORT_4 => 'story_title', _NEWS_MI_SHOWSORT_5 => 'story_order', _NEWS_MI_SHOWSORT_6 => 'RAND()'),
-    'default' => 1);
-
-$modversion['config'][] = array(
     'name' => 'admin_perpage',
     'title' => '_NEWS_MI_ADMIN_PERPAGE',
     'description' => '_NEWS_MI_ADMIN_PERPAGE_DESC',
@@ -828,31 +819,29 @@ $modversion['config'][] = array(
     'default' => 50);
 
 $modversion['config'][] = array(
-    'name' => 'admin_showorder_topic',
-    'title' => '_NEWS_MI_ADMIN_SHOWORDER_TOPIC',
-    'description' => '_NEWS_MI_ADMIN_SHOWORDER_TOPIC_DESC',
-    'formtype' => 'select',
-    'valuetype' => 'text',
-    'options' => array(_NEWS_MI_DESC => 'DESC', _NEWS_MI_ASC => 'ASC'),
-    'default' => 1);
-
-$modversion['config'][] = array(
-    'name' => 'admin_showsort_topic',
-    'title' => '_NEWS_MI_ADMIN_SHOWSORT_TOPIC',
-    'description' => '_NEWS_MI_ADMIN_SHOWSORT_TOPIC_DESC',
-    'formtype' => 'select',
-    'valuetype' => 'text',
-    'options' => array(_NEWS_MI_ADMIN_SHOWSORT_TOPIC_1 => 'topic_id', _NEWS_MI_ADMIN_SHOWSORT_TOPIC_2 => 'topic_weight', _NEWS_MI_ADMIN_SHOWSORT_TOPIC_3 => 'topic_date_created'),
-    'default' => 1);
-
-$modversion['config'][] = array(
     'name' => 'admin_perpage_topic',
     'title' => '_NEWS_MI_ADMIN_PERPAGE_TOPIC',
     'description' => '_NEWS_MI_ADMIN_PERPAGE_TOPIC_DESC',
     'formtype' => 'textbox',
     'valuetype' => 'int',
-    'default' => 10);
+    'default' => 20);
 
+$modversion['config'][] = array(
+    'name' => 'break',
+    'title' => '_NEWS_MI_BREAK_VOTE',
+    'description' => '',
+    'formtype' => 'line_break',
+    'valuetype' => 'textbox',
+    'default' => 'head');
+
+$modversion['config'][] = array(
+    'name' => 'vote_active',
+    'title' => '_NEWS_MI_VOTE_ACTIVE',
+    'description' => '_NEWS_MI_VOTE_ACTIVE_DESC',
+    'formtype' => 'yesno',
+    'valuetype' => 'int',
+    'default' => 1);
+     
 $modversion['config'][] = array(
     'name' => 'break',
     'title' => '_NEWS_MI_BREAK_COMNOTI',

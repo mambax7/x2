@@ -14,7 +14,7 @@
  *
  * @copyright   The XOOPS Project http://sourceforge.net/projects/xoops/
  * @license     http://www.fsf.org/copyleft/gpl.html GNU public license
- * @author      Hossein Azizabadi (Aka Voltan)
+ * @author      Hossein Azizabadi (AKA Voltan)
  * @version     $Id$
  */ 
 
@@ -32,7 +32,6 @@ function news_slide_show($options) {
     $block = array();
     $story_infos = array();
     
-    $NewsModule = $options[0];
     $story_infos['story_limit'] = $options[1];
     $block['slidetype'] = $options[2];
     $story_infos['title_lenght'] = $options[3];
@@ -52,9 +51,8 @@ function news_slide_show($options) {
     array_shift($options);
     array_shift($options);
 
-    $NewsModule = $module_handler->getByDirname($NewsModule);
     $story_infos['topics'] = $topic_handler->getall ();
-    $block['slide'] = $story_handler->News_Slide($NewsModule, $story_infos ,$options);
+    $block['slide'] = $story_handler->News_StorySlide($story_infos ,$options);
     
     switch($block['slidetype']) {
     	
@@ -83,18 +81,18 @@ function news_slide_show($options) {
 					width: '. $block['slidewidth']/2 .'px;
 				}';
 			 $xoTheme->addScript("browse.php?Frameworks/jquery/jquery.js");
-		    $xoTheme->addScript(XOOPS_URL . '/modules/' . $NewsModule->getVar('dirname') . '/js/scrollable/scrollable.js');
-		    $xoTheme->addScript(XOOPS_URL . '/modules/' . $NewsModule->getVar('dirname') . '/js/scrollable/setting.js');
-			 $xoTheme->addStylesheet(XOOPS_URL . '/modules/' . $NewsModule->getVar('dirname') . '/css/scrollable.css');
+		    $xoTheme->addScript(XOOPS_URL . '/modules/news/js/scrollable/scrollable.js');
+		    $xoTheme->addScript(XOOPS_URL . '/modules/news/js/scrollable/setting.js');
+			 $xoTheme->addStylesheet(XOOPS_URL . '/modules/news/css/scrollable.css');
 			 $xoTheme->addStylesheet( null, array ('rel' => 'stylesheet'), $style );
 		    break;
 		    
 		 case 'sliderkit':
 	       $xoTheme->addScript("browse.php?Frameworks/jquery/jquery.js");
-		    $xoTheme->addScript(XOOPS_URL . '/modules/' . $NewsModule->getVar('dirname') . '/js/sliderkit/sliderkit.min.js');
-		    $xoTheme->addScript(XOOPS_URL . '/modules/' . $NewsModule->getVar('dirname') . '/js/sliderkit/sliderkitsetting.js');
-			 $xoTheme->addStylesheet(XOOPS_URL . '/modules/' . $NewsModule->getVar('dirname') . '/css/sliderkit-core.css');	
-			 $xoTheme->addStylesheet(XOOPS_URL . '/modules/' . $NewsModule->getVar('dirname') . '/css/sliderkit-demos.css');
+		    $xoTheme->addScript(XOOPS_URL . '/modules/news/js/sliderkit/sliderkit.min.js');
+		    $xoTheme->addScript(XOOPS_URL . '/modules/news/js/sliderkit/sliderkitsetting.js');
+			 $xoTheme->addStylesheet(XOOPS_URL . '/modules/news/css/sliderkit-core.css');	
+			 $xoTheme->addStylesheet(XOOPS_URL . '/modules/news/css/sliderkit-demos.css');
 		    break;   	
     }	
     
@@ -108,7 +106,6 @@ function news_slide_edit($options) {
     $story_handler = xoops_getmodulehandler('story', 'news');
     $topic_handler = xoops_getmodulehandler('topic', 'news');
     $module_handler = xoops_gethandler('module');
-    $NewsModule = $module_handler->getByDirname($options[0]);
 
     $criteria = new CriteriaCompo();
     $criteria->setSort('topic_weight ASC, topic_title');

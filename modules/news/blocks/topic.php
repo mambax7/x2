@@ -14,7 +14,7 @@
  *
  * @copyright   The XOOPS Project http://sourceforge.net/projects/xoops/
  * @license     http://www.fsf.org/copyleft/gpl.html GNU public license
- * @author      Hossein Azizabadi (Aka Voltan)
+ * @author      Hossein Azizabadi (AKA Voltan)
  * @version     $Id$
  */ 
 
@@ -26,7 +26,6 @@ function news_topic_show($options) {
     $module_handler = xoops_gethandler('module');
     
     $block = array();
-    $NewsModule = $options[0];
     $block['showtype'] = $options[1];
     $block['img'] = $options[2];
     $block['description'] = $options[3];
@@ -44,12 +43,11 @@ function news_topic_show($options) {
     array_shift($options);
     array_shift($options);
     
-    $NewsModule = $module_handler->getByDirname($NewsModule);
     
     if($count) {
-	    $info['newscountbytopic'] = $story_handler->News_GetNewsCountByTopic();
+	    $info['newscountbytopic'] = $story_handler->News_StoryCountByTopic();
     }
-    $topics = $topic_handler->News_GetBlockTopics($NewsModule, $info);
+    $topics = $topic_handler->News_TopicBlockList($info);
     $block['topics'] = $topics;
     $block['float'] = $float;
     $block['count'] = $count;
@@ -58,8 +56,6 @@ function news_topic_show($options) {
 
 function news_topic_edit($options) {
 	
-	 $module_handler = xoops_gethandler('module');
-    $NewsModule = $module_handler->getByDirname($options[0]);
     
     $form = "<input type=\"hidden\" name=\"options[]\" value=\"" . $options[0] . "\" />";
     

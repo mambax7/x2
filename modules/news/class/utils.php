@@ -21,30 +21,30 @@
 class NewsUtils {
 	
 	/**
-	 * Uploadimg function
+	 * Uploadimg public function
 	 *
 	 * For manage all upload parts for images
 	 * Add topic , Edit topic , Add article , Edit article
 	 */
-	function News_UploadImg($NewsModule, $type, $obj, $image) {
+	public function News_UtilityUploadImg($type, $obj, $image) {
 		include_once XOOPS_ROOT_PATH . "/class/uploader.php";
-		$pach_original = XOOPS_ROOT_PATH . xoops_getModuleOption ( 'img_dir', $NewsModule->getVar ( 'dirname' ) ) .'/original/';
-		$pach_medium = XOOPS_ROOT_PATH . xoops_getModuleOption ( 'img_dir', $NewsModule->getVar ( 'dirname' ) ) .'/medium/';
-		$pach_thumb = XOOPS_ROOT_PATH . xoops_getModuleOption ( 'img_dir', $NewsModule->getVar ( 'dirname' ) ) .'/thumb/';
+		$pach_original = XOOPS_ROOT_PATH . xoops_getModuleOption ( 'img_dir', 'news') . '/original/';
+		$pach_medium = XOOPS_ROOT_PATH . xoops_getModuleOption ( 'img_dir', 'news') . '/medium/';
+		$pach_thumb = XOOPS_ROOT_PATH . xoops_getModuleOption ( 'img_dir', 'news') . '/thumb/';
 		
-		$uploader_img = new XoopsMediaUploader ( $pach_original , xoops_getModuleOption ( 'img_mime', $NewsModule->getVar ( 'dirname' ) ), xoops_getModuleOption ( 'img_size', $NewsModule->getVar ( 'dirname' ) ), xoops_getModuleOption ( 'img_maxwidth', $NewsModule->getVar ( 'dirname' ) ), xoops_getModuleOption ( 'img_maxheight', $NewsModule->getVar ( 'dirname' ) ) );
+		$uploader_img = new XoopsMediaUploader ( $pach_original , xoops_getModuleOption ( 'img_mime', 'news' ), xoops_getModuleOption ( 'img_size', 'news' ), xoops_getModuleOption ( 'img_maxwidth', 'news' ), xoops_getModuleOption ( 'img_maxheight', 'news' ) );
 		if ($uploader_img->fetchMedia ( $type )) {
 			$uploader_img->setPrefix ( $type . '_' );
 			$uploader_img->fetchMedia ( $type );
 			if (! $uploader_img->upload ()) {
 				$errors = $uploader_img->getErrors ();
-				self::News_Redirect ( "javascript:history.go(-1)", 3, $errors );
+				self::News_UtilityRedirect ( "javascript:history.go(-1)", 3, $errors );
 				xoops_cp_footer ();
 			   exit ();
 			} else {
 				$obj->setVar ( $type, $uploader_img->getSavedFileName () );
-				self::News_ResizePicture($pach_original . $uploader_img->getSavedFileName () , $pach_medium . $uploader_img->getSavedFileName () , xoops_getModuleOption ( 'img_mediumwidth', $NewsModule->getVar ( 'dirname' ) ) , xoops_getModuleOption ( 'img_mediumheight', $NewsModule->getVar ( 'dirname' ) ));
-				self::News_ResizePicture($pach_original . $uploader_img->getSavedFileName () , $pach_thumb . $uploader_img->getSavedFileName (), xoops_getModuleOption ( 'img_thumbwidth', $NewsModule->getVar ( 'dirname' ) ) , xoops_getModuleOption ( 'img_thumbheight', $NewsModule->getVar ( 'dirname' ) ));
+				self::News_UtilityResizePicture($pach_original . $uploader_img->getSavedFileName () , $pach_medium . $uploader_img->getSavedFileName () , xoops_getModuleOption ( 'img_mediumwidth', 'news' ) , xoops_getModuleOption ( 'img_mediumheight', 'news' ));
+				self::News_UtilityResizePicture($pach_original . $uploader_img->getSavedFileName () , $pach_thumb . $uploader_img->getSavedFileName (), xoops_getModuleOption ( 'img_thumbwidth', 'news' ) , xoops_getModuleOption ( 'img_thumbheight', 'news' ));
 			}
 		} else {
 			if (isset ( $image )) {
@@ -54,16 +54,16 @@ class NewsUtils {
 	}
 	
 	/**
-	 * Deleteimg function
+	 * Deleteimg public function
 	 *
 	 * For Deleteing uploaded images
 	 * Edit topic ,Edit article
 	 */
-	function News_DeleteImg($NewsModule, $type, $obj) {
+	public function News_UtilityDeleteImg( $type, $obj) {
 		if ($obj->getVar ( $type )) {
 			
 			// delete original image
-			$currentPicture = XOOPS_ROOT_PATH . xoops_getModuleOption ( 'img_dir', $NewsModule->getVar ( 'dirname' ) ) .'/original/'. $obj->getVar ( $type );
+			$currentPicture = XOOPS_ROOT_PATH . xoops_getModuleOption ( 'img_dir', 'news' ) .'/original/'. $obj->getVar ( $type );
 			if (is_file ( $currentPicture ) && file_exists ( $currentPicture )) {
 				if (! unlink ( $currentPicture )) {
 					trigger_error ( "Error, impossible to delete the picture attached to this article" );
@@ -71,7 +71,7 @@ class NewsUtils {
 			}
 			
 			// delete original medium
-			$currentPicture = XOOPS_ROOT_PATH . xoops_getModuleOption ( 'img_dir', $NewsModule->getVar ( 'dirname' ) ) .'/medium/'. $obj->getVar ( $type );
+			$currentPicture = XOOPS_ROOT_PATH . xoops_getModuleOption ( 'img_dir', 'news' ) .'/medium/'. $obj->getVar ( $type );
 			if (is_file ( $currentPicture ) && file_exists ( $currentPicture )) {
 				if (! unlink ( $currentPicture )) {
 					trigger_error ( "Error, impossible to delete the picture attached to this article" );
@@ -79,7 +79,7 @@ class NewsUtils {
 			}
 			
 			// delete original thumb
-			$currentPicture = XOOPS_ROOT_PATH . xoops_getModuleOption ( 'img_dir', $NewsModule->getVar ( 'dirname' ) ) .'/thumb/'. $obj->getVar ( $type );
+			$currentPicture = XOOPS_ROOT_PATH . xoops_getModuleOption ( 'img_dir', 'news' ) .'/thumb/'. $obj->getVar ( $type );
 			if (is_file ( $currentPicture ) && file_exists ( $currentPicture )) {
 				if (! unlink ( $currentPicture )) {
 					trigger_error ( "Error, impossible to delete the picture attached to this article" );
@@ -90,13 +90,13 @@ class NewsUtils {
 	}
 	
 	/**
-	 * Uploadfile function
+	 * Uploadfile public function
 	 *
 	 * For manage all upload parts for files
 	 */
-	function News_UploadFile($NewsModule, $type, $obj, $file) {   
+	public function News_UtilityUploadFile( $type, $obj, $file) {   
       include_once XOOPS_ROOT_PATH . "/class/uploader.php";
-		$uploader = new XoopsMediaUploader(XOOPS_ROOT_PATH . xoops_getModuleOption ( 'file_dir', $NewsModule->getVar ( 'dirname' ) ), explode('|',xoops_getModuleOption ( 'file_mime', $NewsModule->getVar ( 'dirname' ) )), xoops_getModuleOption ( 'file_size', $NewsModule->getVar ( 'dirname' ) ));
+		$uploader = new XoopsMediaUploader(XOOPS_ROOT_PATH . xoops_getModuleOption ( 'file_dir', 'news' ), explode('|',xoops_getModuleOption ( 'file_mime', 'news' )), xoops_getModuleOption ( 'file_size', 'news' ));
       if ($uploader->fetchMedia($type)) {
       	$uploader->setPrefix ( $type . '_' );
 			$uploader->fetchMedia ( $type );
@@ -108,7 +108,7 @@ class NewsUtils {
 			}
 		} else {
 			$errors = $uploader->getErrors ();
-			self::News_Redirect ( "javascript:history.go(-1)", 3, $errors );
+			self::News_UtilityRedirect ( "javascript:history.go(-1)", 3, $errors );
 			xoops_cp_footer ();
 		   exit ();
 		}
@@ -120,21 +120,20 @@ class NewsUtils {
 	 * @license     GNU GPL 2 (http://www.gnu.org/licenses/old-licenses/gpl-2.0.html)
 	 * @author      Gregory Mage (Aka Mage)
 	 */
-	function News_Breadcrumb($NewsModule, $lasturl, $breadcrumbtitle, $topic_id, $prefix = ' &raquo; ', $title = 'topic_title') {
+	public function News_UtilityBreadcrumb( $lasturl, $breadcrumbtitle, $topic_id, $prefix = ' &raquo; ', $title = 'topic_title') {
 		$breadcrumb = '';
 		include_once XOOPS_ROOT_PATH . '/modules/news/class/topic.php';
 		require_once $GLOBALS ['xoops']->path ( '/class/tree.php' );
 		$topic_Handler = xoops_getModuleHandler ( "topic", "news" );
 		
 		$criteria = new CriteriaCompo ();
-		$criteria->add ( new Criteria ( 'topic_modid', $NewsModule->getVar ( 'mid' ) ) );
 		$topics_arr = $topic_Handler->getall ( $criteria );
 		$mytree = new XoopsObjectTree ( $topics_arr, 'topic_id', 'topic_pid' );
 		
-		if (xoops_getModuleOption ( 'bc_tohome', $NewsModule->getVar ( 'dirname' ) )) {
+		if (xoops_getModuleOption ( 'bc_tohome', 'news' )) {
 			$breadcrumb = '<a title="' ._NEWS_MD_HOME . '" href="' . XOOPS_URL . '">' . _NEWS_MD_HOME . '</a>' . $prefix;
 		}
-		$breadcrumb = $breadcrumb . self::News_PathTreeUrl ( $mytree, $topic_id, $topics_arr, $title, $prefix, true, 'ASC', $lasturl, xoops_getModuleOption ( 'bc_modname', $NewsModule->getVar ( 'dirname' ) ) , $NewsModule);
+		$breadcrumb = $breadcrumb . self::News_UtilityPathTreeUrl ( $mytree, $topic_id, $topics_arr, $title, $prefix, true, 'ASC', $lasturl, xoops_getModuleOption ( 'bc_modname', 'news' ) );
 		if ($lasturl) {
 			$breadcrumb = $breadcrumb . $prefix . $breadcrumbtitle;
 		}
@@ -147,16 +146,16 @@ class NewsUtils {
 	 * @license     GNU GPL 2 (http://www.gnu.org/licenses/old-licenses/gpl-2.0.html)
 	 * @author      Gregory Mage (Aka Mage)
 	 */
-	function News_PathTreeUrl($mytree, $key, $topic_array, $title, $prefix = ' &raquo; ', $link = false, $order = 'ASC', $lasturl = false, $modname , $NewsModule) {
+	public function News_UtilityPathTreeUrl($mytree, $key, $topic_array, $title, $prefix = ' &raquo; ', $link = false, $order = 'ASC', $lasturl = false, $modname ) {
 		global $xoopsModule;
 		$topic_parent = $mytree->getAllParent ( $key );
 		if ($order == 'ASC') {
 			$topic_parent = array_reverse ( $topic_parent );
 			if ($link == true && $modname) {
 				if($key) {
-					$Path = '<a title="' . $xoopsModule->name () . '" href="'.XOOPS_URL.'/modules/'.$NewsModule->getVar ( 'dirname' ).'/index.php">' . $xoopsModule->name () . '</a>' . $prefix;
+					$Path = '<a title="' . $xoopsModule->name () . '" href="'.XOOPS_URL.'/modules/news/index.php">' . $xoopsModule->name () . '</a>' . $prefix;
 				} else {
-					$Path = '<a title="' . $xoopsModule->name () . '" href="'.XOOPS_URL.'/modules/'.$NewsModule->getVar ( 'dirname' ).'/index.php">' . $xoopsModule->name () . '</a>';
+					$Path = '<a title="' . $xoopsModule->name () . '" href="'.XOOPS_URL.'/modules/news/index.php">' . $xoopsModule->name () . '</a>';
 				}
 			} elseif ($modname) {
 				$Path = $xoopsModule->name () . $prefix;
@@ -178,7 +177,7 @@ class NewsUtils {
 				'topic_title'=>$topic_parent [$j]->getVar ( 'topic_title' ),
             'topic_alias'=>$topic_parent [$j]->getVar ( 'topic_alias' ),
 				);
-				$Path .= '<a title="' . $topic_parent [$j]->getVar ( $title ) . '" href="'.self::News_TopicUrl($NewsModule->getVar ( 'dirname' ), $topic_info).'">' . $topic_parent [$j]->getVar ( $title ) . '</a>' . $prefix;
+				$Path .= '<a title="' . $topic_parent [$j]->getVar ( $title ) . '" href="'.self::News_UtilityTopicUrl($topic_info).'">' . $topic_parent [$j]->getVar ( $title ) . '</a>' . $prefix;
 			} else {
 				$Path .= $topic_parent [$j]->getVar ( $title ) . $prefix;
 			}
@@ -186,7 +185,7 @@ class NewsUtils {
 		if ($order == 'ASC') {
 			if (array_key_exists ( $key, $topic_array )) {
 				if ($lasturl == true) {
-					$first_category = '<a title="' . $topic_array [$key]->getVar ( $title ) . '" href="'.self::News_TopicUrl($NewsModule->getVar ( 'dirname' ), array('topic_id'=>$topic_array [$key]->getVar ( 'topic_id' ),'topic_alias'=>$topic_array [$key]->getVar ( 'topic_alias' ))).'">' . $topic_array [$key]->getVar ( $title ) . '</a>';
+					$first_category = '<a title="' . $topic_array [$key]->getVar ( $title ) . '" href="'.self::News_UtilityTopicUrl(array('topic_id'=>$topic_array [$key]->getVar ( 'topic_id' ),'topic_alias'=>$topic_array [$key]->getVar ( 'topic_alias' ))).'">' . $topic_array [$key]->getVar ( $title ) . '</a>';
 				} else {
 					$first_category = $topic_array [$key]->getVar ( $title );
 				}
@@ -196,7 +195,7 @@ class NewsUtils {
 			$Path .= $first_category;
 		} else {
 			if ($link == true) {
-				$Path .= '<a title="' . $xoopsModule->name () . '" href="'.XOOPS_URL.'/modules/'.$NewsModule->getVar ( 'dirname' ).'/index.php">' . $xoopsModule->name () . '</a>';
+				$Path .= '<a title="' . $xoopsModule->name () . '" href="'.XOOPS_URL.'/modules/news/index.php">' . $xoopsModule->name () . '</a>';
 			} else {
 				$Path .= $xoopsModule->name ();
 			}
@@ -205,7 +204,7 @@ class NewsUtils {
 	}
 	
 	/**
-	 * Homepage function
+	 * Homepage public function
 	 * For management module index page
 	 * Types:
 	 * list all contents from all topics whit out topic list
@@ -213,40 +212,40 @@ class NewsUtils {
 	 * List all static pages
 	 * Show selected content
 	 */
-	function News_Homepage($NewsModule, $story_infos, $type) {
+	public function News_UtilityHomePage( $story_infos, $type) {
 		
 		$story_handler = xoops_getmodulehandler ( 'story', 'news' );
 		$topic_handler = xoops_getmodulehandler ( 'topic', 'news' );
 		if (! $type) {
 			$type = 'type1';
 		}
-		$contents = array ();
+		$stores = array ();
 		
 		switch ($type) {
 			
 			// list all contents from all topics whit out topic list
 			case 'type1' :
-				$contents ['content'] = $story_handler->News_GetContentList ( $NewsModule, $story_infos );
-				$contents ['numrows'] = $story_handler->News_GetContentCount ( $NewsModule, $story_infos );
-				if ($contents ['numrows'] > $story_infos ['story_limit']) {
+				$stores ['content'] = $story_handler->News_StoryList ($story_infos );
+				$stores ['numrows'] = $story_handler->News_StoryCount ($story_infos );
+				if ($stores ['numrows'] > $story_infos ['story_limit']) {
 					if ($story_infos ['story_topic']) {
-						$story_pagenav = new XoopsPageNav ( $contents ['numrows'], $story_infos ['story_limit'], $story_infos ['story_start'], 'start', 'limit=' . $story_infos ['story_limit'] . '&storytopic=' . $story_infos ['story_topic'] );
+						$story_pagenav = new XoopsPageNav ( $stores ['numrows'], $story_infos ['story_limit'], $story_infos ['story_start'], 'start', 'limit=' . $story_infos ['story_limit'] . '&storytopic=' . $story_infos ['story_topic'] );
 					} else {
-						$story_pagenav = new XoopsPageNav ( $contents ['numrows'], $story_infos ['story_limit'], $story_infos ['story_start'], 'start', 'limit=' . $story_infos ['story_limit'] );
+						$story_pagenav = new XoopsPageNav ( $stores ['numrows'], $story_infos ['story_limit'], $story_infos ['story_start'], 'start', 'limit=' . $story_infos ['story_limit'] );
 					}
-					$contents ['pagenav'] = $story_pagenav->renderNav ( 4 );
+					$stores ['pagenav'] = $story_pagenav->renderNav ( 4 );
 				} else {
-					$contents ['pagenav'] = '';
+					$stores ['pagenav'] = '';
 				}
 				break;
 			
 			// List all topics
 			case 'type2' :
-			     $topic_order = xoops_getModuleOption('admin_showorder_topic', $NewsModule->getVar('dirname'));
-              $topic_sort = xoops_getModuleOption('admin_showsort_topic', $NewsModule->getVar('dirname'));
+			     $topic_order = xoops_getModuleOption('admin_showorder_topic', 'news');
+              $topic_sort = xoops_getModuleOption('admin_showsort_topic', 'news');
               $topic_parent = $story_infos ['story_topic'];
-		        $contents ['content'] = $topic_handler->News_GetTopics($NewsModule, null, 0, $topic_order, $topic_sort, null, 1 , $topic_parent);
-			     $contents ['pagenav'] = null;
+		        $stores ['content'] = $topic_handler->News_TopicList( null, 0, $topic_order, $topic_sort, null, 1 , $topic_parent);
+			     $stores ['pagenav'] = null;
 				break;
 			
 			// List all static pages
@@ -258,17 +257,17 @@ class NewsUtils {
             $story_infos ['story_static'] = 0;
             $story_infos ['admin_side'] = 1;
             
-				$contents ['content'] = $story_handler->News_GetContentList ( $NewsModule, $story_infos );
-				$contents ['numrows'] = $story_handler->News_GetContentCount ( $NewsModule, $story_infos );
-				if ($contents ['numrows'] > $story_infos ['story_limit']) {
+				$stores ['content'] = $story_handler->News_StoryList ($story_infos );
+				$stores ['numrows'] = $story_handler->News_StoryCount ($story_infos );
+				if ($stores ['numrows'] > $story_infos ['story_limit']) {
 					if ($story_topic) {
-						$story_pagenav = new XoopsPageNav ( $contents ['numrows'], $story_infos ['story_limit'], $story_infos ['story_start'], 'start', 'limit=' . $story_infos ['story_limit'] . '&storytopic=' . $story_infos ['story_topic'] );
+						$story_pagenav = new XoopsPageNav ( $stores ['numrows'], $story_infos ['story_limit'], $story_infos ['story_start'], 'start', 'limit=' . $story_infos ['story_limit'] . '&storytopic=' . $story_infos ['story_topic'] );
 					} else {
-						$story_pagenav = new XoopsPageNav ( $contents ['numrows'], $story_infos ['story_limit'], $story_infos ['story_start'], 'start', 'limit=' . $story_infos ['story_limit'] );
+						$story_pagenav = new XoopsPageNav ( $stores ['numrows'], $story_infos ['story_limit'], $story_infos ['story_start'], 'start', 'limit=' . $story_infos ['story_limit'] );
 					}
-					$contents ['pagenav'] = $story_pagenav->renderNav ( 4 );
+					$stores ['pagenav'] = $story_pagenav->renderNav ( 4 );
 				} else {
-					$contents ['pagenav'] = '';
+					$stores ['pagenav'] = '';
 				}
 				break;
 			
@@ -280,14 +279,14 @@ class NewsUtils {
 				   	$alias = $story_infos['alias'];
 				   } else {
 				   	$id = 0;
-				   	$title = xoops_getModuleOption ( 'static_name', $NewsModule->getVar ( 'dirname' ));
-				   	$alias = self::News_AliasFilter(xoops_getModuleOption('static_name', $NewsModule->getVar ( 'dirname' )));
+				   	$title = xoops_getModuleOption ( 'static_name', 'news');
+				   	$alias = self::News_UtilityAliasFilter(xoops_getModuleOption('static_name', 'news'));
 				   }		
 					$default_info = array('id'=> $id , 'title' => $title , 'alias' => $alias);
-					$contents ['content'] = $story_handler->News_ContentDefault($NewsModule, $default_info);
+					$stores ['content'] = $story_handler->News_StoryDefault( $default_info);
 				break;
 		}
-		return $contents;
+		return $stores;
 	}
 	
 	/**
@@ -296,7 +295,7 @@ class NewsUtils {
 	 * @license     GNU GPL 2 (http://www.gnu.org/licenses/old-licenses/gpl-2.0.html)
 	 * @author      Hervé Thouzard (ttp://www.instant-zero.com)
 	*/
-	function News_FieldExists($fieldname,$table)
+	public function News_UtilityFieldExists($fieldname,$table)
 	{
 		global $xoopsDB;
 		$result=$xoopsDB->queryF("SHOW COLUMNS FROM	$table LIKE '$fieldname'");
@@ -309,12 +308,22 @@ class NewsUtils {
 	 * @license     GNU GPL 2 (http://www.gnu.org/licenses/old-licenses/gpl-2.0.html)
 	 * @author      Hervé Thouzard (ttp://www.instant-zero.com)
 	 */
-	function News_AddField($field, $table)
+	public function News_UtilityAddField($field, $table)
 	{
 		global $xoopsDB;
 		$result=$xoopsDB->queryF('ALTER TABLE ' . $table . ' ADD ' . $field);
 		return $result;
-	}	
+	}
+	
+	/**
+	 * DROP a field from a mysql table
+	 */
+	public function News_UtilityDropField($field, $table)
+	{
+		global $xoopsDB;
+		$result=$xoopsDB->queryF('ALTER TABLE ' . $table . ' DROP ' . $field);
+		return $result;
+	}
 		
 	/**
     * Verify that a mysql table exists
@@ -322,7 +331,7 @@ class NewsUtils {
 	 * @license     GNU GPL 2 (http://www.gnu.org/licenses/old-licenses/gpl-2.0.html)
 	 * @author      Hervé Thouzard (ttp://www.instant-zero.com)
 	*/
-	function News_TableExists($tablename)
+	public function News_UtilityTableExists($tablename)
 	{
 		global $xoopsDB;
 		$result = $xoopsDB->queryF("SHOW TABLES LIKE '$tablename'");
@@ -335,7 +344,7 @@ class NewsUtils {
 	 * @license     GNU GPL 2 (http://www.gnu.org/licenses/old-licenses/gpl-2.0.html)
 	 * @author      Hervé Thouzard (ttp://www.instant-zero.com)
 	*/
-	function News_AddTable($query) {
+	public function News_UtilityAddTable($query) {
 		global $xoopsDB;
 		$result = $xoopsDB->queryF($query);
 		return $result;
@@ -354,10 +363,11 @@ class NewsUtils {
 	 * @param boolean $keep_original	Do we have to keep the original picture ?
 	 * @param string $fit	Resize mode (see the wideImage library for more information)
 	 */
-	function News_ResizePicture($src_path , $dst_path, $param_width , $param_height, $keep_original = true, $fit = 'inside')
+	public function News_UtilityResizePicture($src_path , $dst_path, $param_width , $param_height, $keep_original = true, $fit = 'inside')
 	{
 	  require XOOPS_ROOT_PATH.'/modules/news/class/wideimage/WideImage.inc.php';
 	  $resize = true;
+	  echo $src_path;
 	    $pictureDimensions = getimagesize($src_path);
 	    if (is_array($pictureDimensions)) {
 	        $pictureWidth = $pictureDimensions[0];
@@ -372,10 +382,10 @@ class NewsUtils {
 	    $result = $img->resize($param_width, $param_height, $fit);
 	    $result->saveToFile($dst_path);
 	   } else {
-	        @copy($src_path, $dst_path);
+	        copy($src_path, $dst_path);
 	   }
 	  if(!$keep_original) {
-	    @unlink( $src_path ) ;
+	    unlink( $src_path ) ;
 	  }
 	  return true;
 	}
@@ -383,7 +393,7 @@ class NewsUtils {
    /**
     *  Rebuild
 	 */
-	function News_Rebuild ($handler , $item_id , $op , $set , $get , $start_id, $end_id) {
+	public function News_UtilityRebuild ($handler , $item_id , $op , $set , $get , $start_id, $end_id) {
 		// check last_id
 		$criteria = new CriteriaCompo ();
 		$criteria->setSort ( $item_id );
@@ -395,13 +405,13 @@ class NewsUtils {
 		}
 
 		// set end_id
-		$end_id = $end_id + 100;
+		$end_id = $end_id + 250;
 		
 		// do rebuild
 		while ($start_id <= $end_id) {
 	      $obj = $handler->get ( $start_id );
 	      if($obj) {
-	      	$new = self::News_DoRebuild ($op , $obj->getVar ( $get, 'e' ));
+	      	$new = self::News_UtilityDoRebuild ($op , $obj->getVar ( $get, 'e' ));
 		      $obj->setVar ( $set , $new); 
 	        	$handler->insert ( $obj );
 	      }
@@ -411,7 +421,7 @@ class NewsUtils {
 	   
 	   // Redirect
 	   if($start_id <= $last_id) {
-	      self::News_Redirect('tools.php?op='.$op.'&start_id='.$start_id.'&end_id='.$end_id, 3, _NEWS_AM_MSG_INPROC);
+	      self::News_UtilityRedirect('tools.php?op='.$op.'&start_id='.$start_id.'&end_id='.$end_id, 3, _NEWS_AM_MSG_INPROC);
 	      xoops_cp_footer ();
          exit ();
       }
@@ -421,22 +431,22 @@ class NewsUtils {
 	/**
     *  Make text for Rebuild
 	 */
-	function News_DoRebuild ($op , $get) {
+	public function News_UtilityDoRebuild ($op , $get) {
 		switch($op) {
 			case 'alias':
-				$item = self::News_AliasFilter($get);
+				$item = self::News_UtilityAliasFilter($get);
 				break;
 				
 			case 'topicalias':
-				$item = self::News_AliasFilter($get);
+				$item = self::News_UtilityAliasFilter($get);
 				break;
 				
 			case 'keyword':
-				$item = self::News_MetaFilter($get);
+				$item = self::News_UtilityMetaFilter($get);
 				break;
 				
 			case 'description':
-				$item = self::News_AjaxFilter($get);
+				$item = self::News_UtilityAjaxFilter($get);
 				break;			
 		}	
 		return $item;
@@ -446,7 +456,7 @@ class NewsUtils {
 	 * Get variables passed by GET or POST method
 	 *
 	 */
-	function News_CleanVars(&$global, $key, $default = '', $type = 'int') {
+	public function News_UtilityCleanVars(&$global, $key, $default = '', $type = 'int') {
 	
 	    switch ($type) {
 	        case 'array':
@@ -472,8 +482,8 @@ class NewsUtils {
 	 * Check html editors
 	 *
 	 */
-	function News_isEditorHTML($module) {
-	   $editor = xoops_getModuleOption('form_editor', $module);
+	public function News_UtilityEditorHTML() {
+	   $editor = xoops_getModuleOption('form_editor', 'news');
       if (isset($editor) && in_array($editor, array('tinymce', 'fckeditor', 'koivi', 'inbetween', 'spaw', 'ckeditor'))) {
         return true;
       }
@@ -487,7 +497,7 @@ class NewsUtils {
 	 * @String  $type   string replacement for any blank case
 	 * @return  $url
 	 */
-	function News_AliasFilter($url, $type = '', $module = 'news') {
+	public function News_UtilityAliasFilter($url, $type = '', $module = 'news') {
 	
 	    // Get regular expression from module setting. default setting is : `[^a-z0-9]`i
 	    $regular_expression = xoops_getModuleOption('regular_expression', $module);
@@ -509,7 +519,7 @@ class NewsUtils {
 	 * @String  $type   string replacement for any blank case
 	 * @return  $meta
 	 */
-	function News_MetaFilter($meta, $type = '', $module = 'news') {
+	public function News_UtilityMetaFilter($meta, $type = '', $module = 'news') {
 	
 	    // Get regular expression from module setting. default setting is : `[^a-z0-9]`i
 	    $regular_expression = xoops_getModuleOption('regular_expression', $module);
@@ -531,7 +541,7 @@ class NewsUtils {
 	 * @String  $type   string replacement for any blank case
 	 * @return  $text
 	 */
-	function News_AjaxFilter($text, $type = '') {
+	public function News_UtilityAjaxFilter($text, $type = '') {
 		 $text = strip_tags($text);
 	    $text = preg_replace("`\[.*\]`U", "", $text);
 	    $text = preg_replace('`&(amp;)?#?[a-z0-9]+;`i', '-', $text);
@@ -544,7 +554,7 @@ class NewsUtils {
 	/**
 	 * Build Redirect page
 	 */
-	function News_Redirect($url, $time = 3, $message = '') {
+	public function News_UtilityRedirect($url, $time = 3, $message = '') {
 	    global $xoopsModule;
 	    if (preg_match("/[\\0-\\31]|about:|script:/i", $url)) {
 	        if (!preg_match('/^\b(java)?script:([\s]*)history\.go\(-[0-9]*\)([\s]*[;]*[\s]*)$/si', $url)) {
@@ -567,7 +577,7 @@ class NewsUtils {
 	/**
 	 * Build Message
 	 */
-	function News_Message($page, $message = '', $id , $handler) {
+	public function News_UtilityMessage($page, $message = '', $id , $handler) {
 	    global $xoopsModule;
 	    $tpl = new XoopsTpl();
 	    //ob_start();
@@ -583,9 +593,9 @@ class NewsUtils {
    /**
 	 * Build topic URL
 	 */
-	function News_TopicUrl($module, $array) {
-	    $lenght_id = xoops_getModuleOption('lenght_id', $module);
-	    $friendly_url = xoops_getModuleOption('friendly_url', $module);
+	public function News_UtilityTopicUrl($array) {
+	    $lenght_id = xoops_getModuleOption('lenght_id', 'news');
+	    $friendly_url = xoops_getModuleOption('friendly_url', 'news');
 	    if ($lenght_id != 0) {
 	        $id = $array['topic_id'];
 	        while (strlen($id) < $lenght_id)
@@ -599,40 +609,40 @@ class NewsUtils {
 	        case 'none':
 	            $rewrite_base = '/modules/';
 	            $page = 'page=' . $array['topic_alias'];
-	            return XOOPS_URL . $rewrite_base . $module . '/index.php?storytopic=' . $id . '&amp;' . $page;
+	            return XOOPS_URL . $rewrite_base . '/news/index.php?storytopic=' . $id . '&amp;' . $page;
 	            break;
 	
 	        case 'rewrite':
-	            $rewrite_base = xoops_getModuleOption('rewrite_mode', $module);
-	            $rewrite_ext = xoops_getModuleOption('rewrite_ext', $module);
+	            $rewrite_base = xoops_getModuleOption('rewrite_mode', 'news');
+	            $rewrite_ext = xoops_getModuleOption('rewrite_ext', 'news');
 	            $module_name = '';
-	            if(xoops_getModuleOption('rewrite_name', $module)) {
-		            $module_name = xoops_getModuleOption('rewrite_name', $module) . '/';
+	            if(xoops_getModuleOption('rewrite_name', 'news')) {
+		            $module_name = xoops_getModuleOption('rewrite_name', 'news') . '/';
 	            }	
 	            $page = $array['topic_alias'];
-	            $type = xoops_getModuleOption('topic_name', $module) . '/';
+	            $type = xoops_getModuleOption('topic_name', 'news') . '/';
 	            $id = $id . '/';
 	            return XOOPS_URL . $rewrite_base . $module_name . $type . $id . $page . $rewrite_ext;
 	            break;
 	            
 	         case 'short':  
-	            $rewrite_base = xoops_getModuleOption('rewrite_mode', $module);
-	            $rewrite_ext = xoops_getModuleOption('rewrite_ext', $module);
+	            $rewrite_base = xoops_getModuleOption('rewrite_mode', 'news');
+	            $rewrite_ext = xoops_getModuleOption('rewrite_ext', 'news');
 	            $module_name = '';
-	            if(xoops_getModuleOption('rewrite_name', $module)) {
-		            $module_name = xoops_getModuleOption('rewrite_name', $module) . '/';
+	            if(xoops_getModuleOption('rewrite_name', 'news')) {
+		            $module_name = xoops_getModuleOption('rewrite_name', 'news') . '/';
 	            }	
 	            $page = $array['topic_alias'];
-	            $type = xoops_getModuleOption('topic_name', $module) . '/';
+	            $type = xoops_getModuleOption('topic_name', 'news') . '/';
 	            return XOOPS_URL . $rewrite_base . $module_name . $type . $page . $rewrite_ext;
 	            break; 
 	         
 	         case 'id': 
-	            return XOOPS_URL . '/modules/' . $module . '/index.php?storytopic=' . $id;
+	            return XOOPS_URL . '/modules/news/index.php?storytopic=' . $id;
 	            break;
 	          
 	         case 'topic': 
-	            return XOOPS_URL . '/modules/' . $module . '/index.php?storytopic=' . $id;
+	            return XOOPS_URL . '/modules/news/index.php?storytopic=' . $id;
 	            break;     
 	    }
 	    
@@ -641,10 +651,10 @@ class NewsUtils {
    /**
 	 * Build Item URL
 	 */
-	function News_Url($module, $array , $type = 'article') {
+	public function News_UtilityStoryUrl($array , $type = 'article') {
 	    $comment = '';
-	    $lenght_id = xoops_getModuleOption('lenght_id', $module);
-	    $friendly_url = xoops_getModuleOption('friendly_url', $module);
+	    $lenght_id = xoops_getModuleOption('lenght_id', 'news');
+	    $friendly_url = xoops_getModuleOption('friendly_url', 'news');
 	
 	    if ($lenght_id != 0) {
 	        $id = $array['story_id'];
@@ -657,7 +667,7 @@ class NewsUtils {
 	    if (isset($array['topic_alias']) && $array['topic_alias']) {
 	        $topic_name = $array['topic_alias'];
 	    } else {
-	        $topic_name = self::News_AliasFilter(xoops_getModuleOption('static_name', $module));
+	        $topic_name = self::News_UtilityAliasFilter(xoops_getModuleOption('static_name', 'news'));
 	    }
 	
 	    switch ($friendly_url) {
@@ -668,18 +678,18 @@ class NewsUtils {
 	            }
 	            $rewrite_base = '/modules/';
 	            $page = 'page=' . $array['story_alias'];
-	            return XOOPS_URL . $rewrite_base . $module . '/' . $type . '.php?' . $topic_name . 'storyid=' . $id . '&amp;' . $page . $comment;
+	            return XOOPS_URL . $rewrite_base . 'news' . '/' . $type . '.php?' . $topic_name . 'storyid=' . $id . '&amp;' . $page . $comment;
 	            break;
 	
 	        case 'rewrite':
 	            if($topic_name) {
 	                $topic_name = $topic_name . '/';
 	            }   
-	            $rewrite_base = xoops_getModuleOption('rewrite_mode', $module);
-	            $rewrite_ext = xoops_getModuleOption('rewrite_ext', $module);
+	            $rewrite_base = xoops_getModuleOption('rewrite_mode', 'news');
+	            $rewrite_ext = xoops_getModuleOption('rewrite_ext', 'news');
 	            $module_name = '';
-	            if(xoops_getModuleOption('rewrite_name', $module)) {
-		            $module_name = xoops_getModuleOption('rewrite_name', $module) . '/';
+	            if(xoops_getModuleOption('rewrite_name', 'news')) {
+		            $module_name = xoops_getModuleOption('rewrite_name', 'news') . '/';
 	            }	
 	            $page = $array['story_alias'];
 	            $type = $type . '/';
@@ -697,11 +707,11 @@ class NewsUtils {
 	            if($topic_name) {
 	                $topic_name = $topic_name . '/';
 	            }   
-	            $rewrite_base = xoops_getModuleOption('rewrite_mode', $module);
-	            $rewrite_ext = xoops_getModuleOption('rewrite_ext', $module);
+	            $rewrite_base = xoops_getModuleOption('rewrite_mode', 'news');
+	            $rewrite_ext = xoops_getModuleOption('rewrite_ext', 'news');
 	            $module_name = '';
-	            if(xoops_getModuleOption('rewrite_name', $module)) {
-		            $module_name = xoops_getModuleOption('rewrite_name', $module) . '/';
+	            if(xoops_getModuleOption('rewrite_name', 'news')) {
+		            $module_name = xoops_getModuleOption('rewrite_name','news') . '/';
 	            }	
 	            $page = $array['story_alias'];
 	            $type = $type . '/';
@@ -715,13 +725,36 @@ class NewsUtils {
 	            break;
 	          
 	         case 'id': 
-	            return XOOPS_URL . '/modules/' . $module . '/' . $type . '.php?storyid=' . $id;
+	            return XOOPS_URL . '/modules/news/' . $type . '.php?storyid=' . $id;
 	            break; 
 	            
 	         case 'topic': 
-	            return XOOPS_URL . '/modules/' . $module . '/' . $type . '.php?storytopic=' . $array['story_topic'] . '&amp;storyid=' . $id;
+	            return XOOPS_URL . '/modules/news/' . $type . '.php?storytopic=' . $array['story_topic'] . '&amp;storyid=' . $id;
 	            break;        
 	    }
+	}
+	
+	public function News_UtilityGetTree($elements, $parentId = 0)
+   {
+        $branch = array();
+        foreach ($elements as $element) {
+            if ($element['topic_pid'] == $parentId) {
+                $children = self::News_UtilityGetTree($elements, $element['topic_id']);
+                if ($children) {
+                    $element['topic_children'] = $children;
+                }
+                $branch[$element['topic_id']] = $element;
+                unset($elements[$element['topic_id']]);
+            }
+        }
+        return $branch;
+   }
+   
+   public function News_UtilityCurrentUserID()
+	{
+		global $xoopsUser;
+		$uid = is_object($xoopsUser) ? $xoopsUser->getVar('uid') : 0;
+		return $uid;
 	}
 }
 ?>

@@ -14,7 +14,7 @@
  *
  * @copyright   The XOOPS Project http://sourceforge.net/projects/xoops/
  * @license     http://www.fsf.org/copyleft/gpl.html GNU public license
- * @author      Andricq Nicolas (AKA MusS)
+ * @author      Hossein Azizabadi (AKA Voltan)
  * @version     $Id$
  */
 
@@ -32,6 +32,7 @@ define('_NEWS_MD_COM','نظر');
 define('_NEWS_MD_RELATED','مطالب مرتبط');
 define("_NEWS_MD_HOME","خانه");
 define("_NEWS_MD_IMPORTANT","مهم ");
+define("_NEWS_MD_SUBTOPICS","فهرست زیر شاخه ها");
 // Link
 define('_NEWS_MD_NEXT','صفحه بعدی');
 define('_NEWS_MD_PREV','صفحه قبلی');
@@ -80,6 +81,8 @@ define("_NEWS_MD_BOOKMARK_TO_GOOLGEBUZZ","بوکمارک در Google Buzz");
 define("_NEWS_MD_BOOKMARK_TO_GOOLGEREADER","بوکمارک در Google Reader");
 define("_NEWS_MD_BOOKMARK_TO_GOOLGEBOOKMARKS","بوکمارک در Google Bookmarks");
 // topic 
+define("_NEWS_MD_TOPICS","شاخه ها");
+define("_NEWS_MD_TOPIC_LIST","فهرست شاخه ها");
 define("_NEWS_MD_TOPIC_ID","شماره");
 define("_NEWS_MD_TOPIC_NAME","عنوان");
 define("_NEWS_MD_TOPIC_DESC","توضیحات");
@@ -91,5 +94,6 @@ define("_NEWS_MD_ARCHIVE_VIEW","بازدید");
 define("_NEWS_MD_ARCHIVE_DATE","تاریخ");
 define("_NEWS_MD_ARCHIVE_TOPIC","شاخه");
 define("_NEWS_MD_ARCHIVE_TOTAL","مجموع اخبار");
-
+// Submit
+define("_NEWS_MD_SUBMIT","Submit story");
 ?>

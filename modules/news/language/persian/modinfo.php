@@ -14,7 +14,7 @@
  *
  * @copyright   The XOOPS Project http://sourceforge.net/projects/xoops/
  * @license     http://www.fsf.org/copyleft/gpl.html GNU public license
- * @author      Andricq Nicolas (AKA MusS)
+ * @author      Hossein Azizabadi (AKA Voltan)
  * @version     $Id$
  */
 
@@ -89,9 +89,12 @@ define('_NEWS_MI_DISP_OPTION_TOPIC','تنظیمات شاخه');
 // Title
 define('_NEWS_MI_DISPTITLE','نمایش عنوان؟');
 define('_NEWS_MI_DISPTITLE_DESC','');
-// Title
+// Topic
 define('_NEWS_MI_DISPTOPIC','نمایش شاخه؟');
 define('_NEWS_MI_DISPTOPIC_DESC','');
+// SubTopic
+define('_NEWS_MI_DISPSUB','نمایش فهرست زیر شاخه ها؟');
+define('_NEWS_MI_DISPSUB_DESC','');
 // Date
 define('_NEWS_MI_DISPDATE','نمایش تاریخ؟');
 define('_NEWS_MI_DISPDATE_DESC','');
@@ -264,7 +267,7 @@ define('_NEWS_MI_FILE_MIME','پسوند های مجاز');
 define('_NEWS_MI_FILE_MIME_DESC','پسوند های مجاز برای آپلود . با | از هم جدا کنید');
 // break 
 define('_NEWS_MI_BREAK_GENERAL','سراسری');
-define('_NEWS_MI_BREAK_SEO','SEO');
+define('_NEWS_MI_BREAK_SEO','سئو');
 define('_NEWS_MI_BREAK_DISPLAY','نمایش');
 define('_NEWS_MI_BREAK_RSS','خوراک');
 define('_NEWS_MI_BREAK_IMAGE','تصویر');
@@ -272,7 +275,8 @@ define('_NEWS_MI_BREAK_ADMIN','مدیریت');
 define('_NEWS_MI_BREAK_PRINT','چاپ');
 define('_NEWS_MI_BREAK_BREADCRUMB','ناوبری');
 define('_NEWS_MI_BREAK_COMNOTI','نظر و آگاهی رسانی');
-define('_NEWS_MI_BREAK_FILE','File');
+define('_NEWS_MI_BREAK_FILE','فایل');
+define('_NEWS_MI_BREAK_VOTE','امتیاز دهی');
 //install/action
 define('_NEWS_MI_SQL_FOUND','دیتابیس SQL پیدا شد');
 define('_NEWS_MI_CREATE_TABLES','ساخت جدول');
@@ -296,5 +300,7 @@ define('_NEWS_MI_RELATED','اخبارمرتبط');
 define('_NEWS_MI_RELATED_DESC','وقتی شما این خبر را انتخاب کنید خلاصه ای از آخرین اخبار مشابه زیر هر خبر نمایش داده میشود.');  
 define('_NEWS_MI_RELATED_LIMIT','تعداد اخبار مرتبط');
 define('_NEWS_MI_RELATED_LIMIT_DESC','تعداد مطلبی که در فهرست اخبار مرتبط نمایش داده میشود');  	 
+// Vote
+define('_NEWS_MI_VOTE_ACTIVE','فعال کردن امکان امتیاز دهی');
 
 ?>

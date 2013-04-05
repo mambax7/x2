@@ -1,20 +1,11 @@
 <{include file="db:news_header.html"}>
-
 <div class="news">
-<!-- Display error message -->
-<{if $story_error}>
-	<div class="errorMsg"><{$story_error}></div>
-<{else}>
-
 	<div class="item">
-		<{if $content.story_titleview}>
-		<!-- Display content header -->
 		<div class="itemHead">
 			<div class="itemTitle">
 				<h2><{if $content.story_important}><span class="red bold"><{$smarty.const._NEWS_MD_IMPORTANT}></span><{/if}><{$content.story_title}></h2>
 			</div>
 		</div>
-		<{/if}>
 		<div class="itemInfo">
 			<{if $content.author}>
 			<span class="itemPoster"><{$smarty.const._NEWS_MD_AUTHOR}>: <a href="<{$xoops_url}>/user.php?id=<{$content.story_uid}>" title="<{$content.author}>"><{$content.author}></a><{if $alluserpost}> (<a href="<{$xoops_url}>/modules/<{$xoops_dirname}>/index.php?user=<{$content.story_uid}>" title="<{$smarty.const._NEWS_MD_AUTHOR_ALL_DESC}><{$content.author}>"><{$smarty.const._NEWS_MD_AUTHOR_ALL}></a>)<{/if}></span>
@@ -107,14 +98,41 @@
 			<{/foreach}>
 			</div>
 			<{/if}>
+			
+			<{if $vote}>
+			<div class="vote">
+				<input value="<{$content.story_rating}>" step="1" id="backing<{$content.story_id}>" type="range">
+				<div class="rateit" data-url="<{$xoops_url}>/modules/<{$xoops_dirname}>/ajax.php?op=rate" data-story="<{$content.story_id}>" data-rateit-backingfld="#backing<{$content.story_id}>" data-rateit-resetable="false" data-rateit-ispreset="true" data-rateit-min="0" data-rateit-max="10"></div>
+			</div>
+			<script type="text/javascript">
+			    $('.vote .rateit').bind('rated reset', function (e) {
+					var ri = $(this);
+					var rate = ri.rateit('vote');
+					var story = ri.data('story');
+					var url = ri.data('url');
+					ri.rateit('readonly', true);
+					$.ajax({
+						url: url,
+						data: { story: story, rate: rate},
+						type: 'POST',
+						dataType: "json",
+						success:function (result) {
+			        	   if (!result.status == 1) {
+				            alert(result.message);
+			        	   }
+			        }
+					});
+				});
+			</script>
+			<{/if}>
 		</div>
 		
 		<div class="itemFoot">
 			<div class="itemIcons floatleft">
 				<{if $xoops_isadmin}>
 				<span class="itemAdminLink">
-					<a href="<{$xoops_url}>/modules/<{$xoops_dirname}>/admin/article.php?op=edit_content&amp;story_id=<{$content.story_id}>" title="<{$smarty.const._NEWS_MD_EDIT}>"><img src="<{$xoops_url}>/modules/<{$xoops_dirname}>/images/icons/edit.png" alt="<{$smarty.const._story_EDIT}>"/></a>
-					<a href="<{$xoops_url}>/modules/<{$xoops_dirname}>/admin/article.php?op=delete&amp;story_id=<{$content.story_id}>" title="<{$smarty.const._NEWS_MD_DELETE}>"><img src="<{$xoops_url}>/modules/<{$xoops_dirname}>/images/icons/delete.png" alt="<{$smarty.const._story_DELETE}>"/></a>&nbsp;
+					<a href="<{$xoops_url}>/modules/<{$xoops_dirname}>/admin/article.php?op=edit_content&amp;story_id=<{$content.story_id}>" title="<{$smarty.const._NEWS_MD_EDIT}>"><img src="<{$xoops_url}>/modules/<{$xoops_dirname}>/images/icons/edit.png" alt="<{$smarty.const._NEWS_MD_EDIT}>"/></a>
+					<a href="<{$xoops_url}>/modules/<{$xoops_dirname}>/admin/article.php?op=delete&amp;story_id=<{$content.story_id}>" title="<{$smarty.const._NEWS_MD_DELETE}>"><img src="<{$xoops_url}>/modules/<{$xoops_dirname}>/images/icons/delete.png" alt="<{$smarty.const._NEWS_MD_DELETE}>"/></a>&nbsp;
 				</span>
 				<{/if}>
 				<{if $link.print}>
@@ -139,7 +157,6 @@
 			<div class="clear"></div>		
 		</div>
 	</div>
-	
 	<{if $tags}>
 	<div class="tagbar"><{include file="db:tag_bar.html"}></div>
 	<{/if}>
@@ -171,7 +188,6 @@
 	</div>
 	<{/if}> 
 	
-	<{if $content.story_comments}>
 	<div class="comments" id="comm">
 		<!-- start comments loop -->
 		<{if $comment_mode == "flat"}>
@@ -183,7 +199,4 @@
 		<{/if}>
 		<!-- end comments loop -->
 	</div>
-	<{/if}> 
-   
-<{/if}>
 </div>

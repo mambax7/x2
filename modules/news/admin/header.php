@@ -15,8 +15,7 @@
  *
  * @copyright   The XOOPS Project http://sourceforge.net/projects/xoops/
  * @license     http://www.fsf.org/copyleft/gpl.html GNU public license
- * @author      Andricq Nicolas (AKA MusS)
- * @package     forcontent
+ * @author      Hossein Azizabadi (AKA Voltan)
  * @version     $Id$
  */
 
@@ -24,8 +23,8 @@ require_once dirname(dirname(dirname(dirname(__FILE__)))) . '/mainfile.php';
 
 require_once XOOPS_ROOT_PATH . '/include/cp_header.php';
 require_once XOOPS_ROOT_PATH . '/class/tree.php';
-require_once XOOPS_ROOT_PATH . '/modules/news/class/folder.php';
 require_once XOOPS_ROOT_PATH . '/modules/news/include/functions.php';
+require_once XOOPS_ROOT_PATH . '/modules/news/class/perm.php';
 require_once XOOPS_ROOT_PATH . '/modules/news/class/utils.php';
 
 if ( file_exists($GLOBALS['xoops']->path('/Frameworks/moduleclasses/moduleadmin/moduleadmin.php'))){
@@ -38,7 +37,9 @@ if ( file_exists($GLOBALS['xoops']->path('/Frameworks/moduleclasses/moduleadmin/
 
 xoops_load('xoopsformloader');
 
-$module_handler = xoops_gethandler('module');
-$NewsModule = $module_handler->getByDirname(basename(dirname(dirname(__FILE__))));
-
+// Initialize content handler
+$story_handler = xoops_getmodulehandler( 'story', 'news' );
+$topic_handler = xoops_getmodulehandler( 'topic', 'news' );
+$file_handler = xoops_getmodulehandler('file', 'news');
+$perm_handler = NewsPermission::getHandler();
 ?>

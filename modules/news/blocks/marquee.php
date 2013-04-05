@@ -14,7 +14,7 @@
  *
  * @copyright   The XOOPS Project http://sourceforge.net/projects/xoops/
  * @license     http://www.fsf.org/copyleft/gpl.html GNU public license
- * @author      Hossein Azizabadi (Aka Voltan)
+ * @author      Hossein Azizabadi (AKA Voltan)
  * @version     $Id$
  */ 
 
@@ -32,7 +32,6 @@ function news_marquee_show($options) {
 
     $block = array();
     $story_infos = array();
-    $NewsModule = $options[0];
     $story_infos['story_limit'] = $options[1];
     $story_infos['title_lenght'] = $options[2];
     $block['show_date'] = $options[3];
@@ -42,14 +41,13 @@ function news_marquee_show($options) {
     array_shift($options);
     array_shift($options);
 
-    $NewsModule = $module_handler->getByDirname($NewsModule);
     $story_infos['topics'] = $topic_handler->getall ();
-    $block['marquee'] = $story_handler->News_Marquee($NewsModule, $story_infos ,$options);
+    $block['marquee'] = $story_handler->News_StoryMarquee($story_infos ,$options);
     
     $xoTheme->addScript("browse.php?Frameworks/jquery/jquery.js");
-	 $xoTheme->addScript(XOOPS_URL . '/modules/' . $NewsModule->getVar('dirname') . '/js/marquee/marquee.js');
-	 $xoTheme->addScript(XOOPS_URL . '/modules/' . $NewsModule->getVar('dirname') . '/js/marquee/setting.js');
-	 $xoTheme->addStylesheet(XOOPS_URL . '/modules/' . $NewsModule->getVar('dirname') . '/css/marquee.css');
+	 $xoTheme->addScript(XOOPS_URL . '/modules/news/js/marquee/marquee.js');
+	 $xoTheme->addScript(XOOPS_URL . '/modules/news/js/marquee/setting.js');
+	 $xoTheme->addStylesheet(XOOPS_URL . '/modules/news/css/marquee.css');
 		    
     return $block;
 }
@@ -59,8 +57,6 @@ function news_marquee_edit($options) {
 	 //appel de la class
     $story_handler = xoops_getmodulehandler('story', 'news');
     $topic_handler = xoops_getmodulehandler('topic', 'news');
-    $module_handler = xoops_gethandler('module');
-    $NewsModule = $module_handler->getByDirname($options[0]);
 
     $criteria = new CriteriaCompo();
     $criteria->setSort('topic_weight ASC, topic_title');

@@ -14,9 +14,7 @@
  *
  * @copyright   The XOOPS Project http://sourceforge.net/projects/xoops/
  * @license     http://www.fsf.org/copyleft/gpl.html GNU public license
- * @author      Andricq Nicolas (AKA MusS)
- * @author      Gregory Mage (Aka Mage)
- * @author      Hossein Azizabadi (Aka Voltan)
+ * @author      Hossein Azizabadi (AKA Voltan)
  * @version     $Id$
  */
  
@@ -33,7 +31,6 @@ function news_list_show($options) {
     global $xoTheme;
 
     $block = array();
-    $NewsModule = $options[0];
     $show = $options[1];
     $story_infos['story_limit'] = $options[2];
     $story_infos['lenght_title'] = $options[3];
@@ -65,8 +62,6 @@ function news_list_show($options) {
     array_shift($options);
     array_shift($options);
 
-    $NewsModule = $module_handler->getByDirname($NewsModule);
-    
     // Set story publish
     if($story_infos['story_sort'] == 'story_hits') {
     	 if($day) {
@@ -82,16 +77,16 @@ function news_list_show($options) {
     // Set topic limit
     if($topiclimit) {
     	$topics = array();
-    	$topics[] = NewsUtils::News_CleanVars ( $_GET, 'storytopic', 0, 'int' );
+    	$topics[] = NewsUtils::News_UtilityCleanVars ( $_GET, 'storytopic', 0, 'int' );
     } else {
     	$topics = $options;
     }		
 
     $story_infos ['topics'] = $topic_handler->getall ();
-    $contents = $story_handler->News_GetContentBlockList($NewsModule, $story_infos ,$topics);
+    $stores = $story_handler->News_StoryBlockList($story_infos ,$topics);
     
     if($show == 'spotlight') {
-	    $id = $story_handler->News_SpotlightId($contents);
+	    $id = $story_handler->News_StorySpotlightId($stores);
 	    $block['spotlightid'] = $id['spotlightid'];
        $block['subspotlightid1'] = $id['subspotlightid1'];
        $block['subspotlightid2'] = $id['subspotlightid2'];
@@ -100,16 +95,16 @@ function news_list_show($options) {
     // Add block data
 	 $block['show'] = $show;
     $block['img'] = $showimg;
-    $block['imageurl'] = XOOPS_URL . xoops_getModuleOption('img_dir', $NewsModule->getVar('dirname')) . '/medium/';
-    $block['thumburl'] = XOOPS_URL . xoops_getModuleOption('img_dir', $NewsModule->getVar('dirname')) . '/thumb/';
+    $block['imageurl'] = XOOPS_URL . xoops_getModuleOption ( 'img_dir', 'news' ) .' /medium/';
+    $block['thumburl'] = XOOPS_URL . xoops_getModuleOption ( 'img_dir', 'news' ) .' /thumb/';
     $block['description'] = $showdescription;
     $block['date'] = $showdate;
-    $block['contents'] = $contents;
+    $block['contents'] = $stores;
     $block['width'] = $width;
     $block['float'] = $float;
 
     // Add styles
-    $xoTheme->addStylesheet(XOOPS_URL . '/modules/' . $NewsModule->getVar('dirname') . '/css/blocks.css', null);
+    $xoTheme->addStylesheet(XOOPS_URL . '/modules/news/css/blocks.css', null);
 
     return $block;
 
@@ -121,7 +116,6 @@ function news_list_edit($options) {
     $story_handler = xoops_getmodulehandler('story', 'news');
     $topic_handler = xoops_getmodulehandler('topic', 'news');
     $module_handler = xoops_gethandler('module');
-    $NewsModule = $module_handler->getByDirname($options[0]);
 
     $criteria = new CriteriaCompo();
     $criteria->setSort('topic_weight ASC, topic_title');
@@ -177,7 +171,6 @@ function news_list_edit($options) {
     $story_sort->addOption("story_publish", _NEWS_MI_SHOWSORT_2);
     $story_sort->addOption("story_update", _NEWS_MI_SHOWSORT_3);
     $story_sort->addOption("story_title", _NEWS_MI_SHOWSORT_4);
-    $story_sort->addOption("story_order", _NEWS_MI_SHOWSORT_5);
     $story_sort->addOption("story_hits", _NEWS_MI_SHOWSORT_7);
     $story_sort->addOption("RAND()", _NEWS_MI_SHOWSORT_6);
     $form .= _NEWS_MI_SHOWSORT . " : " . $story_sort->render() . '<br />';

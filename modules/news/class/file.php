@@ -19,18 +19,21 @@
  */ 
 
 class news_file extends XoopsObject {
+		
+	public $db;
+	public $table;
 	
 	/**
 	 * Class constructor
 	 */
-	function news_file() {
+	public function news_file() {
 		$this->initVar ( "file_id", XOBJ_DTYPE_INT, '' );
-		$this->initVar ( "file_modid", XOBJ_DTYPE_INT, '' );
 		$this->initVar ( "file_title", XOBJ_DTYPE_TXTBOX, '' );
 		$this->initVar ( "file_name", XOBJ_DTYPE_TXTBOX, '' );
-		$this->initVar ( "file_content", XOBJ_DTYPE_INT, '' );
+		$this->initVar ( "file_story", XOBJ_DTYPE_INT, '' );
 		$this->initVar ( "file_date", XOBJ_DTYPE_INT, '' );
 		$this->initVar ( "file_type", XOBJ_DTYPE_TXTBOX, '' );
+		$this->initVar ( "file_mimetype", XOBJ_DTYPE_TXTBOX, '' );
 		$this->initVar ( "file_status", XOBJ_DTYPE_INT, 1 );
 		$this->initVar ( 'file_hits', XOBJ_DTYPE_INT, '' );
 
@@ -41,7 +44,7 @@ class news_file extends XoopsObject {
 	/**
 	 * File form
 	 */
-	function getForm($NewsModule) {
+	public function getForm() {
 		$form = new XoopsThemeForm ( _NEWS_AM_FILE_FORM, 'file', 'backend.php', 'post' );
 		$form->setExtra ( 'enctype="multipart/form-data"' );
 		
@@ -49,30 +52,28 @@ class news_file extends XoopsObject {
 			$form->addElement ( new XoopsFormHidden ( 'op', 'add_file' ) );
 		} else {
 			$form->addElement ( new XoopsFormHidden ( 'op', 'edit_file' ) );
-			$form->addElement ( new XoopsFormHidden ( 'file_previous', $this->getVar ( "file_content" ) ) );
+			$form->addElement ( new XoopsFormHidden ( 'file_previous', $this->getVar ( "file_story" ) ) );
 		}
 		$form->addElement ( new XoopsFormHidden ( 'file_id', $this->getVar ( 'file_id', 'e' ) ) );
-		$form->addElement ( new XoopsFormHidden ( 'file_modid', $NewsModule->getVar ( 'mid' ) ) );
 		$form->addElement ( new XoopsFormText ( _NEWS_AM_FILE_TITLE, "file_title", 50, 255, $this->getVar ( "file_title" ) ), true );
 		
 		$story_Handler = xoops_getModuleHandler ( "story", "news" );
 		$criteria = new CriteriaCompo ();
-		$criteria->add ( new Criteria ( 'story_modid', $NewsModule->getVar ( 'mid' ) ) );
 		$criteria->add ( new Criteria ( 'story_status', '1' ) );
-		$content = $story_Handler->getObjects ( $criteria );
+		$story = $story_Handler->getObjects ( $criteria );
 		
-		$select_content = new XoopsFormSelect(_NEWS_AM_FILE_CONTENT, 'file_content', $this->getVar("file_content"));
-      foreach (array_keys($content) as $i) {
-          $select_content->addOption($content[$i]->getVar("story_id"), $content[$i]->getVar("story_title"));
+		$select_content = new XoopsFormSelect(_NEWS_AM_FILE_CONTENT, 'file_story', $this->getVar("file_story"));
+      foreach (array_keys($story) as $i) {
+          $select_content->addOption($story[$i]->getVar("story_id"), $story[$i]->getVar("story_title"));
       }  
       $form->addElement ( $select_content ); 
 
 		$form->addElement ( new XoopsFormRadioYN ( _NEWS_AM_FILE_STATUS, 'file_status', $this->getVar ( 'file_status', 'e' ) ) );
 		
 		if ($this->isNew ()) {
-		$uploadirectory_file = xoops_getModuleOption ( 'file_dir', $NewsModule->getVar ( 'dirname' ) );
+		$uploadirectory_file = xoops_getModuleOption ( 'file_dir', 'news' );
 		$fileseltray_file = new XoopsFormElementTray ( _NEWS_AM_FILE, '<br />' );
-		$fileseltray_file->addElement ( new XoopsFormFile ( _NEWS_AM_FILE_SELECT, 'file_name', xoops_getModuleOption ( 'file_size', $NewsModule->getVar ( 'dirname' ) ) ), false );
+		$fileseltray_file->addElement ( new XoopsFormFile ( _NEWS_AM_FILE_SELECT, 'file_name', xoops_getModuleOption ( 'file_size', 'news' ) ), false );
 		$form->addElement ( $fileseltray_file );
 		}
 		// Submit buttons
@@ -93,7 +94,7 @@ class news_file extends XoopsObject {
 	 *
 	 * @return array
 	 **/
-	function toArray() {
+	public function toArray() {
 		$ret = array ();
 		$vars = $this->getVars ();
 		foreach ( array_keys ( $vars ) as $i ) {
@@ -106,19 +107,18 @@ class news_file extends XoopsObject {
 
 class NewsFileHandler extends XoopsPersistableObjectHandler {
 	
-	function NewsFileHandler($db) {
+	public function NewsFileHandler($db) {
 		parent::XoopsPersistableObjectHandler ( $db, 'news_file', 'news_file', 'file_id', 'file_title' );
 	}
 
    /**
 	 * Get file list in admin side
 	 */
-	function News_GetAdminFiles($NewsModule, $file , $content) {
+	public function News_FileAdminList($file , $story) {
 		$ret = array ();
 		$criteria = new CriteriaCompo ();
-		$criteria->add ( new Criteria ( 'file_modid', $NewsModule->getVar ( 'mid' ) ) );
 		if(isset($file['content'])) {
-			$criteria->add ( new Criteria ( 'file_content', $file['content'] ) );
+			$criteria->add ( new Criteria ( 'file_story', $file['content'] ) );
 			$criteria->add ( new Criteria ( 'file_status', 1 ) );
 		}	
 		$criteria->setSort ( $file['sort'] );
@@ -132,20 +132,20 @@ class NewsFileHandler extends XoopsPersistableObjectHandler {
 			foreach ( $files as $root ) {
 				$tab = array ();
 				$tab = $root->toArray ();
-				if(is_array($content)) {
-					foreach ( array_keys ( $content ) as $i ) {
-						$list [$i] ['file_title'] = $content [$i]->getVar ( "story_title" );
-						$list [$i] ['file_id'] = $content [$i]->getVar ( "story_id" );
+				if(is_array($story)) {
+					foreach ( array_keys ( $story ) as $i ) {
+						$list [$i] ['file_title'] = $story [$i]->getVar ( "story_title" );
+						$list [$i] ['file_id'] = $story [$i]->getVar ( "story_id" );
 					}
-					if ($root->getVar ( 'file_content' )) {
-						$tab ['content'] = $list [$root->getVar ( 'file_content' )] ['file_title'];
-						$tab ['contentid'] = $list [$root->getVar ( 'file_content' )] ['file_id'];
+					if ($root->getVar ( 'file_story' )) {
+						$tab ['content'] = $list [$root->getVar ( 'file_story' )] ['file_title'];
+						$tab ['contentid'] = $list [$root->getVar ( 'file_story' )] ['file_id'];
 					}
 				} else {
-					$tab ['content'] = $content->getVar ( "story_title" );
-					$tab ['contentid'] = $content->getVar ( "story_id" );
+					$tab ['content'] = $story->getVar ( "story_title" );
+					$tab ['contentid'] = $story->getVar ( "story_id" );
 				}	
-				$tab ['fileurl'] = XOOPS_URL . xoops_getModuleOption ( 'file_dir', $NewsModule->getVar ( 'dirname' ) ) . $root->getVar ( 'file_name' );
+				$tab ['fileurl'] = XOOPS_URL . xoops_getModuleOption ( 'file_dir', 'news' ) . $root->getVar ( 'file_name' );
 				$ret [] = $tab;
 			}
 		}
@@ -155,11 +155,10 @@ class NewsFileHandler extends XoopsPersistableObjectHandler {
 	/**
 	 * Get file list for each content
 	 */
-	function News_GetFiles($NewsModule, $file) {
+	public function News_FileList( $file) {
 		$ret = array ();
 		$criteria = new CriteriaCompo ();
-		$criteria->add ( new Criteria ( 'file_modid', $NewsModule->getVar ( 'mid' ) ) );
-		$criteria->add ( new Criteria ( 'file_content', $file['content'] ) );
+		$criteria->add ( new Criteria ( 'file_story', $file['content'] ) );
 		$criteria->add ( new Criteria ( 'file_status', 1 ) );
 		$criteria->setSort ( $file['sort'] );
 		$criteria->setOrder ( $file['order'] );
@@ -169,7 +168,7 @@ class NewsFileHandler extends XoopsPersistableObjectHandler {
 			foreach ( $files as $root ) {
 				$tab = array ();
 				$tab = $root->toArray ();
-				$tab ['fileurl'] = XOOPS_URL . xoops_getModuleOption ( 'file_dir', $NewsModule->getVar ( 'dirname' ) ) . '/' . $root->getVar ( 'file_name' );
+				$tab ['fileurl'] = XOOPS_URL . xoops_getModuleOption ( 'file_dir', 'news' ) . '/' . $root->getVar ( 'file_name' );
 				$ret [] = $tab;
 			}
 		}
@@ -179,9 +178,8 @@ class NewsFileHandler extends XoopsPersistableObjectHandler {
 	/**
 	 * Get file Count
 	 */	
-	function News_GetFileCount ($NewsModule) {
+	public function News_FileCount () {
 		$criteria = new CriteriaCompo ();
-		$criteria->add ( new Criteria ( 'file_modid', $NewsModule->getVar ( 'mid' ) ) );
 		return $this->getCount ( $criteria );
 	}	
 }
