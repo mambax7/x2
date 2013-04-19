@@ -410,7 +410,7 @@ class oledrion_products extends Oledrion_Object
     /**
      *
      */
-    public function isNew()
+    public function isNewProduct()
     {
         $time = time() - (60 * 60 * 24 * 10);
         if ($this->getVar('product_submitted') > $time) {
@@ -489,7 +489,7 @@ class oledrion_products extends Oledrion_Object
 
         $ret['product_shorten_summary'] = oledrion_utils::truncate_tagsafe($this->getVar('product_summary'), OLEDRION_SUMMARY_MAXLENGTH);
         $ret['product_shorten_description'] = oledrion_utils::truncate_tagsafe($this->getVar('product_description'), OLEDRION_SUMMARY_MAXLENGTH);
-        $ret['product_new'] = $this->isNew();
+        $ret['product_new'] = $this->isNewProduct();
         return $ret;
     }
 }

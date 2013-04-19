@@ -367,9 +367,10 @@ switch ($action) {
         $sform->addElement(new XoopsFormRadioYN(_OLEDRION_ONLINE_HLP, 'product_online', $item->getVar('product_online')), true);
         $sform->addElement(new XoopsFormText(_OLEDRION_DATE, 'product_date', 50, 255, $item->getVar('product_date', 'e')), false);
 
-        $date_submit = new XoopsFormTextDateSelect(_OLEDRION_DATE_SUBMIT, 'product_submitted', 15, $item->getVar('product_submitted', 'e'));
-        $date_submit->setDescription(_AM_OLEDRION_SUBDATE_HELP);
-        $sform->addElement($date_submit, false);
+        //$date_submit = new XoopsFormTextDateSelect(_OLEDRION_DATE_SUBMIT, 'product_submitted', 15, $item->getVar('product_submitted', 'e'));
+        //$date_submit->setDescription(_AM_OLEDRION_SUBDATE_HELP);
+        //$sform->addElement($date_submit, false);
+        $sform->addElement(new XoopsFormHidden('product_submitted', $item->getVar('product_submitted')));
 
         $sform->addElement(new XoopsFormHidden('product_hits', $item->getVar('product_hits')));
         $sform->addElement(new XoopsFormHidden('product_rating', $item->getVar('product_rating')));
@@ -546,12 +547,13 @@ switch ($action) {
             $add = false;
         } else {
             $item = $h_oledrion_products->create(true);
+            $item->setVar('product_submitted', time());
             $edit = false;
             $add = true;
         }
         $opRedirect = 'products';
         $item->setVars($_POST);
-        $item->setVar('product_submitted', strtotime($_POST['product_submitted']));
+        //$item->setVar('product_submitted', strtotime($_POST['product_submitted']));
 
         // Suppression de l'image principale
         if (isset($_POST['delpicture1']) && intval($_POST['delpicture1']) == 1) {
