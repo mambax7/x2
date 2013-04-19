@@ -80,18 +80,20 @@ if ($xoopsModuleConfig['downlimit'] == 1) {
         }
     }
 
-    $obj =& $downloadslimit_Handler->create();
+    $obj = $downloadslimit_Handler->create();
     $obj->setVar('downlimit_lid', $lid);
     $obj->setVar('downlimit_uid', !empty($xoopsUser) ? $xoopsUser->getVar('uid') : 0);
     $obj->setVar('downlimit_hostname', getenv("REMOTE_ADDR"));
     $obj->setVar('downlimit_date', strtotime(formatTimestamp(time())));
     $downloadslimit_Handler->insert($obj) or $obj->getHtmlErrors();
     // purge
-    $criteria = new CriteriaCompo();
-    $criteria->add(new Criteria('downlimit_date', (time() - 172800) , '<'));
-    $numrows = $downloadslimit_Handler->getCount($criteria);
-    echo 'a détruire: ' . $numrows . '<br/>';
-    $downloadslimit_Handler->deleteAll($criteria);
+    if($xoopsModuleConfig['purgelimit']) {
+	    $criteria = new CriteriaCompo();
+	    $criteria->add(new Criteria('downlimit_date', (time() - 172800) , '<'));
+	    /*$numrows = $downloadslimit_Handler->getCount($criteria);
+	    echo 'a détruire: ' . $numrows . '<br/>';*/
+	    $downloadslimit_Handler->deleteAll($criteria);
+    }
 }
 
 @$xoopsLogger->activated = false;

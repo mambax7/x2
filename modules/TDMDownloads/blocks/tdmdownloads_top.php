@@ -18,7 +18,7 @@ function b_tdmdownloads_top_show($options) {
     require_once XOOPS_ROOT_PATH."/modules/TDMDownloads/include/functions.php";
     //appel de la class
     $downloads_Handler =& xoops_getModuleHandler('tdmdownloads_downloads', 'TDMDownloads');
-    $block = array();
+    $block = $downloads = $top_id = array();
     $type_block = $options[0];
     $nb_entree = $options[1];
     $lenght_title = $options[2];
@@ -71,9 +71,11 @@ function b_tdmdownloads_top_show($options) {
     }
     $criteria->setLimit($nb_entree);
     $downloads_arr = $downloads_Handler->getall($criteria);
+
     foreach (array_keys($downloads_arr) as $i) {
-        $block[$i]['lid'] = $downloads_arr[$i]->getVar('lid');
-        $block[$i]['title'] = strlen($downloads_arr[$i]->getVar('title')) > $lenght_title ? substr($downloads_arr[$i]->getVar('title'),0,($lenght_title))."..." : $downloads_arr[$i]->getVar('title');
+    	  $lid = $downloads_arr[$i]->getVar('lid');
+        $downloads[$lid]['lid'] = $top_id[] = $downloads_arr[$i]->getVar('lid');
+        $downloads[$lid]['title'] = strlen($downloads_arr[$i]->getVar('title')) > $lenght_title ? substr($downloads_arr[$i]->getVar('title'),0,($lenght_title))."..." : $downloads_arr[$i]->getVar('title');
         $description_short = '';
         if ($use_description == true){
             $description = $downloads_arr[$i]->getVar('description');
@@ -84,7 +86,7 @@ function b_tdmdownloads_top_show($options) {
                 $description_short = mb_substr($description,0,strpos($description,'[pagebreak]'),'utf-8') . ' ...';
             }
         }
-        $block[$i]['description'] = $description_short;
+        $downloads[$lid]['description'] = $description_short;
         $logourl = '';
         if ($use_logo == true){
             if ($downloads_arr[$i]->getVar('logourl') == 'blank.gif'){
@@ -93,16 +95,21 @@ function b_tdmdownloads_top_show($options) {
                 $logourl = XOOPS_URL . '/uploads/TDMDownloads/images/shots/'. $downloads_arr[$i]->getVar('logourl');
             }
         }
-        $block[$i]['logourl'] = $logourl;
-        $block[$i]['logourl_class'] = $logo_float;
-        $block[$i]['logourl_width'] = $logo_white;
-        $block[$i]['hits'] = $downloads_arr[$i]->getVar("hits");
-        $block[$i]['rating'] = number_format($downloads_arr[$i]->getVar("rating"),1);
-        $block[$i]['date'] = formatTimeStamp($downloads_arr[$i]->getVar("date"),"s");
-        $block[$i]['submitter'] = XoopsUser::getUnameFromId($downloads_arr[$i]->getVar('submitter'));
-        $block[$i]['inforation'] = $show_inforation;
-
+        $downloads[$lid]['logourl'] = $logourl;
+        $downloads[$lid]['logourl_class'] = $logo_float;
+        $downloads[$lid]['logourl_width'] = $logo_white;
+        $downloads[$lid]['hits'] = $downloads_arr[$i]->getVar("hits");
+        $downloads[$lid]['rating'] = number_format($downloads_arr[$i]->getVar("rating"),1);
+        $downloads[$lid]['date'] = formatTimeStamp($downloads_arr[$i]->getVar("date"),"s");
+        $downloads[$lid]['submitter'] = XoopsUser::getUnameFromId($downloads_arr[$i]->getVar('submitter'));
+        $downloads[$lid]['inforation'] = $show_inforation;
     }
+    
+    $top_id = max($top_id);
+    $block_top = $downloads[$top_id];
+    unset($downloads[$top_id]);
+    $block['top'] = $block_top;
+    $block['downloads'] = $downloads;
     return $block;
 }
 

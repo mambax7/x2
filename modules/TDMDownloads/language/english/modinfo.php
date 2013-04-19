@@ -115,6 +115,8 @@ define("_MI_TDMDOWNLOADS_LIMITGLOBAL","Number of downloads in 24 hours");
 define("_MI_TDMDOWNLOADS_LIMITGLOBALDSC","Number of download for each user in 24 hours. Select 0 for unlimited.");
 define("_MI_TDMDOWNLOADS_LIMITLID","Number of downloads for each file in 24 hours");
 define("_MI_TDMDOWNLOADS_LIMITLIDDSC","Number of downloads for each file in 24 hours by each user. Select 0 for unlimited.");
+define("_MI_TDMDOWNLOADS_LIMITPURGE","Purge limit info");
+define("_MI_TDMDOWNLOADS_LIMITPURGEDSC","Purge old info after 3 days?.");
 define("_MI_TDMDOWNLOADS_PREFERENCE_BREAK_PAYPAL","Paypal");
 define("_MI_TDMDOWNLOADS_USEPAYPAL","Use button 'Donate' of Paypal ");
 define("_MI_TDMDOWNLOADS_CURRENCYPAYPAL","Currency of Donation");
