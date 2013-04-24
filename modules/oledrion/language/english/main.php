@@ -49,6 +49,11 @@ define('_OLEDRION_ADD', 'Add');
 define('_OLEDRION_SAVE', 'Save');
 define('_OLEDRION_ONLINE', 'Online');
 define('_OLEDRION_OFFLINE', 'Offline');
+define('_OLEDRION_SAVE_PACKING', 'Save and select packing');
+define('_OLEDRION_SAVE_LOCATION', 'Save and select location');
+define('_OLEDRION_SAVE_DELIVERY', 'Save and select deliver method');
+define('_OLEDRION_SAVE_PAYMENT', 'Save and select payment method');
+define('_OLEDRION_SAVE_CONFIRM', 'Save and final confirm');
 
 define('_OLEDRION_FIRSTNAME', 'First Name');
 define('_OLEDRION_LASTNAME', 'Last Name');

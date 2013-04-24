@@ -349,7 +349,7 @@ switch ($op) {
         // By voltan
         $sform->addElement(new XoopsFormHidden('offline_payment', '0'));
         $button_tray = new XoopsFormElementTray('', '');
-        $submit_btn = new XoopsFormButton('', 'post', _OLEDRION_SAVE, 'submit');
+        $submit_btn = new XoopsFormButton('', 'post', _OLEDRION_SAVE_PACKING, 'submit');
         $button_tray->addElement($submit_btn);
         $sform->addElement($button_tray);
         $sform = oledrion_utils::formMarkRequiredFields($sform);
@@ -375,7 +375,7 @@ switch ($op) {
 	        $packingSelect->addOption($packing['packing_id'], oledrion_utils::packingHtmlSelect($packing));	
         }
         $sform->addElement($packingSelect, true);
-        $sform->addElement(new XoopsFormButton('', 'post', _OLEDRION_SAVE, 'submit'));
+        $sform->addElement(new XoopsFormButton('', 'post', _OLEDRION_SAVE_LOCATION, 'submit'));
         $sform = oledrion_utils::formMarkRequiredFields($sform);
         $xoopsTpl->assign('form', $sform->render());
         break;
@@ -400,7 +400,7 @@ switch ($op) {
 			        $location_pid->addOption($pid->getVar('location_id'), $pid->getVar('location_title'));	
 		        }
 		        $sform->addElement($location_pid, true);
-		        $sform->addElement(new XoopsFormButton('', 'post', _OLEDRION_SAVE, 'submit'));
+		        $sform->addElement(new XoopsFormButton('', 'post', _OLEDRION_SAVE_DELIVERY, 'submit'));
 		        $sform = oledrion_utils::formMarkRequiredFields($sform);
 		        $xoopsTpl->assign('form', $sform->render());
 		        break;
@@ -417,7 +417,7 @@ switch ($op) {
 			        $location_select->addOption($location->getVar('location_id'), $location->getVar('location_title'));	
 		        }
 		        $sform->addElement($location_select, true);
-		        $sform->addElement(new XoopsFormButton('', 'post', _OLEDRION_SAVE, 'submit'));
+		        $sform->addElement(new XoopsFormButton('', 'post', _OLEDRION_SAVE_DELIVERY, 'submit'));
 		        $sform = oledrion_utils::formMarkRequiredFields($sform);
 		        $xoopsTpl->assign('form', $sform->render());
 		        break;
@@ -445,7 +445,7 @@ switch ($op) {
 	        $delivery_options->addOption($delivery['delivery_id'], oledrion_utils::deliveryHtmlSelect($delivery));	
         }
         $sform->addElement($delivery_options, true);
-        $sform->addElement(new XoopsFormButton('', 'post', _OLEDRION_SAVE, 'submit'));
+        $sform->addElement(new XoopsFormButton('', 'post', _OLEDRION_SAVE_PAYMENT, 'submit'));
         $sform = oledrion_utils::formMarkRequiredFields($sform);
         $xoopsTpl->assign('form', $sform->render());
         break;
@@ -472,7 +472,7 @@ switch ($op) {
 	        $payment_options->addOption($payment['payment_id'], oledrion_utils::paymentHtmlSelect($payment));	
         }
         $sform->addElement($payment_options, true);
-        $sform->addElement(new XoopsFormButton('', 'post', _OLEDRION_SAVE, 'submit'));
+        $sform->addElement(new XoopsFormButton('', 'post', _OLEDRION_SAVE_CONFIRM, 'submit'));
         $sform = oledrion_utils::formMarkRequiredFields($sform);
         $xoopsTpl->assign('form', $sform->render());
         break;

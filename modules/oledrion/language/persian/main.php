@@ -49,6 +49,11 @@ define('_OLEDRION_ADD', 'اضافه');
 define('_OLEDRION_SAVE', 'کنترل نهایی');
 define('_OLEDRION_ONLINE', 'آنلاین');
 define('_OLEDRION_OFFLINE', 'آف‌لاین');
+define('_OLEDRION_SAVE_PACKING', 'ذخیره و انتخاب بسته بندی');
+define('_OLEDRION_SAVE_LOCATION', 'ذخیره و انتخاب مکان');
+define('_OLEDRION_SAVE_DELIVERY', 'ذخیره و انتخاب روش تحویل');
+define('_OLEDRION_SAVE_PAYMENT', 'ذخیره و انتخاب روش پرداخت');
+define('_OLEDRION_SAVE_CONFIRM', 'ذخیره و کنترل نهایی');
 
 define('_OLEDRION_FIRSTNAME', 'نام');
 define('_OLEDRION_LASTNAME', 'نام خانوادگی');
