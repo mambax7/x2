@@ -424,8 +424,8 @@
 		<a href="<{$baseurl}>&op=print" rel="nofollow" target="_blank" title="<{$smarty.const._OLEDRION_PRINT_VERSION}>"><img src="<{xoModuleIcons16 printer.png}>" alt="<{$smarty.const._OLEDRION_PRINT_VERSION}>" /></a>&nbsp;
 		<a href="<{$mail_link}>" rel="nofollow" target="_blank" title="<{$smarty.const._OLEDRION_TELLAFRIEND}>"><img src="<{xoModuleIcons16 mail_forward.png}>" alt="<{$smarty.const._OLEDRION_TELLAFRIEND}>" /></a>&nbsp;
 		<{if $mod_pref.isAdmin}>
-			<a href="<{$smarty.const.OLEDRION_URL}>admin/main.php?op=products&action=edit&id=<{$product.product_id}>" target="_blank" title="<{$smarty.const._EDIT}>"><img src="<{xoModuleIcons16 edit.png}>" alt="<{$smarty.const._EDIT}>" /></a>
-			&nbsp;<a href="<{$smarty.const.OLEDRION_URL}>admin/main.php?op=products&action=confdelete&id=<{$product.product_id}>" title="<{$smarty.const._DELETE}>"><img src="<{xoModuleIcons16 delete.png}>" alt="<{$smarty.const._DELETE}>" /></a>
+			<a href="<{$smarty.const.OLEDRION_URL}>admin/index.php?op=products&action=edit&id=<{$product.product_id}>" target="_blank" title="<{$smarty.const._EDIT}>"><img src="<{xoModuleIcons16 edit.png}>" alt="<{$smarty.const._EDIT}>" /></a>
+			&nbsp;<a href="<{$smarty.const.OLEDRION_URL}>admin/index.php?op=products&action=confdelete&id=<{$product.product_id}>" title="<{$smarty.const._DELETE}>"><img src="<{xoModuleIcons16 delete.png}>" alt="<{$smarty.const._DELETE}>" /></a>
 		<{/if}>
 		<{if $canChangeQuantity}><a href="<{$baseurl}>&stock=add" title="<{$ProductStockQuantity}>"><img src="<{$smarty.const.OLEDRION_IMAGES_URL}>plus.gif" alt="<{$ProductStockQuantity}>" /></a> <{if $product.product_stock -1 > 0}><a href="<{$baseurl}>&stock=substract" title="<{$ProductStockQuantity}>"><img src="<{$smarty.const.OLEDRION_IMAGES_URL}>minus.gif" alt="<{$ProductStockQuantity}>" /></a><{/if}><{/if}>
 	</div>

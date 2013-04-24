@@ -1023,7 +1023,7 @@ class OledrionOledrion_productsHandler extends Oledrion_XoopsPersistableObjectHa
             $msg['ACTUAL_QUANTITY'] = $product->getVar('product_stock');
             $msg['ALERT_QUANTITY'] = $product->getVar('product_alert_stock');
             $msg['PUBLIC_URL'] = $product->getLink();
-            $msg['ADMIN_URL'] = OLEDRION_URL . 'admin/main.php?op=editproduct&id=' . $product->getVar('product_id');
+            $msg['ADMIN_URL'] = OLEDRION_URL . 'admin/index.php?op=editproduct&id=' . $product->getVar('product_id');
             oledrion_utils::sendEmailFromTpl('shop_lowstock.tpl', oledrion_utils::getEmailsFromGroup(oledrion_utils::getModuleOption('stock_alert_email')), _OLEDRION_STOCK_ALERT, $msg);
             return true;
         } else {
