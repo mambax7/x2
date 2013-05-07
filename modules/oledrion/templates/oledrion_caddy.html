@@ -22,7 +22,6 @@
 			<th><span class="oledrion_caddy-titles"><{$smarty.const._OLEDRION_QUANTITY}></span></th>
 			<th><span class="oledrion_caddy-titles"><{$smarty.const._OLEDRION_CART1}></span></th>
 			<th><span class="oledrion_caddy-titles"><{$smarty.const._OLEDRION_CART2}></span></th>
-			<th><span class="oledrion_caddy-titles"><{$smarty.const._OLEDRION_CART3}></th>
 			<th><span class="oledrion_caddy-titles"><{$smarty.const._OLEDRION_SHIPPING_PRICE}></span></th>
 			<th colspan="2"><span class="oledrion_caddy-titles"><{$smarty.const._OLEDRION_PRICE}></span></th>
 		</tr>
@@ -34,14 +33,13 @@
 				</div>
 				<div class="oledrion_productauthor"><{if $product.manufacturersJoinList != ''}><{$smarty.const._OLEDRION_BY}> <{$product.manufacturersJoinList}><{/if}></div>
 			</td>
-			<td><div class="oledrion_productprice" class="right"><{$product.unitBasePriceFormated}></div></td>
-			<td><div class="oledrion_productprice" class="right"><{$product.discountedPriceFormated}></div></td>
+			<td><div class="oledrion_productprice right"><{$product.unitBasePriceFormated}></div></td>
+			<td><div class="oledrion_productprice right"><{$product.discountedPriceFormated}></div></td>
 			<td class="center"><input type="text" name="qty_<{$product.number}>" id="qty_<{$product.number}>" value="<{$product.product_qty}>" size="3" /></td>
-			<td><div class="oledrion_productprice" class="right"><{$product.discountedPriceWithQuantityFormated}></div></td>
+			<td><div class="oledrion_productprice right"><{$product.discountedPriceWithQuantityFormated}></div></td>
 			<td class='right'><{$product.vatRate}></td>
-			<td><div class="oledrion_productprice" class="right"><{$product.vatAmountFormated}></div></td>
-			<td><div class="oledrion_productprice" class="right"><{$product.discountedShippingFormated}></div></td>
-			<td ><div class="oledrion_productprice" class="right"><{$product.totalPriceFormated}></div></td>
+			<td><div class="oledrion_productprice right"><{$product.discountedShippingFormated}></div></td>
+			<td><div class="oledrion_productprice right"><{$product.totalPriceFormated}></div></td>
 			<td><a href="<{$smarty.const.OLEDRION_URL}>caddy.php?op=delete&product_id=<{$product.number}>" <{$confirm_delete_item}> title="<{$smarty.const._OLEDRION_REMOVE_ITEM}>"><img src="<{$smarty.const.OLEDRION_IMAGES_URL}>cartdelete.png" alt="<{$smarty.const._OLEDRION_REMOVE_ITEM}>" /></td>
 		</tr>
 		<{if count($product.attributes) > 0}>
@@ -62,11 +60,10 @@
 		<{/foreach}>
 		<tr class="oledrion_carttotal">
 			<td colspan="4"><h3><{$smarty.const._OLEDRION_TOTAL}></h3></td>
-			<td class="right" vclass="middle"><{$commandAmount}></td>
-			<td>&nbsp;</td>
-			<td class="right" vclass="middle"><{$vatAmount}></td>
-			<td class="right" vclass="middle"><{$shippingAmount}></td>
-			<td colspan="2" class="right" vclass="middle"><{$commandAmountTTC}></td>
+			<td class="oledrion_productprice right middle"><{$commandAmount}></td>
+			<td class="oledrion_productprice right middle"><{$vatAmount}></td>
+			<td class="oledrion_productprice right middle"><{$shippingAmount}></td>
+			<td colspan="2" class="oledrion_productprice right middle"><{$commandAmountTTC}></td>
 		</tr>
 		<tr>
 			<td colspan="8">

@@ -87,16 +87,6 @@ function listCart()
 $oledrion_Currency = oledrion_Currency::getInstance();
 $countries = oledrion_utils::getCountriesList();
 
-/*
-$gateway = null;
-$gateway = oledrion_gateways::getGatewayObject();
-if (is_object($gateway)) {
-    $countries = $gateway->getCountriesList();
-} else {
-    die(_OLEDRION_ERROR20);
-}
-*/
-
 switch ($op) {
     case 'save':
         if(empty($_POST)) {
@@ -311,16 +301,19 @@ switch ($op) {
         } else {
 	        $sform->addElement(new XoopsFormHidden('action', 'make'));	
         }	
-        $sform->addElement(new XoopsFormLabel(_OLEDRION_LABLE, _OLEDRION_LABLE_INFO));
         $sform->addElement(new XoopsFormLabel(_OLEDRION_TOTAL, $oledrion_Currency->amountForDisplay($commandAmountTTC)));
         // By voltan
-        if(in_array(oledrion_utils::getModuleOption('checkout_shipping'), array(1,2))) {
+        if(in_array(oledrion_utils::getModuleOption('checkout_shipping'), array(1,2)) && $shippingAmount > 0) {
 	        $sform->addElement(new XoopsFormLabel(_OLEDRION_SHIPPING_PRICE, $oledrion_Currency->amountForDisplay($shippingAmount)));
         }
         $sform->addElement(new XoopsFormText(_OLEDRION_LASTNAME, 'cmd_lastname', 50, 255, $commande->getVar('cmd_lastname', 'e')), true);
         $sform->addElement(new XoopsFormText(_OLEDRION_FIRSTNAME, 'cmd_firstname', 50, 255, $commande->getVar('cmd_firstname', 'e')), false);
-        $sform->addElement(new XoopsFormTextArea(_OLEDRION_STREET, 'cmd_adress', $commande->getVar('cmd_adress', 'e'), 3, 50), true);
-        $sform->addElement(new XoopsFormText(_OLEDRION_CITY, 'cmd_town', 40, 255, $commande->getVar('cmd_town', 'e')), true);
+        if ($uid > 0) {
+            $sform->addElement(new XoopsFormText(_OLEDRION_EMAIL, 'cmd_email', 50, 255, $xoopsUser->getVar('email', 'e')), true);
+        } else {
+            $sform->addElement(new XoopsFormText(_OLEDRION_EMAIL, 'cmd_email', 50, 255, ''), true);
+        }
+        $sform->addElement(new XoopsFormText(_OLEDRION_CITY, 'cmd_town', 50, 255, $commande->getVar('cmd_town', 'e')), true);
         // By voltan
         if(oledrion_utils::getModuleOption('checkout_country')) {
 	        $countriesList = new XoopsFormSelect(_OLEDRION_COUNTRY, 'cmd_country', $commande->getVar('cmd_country',' e'));
@@ -332,24 +325,14 @@ switch ($op) {
         $sform->addElement(new XoopsFormText(_OLEDRION_CP, 'cmd_zip', 15, 30, $commande->getVar('cmd_zip', 'e')), true);	
         $sform->addElement(new XoopsFormText(_OLEDRION_MOBILE, 'cmd_mobile', 15, 50, $commande->getVar('cmd_mobile', 'e')), true);
         $sform->addElement(new XoopsFormText(_OLEDRION_PHONE, 'cmd_telephone', 15, 50, $commande->getVar('cmd_telephone', 'e')), true);
-        if ($uid > 0) {
-            $sform->addElement(new XoopsFormText(_OLEDRION_EMAIL, 'cmd_email', 50, 255, $xoopsUser->getVar('email', 'e')), true);
-        } else {
-            $sform->addElement(new XoopsFormText(_OLEDRION_EMAIL, 'cmd_email', 50, 255, ''), true);
-        }
         if (oledrion_utils::getModuleOption('ask_vatnumber')) {
             $sform->addElement(new XoopsFormText(_OLEDRION_VAT_NUMBER, 'cmd_vat_number', 50, 255, $commande->getVar('cmd_vat_number', 'e')), false);
         }
-        $sform->addElement(new XoopsFormRadioYN(_OLEDRION_INVOICE, 'cmd_bill', 0), true);
-        // Peut on proposer de ne pas payer en ligne ?
-        if (oledrion_utils::getModuleOption('offline_payment') == 1) {
-            // By voltan
-            //$sform->addElement(new XoopsFormRadioYN(_OLEDRION_PAY_ONLINE, 'offline_payment', 1), true);
-        }
         // By voltan
-        $sform->addElement(new XoopsFormHidden('offline_payment', '0'));
+        //$sform->addElement(new XoopsFormRadioYN(_OLEDRION_INVOICE, 'cmd_bill', 0), true);
+        $sform->addElement(new XoopsFormTextArea(_OLEDRION_STREET, 'cmd_adress', $commande->getVar('cmd_adress', 'e'), 3, 50), true);
         $button_tray = new XoopsFormElementTray('', '');
-        $submit_btn = new XoopsFormButton('', 'post', _OLEDRION_SAVE_PACKING, 'submit');
+        $submit_btn = new XoopsFormButton('', 'post', _OLEDRION_SAVE_NEXT, 'submit');
         $button_tray->addElement($submit_btn);
         $sform->addElement($button_tray);
         $sform = oledrion_utils::formMarkRequiredFields($sform);
@@ -375,9 +358,14 @@ switch ($op) {
 	        $packingSelect->addOption($packing['packing_id'], oledrion_utils::packingHtmlSelect($packing));	
         }
         $sform->addElement($packingSelect, true);
-        $sform->addElement(new XoopsFormButton('', 'post', _OLEDRION_SAVE_LOCATION, 'submit'));
+        $sform->addElement(new XoopsFormButton('', 'post', _OLEDRION_SAVE_NEXT, 'submit'));
         $sform = oledrion_utils::formMarkRequiredFields($sform);
         $xoopsTpl->assign('form', $sform->render());
+        
+        // texte à afficher
+        $registry = new oledrion_registryfile();
+        $text = $registry->getfile(OLEDRION_TEXTFILE6);
+        $xoopsTpl->assign('text', xoops_trim($text));
         break;
 
     case 'location':
@@ -400,7 +388,7 @@ switch ($op) {
 			        $location_pid->addOption($pid->getVar('location_id'), $pid->getVar('location_title'));	
 		        }
 		        $sform->addElement($location_pid, true);
-		        $sform->addElement(new XoopsFormButton('', 'post', _OLEDRION_SAVE_DELIVERY, 'submit'));
+		        $sform->addElement(new XoopsFormButton('', 'post', _OLEDRION_SAVE_NEXT, 'submit'));
 		        $sform = oledrion_utils::formMarkRequiredFields($sform);
 		        $xoopsTpl->assign('form', $sform->render());
 		        break;
@@ -417,11 +405,16 @@ switch ($op) {
 			        $location_select->addOption($location->getVar('location_id'), $location->getVar('location_title'));	
 		        }
 		        $sform->addElement($location_select, true);
-		        $sform->addElement(new XoopsFormButton('', 'post', _OLEDRION_SAVE_DELIVERY, 'submit'));
+		        $sform->addElement(new XoopsFormButton('', 'post', _OLEDRION_SAVE_NEXT, 'submit'));
 		        $sform = oledrion_utils::formMarkRequiredFields($sform);
 		        $xoopsTpl->assign('form', $sform->render());
 		        break;
         }	
+        
+        // texte à afficher
+        $registry = new oledrion_registryfile();
+        $text = $registry->getfile(OLEDRION_TEXTFILE6);
+        $xoopsTpl->assign('text', xoops_trim($text));
         break; 
         
     case 'delivery':
@@ -445,9 +438,14 @@ switch ($op) {
 	        $delivery_options->addOption($delivery['delivery_id'], oledrion_utils::deliveryHtmlSelect($delivery));	
         }
         $sform->addElement($delivery_options, true);
-        $sform->addElement(new XoopsFormButton('', 'post', _OLEDRION_SAVE_PAYMENT, 'submit'));
+        $sform->addElement(new XoopsFormButton('', 'post', _OLEDRION_SAVE_NEXT, 'submit'));
         $sform = oledrion_utils::formMarkRequiredFields($sform);
         $xoopsTpl->assign('form', $sform->render());
+        
+        // texte à afficher
+        $registry = new oledrion_registryfile();
+        $text = $registry->getfile(OLEDRION_TEXTFILE6);
+        $xoopsTpl->assign('text', xoops_trim($text));
         break;
         
     case 'payment':
@@ -475,6 +473,11 @@ switch ($op) {
         $sform->addElement(new XoopsFormButton('', 'post', _OLEDRION_SAVE_CONFIRM, 'submit'));
         $sform = oledrion_utils::formMarkRequiredFields($sform);
         $xoopsTpl->assign('form', $sform->render());
+        
+        // texte à afficher
+        $registry = new oledrion_registryfile();
+        $text = $registry->getfile(OLEDRION_TEXTFILE6);
+        $xoopsTpl->assign('text', xoops_trim($text));
         break;
     
     // ****************************************************************************************************************
