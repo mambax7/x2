@@ -24,7 +24,7 @@
 function b_oledrion_bestsales_show($options)
 {
     // '10|0';	// Voir 10 produits, pour toutes les catégories ou une catégorie particulière
-    global $xoopsConfig, $xoopsTpl;
+    global $xoopsConfig, $xoTheme;
     include XOOPS_ROOT_PATH . '/modules/oledrion/include/common.php';
     $categoryId = $options[1];
     $start = 0;
@@ -35,11 +35,10 @@ function b_oledrion_bestsales_show($options)
         unset($products['lastTitle']);
     }
     if (count($products) > 0) {
-        $url = OLEDRION_URL . 'include/oledrion.css';
         $block = array();
         $block['nostock_msg'] = oledrion_utils::getModuleOption('nostock_msg');
         $block['block_products'] = $products;
-        $xoopsTpl->assign("xoops_module_header", "<link rel=\"stylesheet\" type=\"text/css\" href=\"$url\" />");
+        $xoTheme->addStylesheet(OLEDRION_URL . 'css/oledrion.css');
         return $block;
     } else {
         return false;

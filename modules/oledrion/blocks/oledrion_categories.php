@@ -23,11 +23,11 @@
  */
 function b_oledrion_category_show($options)
 {
-    global $xoopsTpl;
+    global $xoTheme;
     $block = array();
     include XOOPS_ROOT_PATH . '/modules/oledrion/include/common.php';
-    $url = OLEDRION_URL . 'include/oledrion.css';
-    $xoopsTpl->assign("xoops_module_header", "<link rel=\"stylesheet\" type=\"text/css\" href=\"$url\" />");
+    $xoTheme->addStylesheet(OLEDRION_URL . 'css/oledrion.css');
+
     $block['nostock_msg'] = oledrion_utils::getModuleOption('nostock_msg');
 
     if (intval($options[0]) == 0) { // Catégories selon la page en cours

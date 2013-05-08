@@ -23,12 +23,15 @@
  */
 function b_oledrion_ajax_search_show($options)
 {
-    global $xoTheme;
+    global $xoopsConfig, $xoTheme;
+    
+    include XOOPS_ROOT_PATH . '/modules/oledrion/include/common.php';
 
     if ($options[0] == 1) {
         $xoTheme->addScript("browse.php?Frameworks/jquery/jquery.js");
-        $xoTheme->addScript(XOOPS_URL . '/modules/oledrion/js/autocomplete.js');
-        $xoTheme->addStylesheet(XOOPS_URL . '/modules/oledrion/css/autocomplete.css');
+        $xoTheme->addScript(OLEDRION_URL . 'js/autocomplete.js');
+        $xoTheme->addStylesheet(OLEDRION_URL . 'css/autocomplete.css');
+        $xoTheme->addStylesheet(OLEDRION_URL . 'css/oledrion.css');
     }
 
     $block = array();

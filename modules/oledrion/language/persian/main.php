@@ -77,9 +77,9 @@ define('_OLEDRION_DOWNLOAD_URL', 'اضافه کردم یک فایل برای د�
 define('_OLEDRION_VAT', 'ماليات');
 define('_OLEDRION_ATTACHED_FILE', 'فایل پیوست شد');
 define('_OLEDRION_MANUFACTURERS', 'تولید کننده');
-define('_OLEDRION_RELATED_PRODUCTS', 'محصولات مرتبط');
+define('_OLEDRION_RELATED_PRODUCTS', 'دیگر محصولات این برند');
 
-define('_OLEDRION_GROUP', 'گروه زوپس');
+define('_OLEDRION_GROUP', 'گروه');
 define('_OLEDRION_DISCOUNT1', 'به کار بردن تخفیف از ');
 define('_OLEDRION_DISCOUNT2', 'درصد');
 define('_OLEDRION_DISCOUNT3', 'on');

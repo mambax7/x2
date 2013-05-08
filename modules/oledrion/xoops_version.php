@@ -516,7 +516,7 @@ $cpto = 0;
 $cpto++;
 $modversion['config'][$cpto]['name'] = 'newproducts';
 $modversion['config'][$cpto]['title'] = '_MI_OLEDRION_NEWLINKS';
-$modversion['config'][$cpto]['description'] = '_MI_OLEDRION_NEWLINKSDSC';
+$modversion['config'][$cpto]['description'] = '';
 $modversion['config'][$cpto]['formtype'] = 'textbox';
 $modversion['config'][$cpto]['valuetype'] = 'int';
 $modversion['config'][$cpto]['default'] = 10;
@@ -524,7 +524,15 @@ $modversion['config'][$cpto]['default'] = 10;
 $cpto++;
 $modversion['config'][$cpto]['name'] = 'perpage';
 $modversion['config'][$cpto]['title'] = '_MI_OLEDRION_PERPAGE';
-$modversion['config'][$cpto]['description'] = '_MI_OLEDRION_PERPAGEDSC';
+$modversion['config'][$cpto]['description'] = '';
+$modversion['config'][$cpto]['formtype'] = 'textbox';
+$modversion['config'][$cpto]['valuetype'] = 'int';
+$modversion['config'][$cpto]['default'] = 10;
+
+$cpto++;
+$modversion['config'][$cpto]['name'] = 'related_limit';
+$modversion['config'][$cpto]['title'] = '_MI_OLEDRION_RELATEDLIMIT';
+$modversion['config'][$cpto]['description'] = '';
 $modversion['config'][$cpto]['formtype'] = 'textbox';
 $modversion['config'][$cpto]['valuetype'] = 'int';
 $modversion['config'][$cpto]['default'] = 10;
@@ -1161,6 +1169,17 @@ $modversion['config'][$cpto]['formtype'] = 'yesno';
 $modversion['config'][$cpto]['valuetype'] = 'int';
 $modversion['config'][$cpto]['default'] = 1;
 
+
+$cpto++;
+$modversion['config'][$cpto]['name'] = 'checkout_level';
+$modversion['config'][$cpto]['title'] = '_MI_OLEDRION_CHECKOUT_LEVEL';
+$modversion['config'][$cpto]['description'] = '';
+$modversion['config'][$cpto]['formtype'] = 'select';
+$modversion['config'][$cpto]['valuetype'] = 'int';
+$modversion['config'][$cpto]['default'] = 3;
+$modversion['config'][$cpto]['options'] = array('_MI_OLEDRION_CHECKOUT_LEVEL_1' => 1, '_MI_OLEDRION_CHECKOUT_LEVEL_2' => 2, '_MI_OLEDRION_CHECKOUT_LEVEL_3' => 3);
+
+
 $cpto++;
 $modversion['config'][$cpto]['name'] = 'checkout_country';
 $modversion['config'][$cpto]['title'] = '_MI_OLEDRION_CHECKOUT_COUNTRY';
@@ -1172,7 +1191,7 @@ $modversion['config'][$cpto]['default'] = 1;
 $cpto++;
 $modversion['config'][$cpto]['name'] = 'checkout_shipping';
 $modversion['config'][$cpto]['title'] = '_MI_OLEDRION_CHECKOUT_SHIPPING';
-$modversion['config'][$cpto]['description'] = '';
+$modversion['config'][$cpto]['description'] = '_MI_OLEDRION_CHECKOUT_SHIPPING_DSC';
 $modversion['config'][$cpto]['formtype'] = 'select';
 $modversion['config'][$cpto]['valuetype'] = 'int';
 $modversion['config'][$cpto]['default'] = 1;
@@ -1189,6 +1208,14 @@ $modversion['config'][$cpto]['description'] = '';
 $modversion['config'][$cpto]['formtype'] = 'yesno';
 $modversion['config'][$cpto]['valuetype'] = 'int';
 $modversion['config'][$cpto]['default'] = 0;
+
+$cpto++;
+$modversion['config'][$cpto]['name'] = 'ask_bill';
+$modversion['config'][$cpto]['title'] = '_MI_OLEDRION_ASK_BILL';
+$modversion['config'][$cpto]['description'] = '';
+$modversion['config'][$cpto]['formtype'] = 'yesno';
+$modversion['config'][$cpto]['valuetype'] = 'int';
+$modversion['config'][$cpto]['default'] = 1;
 
 $cpto++;
 $modversion['config'][$cpto]['name'] = 'break' . $cpto;

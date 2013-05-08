@@ -83,10 +83,10 @@ if (!isset($_GET['op'])) {
 if (!OLEDRION_MY_THEME_USES_JQUERY) {
     $xoTheme->addScript("browse.php?Frameworks/jquery/jquery.js");
 }
-oledrion_utils::callJavascriptFile('noconflict.js');
+//oledrion_utils::callJavascriptFile('noconflict.js');
 // Add lightbox
-$xoTheme->addScript('browse.php?Frameworks/jquery/plugins/jquery.lightbox.js');
-$xoTheme->addStylesheet(XOOPS_URL . '/modules/system/css/lightbox.css');
+//$xoTheme->addScript('browse.php?Frameworks/jquery/plugins/jquery.lightbox.js');
+//$xoTheme->addStylesheet(XOOPS_URL . '/modules/system/css/lightbox.css');
 
 if (isset($_GET['stock']) && $_GET['stock'] == 'add' && oledrion_utils::isMemberOfGroup(oledrion_utils::getModuleOption('grp_qty'))) {
     $h_oledrion_products->increaseStock($product);
@@ -208,8 +208,11 @@ if (count($tbl_tmp) > 0) {
             $tbl_tmp2[] = $item->getVar('related_product_id');
         }
     }
+    $criteria = new Criteria('product_id', '(' . implode(',', $tbl_tmp2) . ')', 'IN');
+    $criteria->setLimit(oledrion_utils::getModuleOption('related_limit'));
+    $criteria->setOrder('DESC');
     $tbl_related_products = array();
-    $tbl_related_products = $h_oledrion_products->getObjects(new Criteria('product_id', '(' . implode(',', $tbl_tmp2) . ')', 'IN'), true);
+    $tbl_related_products = $h_oledrion_products->getObjects($criteria, true);
     if (count($tbl_related_products) > 0) {
         $cpt = 1;
         foreach ($tbl_related_products as $item) {

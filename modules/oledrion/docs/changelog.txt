@@ -4,13 +4,16 @@
 - Add Ajax search system and block (voltan)
 - Add Ajax rate (voltan)
 - Add json output for products and categoresy (voltan)
-- Add isNew function for products (voltan)
+- Add isNewproduct function for products (voltan)
+- Add new order level whit some options for setting (voltan)
+- Add packing system (voltan)
+- Add select location / delivery / payment method by user (voltan)
 - Improve search (voltan) 
 - Improve gateway ( checkout.php admin/gateways/gateway.php ) (voltan)
 - Improve admin order page (voltan)
 - Improve product properties (voltan)
 - Improve load jquery (voltan)
-- Improve js image gallery, remove pretty Photo and add core lightbox (voltan)
+- Improve js image gallery, remove pretty Photo (voltan)
 - Improve code style (voltan)
 - Update SQL file and full support InnoDB (voltan)
 - Update copyright header  (voltan)
@@ -22,7 +25,6 @@
 - Remove class/lite.php class/PEAR.php class/PEAR5.php admin/main.php files (voltan)
 
 TODO:
-- Rebuild order/buy method
 - Rebuild admin files and add template
 
 ---------------------------------------

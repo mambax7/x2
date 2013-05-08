@@ -99,13 +99,9 @@ define('_MI_OLEDRION_ADMENU21', 'روش پرداخت');
 // Title of config items
 define('_MI_OLEDRION_NEWLINKS', 'بیشترین تعداد محصولاتی را که در صفحهٔ اول نمایش داده می‌شوند را انتخاب کنید');
 define('_MI_OLEDRION_PERPAGE', 'بیشترین تعداد محصولاتی را که در هر صفحه نمایش داده می‌شوند را انتخاب کنید');
-
-// Description of each config items
-define('_MI_OLEDRION_NEWLINKSDSC', '');
-define('_MI_OLEDRION_PERPAGEDSC', '');
+define('_MI_OLEDRION_RELATEDLIMIT', 'Select the maximum number of related products displayed in product page');
 
 // Text for notifications
-
 define('_MI_OLEDRION_GLOBAL_NOTIFY', 'سراسری');
 define('_MI_OLEDRION_GLOBAL_NOTIFYDSC', 'لیست گزینه‌های آگاهی‌رسانی سراسری.');
 
@@ -248,12 +244,20 @@ define('_MI_OLEDRION_SEARCH_PROPERTY5', 'Show property 5');
 define('_MI_OLEDRION_CHECKOUT_COUNTRY', 'Show select country');
 define('_MI_OLEDRION_CHECKOUT_COUNTRY_DSC', 'if not show, use default selected country on config.php file');
 define('_MI_OLEDRION_CHECKOUT_SHIPPING', 'Shipping price type');
+define('_MI_OLEDRION_CHECKOUT_SHIPPING_DSC', 'This option just work when your checkout level are Medium or Long');
 define('_MI_OLEDRION_CHECKOUT_SHIPPING_1', 'Product shipping price + Location delivery price');
 define('_MI_OLEDRION_CHECKOUT_SHIPPING_2', 'Product shipping price');
 define('_MI_OLEDRION_CHECKOUT_SHIPPING_3', 'Location delivery price');
 define('_MI_OLEDRION_CHECKOUT_SHIPPING_4', 'Free');
 
 define('_MI_OLEDRION_GATEWAY', 'Gateway used by the module');
+
+define('_MI_OLEDRION_ASK_BILL', 'Ask about bill');
+
+define('_MI_OLEDRION_CHECKOUT_LEVEL', 'Checkout level');
+define('_MI_OLEDRION_CHECKOUT_LEVEL_1', 'Short - Information, Confirm');
+define('_MI_OLEDRION_CHECKOUT_LEVEL_2', 'Medium - Information, location, Delivery, Payment, Confirm');
+define('_MI_OLEDRION_CHECKOUT_LEVEL_3', 'Long - Information, Packing, location, Delivery, Payment, Confirm');
 
 define('_MI_OLEDRION_BREAK_COMMENT_NOTIFICATION', 'Comments and Notifications');
 define('_MI_OLEDRION_BREAK_SEARCH', 'Search');
