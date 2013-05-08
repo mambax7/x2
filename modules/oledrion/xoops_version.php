@@ -505,6 +505,10 @@ $cptt++;
 $modversion['templates'][$cptt]['file'] = 'oledrion_productsselector.html';
 $modversion['templates'][$cptt]['description'] = "Used to select products";
 
+$cptt++;
+$modversion['templates'][$cptt]['file'] = 'oledrion_product_box.html';
+$modversion['templates'][$cptt]['description'] = "Product box";
+
 // ********************************************************************************************************************
 // ****************************************** SETTINGS ****************************************************************
 // ********************************************************************************************************************

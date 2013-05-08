@@ -47,6 +47,7 @@ if (!$list->isSuitableForCurrentUser()) {
     oledrion_utils::redirect(_OLEDRION_ERROR22, 'index.php', 5);
 }
 $xoopsTpl->assign('mod_pref', $mod_pref); // Préférences du module
+$xoopsTpl->assign('columnsCount', oledrion_utils::getModuleOption('catagory_colums'));
 $xoopsTpl->assign('list', $list->toArray());
 
 // TVA
@@ -78,7 +79,6 @@ oledrion_utils::setCSS();
 oledrion_utils::setLocalCSS($xoopsConfig['language']);
 oledrion_utils::loadLanguageFile('modinfo.php');
 
-$xoopsTpl->assign('global_advert', oledrion_utils::getModuleOption('advertisement'));
 $breadcrumb = array(OLEDRION_URL . 'all-lists.php' => _MI_OLEDRION_SMNAME11,
     OLEDRION_URL . basename(__FILE__) => $list->getVar('list_title'));
 $xoopsTpl->assign('breadcrumb', oledrion_utils::breadcrumb($breadcrumb));

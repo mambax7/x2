@@ -111,6 +111,7 @@ if (oledrion_utils::getModuleOption('use_tags')) {
 $xoopsTpl->assign('baseurl', $baseurl);
 $xoopsTpl->assign('nostock_msg', oledrion_utils::getModuleOption('nostock_msg'));
 $xoopsTpl->assign('mod_pref', $mod_pref); // Préférences du module
+$xoopsTpl->assign('columnsCount', oledrion_utils::getModuleOption('catagory_colums'));
 $xoopsTpl->assign('icones', $icones);
 $xoopsTpl->assign('canRateProducts', oledrion_utils::getModuleOption('rateproducts')); // Préférences du module
 $xoopsTpl->assign('mail_link', 'mailto:?subject=' . sprintf(_OLEDRION_INTARTICLE, $xoopsConfig['sitename']) . '&amp;body=' . sprintf(_OLEDRION_INTARTFOUND, $xoopsConfig['sitename']) . ':  ' . XOOPS_URL . '/modules/oledrion/product.php?product_id=' . $product_id);

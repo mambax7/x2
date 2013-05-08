@@ -343,7 +343,7 @@ switch ($op) {
 oledrion_utils::setCSS();
 oledrion_utils::setLocalCSS($xoopsConfig['language']);
 
-$xoopsTpl->assign('global_advert', oledrion_utils::getModuleOption('advertisement'));
+$xoopsTpl->assign('mod_pref', $mod_pref);
 $xoopsTpl->assign('breadcrumb', oledrion_utils::breadcrumb($breadcrumb));
 
 $title = _MI_OLEDRION_SMNAME10 . ' - ' . oledrion_utils::getModuleName();

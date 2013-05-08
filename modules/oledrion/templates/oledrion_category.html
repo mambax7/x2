@@ -1,5 +1,15 @@
 <div class="oledrion">
 	<!-- Created by Hervé Thouzard (http://www.herve-thouzard.com/) -->
+   <{if $category.cat_advertisement != ''}>
+			<div id="oledrion_publicite-category"><{$category.cat_advertisement}></div>
+		<{elseif $mod_pref.advertisement != ''}>
+			<div id="oledrion_publicite"><{$mod_pref.advertisement}></div>
+		<{/if}>
+		
+	<!-- Breadcrumb -->
+	<div class="breadcrumb"><{$breadcrumb}></div>
+	<!-- /Breadcrumb -->
+		
 	<!-- HEADER -->
 	<div id="oledrion-logo">
 		<{if $category.cat_imgurl != ''}>
@@ -8,13 +18,6 @@
 	</div>
 	
 	<div class="oledrion-cat_description">
-		<!-- Display category's advertisement and if it does not exists, the module's advertisement -->
-		<{if $category.cat_advertisement != ''}>
-			<div id="oledrion_publicite-category"><{$category.cat_advertisement}></div>
-		<{elseif $mod_pref.advertisement != ''}>
-			<div id="oledrion_publicite"><{$mod_pref.advertisement}></div>
-		<{/if}>
-	
 		<{if $category.cat_title != ''}>
 			<table width="100%" cellspacing="0" class="tablefix">
 	  		<tr>
@@ -42,20 +45,7 @@
 		<{/if}>
 	</div>
 	<!-- /HEADER -->
-	
-	<!-- Breadcrumb -->
-	<table cellspacing="0" class="breadcrumbT">
-	<tr>
-		<td class="breadcrumb_01"></td>
-	    <td class="breadcrumb_02"><div id="productshoop_breadcrumb"><{$breadcrumb}></div></td>
-	    <td class="breadcrumb_03"></td>
-	</tr>
-	<tr>
-	    <td colspan="3" class="red-line"></td>
-	</tr>
-	</table>
-	<!-- /Breadcrumb -->
-	
+
 	<{if count($subCategories) > 0}>
 		<div class="oledrion-subCategories"><{include file="db:oledrion_categories_list.html" categories=$subCategories}></div>
 	<{elseif count($motherCategories) > 0}>
@@ -68,25 +58,7 @@
 		<tr>
 		<{foreach item=product from=$products}>
 		      <td>
-		      <div class="oledrion_product page-curl_01">
-			      <div class="oledrion_productthumb floatleft">
-				      <{if $product.product_thumb_url}><a href="<{$product.product_url_rewrited}>" title="<{$product.product_href_title}>"><img src="<{$product.product_thumb_full_url}>" alt="<{$product.product_href_title}>" /></a><{/if}>
-			      </div>
-			      <div class="oledrion_productssummary  floatright">
-	               <div class="oledrion_producttitle">
-							<h2><{$product.product_recommended_picture}><a href="<{$product.product_url_rewrited}>" title="<{$product.product_href_title}>"><{$product.product_title}></a></h2>
-						</div>
-						<{if $product.product_joined_manufacturers != ''}>
-							<div class="oledrion_productauthor">
-								<img src="<{$smarty.const.OLEDRION_IMAGES_URL}>author.png" alt="<{$product.product_joined_manufacturers}>" /><{$smarty.const._OLEDRION_BY}> <{$product.product_joined_manufacturers}>
-							</div>
-						<{/if}>
-						<{if $mod_pref.use_price}><div class="oledrion_productprice"><{if $product.product_stock > 0 }><{$smarty.const._OLEDRION_PRICE}> <a href="<{$smarty.const.OLEDRION_URL}>caddy.php?op=addproduct&product_id=<{$product.product_id}>" title="<{$smarty.const._OLEDRION_ADD_TO_CART}>"><{if $product.product_discount_price_ttc != ''}><s><{$product.product_price_ttc}></s> <{$product.product_discount_price_ttc}><{else}><{$product.product_price_ttc}><{/if}> <img src="<{$smarty.const.OLEDRION_IMAGES_URL}>cartadd.png" alt="<{$smarty.const._OLEDRION_ADD_TO_CART}>" /></a><{else}><{$mod_pref.nostock_msg}><{/if}></div><{/if}>
-			      </div>
-			      <div class="endline"></div>
-			      <div class="oledrion_description"><{$product.product_summary|truncate:300}></div>
-					<div class="oledrion_read-more"><a href="<{$product.product_url_rewrited}>" title="<{$smarty.const._OLEDRION_READ_MORE}> <{$product.product_href_title}>"><{$smarty.const._OLEDRION_READ_MORE}></a></div>
-		      </div>
+         <{include file="db:oledrion_product_box.html"}>
 		      </td>
 		    <{if $product.product_count is div by $columnsCount}>
 	    		</tr><tr>

@@ -47,6 +47,7 @@ $vatArray = $h_oledrion_vat->getAllVats(new oledrion_parameters());
 // Quelques options pour le template
 $xoopsTpl->assign('nostock_msg', oledrion_utils::getModuleOption('nostock_msg'));
 $xoopsTpl->assign('mod_pref', $mod_pref); // Préférences du module
+$xoopsTpl->assign('columnsCount', oledrion_utils::getModuleOption('catagory_colums'));
 $xoopsTpl->assign('welcome_msg', nl2br($registry->getfile(OLEDRION_TEXTFILE3)));
 
 // Récupération du nombre total de produits publiés dans la base

@@ -43,6 +43,7 @@ if (!is_object($manufacturer)) {
 }
 
 $xoopsTpl->assign('mod_pref', $mod_pref); // Préférences du module
+$xoopsTpl->assign('columnsCount', oledrion_utils::getModuleOption('catagory_colums'));
 $xoopsTpl->assign('manufacturer', $manufacturer->toArray());
 $limit = oledrion_utils::getModuleOption('perpage');
 

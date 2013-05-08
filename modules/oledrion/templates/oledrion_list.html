@@ -1,18 +1,10 @@
 <div class="oledrion">
 	<!-- Created by Hervé Thouzard (http://www.herve-thouzard.com/) -->
+	<{if $mod_pref.advertisement != ''}><div id="oledrion_publicite"><{$mod_pref.advertisement}></div><{/if}>
 	<!-- Breadcrumb -->
-	<table cellspacing="0" class="breadcrumbT">
-	<tr>
-		<td class="breadcrumb_01"></td>
-	    <td class="breadcrumb_02"><div id="productshoop_breadcrumb"><{$breadcrumb}></div></td>
-	    <td class="breadcrumb_03"></td>
-	</tr>
-	<tr>
-	    <td colspan="3" class="red-line"></td>
-	</tr>
-	</table>
+	<div class="breadcrumb"><{$breadcrumb}></div>
 	<!-- /Breadcrumb -->
-	<{if $global_advert != ''}><div id="oledrion_publicite"><{$global_advert}></div><{/if}>
+	
 	<h2><{$list.list_title}></h2>
 	<div class="list_username">
 		<{$smarty.const._OLEDRION_BY}> <a href="<{$xoops_url}>/userinfo.php?uid=<{$list.list_uid}>"><{$list.list_username}></a> <small>(<{$list.list_formated_date}>)</small>
@@ -28,28 +20,16 @@
 			<h3><img src="<{$smarty.const.OLEDRION_IMAGES_URL}>icon-product-person.png" alt="<{$smarty.const._OLEDRION_RECOMMENDED}>" /><{$smarty.const._OLEDRION_PROD_IN_THIS_LIST}></h3>
 		</div>
 		<table class="oledrion_productindex">
-		<{foreach item=product from=$products}>
 		<tr>
-			<td class="oledrion_productthumb"><{if $product.product_thumb_url}><a href="<{$product.product_url_rewrited}>" title="<{$product.product_href_title}>"><img src="<{$product.product_thumb_full_url}>" alt="<{$product.product_href_title}>" /></a><{/if}></td>
-			<td class="oledrion_productssummary">
-			<table width="100%" cellspacing="0">
-		  <tr>
-		    <td class="page-curl_01">
-				<div class="oledrion_producttitle">
-					<{$product.product_recommended_picture}><a href="<{$product.product_url_rewrited}>" title="<{$product.product_href_title}>"><{$product.product_title}></a>
-				</div>
-				<{if $product.product_joined_manufacturers != ''}>
-					<div class="oledrion_productauthor">
-						<img src="<{$smarty.const.OLEDRION_IMAGES_URL}>author.png" alt="<{$smarty.const._OLEDRION_BY}> " /><{$smarty.const._OLEDRION_BY}> <{$product.product_joined_manufacturers}>
-					</div>
-				<{/if}>
-				<{if $mod_pref.use_price}><div class="oledrion_productprice"><{if $product.product_stock > 0 }><{$smarty.const._OLEDRION_PRICE}> <a href="<{$smarty.const.OLEDRION_URL}>caddy.php?op=addproduct&product_id=<{$product.product_id}>" title="<{$smarty.const._OLEDRION_ADD_TO_CART}>"><{if $product.product_discount_price_ttc != ''}><s><{$product.product_price_ttc}></s> <{$product.product_discount_price_ttc}><{else}><{$product.product_price_ttc}><{/if}> <img src="<{$smarty.const.OLEDRION_IMAGES_URL}>cartadd.png" alt="<{$smarty.const._OLEDRION_ADD_TO_CART}>" /></a><{else}><{$mod_pref.nostock_msg}><{/if}></div><{/if}>
-			</td>
-		  </tr>
-		</table>
-			</td>
-		</tr>
+		<{foreach item=product from=$products}>
+		      <td>
+         <{include file="db:oledrion_product_box.html"}>
+		      </td>
+		    <{if $product.product_count is div by $columnsCount}>
+	    		</tr><tr>
+	    	<{/if}>		
 		<{/foreach}>
+		</tr>
 		</table>
 	<{/if}>
 	

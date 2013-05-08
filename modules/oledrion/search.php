@@ -32,7 +32,7 @@ $categories = $manufacturers = $vendors = array();
 $baseurl = OLEDRION_URL . basename(__FILE__); // URL de ce script (sans son nom)
 
 $xoopsTpl->assign('mod_pref', $mod_pref); // Préférences du module
-
+$xoopsTpl->assign('columnsCount', oledrion_utils::getModuleOption('catagory_colums'));
 
 $categories = $h_oledrion_cat->getAllCategories(new oledrion_parameters());
 $vendors = $h_oledrion_vendors->getAllVendors(new oledrion_parameters());
@@ -216,19 +216,19 @@ if ((isset($_POST['op']) && $_POST['op'] == 'go') || isset($_GET['start'])) { //
     $tempProduct = $h_oledrion_products->create(true);
     while ($myrow = $xoopsDB->fetchArray($result)) {
         $ret = array();
-        $ret['link'] = $tempProduct->getLink($myrow['product_id'], $myrow['product_title']);
-        $ret['title'] = $myts->htmlSpecialChars($myrow['product_title']);
-        $ret['href_title'] = oledrion_utils::makeHrefTitle($myts->htmlSpecialChars($myrow['product_title']));
-        $ret['time'] = $myrow['product_submitted'];
-        $ret['uid'] = $myrow['product_submitter'];
-        $ret['id'] = $myrow['product_id'];
-        $ret['thumb_url'] = $myrow['product_thumb_url'];
-        $ret['thumb_url_full'] = OLEDRION_PICTURES_URL . '/' . $myrow['product_thumb_url'];
-        $ret['property1'] = $myrow['product_property1'];
-        $ret['property2'] = $myrow['product_property2'];
-        $ret['property3'] = $myrow['product_property3'];
-        $ret['property4'] = $myrow['product_property4'];
-        $ret['property5'] = $myrow['product_property5'];
+        $ret['product_link'] = $tempProduct->getLink($myrow['product_id'], $myrow['product_title']);
+        $ret['product_title'] = $myts->htmlSpecialChars($myrow['product_title']);
+        $ret['product_href_title'] = oledrion_utils::makeHrefTitle($myts->htmlSpecialChars($myrow['product_title']));
+        $ret['product_time'] = $myrow['product_submitted'];
+        $ret['product_uid'] = $myrow['product_submitter'];
+        $ret['product_id'] = $myrow['product_id'];
+        $ret['product_thumb_url'] = $myrow['product_thumb_url'];
+        $ret['product_thumb_url_full'] = OLEDRION_PICTURES_URL . '/' . $myrow['product_thumb_url'];
+        $ret['product_property1'] = $myrow['product_property1'];
+        $ret['product_property2'] = $myrow['product_property2'];
+        $ret['product_property3'] = $myrow['product_property3'];
+        $ret['product_property4'] = $myrow['product_property4'];
+        $ret['product_property5'] = $myrow['product_property5'];
         $ret['product_price'] = $myrow['product_price'];
         if ($myrow['product_price'] == 0) {
             $criteria = new CriteriaCompo ();
@@ -238,8 +238,8 @@ if ((isset($_POST['op']) && $_POST['op'] == 'go') || isset($_GET['start'])) { //
                 $ret['product_price'] = $root->getVar('attribute_default_value');
             }
         }
-        $ret['stock'] = $myrow['product_stock'];
-        $ret['price_ttc'] = oledrion_utils::getTTC($ret['product_price'], '');
+        $ret['product_stock'] = $myrow['product_stock'];
+        $ret['product_price_ttc'] = oledrion_utils::getTTC($ret['product_price'], '');
         $xoopsTpl->append('products', $ret);
     }
     unset($tempProduct);

@@ -53,7 +53,6 @@ oledrion_utils::setCSS();
 oledrion_utils::setLocalCSS($xoopsConfig['language']);
 oledrion_utils::loadLanguageFile('modinfo.php');
 
-$xoopsTpl->assign('global_advert', oledrion_utils::getModuleOption('advertisement'));
 $xoopsTpl->assign('breadcrumb', oledrion_utils::breadcrumb(array(OLEDRION_URL . basename(__FILE__) => _MI_OLEDRION_SMNAME11)));
 
 $title = _MI_OLEDRION_SMNAME11 . ' - ' . oledrion_utils::getModuleName();

@@ -63,6 +63,7 @@ if(isset($_POST['commend_id'])) {
 }			
 
 $xoopsTpl->assign('op', $op);
+$xoopsTpl->assign('mod_pref', $mod_pref);
 $cartForTemplate = array();
 $emptyCart = false;
 $shippingAmount = $commandAmount = $vatAmount = $commandAmountTTC = $discountsCount = 0;
@@ -721,7 +722,6 @@ switch ($op) {
         break;
 }
 
-$xoopsTpl->assign('global_advert', oledrion_utils::getModuleOption('advertisement'));
 $xoopsTpl->assign('breadcrumb', oledrion_utils::breadcrumb(array(OLEDRION_URL . basename(__FILE__) => _OLEDRION_VALIDATE_CMD)));
 
 $title = _OLEDRION_VALIDATE_CMD . ' - ' . oledrion_utils::getModuleName();

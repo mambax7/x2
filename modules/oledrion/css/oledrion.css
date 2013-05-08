@@ -1,4 +1,4 @@
-img, .box_blue-clip_01, .box_blue-clip_03, .box_blue-clip_06, .box_blue-clip_08, .oledrion_productthumb, .view-product-shad1_01, .view-product-shad1_02, .view-product-shad1_03, .view-product-shad2_01, .view-product-shad2_02, .view-product-shad2_03, .breadcrumb_01, .breadcrumb_03 {
+img, .box_blue-clip_01, .box_blue-clip_03, .box_blue-clip_06, .box_blue-clip_08, .oledrion_productthumb, .view-product-shad1_01, .view-product-shad1_02, .view-product-shad1_03, .view-product-shad2_01, .view-product-shad2_02, .view-product-shad2_03, {
     behavior: url('include/iepngfix.htc')
 }
 
@@ -342,49 +342,6 @@ html>body div.widget_tableDiv {
 .oledrion_productdescription-contentTitles {
     color: #000;
     font-weight: bold;
-}
-
-#productshoop_breadcrumb {
-    color: #8B310A;
-    padding: 3px;
-    font-weight: bold; /*margin: 10px 0px 10px 0px;*/
-}
-
-#productshoop_breadcrumb a {
-    color: #F8F0DA;
-    text-decoration: underline;
-}
-
-#productshoop_breadcrumb a:hover {
-    text-decoration: none;
-}
-
-.breadcrumbT {
-    border-bottom-width: 1px;
-    border-bottom-style: solid;
-    border-bottom-color: #dd8a07;
-    margin-top: 5px;
-    margin-bottom: 5px;
-}
-
-.breadcrumb_01 {
-    background-image: url(../images/breadcrumb_01.png);
-    background-repeat: no-repeat;
-    background-position: left top;
-    width: 10px;
-}
-
-.breadcrumb_02 {
-    background-image: url(../images/breadcrumb_02.gif);
-    background-repeat: repeat-x;
-    background-position: left top;
-}
-
-.breadcrumb_03 {
-    background-image: url(../images/breadcrumb_03.png);
-    background-repeat: no-repeat;
-    background-position: right top;
-    width: 11px;
 }
 
 .oledrion_productprice_view-product {

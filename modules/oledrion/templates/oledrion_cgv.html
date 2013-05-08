@@ -1,18 +1,8 @@
 <!-- Created by Hervé Thouzard (http://www.herve-thouzard.com/) -->
+<{if $mod_pref.advertisement != ''}><div id="oledrion_publicite"><{$mod_pref.advertisement}></div><{/if}>
+<{if $global_advert != ''}><div class='global_advert center'><{$global_advert}></div><{/if}>
 <!-- Breadcrumb -->
-<table cellspacing="0" class="breadcrumbT">
-<tr>
-	<td class="breadcrumb_01"></td>
-    <td class="breadcrumb_02"><div id="productshoop_breadcrumb"><{$breadcrumb}></div></td>
-    <td class="breadcrumb_03"></td>
-</tr>
-<tr>
-    <td colspan="3" class="red-line"></td>
-</tr>
-</table>
+<div class="breadcrumb"><{$breadcrumb}></div>
 <!-- /Breadcrumb -->
-<{if $global_advert != ''}>
-	<div class='global_advert center'><{$global_advert}></div>
-<{/if}>
 <h2><{$smarty.const._OLEDRION_CGV}></h2>
 <div class="pad2"><{$cgv_msg}></div>
