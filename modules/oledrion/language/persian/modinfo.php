@@ -176,7 +176,7 @@ define('_MI_OLEDRION_NO_MORE', 'نمایش متن برای وقتی که از ی
 define('_MI_OLEDRION_MSG_NOMORE', 'متن نمایش داده شده وقتی این محصول موجود نیست');
 define('_MI_OLEDRION_GRP_SOLD', 'گروهی که هنگام فروش یک محصول به آنها پست الکترونیکی ارسال شود را انتخاب کنید؟');
 define('_MI_OLEDRION_GRP_QTY', 'گروه های از کاربران که مجاز به تغییر موجودی کالا ها از صفحه محصولات هستند');
-define('_MI_OLEDRION_BEST_TOGETHER', 'نمایش بهترین ها با هم ?');
+define('_MI_OLEDRION_BEST_TOGETHER', 'نمایش بهترین ها با هم ؟');
 define('_MI_OLEDRION_UNPUBLISHED', 'نمایش محصولاتی که تاریخ انتشارشان مال قبل از امروز است؟');
 define('_MI_OLEDRION_DECIMAL', 'ممیز اعشاری برای پول');
 define('_MI_OLEDRION_CONF04', 'جداکنندهٔ هزارگان');
@@ -263,5 +263,7 @@ define('_MI_OLEDRION_BREAK_COMMENT_NOTIFICATION', 'Comments and Notifications');
 define('_MI_OLEDRION_BREAK_SEARCH', 'Search');
 define('_MI_OLEDRION_BREAK_IMAGE', 'Image');
 define('_MI_OLEDRION_BREAK_CHECKOUT', 'Checkout');
-
+define('_MI_OLEDRION_BREAK_VIEW', 'View');
+define('_MI_OLEDRION_BREAK_MONEY', 'Money');
+define('_MI_OLEDRION_BREAK_META', 'Meta');
 ?>
