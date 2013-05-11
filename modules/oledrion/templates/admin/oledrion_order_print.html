@@ -24,7 +24,7 @@
 	
 	<div id="print-info">
 		<div class="pad2"><span class="bold">شماره سفارش</span> : <{$order.cmd_id}></div>
-		<div class="pad2"><span class="bold">تاریخ سفارش</span> : <{$order.cmd_date|date_format:"%d/%m/%Y"}></div>
+		<div class="pad2"><span class="bold">تاریخ سفارش</span> : <{if $order.cmd_create > 0 }><{$order.cmd_create_date}><{else}><{$order.cmd_date|date_format:"%d/%m/%Y"}><{/if}></div>
 		<div class="pad2"><span class="bold">نام و نام خانوادگی</span> : <{$order.cmd_firstname}> <{$order.cmd_lastname}></div>
 		<div class="pad2"><span class="bold">آدرس</span> : <{$order.cmd_adress}></div>
 		<{if $ask_vatnumber && trim($order.cmd_vat_number) != ''}>
@@ -33,8 +33,11 @@
 		<div class="pad2"><span class="bold">شهر</span> : <{$order.cmd_town}></div>
       <div class="pad2"><span class="bold">کد پستی</span> : <{$order.cmd_zip}></div>
 		<div class="pad2"><span class="bold">تلفن</span> : <{$order.cmd_telephone}></div>
+		<div class="pad2"><span class="bold">موبایل</span> : <{$order.cmd_mobile}></div>
 		<div class="pad2"><span class="bold">ایمیل</span> : <{$order.cmd_email}></div>
-      <div class="pad2"><span class="bold">درخواست فاکتور</span> : <{if $order.cmd_bill == 1}>دارد<{else}>ندارد<{/if}></div>
+		<{if $order.cmd_uname}>
+		<div class="pad2"><span class="bold">نام کاربری</span> : <{$order.cmd_uname}></div>
+		<{/if}>
 	</div>
    
    <div id="print-factor">

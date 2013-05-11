@@ -72,19 +72,9 @@ $discountsDescription = array();
 
 function listCart()
 {
-    global $cartForTemplate, $emptyCart, $shippingAmount, $commandAmount, $vatAmount, $goOn, $commandAmountTTC, $discountsDescription, $discountsCount, $commandAmountVAT;
-    $reductions = new oledrion_reductions();
-    $reductions_return = $reductions->computeCart($cartForTemplate, $emptyCart, $shippingAmount, $commandAmount, $vatAmount, $goOn, $commandAmountTTC, $discountsDescription, $discountsCount);
-
-    $cartForTemplate = $reductions_return['cartForTemplate'];
-    $emptyCart = $reductions_return['emptyCart'];
-    $shippingAmount = $reductions_return['shippingAmount'];
-    $commandAmount = $reductions_return['commandAmount'];
-    $vatAmount = $reductions_return['vatAmount'];
-    $goOn = $reductions_return['goOn'];
-    $commandAmountTTC = $reductions_return['commandAmountTTC'];
-    $discountsDescription = $reductions_return['discountsDescription'];
-    $discountsCount = $reductions_return['discountsCount'];
+	global $cartForTemplate, $emptyCart, $shippingAmount, $commandAmount, $vatAmount, $goOn, $commandAmountTTC, $discountsDescription;
+	$reductions = new oledrion_reductions();
+	$reductions->computeCart($cartForTemplate, $emptyCart, $shippingAmount, $commandAmount, $vatAmount, $goOn, $commandAmountTTC, $discountsDescription, $discountsCount);
 }
 
 $oledrion_Currency = oledrion_Currency::getInstance();

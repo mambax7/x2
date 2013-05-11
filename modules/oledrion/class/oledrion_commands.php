@@ -92,6 +92,10 @@ class oledrion_commands extends Oledrion_Object
         if (isset($countries[$this->getVar('cmd_country')])) { // Libellé du pays de l'acheteur
             $ret['cmd_country_label'] = $countries[$this->getVar('cmd_country')];
         }
+        if($this->getVar('cmd_uid') > 0) {
+            $ret['cmd_uname'] = XoopsUser::getUnameFromId($this->getVar('cmd_uid'));
+        }
+        $ret['cmd_create_date'] = formatTimestamp($this->getVar('cmd_create'), _MEDIUMDATESTRING);
         return $ret;
     }
 }

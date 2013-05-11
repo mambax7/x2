@@ -54,11 +54,11 @@ if (!oledrion_utils::isAdmin()) {
 }
 
 // Vérification de la validité de la facture (si pas admin)
-if (!oledrion_utils::isAdmin()) {
+/* if (!oledrion_utils::isAdmin()) {
     if ($order->getVar('cmd_state') != OLEDRION_STATE_VALIDATED) { // Commande non validée
         oledrion_utils::redirect(_OLEDRION_ERROR12, 'index.php', 6);
     }
-}
+} */
 
 $caddy = $tmp = $products = $vats = $manufacturers = $tmp2 = $manufacturers = $productsManufacturers = array();
 

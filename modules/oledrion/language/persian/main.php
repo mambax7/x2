@@ -180,7 +180,7 @@ define('_OLEDRION_QTE_MODIFIED', 'آیا شما تعداد سفارش را تغ�
 define('_OLEDRION_UPDATE', 'به روز کردن سبد خرید');
 define('_OLEDRION_EMPTY_CART', 'خالی کردن سبد خرید');
 define('_OLEDRION_GO_ON', 'ادامه خرید');
-define('_OLEDRION_CHECKOUT', 'پرداخت');
+define('_OLEDRION_CHECKOUT', 'مرحله بعد');
 define('_OLEDRION_UNIT_PRICE', 'فی واحد (ریال)');
 define('_OLEDRION_UNIT_PRICE2', 'قیمت واحد با تخفیف (ریال)');
 define('_OLEDRION_CART1', 'مقدار بدون مالیات');
@@ -189,7 +189,7 @@ define('_OLEDRION_CART3', 'تعداد رای');
 define('_OLEDRION_CART4', 'سبد خرید شما مشمول تخفیف می شود. ');
 define('_OLEDRION_VALIDATE_CMD', 'معتبرسازی خرید');
 define('_OLEDRION_DETAILS_EMAIL', 'شما اطلاعات سفارش خود را به وسیلهٔ پست الکترونیکی دریافت خواهید کرد');
-define('_OLEDRION_PLEASE_ENTER', 'لطفا اطلاعات زیر را برای معتبرسازی بررسی نهایی وارد نمایید.');
+define('_OLEDRION_PLEASE_ENTER', 'لطفا اطلاعات زیر را برای بررسی سفارش تمکیل نمایید .');
 define('_OLEDRION_STREET', 'آدرس');
 define('_OLEDRION_CP', 'کد پستی');
 define('_OLEDRION_CITY', 'شهر');

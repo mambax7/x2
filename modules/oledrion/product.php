@@ -212,6 +212,7 @@ if (count($tbl_tmp) > 0) {
     $criteria = new Criteria('product_id', '(' . implode(',', $tbl_tmp2) . ')', 'IN');
     $criteria->setLimit(oledrion_utils::getModuleOption('related_limit'));
     $criteria->setOrder('DESC');
+    $criteria->setSort('product_id');
     $tbl_related_products = array();
     $tbl_related_products = $h_oledrion_products->getObjects($criteria, true);
     if (count($tbl_related_products) > 0) {
@@ -450,6 +451,8 @@ if (oledrion_utils::getModuleOption('manual_meta')) {
 } else {
     oledrion_utils::setMetas($title, $title, oledrion_utils::createMetaKeywords($product->getVar('product_title') . ' ' . $product->getVar('product_summary') . ' ' . $product->getVar('product_description')));
 }
+
+
 
 if (!isset($_GET['op'])) {
     require_once XOOPS_ROOT_PATH . '/include/comment_view.php';

@@ -216,14 +216,14 @@ if ((isset($_POST['op']) && $_POST['op'] == 'go') || isset($_GET['start'])) { //
     $tempProduct = $h_oledrion_products->create(true);
     while ($myrow = $xoopsDB->fetchArray($result)) {
         $ret = array();
-        $ret['product_link'] = $tempProduct->getLink($myrow['product_id'], $myrow['product_title']);
+        $ret['product_url_rewrited'] = $tempProduct->getLink($myrow['product_id'], $myrow['product_title']);
         $ret['product_title'] = $myts->htmlSpecialChars($myrow['product_title']);
         $ret['product_href_title'] = oledrion_utils::makeHrefTitle($myts->htmlSpecialChars($myrow['product_title']));
         $ret['product_time'] = $myrow['product_submitted'];
         $ret['product_uid'] = $myrow['product_submitter'];
         $ret['product_id'] = $myrow['product_id'];
         $ret['product_thumb_url'] = $myrow['product_thumb_url'];
-        $ret['product_thumb_url_full'] = OLEDRION_PICTURES_URL . '/' . $myrow['product_thumb_url'];
+        $ret['product_thumb_full_url'] = OLEDRION_PICTURES_URL . '/' . $myrow['product_thumb_url'];
         $ret['product_property1'] = $myrow['product_property1'];
         $ret['product_property2'] = $myrow['product_property2'];
         $ret['product_property3'] = $myrow['product_property3'];
