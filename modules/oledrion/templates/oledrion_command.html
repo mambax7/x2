@@ -17,11 +17,11 @@
 				</div>
 				<{/if}>
 				<div class="clear"></div>
+				<{$form}>
+				<{if $op == 'confirm'}>
+				<div class="center bold"><{$smarty.const._OLEDRION_DETAILS_EMAIL}></div>
+				<{else}>
+				<div class="center bold"><{$smarty.const._OLEDRION_REQUIRED}></div>
+				<{/if}>
 		</div>
-		<{$form}>
-		<{if $op == 'confirm'}>
-		<div class="center bold"><{$smarty.const._OLEDRION_DETAILS_EMAIL}></div>
-		<{else}>
-		<div class="center bold"><{$smarty.const._OLEDRION_REQUIRED}></div>
-		<{/if}>
 </div>
