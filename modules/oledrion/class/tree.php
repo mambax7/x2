@@ -64,7 +64,7 @@ class Oledrion_XoopsObjectTree
      * @param   string     $parentId   field name of parent object ID
      * @param   string     $rootId     field name of root object ID
      **/
-    public function __construct($objectArr, $myId, $parentId, $rootId = null)
+    public function __construct(&$objectArr, $myId, $parentId, $rootId = null)
     {
         $this->_objects = $objectArr;
         $this->_myId = $myId;
@@ -188,7 +188,7 @@ class Oledrion_XoopsObjectTree
      *
      * @access    private
      **/
-    public function _makeSelBoxOptions($fieldName, $selected, $key, $ret, $prefix_orig, $prefix_curr = '')
+    public function _makeSelBoxOptions($fieldName, $selected, $key, &$ret, $prefix_orig, $prefix_curr = '')
     {
         if ($key > 0) {
             $value = $this->_tree[$key]['obj']->getVar($this->_myId);
@@ -238,7 +238,7 @@ class Oledrion_XoopsObjectTree
     /**
      * Internal function used by makeTreeAsArray
      */
-    public function _recursiveMakeTreeAsArray($fieldName, $key, $ret, $prefix_orig, $prefix_curr = '')
+    public function _recursiveMakeTreeAsArray($fieldName, $key, &$ret, $prefix_orig, $prefix_curr = '')
     {
         if ($key > 0) {
             $value = $this->_tree[$key]['obj']->getVar($this->_myId);
