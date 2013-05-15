@@ -46,7 +46,7 @@ if ((isset($_POST['op']) && $_POST['op'] == 'go') || isset($_GET['start'])) { //
     oledrion_utils::setMetas(oledrion_utils::getModuleName() . ' - ' . _OLEDRION_SEARCHRESULTS, oledrion_utils::getModuleName() . ' - ' . _OLEDRION_SEARCHRESULTS);
 
     if (!isset($_GET['start'])) {
-        $sql = 'SELECT b.product_id, b.product_title, b.product_submitted, b.product_submitter, b.product_thumb_url, b.product_price, b.product_property1, b.product_property2, b.product_property3, b.product_property4, b.product_property5, b.product_stock FROM ' . $xoopsDB->prefix('oledrion_products') . ' b, ' . $xoopsDB->prefix('oledrion_productsmanu') . ' a WHERE (b.product_id = a.pm_product_id AND b.product_online = 1 ';
+        $sql = 'SELECT b.product_id, b.product_title, b.product_submitted, b.product_submitter, b.product_thumb_url, b.product_price, b.product_property1, b.product_property2, b.product_property3, b.product_property4, b.product_property5, b.product_stock, b.product_summary FROM ' . $xoopsDB->prefix('oledrion_products') . ' b, ' . $xoopsDB->prefix('oledrion_productsmanu') . ' a WHERE (b.product_id = a.pm_product_id AND b.product_online = 1 ';
         if (oledrion_utils::getModuleOption('show_unpublished') == 0) { // Ne pas afficher les produits qui ne sont pas publiés
             $sql .= ' AND b.product_submitted <= ' . time();
         }
@@ -214,6 +214,7 @@ if ((isset($_POST['op']) && $_POST['op'] == 'go') || isset($_GET['start'])) { //
     $result = $xoopsDB->query($sql, $limit, $start);
     $ret = array();
     $tempProduct = $h_oledrion_products->create(true);
+    $count = 1;
     while ($myrow = $xoopsDB->fetchArray($result)) {
         $ret = array();
         $ret['product_url_rewrited'] = $tempProduct->getLink($myrow['product_id'], $myrow['product_title']);
@@ -240,7 +241,10 @@ if ((isset($_POST['op']) && $_POST['op'] == 'go') || isset($_GET['start'])) { //
         }
         $ret['product_stock'] = $myrow['product_stock'];
         $ret['product_price_ttc'] = oledrion_utils::getTTC($ret['product_price'], '');
+        $ret['product_count'] = $count;
+        $ret['product_summary'] = $myrow['product_summary'];
         $xoopsTpl->append('products', $ret);
+        $count++;
     }
     unset($tempProduct);
 } else {

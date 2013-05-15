@@ -235,6 +235,10 @@ if (is_object($category) && $cat_cid > 0) { // On est sur une catégorie défini
         }
         $xoopsTpl->assign('products', $products);
     }
+    
+    echo '<pre>';
+    print_r($products);
+    echo '</pre>';
 }
 
 oledrion_utils::setCSS();

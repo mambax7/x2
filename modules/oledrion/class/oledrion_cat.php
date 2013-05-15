@@ -171,7 +171,7 @@ class OledrionOledrion_catHandler extends Oledrion_XoopsPersistableObjectHandler
      * @param object $tree
      * @return string
      */
-    private function _makeLi($fieldName, $key, $ret, $tree)
+    private function _makeLi($fieldName, $key, &$ret, $tree)
     {
         if ($key > 0) {
             $ret .= '<li><a href="';

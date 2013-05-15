@@ -72,13 +72,16 @@ if (count($products) > 0) {
         $categories = $h_oledrion_cat->getCategoriesFromIds($tmp);
     }
     $cpt = 1;
+    $count = 1;
     foreach ($products as $product) {
         $productForTemplate = array();
         $productForTemplate = $product->toArray();
         $productForTemplate['count'] = $cpt;
         $productForTemplate['product_category'] = isset($categories[$product->getVar('product_cid')]) ? $categories[$product->getVar('product_cid')]->toArray() : null;
+        $productForTemplate['product_count'] = $count;
         $xoopsTpl->append('products', $productForTemplate);
         $cpt++;
+        $count++;
     }
 }
 
