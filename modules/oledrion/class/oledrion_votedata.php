@@ -53,7 +53,7 @@ class OledrionOledrion_votedataHandler extends Oledrion_XoopsPersistableObjectHa
      * @param integer $sumRating Variable passée par référence et devant contenir le cumul des votes
      * @return none Rien
      */
-    public function getCountRecordSumRating($product_id, $totalVotes, $sumRating)
+    public function getCountRecordSumRating($product_id, &$totalVotes, &$sumRating)
     {
         $sql = "SELECT count( * ) AS cpt, sum( vote_rating ) AS sum_rating FROM " . $this->table . " WHERE vote_product_id = " . intval($product_id);
         $result = $this->db->query($sql);

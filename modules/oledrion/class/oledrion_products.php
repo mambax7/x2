@@ -982,7 +982,7 @@ class OledrionOledrion_productsHandler extends Oledrion_XoopsPersistableObjectHa
      * @param object $product Objet produit
      * @param $quantity $quantity Quantité à soustraire
      */
-    public function decreaseStock($product, $quantity = 1)
+    public function decreaseStock(&$product, $quantity = 1)
     {
         if ($product->getVar('product_stock') - $quantity > 0) {
             $product->setVar('product_stock', $product->getVar('product_stock') - $quantity);
@@ -1000,7 +1000,7 @@ class OledrionOledrion_productsHandler extends Oledrion_XoopsPersistableObjectHa
      * @param object $products L'objet produit concerné
      * @return boolean Vrai si la quantité d'alerte est atteinte, sinon faux
      */
-    public function isAlertStockReached($product)
+    public function isAlertStockReached(&$product)
     {
         if ($product->getVar('product_stock') < $product->getVar('product_alert_stock')) {
             return true;
@@ -1015,7 +1015,7 @@ class OledrionOledrion_productsHandler extends Oledrion_XoopsPersistableObjectHa
      * @param object $product Produit dont il faut faire la vérification
      * @return boolean vrai si l'alerte à du être générée sinon faux
      */
-    public function verifyLowStock($product)
+    public function verifyLowStock(&$product)
     {
         if ($this->isAlertStockReached($product)) {
             $msg = array();
@@ -1038,7 +1038,7 @@ class OledrionOledrion_productsHandler extends Oledrion_XoopsPersistableObjectHa
      * @param integer $maxDate Date maxi (paramètre de sortie)
      * @return boolean Vrai si on a pu récupérer ces valeurs, faux sinon
      */
-    public function getMinMaxPublishedDate($minDate, $maxDate)
+    public function getMinMaxPublishedDate(&$minDate, &$maxDate)
     {
         $sql = 'SELECT Min(product_submitted) AS minDate, Max(product_submitted) as maxDate FROM ' . $this->table . ' WHERE product_online = 1 ';
         $result = $this->db->query($sql);

@@ -276,7 +276,7 @@ class OledrionOledrion_discountsHandler extends Oledrion_XoopsPersistableObjectH
      * @param float $commandAmount            Le montant total de la commande
      * @param array $discountsDescription     Descriptions des réductions appliquées
      */
-    public function applyDiscountOnShipping2($montantShipping, $commandAmount, $discountsDescription)
+    public function applyDiscountOnShipping2(&$montantShipping, $commandAmount, &$discountsDescription)
     {
         $tblRules = array();
         $tblRules = $this->getRulesOnShipping2(); // Renvoie des objets Discounts
@@ -297,7 +297,7 @@ class OledrionOledrion_discountsHandler extends Oledrion_XoopsPersistableObjectH
      * @param float $montantHT                 Montant HT des produits
      * @param array $discountsDescription     Descriptions des réductions appliquées
      */
-    public function applyDiscountOnCommand($montantHT, $discountsDescription)
+    public function applyDiscountOnCommand(&$montantHT, &$discountsDescription)
     {
         global $h_oledrion_commands;
         $tblRules = array();
@@ -349,7 +349,7 @@ class OledrionOledrion_discountsHandler extends Oledrion_XoopsPersistableObjectH
      * @param array $discountsDescription     Descriptions des réductions appliquées
      * @param integer $productQty             Quantité commandée du produit
      */
-    public function applyDiscountOnShipping($montantHT, $discountsDescription, $productQty)
+    public function applyDiscountOnShipping(&$montantHT, &$discountsDescription, $productQty)
     {
         global $h_oledrion_commands;
         $tblRules = array();
@@ -452,7 +452,7 @@ class OledrionOledrion_discountsHandler extends Oledrion_XoopsPersistableObjectH
      * @param array $discountsDescription     Descriptions des réductions appliquées
      * @param integer $productQty             Quantité commandée du produit
      */
-    public function applyDiscountOnAllProducts($montantHT, $discountsDescription, $productQty)
+    public function applyDiscountOnAllProducts(&$montantHT, &$discountsDescription, $productQty)
     {
         global $h_oledrion_commands;
         $tblRules = array();
@@ -556,7 +556,7 @@ class OledrionOledrion_discountsHandler extends Oledrion_XoopsPersistableObjectH
      * @param array $discountsDescription     Descriptions des réductions appliquées
      * @param integer $productQty             Quantité commandée du produit
      */
-    public function applyDiscountOnEachProduct($productId, $prixHT, $discountsDescription, $productQty)
+    public function applyDiscountOnEachProduct($productId, &$prixHT, &$discountsDescription, $productQty)
     {
         global $h_oledrion_commands;
         $rules = array();

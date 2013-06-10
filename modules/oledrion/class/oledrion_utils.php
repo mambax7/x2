@@ -580,7 +580,7 @@ class oledrion_utils
      * @param string $caracter The character to use to mark fields
      * @return object The modified form
      */
-    public function formMarkRequiredFields($sform)
+    public function &formMarkRequiredFields(&$sform)
     {
         if (self::needsAsterisk()) {
             $required = array();
@@ -1673,7 +1673,7 @@ class oledrion_utils
      * @param float $amount
      * @return float
      */
-    public function doNotAcceptNegativeAmounts($amount)
+    public function doNotAcceptNegativeAmounts(&$amount)
     {
         if ($amount < 0) {
             $amount = 0;

@@ -119,7 +119,7 @@ class oledrion_gateways
      * @param string $languageFilename    Utilisé pour retourner le nom du fichier de langue inclu
      * @return boolean        True si le chargement a réussi sinon Faux
      */
-    public function loadGatewaysLanguageDefines($gatewayName, $languageFilename = null, $includeIt = true)
+    public function loadGatewaysLanguageDefines($gatewayName, &$languageFilename = null, $includeIt = true)
     {
         $gatewayPath = self::getGatewayPath($gatewayName);
         $languageFileIncluded = false;

@@ -97,7 +97,7 @@ class Oledrion_XoopsPersistableObjectHandler extends XoopsObjectHandler
      *
      * @return void
      */
-    function __construct($db, $tablename, $classname, $keyname, $idenfierName = '', $cacheOptions = null)
+    function __construct(&$db, $tablename, $classname, $keyname, $idenfierName = '', $cacheOptions = null)
     {
         //include_once '../include/common.php';
         include_once XOOPS_ROOT_PATH . '/modules/oledrion/include/common.php';
@@ -491,7 +491,7 @@ class Oledrion_XoopsPersistableObjectHandler extends XoopsObjectHandler
      * @param bool $force
      * @return bool FALSE if failed.
      */
-    function delete($obj, $force = false)
+    function delete(&$obj, $force = false)
     {
         if (is_array($this->keyName)) {
             $clause = array();
@@ -548,7 +548,7 @@ class Oledrion_XoopsPersistableObjectHandler extends XoopsObjectHandler
      * @return bool FALSE if failed, TRUE if already present and unchanged or successful
      */
 
-    function insert($obj, $force = false, $checkObject = true)
+    function insert(&$obj, $force = false, $checkObject = true)
     {
         if ($checkObject != false) {
             if (!is_object($obj)) {
@@ -676,7 +676,7 @@ class Oledrion_XoopsPersistableObjectHandler extends XoopsObjectHandler
     }
 
 //	check if target object is attempting to use duplicated info
-    function isDuplicated($obj, $field = '', $error = '')
+    function isDuplicated(&$obj, $field = '', $error = '')
     {
         if (empty($field)) {
             return false;

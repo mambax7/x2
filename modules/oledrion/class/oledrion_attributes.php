@@ -267,7 +267,7 @@ class oledrion_attributes extends Oledrion_Object
      * @return void
      * @since 2.3.2009.03.10
      */
-	private function swapValues($array, $from, $to)
+	private function swapValues(&$array, $from, $to)
 	{
         $tempValue = $array[$to];
         $array[$to] = $array[$from];
@@ -753,7 +753,7 @@ class OledrionOledrion_attributesHandler extends Oledrion_XoopsPersistableObject
 	 * @return array	Les options construites en html
 	 * @since 2.3.2009.03.16
 	 */
-	public function constructHtmlProductAttributes(oledrion_products $product, $mandatoryFieldsCount = 0)
+	public function constructHtmlProductAttributes(oledrion_products $product, &$mandatoryFieldsCount = 0)
 	{
         $attributes = $ret = array();
         $attributes = $this->getProductsAttributesList($product->getVar('product_id'));
