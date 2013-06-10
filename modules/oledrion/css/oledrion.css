@@ -194,6 +194,7 @@ html>body div.widget_tableDiv {
 
 #oledrion_caddy {
     margin: 10px;
+    width: 98%;
 }
 
 .oledrion_productssummary {
@@ -556,4 +557,37 @@ background-position: left top;
 	height: 120px;
 	padding: 1px;
 	margin: 1px;
+}
+
+.oledrion_step_body {
+
+}
+
+.oledrion_step_body_width {
+	width: 98%;
+	padding: 10px;
+	margin: 10px;
+}
+
+.oledrion_step_img, .oledrion_step_img img {
+	width: 16px;
+	height: 32px;
+	padding: 0;
+	margin: 0;
+}
+
+.oledrion_step_active {
+	padding: 6px;
+	font-weight: bold;
+		background-color: #ccc;
+}
+
+.oledrion_step {
+	padding: 6px;
+	font-weight: bold;
+		background-color: #eee;
+}
+
+.oledrion_step_text {
+	
 }

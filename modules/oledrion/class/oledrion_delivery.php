@@ -39,7 +39,11 @@ class oledrion_delivery extends Oledrion_Object
      */
     public function getPictureUrl()
     {
-        return OLEDRION_PICTURES_URL . '/' . $this->getVar('delivery_image');
+        if (xoops_trim($this->getVar('product_image_url')) != '') {
+            return OLEDRION_PICTURES_URL . '/' . $this->getVar('delivery_image');
+        } else {
+            return '';
+        }
     }
 
     /**
@@ -79,6 +83,7 @@ class oledrion_delivery extends Oledrion_Object
         global $h_oledrion_location_delivery;
         $ret = array();
         $ret = parent::toArray($format);
+        $ret['delivery_image_url'] = $this->getPictureUrl();
         return $ret;
     }
 }
@@ -157,7 +162,6 @@ class OledrionOledrion_deliveryHandler extends Oledrion_XoopsPersistableObjectHa
                 $tab['delivery_price'] = $location_delivery[$root->getVar('delivery_id')]['ld_price'];
                 $tab['delivery_price_fordisplay'] = $oledrion_Currency->amountForDisplay($tab['delivery_price']);
                 $tab['delivery_time'] = $location_delivery[$root->getVar('delivery_id')]['ld_delivery_time'];
-                $tab['delivery_image_url'] = 'http://localhost/local/project/liliume/uploads/oledrion/images/000000a07fc0ad.png';
                 $ret[] = $tab;
             }
         }

@@ -20,8 +20,46 @@
 				<{$form}>
 				<{if $op == 'confirm'}>
 				<div class="center bold"><{$smarty.const._OLEDRION_DETAILS_EMAIL}></div>
+				<table class="oledrion_step_body">
+					<tr>
+						<td class="oledrion_step_active">
+							<span class="oledrion_step_text">۱. تایید سبد خرید</span>
+						</td>
+						<td class="oledrion_step_img">
+							<img src="<{$step3}>">
+						</td>
+						<td class="oledrion_step_active">
+							<span class="oledrion_step_text">۲. ثبت اطلاعات</span>
+						</td>
+						<td class="oledrion_step_img">
+							<img src="<{$step3}>">
+						</td>
+						<td class="oledrion_step_active">
+							<span class="oledrion_step_text">۳. تایید اطلاعات</span>
+						</td>
+					</tr>
+				</table>
 				<{else}>
 				<div class="center bold"><{$smarty.const._OLEDRION_REQUIRED}></div>
+				<table class="oledrion_step_body">
+					<tr>
+						<td class="oledrion_step_active">
+							<span class="oledrion_step_text">۱. تایید سبد خرید</span>
+						</td>
+						<td class="oledrion_step_img">
+							<img src="<{$step3}>">
+						</td>
+						<td class="oledrion_step_active">
+							<span class="oledrion_step_text">۲. ثبت اطلاعات</span>
+						</td>
+						<td class="oledrion_step_img">
+							<img src="<{$step2}>">
+						</td>
+						<td class="oledrion_step">
+							<span class="oledrion_step_text">۳. تایید اطلاعات</span>
+						</td>
+					</tr>
+				</table>
 				<{/if}>
 		</div>
 </div>

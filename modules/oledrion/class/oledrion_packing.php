@@ -41,7 +41,11 @@ class oledrion_packing extends Oledrion_Object
      */
     public function getPictureUrl()
     {
-        return OLEDRION_PICTURES_URL . '/' . $this->getVar('packing_image');
+        if (xoops_trim($this->getVar('product_image_url')) != '') {
+            return OLEDRION_PICTURES_URL . '/' . $this->getVar('packing_image');
+        } else {
+            return '';
+        }
     }
 
     /**
@@ -82,6 +86,7 @@ class oledrion_packing extends Oledrion_Object
         $ret = array();
         $ret = parent::toArray($format);
         $ret['packing_price_fordisplay'] = $oledrion_Currency->amountForDisplay($this->getVar('packing_price'));
+        $ret['packing_image_url'] = $this->getPictureUrl();
         return $ret;
     }
 }
@@ -115,9 +120,8 @@ class OledrionOledrion_packingHandler extends Oledrion_XoopsPersistableObjectHan
         $packings = $this->getObjects($critere);
         foreach($packings as $root) {
 	        	$tab = array();
-				$tab = $root->toArray();
-				$tab['packing_image_url'] = 'http://localhost/local/project/liliume/uploads/oledrion/images/000000a07fc0ad.png';
-				$ret[] = $tab;
+	        	$tab = $root->toArray();
+	        	$ret[] = $tab;
         }	
         return $ret;
     }

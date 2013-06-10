@@ -202,6 +202,20 @@ switch ($op) {
         break;
 }
 
+// Image icons
+if (file_exists(OLEDRION_PATH . 'language' . DIRECTORY_SEPARATOR . $xoopsConfig['language'] . DIRECTORY_SEPARATOR . 'image' . DIRECTORY_SEPARATOR . 'step1.png')) {
+    $step1 = OLEDRION_URL . 'language/' . $xoopsConfig['language'] . '/image/step1.png';
+    $step2 = OLEDRION_URL . 'language/' . $xoopsConfig['language'] . '/image/step2.png';
+    $step3 = OLEDRION_URL . 'language/' . $xoopsConfig['language'] . '/image/step3.png';
+} else { // Fallback
+    $step1 = OLEDRION_URL . 'language/english/image/step1.png';
+    $step2 = OLEDRION_URL . 'language/english/image/step2.png';
+    $step3 = OLEDRION_URL . 'language/english/image/step3.png';
+}
+$xoopsTpl->assign('step1', $step1);
+$xoopsTpl->assign('step2', $step2);
+$xoopsTpl->assign('step3', $step3);
+
 oledrion_utils::setCSS();
 oledrion_utils::setLocalCSS($xoopsConfig['language']);
 oledrion_utils::loadLanguageFile('modinfo.php');

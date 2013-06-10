@@ -39,7 +39,11 @@ class oledrion_payment extends Oledrion_Object
      */
     public function getPictureUrl()
     {
-        return OLEDRION_PICTURES_URL . '/' . $this->getVar('payment_image');
+        if (xoops_trim($this->getVar('product_image_url')) != '') {
+            return OLEDRION_PICTURES_URL . '/' . $this->getVar('payment_image');
+        } else {
+            return '';
+        }
     }
 
     /**
@@ -78,6 +82,7 @@ class oledrion_payment extends Oledrion_Object
     {
         $ret = array();
         $ret = parent::toArray($format);
+        $ret['payment_image_url'] = $this->getPictureUrl();
         return $ret;
     }
 }
@@ -121,7 +126,6 @@ class OledrionOledrion_paymentHandler extends Oledrion_XoopsPersistableObjectHan
             foreach ($obj as $root) {
                 $tab = array();
                 $tab = $root->toArray();
-                $tab['payment_image_url'] = 'http://localhost/local/project/liliume/uploads/oledrion/images/000000a07fc0ad.png';
                 $ret[] = $tab;
             }
         }

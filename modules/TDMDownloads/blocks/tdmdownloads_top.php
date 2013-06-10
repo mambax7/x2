@@ -73,8 +73,9 @@ function b_tdmdownloads_top_show($options) {
     $downloads_arr = $downloads_Handler->getall($criteria);
 
     foreach (array_keys($downloads_arr) as $i) {
-    	  $lid = $downloads_arr[$i]->getVar('lid');
-        $downloads[$lid]['lid'] = $top_id[] = $downloads_arr[$i]->getVar('lid');
+       $d++;
+    	   $lid = $downloads_arr[$i]->getVar('lid');
+        $downloads[$lid]['lid'] = $top_id[$d] = $downloads_arr[$i]->getVar('lid');
         $downloads[$lid]['title'] = strlen($downloads_arr[$i]->getVar('title')) > $lenght_title ? substr($downloads_arr[$i]->getVar('title'),0,($lenght_title))."..." : $downloads_arr[$i]->getVar('title');
         $description_short = '';
         if ($use_description == true){
@@ -104,8 +105,8 @@ function b_tdmdownloads_top_show($options) {
         $downloads[$lid]['submitter'] = XoopsUser::getUnameFromId($downloads_arr[$i]->getVar('submitter'));
         $downloads[$lid]['inforation'] = $show_inforation;
     }
-    
-    $top_id = max($top_id);
+   
+    $top_id = $top_id[1];
     $block_top = $downloads[$top_id];
     unset($downloads[$top_id]);
     $block['top'] = $block_top;

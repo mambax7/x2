@@ -714,6 +714,20 @@ switch ($op) {
 
 $xoopsTpl->assign('breadcrumb', oledrion_utils::breadcrumb(array(OLEDRION_URL . basename(__FILE__) => _OLEDRION_VALIDATE_CMD)));
 
+// Image icons
+if (file_exists(OLEDRION_PATH . 'language' . DIRECTORY_SEPARATOR . $xoopsConfig['language'] . DIRECTORY_SEPARATOR . 'image' . DIRECTORY_SEPARATOR . 'step1.png')) {
+    $step1 = OLEDRION_URL . 'language/' . $xoopsConfig['language'] . '/image/step1.png';
+    $step2 = OLEDRION_URL . 'language/' . $xoopsConfig['language'] . '/image/step2.png';
+    $step3 = OLEDRION_URL . 'language/' . $xoopsConfig['language'] . '/image/step3.png';
+} else { // Fallback
+    $step1 = OLEDRION_URL . 'language/english/image/step1.png';
+    $step2 = OLEDRION_URL . 'language/english/image/step2.png';
+    $step3 = OLEDRION_URL . 'language/english/image/step3.png';
+}
+$xoopsTpl->assign('step1', $step1);
+$xoopsTpl->assign('step2', $step2);
+$xoopsTpl->assign('step3', $step3);
+
 $title = _OLEDRION_VALIDATE_CMD . ' - ' . oledrion_utils::getModuleName();
 oledrion_utils::setMetas($title, $title);
 oledrion_utils::setCSS();
